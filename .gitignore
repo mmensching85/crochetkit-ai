@@ -2,5 +2,7 @@ node_modules/
 .env
 data/feedback.json
 data/match-count.json
+data/popular.json
+data/contacts.json
 *.log
 .sisyphus/

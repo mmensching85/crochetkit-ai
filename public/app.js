@@ -198,6 +198,32 @@ function escHtml(s) {
   return d.innerHTML;
 }
 
+const SHARE_BASE = window.location.origin;
+
+function shareUrl(id, title) {
+  const url = SHARE_BASE + '/p/' + id;
+  return {
+    facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url),
+    pinterest: 'https://pinterest.com/pin/create/button/?url=' + encodeURIComponent(url) + '&description=' + encodeURIComponent(title),
+    email: 'mailto:?subject=' + encodeURIComponent(title + ' — Crochet Pattern') + '&body=' + encodeURIComponent('Check out this crochet pattern: ' + url)
+  };
+}
+
+function trackPopular(patternId, action) {
+  try {
+    navigator.sendBeacon('/api/track-popular', JSON.stringify({ patternId, action }));
+  } catch(e) {}
+}
+
+function renderShareBtns(id, title) {
+  const links = shareUrl(id, title);
+  return `<div class="share-btns">
+    <a href="${links.facebook}" target="_blank" rel="noopener noreferrer" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="${links.pinterest}" target="_blank" rel="noopener noreferrer" class="share-btn share-pin" title="Pin on Pinterest">P</a>
+    <a href="${links.email}" class="share-btn share-email" title="Share via email">@</a>
+  </div>`;
+}
+
 function initDarkMode() {
   const saved = localStorage.getItem('crochetkit-dark');
   if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -237,22 +263,24 @@ function showCatalog() {
         html += `<input type="number" id="catFilterTime" placeholder="Max hours" min="0" step="0.5">`;
         html += `<input type="text" id="catFilterSearch" placeholder="Search by name...">`;
         html += `<button class="btn btn-sm btn-outline" id="catFilterFaves">♥ Favorites</button>`;
+        html += `<button class="btn btn-sm btn-outline" id="catFilterTrending" style="display:none;">🔥 Trending</button>`;
         html += `</div>`;
         html += '<div class="project-cards">';
 
         pats.forEach((p, i) => {
           const title = linkifyGlossaryTerms(p.title);
+          const fvd = isFaved(p.id) ? 'faved' : '';
           html += `<div class="project-card" data-catalog-idx="${i}">`;
           html += `<h3>${title}</h3>`;
           html += `<p class="card-desc">${p.description}</p>`;
           html += `<p><strong>Category:</strong> ${p.category} &middot; <strong>Level:</strong> ${p.skill_level}</p>`;
           html += `<p><strong>Time:</strong> ${p.estimated_time}</p>`;
           html += `<p><strong>Stitches:</strong> ${p.stitches_used.join(', ')}</p>`;
-          const fvd = isFaved(p.id) ? 'faved' : '';
           html += `<div class="card-actions">`;
           html += `<button class="btn btn-outline btn-sm catalog-select" data-idx="${i}">Select</button>`;
           html += `<button class="btn btn-success btn-sm catalog-pdf" data-idx="${i}">PDF</button>`;
           html += `<button class="fav-btn ${fvd}" data-id="${p.id}" title="${isFaved(p.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(p.id) ? '♥' : '♡'}</button>`;
+          html += `${renderShareBtns(p.id, p.title)}`;
           html += `</div></div>`;
         });
 
@@ -262,6 +290,7 @@ function showCatalog() {
         document.querySelectorAll('.catalog-select').forEach(btn => {
           btn.addEventListener('click', function() {
             const idx = parseInt(this.dataset.idx);
+            trackPopular(pats[idx].id, 'select');
             showProjectDetail(pats[idx], idx, pats);
           });
         });
@@ -269,6 +298,7 @@ function showCatalog() {
         document.querySelectorAll('.catalog-pdf').forEach(btn => {
           btn.addEventListener('click', function() {
             const idx = parseInt(this.dataset.idx);
+            trackPopular(pats[idx].id, 'pdf');
             printProject(pats[idx]);
           });
         });
@@ -292,6 +322,13 @@ function showCatalog() {
           this.classList.toggle('active');
           filterCatalog();
         });
+        const trendingBtn = document.getElementById('catFilterTrending');
+        if (trendingBtn) {
+          trendingBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            filterCatalog();
+          });
+        }
 
         function filterCatalog() {
           const cat = document.getElementById('catFilterCat').value;
@@ -299,6 +336,7 @@ function showCatalog() {
           const maxTime = parseFloat(document.getElementById('catFilterTime').value);
           const search = document.getElementById('catFilterSearch').value.toLowerCase().trim();
           const favesOnly = document.getElementById('catFilterFaves').classList.contains('active');
+          const trendingOnly = document.getElementById('catFilterTrending')?.classList.contains('active');
           const faveIds = getFaves();
           const filtered = patterns.filter(p => {
             if (cat && p.category !== cat) return false;
@@ -308,10 +346,24 @@ function showCatalog() {
             if (favesOnly && !faveIds.includes(p.id)) return false;
             return true;
           });
-          render(filtered);
+          if (trendingOnly) {
+            fetch('/api/popular').then(r => r.json()).then(pop => {
+              const trendingIds = new Set(pop.map(p => p.id));
+              render(filtered.filter(p => trendingIds.has(p.id)));
+            }).catch(() => render(filtered));
+          } else {
+            render(filtered);
+          }
         }
       }
       render(patterns);
+      // Load trending button
+      fetch('/api/popular').then(r => r.json()).then(pop => {
+        if (pop.length > 0) {
+          const btn = document.getElementById('catFilterTrending');
+          if (btn) { btn.style.display = ''; btn.textContent = '🔥 Trending (' + pop.length + ')'; }
+        }
+      }).catch(() => {});
     })
     .catch(err => {
       output.innerHTML = `<div class="error">Error loading patterns: ${err.message}</div>`;
@@ -449,6 +501,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const allPats = await patResp.json();
         const target = allPats.find(p => p.id === pathMatch[1]);
         if (target) {
+          trackPopular(target.id, 'view');
           showCatalog();
           const idx = allPats.indexOf(target);
           showProjectDetail(target, idx, allPats);
@@ -661,6 +714,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             html += `<button class="btn btn-outline btn-sm select-project" data-index="${index}">Select</button>`;
             html += `<button class="btn btn-success btn-sm download-pdf-card" data-index="${index}">PDF</button>`;
             html += `<button class="fav-btn ${fvd}" data-id="${project.id}" title="${isFaved(project.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(project.id) ? '♥' : '♡'}</button>`;
+            html += `${renderShareBtns(project.id, project.title)}`;
             html += `</div></div>`;
         });
         html += '</div>';
@@ -671,6 +725,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             btn.addEventListener('click', function() {
                 const idx = parseInt(this.getAttribute('data-index'));
                 selectedProjectIndex = idx;
+                trackPopular(projects[idx].id, 'select');
                 showProjectDetail(projects[idx], idx, projects);
             });
         });
@@ -678,6 +733,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.querySelectorAll('.download-pdf-card').forEach(btn => {
             btn.addEventListener('click', function() {
                 const idx = parseInt(this.getAttribute('data-index'));
+                trackPopular(projects[idx].id, 'pdf');
                 printProject(projects[idx]);
             });
         });
@@ -698,8 +754,10 @@ document.addEventListener('DOMContentLoaded', async function() {
         const ts = currentTermSystem;
         const convert = (text) => convertStitchName(linkifyGlossaryTerms(text), ts);
 
+        trackPopular(project.id, 'select');
+
         let html = `<div class="project-detail" data-index="${index}">`;
-        html += `<button class="btn btn-secondary back-btn back-to-cards">Back to all projects</button>`;
+        html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back to all projects</button>${renderShareBtns(project.id, project.title)}</div>`;
 
         if (project.imageUrl) {
             html += `<div class="project-image"><img src="${project.imageUrl}" alt="${project.title}" onerror="this.parentElement.style.display='none'"></div>`;
@@ -851,6 +909,45 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         });
     }
+    });
+
+    // Contact form handler
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const name = document.getElementById('contactName').value.trim();
+        const email = document.getElementById('contactEmail').value.trim();
+        const message = document.getElementById('contactMessage').value.trim();
+        const submitBtn = document.getElementById('contactSubmitBtn');
+        const thanks = this.querySelector('.contact-thanks');
+
+        if (!email || !message) { alert('Please fill in email and message.'); return; }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        try {
+            const resp = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, message })
+            });
+            const data = await resp.json();
+            if (data.success) {
+                this.querySelector('.form-row').style.display = 'none';
+                this.querySelectorAll('.form-group').forEach(el => { if (!el.querySelector('.contact-thanks')) el.style.display = 'none'; });
+                submitBtn.style.display = 'none';
+                thanks.style.display = 'block';
+            } else {
+                alert('Error: ' + (data.error || 'Failed to send.'));
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        } catch (err) {
+            alert('Network error. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+        }
+    });
 });
 
 // Global feedback form handler

@@ -574,7 +574,88 @@ body {
     margin-bottom: 16px;
 }
 
-/* ===== Support / Monetization ===== */
+/* ===== Share Buttons ===== */
+.share-btns {
+    display: flex;
+    gap: 4px;
+    flex: 0 0 auto;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.15s;
+    color: #fff;
+}
+
+.share-fb { background: #1877f2; }
+.share-fb:hover { background: #0d5fc7; }
+.share-pin { background: #e60023; }
+.share-pin:hover { background: #b8001b; }
+.share-email { background: #666; }
+.share-email:hover { background: #444; }
+
+.card-actions .share-btns {
+    margin-left: auto;
+}
+
+.detail-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+/* ===== Contact Form ===== */
+#contact-card .form-row {
+    margin-bottom: 12px;
+}
+
+#contact-card textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #fafafa;
+}
+
+#contact-card textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+    background: #fff;
+}
+
+.form-group .required {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.contact-thanks {
+    color: #28a745;
+    font-weight: 600;
+    padding: 12px 0;
+}
+
+/* ===== Catalog Trending ===== */
+#catFilterTrending.active {
+    background: #e67e22;
+    border-color: #e67e22;
+    color: #fff;
+}
 .support-section {
     text-align: center;
 }
@@ -1190,6 +1271,33 @@ body {
     color: #d0d0d8;
 }
 
+[data-theme="dark"] .share-fb { background: #1877f2; }
+[data-theme="dark"] .share-fb:hover { background: #0d5fc7; }
+[data-theme="dark"] .share-pin { background: #e60023; }
+[data-theme="dark"] .share-pin:hover { background: #b8001b; }
+[data-theme="dark"] .share-email { background: #6a6a8a; }
+[data-theme="dark"] .share-email:hover { background: #4a4a6a; }
+
+[data-theme="dark"] #contact-card textarea {
+    background: #222240;
+    border-color: #3a3a5a;
+    color: #d0d0d8;
+}
+
+[data-theme="dark"] #contact-card textarea:focus {
+    border-color: #8a6aea;
+    background: #2a2a50;
+}
+
+[data-theme="dark"] .contact-thanks {
+    color: #50c878;
+}
+
+[data-theme="dark"] #catFilterTrending.active {
+    background: #c07020;
+    border-color: #c07020;
+}
+
 [data-theme="dark"] .stash-status {
     color: #6a6a8a;
 }
@@ -1396,6 +1504,20 @@ body {
     .fav-btn {
         font-size: 16px;
         padding: 6px 8px;
+    }
+
+    .detail-top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .detail-top-bar .share-btns {
+        justify-content: center;
+    }
+
+    .card-actions .share-btns {
+        margin-left: 0;
+        justify-content: center;
     }
 }
 
