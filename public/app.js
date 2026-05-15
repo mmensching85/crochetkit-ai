@@ -757,7 +757,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         trackPopular(project.id, 'select');
 
         let html = `<div class="project-detail" data-index="${index}">`;
-        html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back to all projects</button>${renderShareBtns(project.id, project.title)}</div>`;
+        html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back</button><button class="btn btn-success btn-sm detail-pdf-btn">PDF</button>${renderShareBtns(project.id, project.title)}</div>`;
 
         if (project.imageUrl) {
             html += `<div class="project-image"><img src="${project.imageUrl}" alt="${project.title}" onerror="this.parentElement.style.display='none'"></div>`;
@@ -866,6 +866,14 @@ document.addEventListener('DOMContentLoaded', async function() {
                 this.classList.toggle('faved', nowFaved);
                 this.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
                 this.textContent = nowFaved ? '♥' : '♡';
+            });
+        }
+
+        const detailPdfBtn = document.querySelector('.detail-pdf-btn');
+        if (detailPdfBtn) {
+            detailPdfBtn.addEventListener('click', function() {
+                trackPopular(project.id, 'pdf');
+                printProject(project);
             });
         }
 
