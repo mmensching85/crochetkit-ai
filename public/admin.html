@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Admin — Crochet Project Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { padding: 20px; }
+        .admin-container { max-width: 960px; margin: 0 auto; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+        .admin-header h1 { margin: 0; font-size: 24px; }
+        .admin-summary { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+        .admin-summary .stat { background: #fff; border-radius: 10px; padding: 16px 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; flex: 1; min-width: 120px; }
+        .admin-summary .stat h3 { margin: 0 0 4px 0; font-size: 28px; color: #667eea; }
+        .admin-summary .stat p { margin: 0; font-size: 13px; color: #888; }
+        .feedback-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .feedback-table th, .feedback-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+        .feedback-table th { background: #667eea; color: #fff; font-weight: 600; }
+        .feedback-table tr:hover td { background: #f8f9ff; }
+        .feedback-table .rating-stars { color: #f5a623; }
+        .feedback-table .comment-cell { max-width: 300px; }
+        .feedback-table .comment-cell .comment-text { max-height: 60px; overflow-y: auto; white-space: pre-wrap; }
+        .feedback-table .timestamp { font-size: 12px; color: #999; white-space: nowrap; }
+        .feedback-table .pattern-name { font-weight: 600; color: #333; }
+        .no-feedback { text-align: center; padding: 60px; color: #888; }
+        .back-link { display: inline-block; margin-bottom: 16px; }
+        [data-theme="dark"] .admin-summary .stat { background: #1a1a30; }
+        [data-theme="dark"] .admin-summary .stat h3 { color: #9a7aea; }
+        [data-theme="dark"] .admin-summary .stat p { color: #6a6a8a; }
+        [data-theme="dark"] .feedback-table { background: #1a1a30; }
+        [data-theme="dark"] .feedback-table th { background: #3a2a6a; }
+        [data-theme="dark"] .feedback-table td { border-bottom-color: #2a2a4a; color: #b0b0c0; }
+        [data-theme="dark"] .feedback-table tr:hover td { background: #222240; }
+        [data-theme="dark"] .feedback-table .pattern-name { color: #c8b8e8; }
+        [data-theme="dark"] .feedback-table .timestamp { color: #6a6a8a; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <div>
+                <a href="/" class="back-link">&larr; Back to Planner</a>
+                <h1>Feedback Admin</h1>
+            </div>
+            <button class="btn btn-outline btn-sm" id="refreshBtn">Refresh</button>
+        </div>
+        <div class="admin-summary" id="summaryStats"></div>
+        <div id="feedbackContent"><div class="loading">Loading feedback...</div></div>
+    </div>
+    <script>
+        async function loadFeedback() {
+            const content = document.getElementById('feedbackContent');
+            const summary = document.getElementById('summaryStats');
+            content.innerHTML = '<div class="loading">Loading feedback...</div>';
+
+            try {
+                const [feedbackResp, statsResp] = await Promise.all([
+                    fetch('/api/feedback'),
+                    fetch('/api/stats')
+                ]);
+                const feedback = await feedbackResp.json();
+                const stats = await statsResp.json();
+
+                const total = feedback.length;
+                const avgRating = total > 0 ? (feedback.reduce((s, f) => s + f.rating, 0) / total).toFixed(1) : '—';
+                const withComments = feedback.filter(f => f.comment).length;
+
+                summary.innerHTML = `
+                    <div class="stat"><h3>${total}</h3><p>Total entries</p></div>
+                    <div class="stat"><h3>${avgRating}</h3><p>Avg rating</p></div>
+                    <div class="stat"><h3>${withComments}</h3><p>With comments</p></div>
+                    <div class="stat"><h3>${stats.matchCount || '?'}</h3><p>Total matches</p></div>
+                `;
+
+                if (total === 0) {
+                    content.innerHTML = '<div class="no-feedback">No feedback yet.</div>';
+                    return;
+                }
+
+                const stars = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);
+
+                let html = '<table class="feedback-table"><thead><tr><th>Date</th><th>Pattern</th><th>Rating</th><th>Comment</th></tr></thead><tbody>';
+                feedback.slice().reverse().forEach(f => {
+                    const date = new Date(f.timestamp);
+                    const dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    html += `<tr>
+                        <td class="timestamp">${dateStr}</td>
+                        <td class="pattern-name">${escHtml(f.projectTitle)}</td>
+                        <td class="rating-stars">${stars(f.rating)}</td>
+                        <td class="comment-cell">${f.comment ? '<div class="comment-text">' + escHtml(f.comment) + '</div>' : '<span style="color:#bbb">—</span>'}</td>
+                    </tr>`;
+                });
+                html += '</tbody></table>';
+                content.innerHTML = html;
+
+            } catch (e) {
+                content.innerHTML = '<div class="error">Failed to load feedback: ' + e.message + '</div>';
+            }
+        }
+
+        function escHtml(s) {
+            if (!s) return '';
+            const d = document.createElement('div');
+            d.textContent = s;
+            return d.innerHTML;
+        }
+
+        document.getElementById('refreshBtn').addEventListener('click', loadFeedback);
+        document.addEventListener('DOMContentLoaded', loadFeedback);
+
+        // Init dark mode
+        const saved = localStorage.getItem('crochetkit-dark');
+        if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</body>
+</html>

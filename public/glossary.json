@@ -1,0 +1,50 @@
+{
+  "chain": {
+    "us": "A series of loops made by pulling the yarn through a slip knot; forms the foundation of most projects.",
+    "uk": "A series of loops made by pulling the yarn through a slip knot; forms the foundation of most projects. (Same in UK/AU terms.)"
+  },
+  "single crochet": {
+    "us": "The most basic crochet stitch; insert hook, yarn over, pull up a loop, yarn over, pull through both loops.",
+    "uk": "In UK/AU terms this is \"double crochet (dc)\". The most basic crochet stitch; insert hook, yarn over, pull up a loop, yarn over, pull through both loops."
+  },
+  "double crochet": {
+    "us": "A taller stitch; yarn over, insert hook, yarn over, pull up a loop (3 loops on hook), yarn over, pull through two loops, yarn over, pull through remaining two loops.",
+    "uk": "In UK/AU terms this is \"treble (tr)\". Yarn over, insert hook, yarn over, pull up a loop, yarn over, pull through two loops, yarn over, pull through last two loops."
+  },
+  "half double crochet": {
+    "us": "Medium height stitch; yarn over, insert hook, yarn over, pull up a loop (3 loops), yarn over, pull through all three loops.",
+    "uk": "In UK/AU terms this is \"half treble (htr)\". Yarn over, insert hook, yarn over, pull up a loop, yarn over, pull through all three loops."
+  },
+  "treble crochet": {
+    "us": "A very tall stitch; yarn over twice, insert hook, yarn over, pull up a loop (4 loops), yarn over, pull through two loops three times.",
+    "uk": "In UK/AU terms this is \"double treble (dtr)\". Yarn over twice, insert hook, yarn over, pull up a loop, yarn over, pull through two loops three times."
+  },
+  "slip stitch": {
+    "us": "A simple stitch used to join pieces or start a round; involves inserting the hook, yarning over, and pulling through both loops.",
+    "uk": "A simple stitch used to join pieces or start a round. (Same in UK/AU terms.)"
+  },
+  "yarn over": {
+    "us": "Wrap the yarn over the hook to create a new loop; essential for most stitches.",
+    "uk": "Wrap the yarn over the hook to create a new loop; essential for most stitches. (Same in UK/AU terms.)"
+  },
+  "turn": {
+    "us": "Rotate your work at the end of a row to begin the next row on the opposite side.",
+    "uk": "Rotate your work at the end of a row to begin the next row. (Same in UK/AU terms.)"
+  },
+  "gauge": {
+    "us": "The number of stitches and rows per unit of measurement; determines the size of the finished piece.",
+    "uk": "In UK/AU terms this is \"tension\". The number of stitches and rows per unit; determines the size of the finished piece."
+  },
+  "working yarn": {
+    "us": "The yarn attached to the hook that you are actively using to make stitches.",
+    "uk": "The yarn attached to the hook that you are actively using to make stitches."
+  },
+  "tail": {
+    "us": "The leftover piece of yarn after finishing a project; should be woven in to hide.",
+    "uk": "The leftover piece of yarn after finishing; should be woven in to hide."
+  },
+  "hook size": {
+    "us": "The diameter of the crochet hook, usually given in mm and US/UK sizes; affects stitch size and fabric tension.",
+    "uk": "The diameter of the crochet hook, given in mm and UK/US sizes."
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "crochetkit-ai",
+  "version": "1.0.0",
+  "description": "A beginner crochet project planner that matches projects to your available materials.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "generate": "python3 src/generate_patterns_json.py",
+    "test": "node src/test_matcher.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
