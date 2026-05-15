@@ -1,6 +1,9 @@
 const express = require('express');
-const path = require('path');
 const fs = require('fs');
+const path = require('path');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const LRU = require('lru-cache');
 const { matchPattern, invalidateCache } = require('./src/matchPattern');
 const { formatProjectOutput } = require('./src/formatProjectOutput');
 const patterns = require('./data/patterns.json');
@@ -8,6 +11,10 @@ const FEEDBACK_FILE = path.join(__dirname, 'data', 'feedback.json');
 const MATCH_COUNT_FILE = path.join(__dirname, 'data', 'match-count.json');
 const CONTACT_FILE = path.join(__dirname, 'data', 'contacts.json');
 const POPULAR_FILE = path.join(__dirname, 'data', 'popular.json');
+const USERS_FILE = path.join(__dirname, 'data', 'users.json');
+
+const JWT_SECRET = process.env.JWT_SECRET || 'crochetkit-secret-key-change-in-production';
+const JWT_EXPIRY = '7d';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -51,6 +58,51 @@ function trackPopular(patternId, action) {
     else if (action === 'select') pop[patternId].selects++;
     else if (action === 'pdf') pop[patternId].pdfs++;
     writeJSON(POPULAR_FILE, pop);
+}
+
+function loadUsers() {
+    return readJSON(USERS_FILE) || [];
+}
+
+function saveUsers(users) {
+    writeJSON(USERS_FILE, users);
+}
+
+function findUserByEmail(email) {
+    const users = loadUsers();
+    return users.find(u => u.email.toLowerCase() === email.toLowerCase());
+}
+
+function findUserById(id) {
+    const users = loadUsers();
+    return users.find(u => u.id === id);
+}
+
+function generateToken(user) {
+    return jwt.sign(
+        { id: user.id, email: user.email },
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRY }
+    );
+}
+
+function authMiddleware(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Authentication required' });
+    }
+
+    const token = authHeader.split(' ')[1];
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.user = findUserById(decoded.id);
+        if (!req.user) {
+            return res.status(401).json({ error: 'User not found' });
+        }
+        next();
+    } catch (error) {
+        return res.status(401).json({ error: 'Invalid or expired token' });
+    }
 }
 
 // API: get all patterns (for Browse All catalog)
@@ -225,6 +277,209 @@ app.post('/api/track-popular', (req, res) => {
     }
     trackPopular(patternId, action);
     res.json({ success: true });
+});
+
+// POST /api/auth/signup — User registration
+app.post('/api/auth/signup', async (req, res) => {
+    try {
+        const { email, password, name } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Email and password are required' });
+        }
+
+        if (password.length < 6) {
+            return res.status(400).json({ error: 'Password must be at least 6 characters' });
+        }
+
+        const existingUser = findUserByEmail(email);
+        if (existingUser) {
+            return res.status(400).json({ error: 'An account with this email already exists' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const users = loadUsers();
+
+        const newUser = {
+            id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            email: email.toLowerCase(),
+            name: name || '',
+            password: hashedPassword,
+            createdAt: new Date().toISOString(),
+            favorites: [],
+            yarnStash: []
+        };
+
+        users.push(newUser);
+        saveUsers(users);
+
+        const token = generateToken(newUser);
+        res.json({
+            success: true,
+            token,
+            user: {
+                id: newUser.id,
+                email: newUser.email,
+                name: newUser.name,
+                favorites: newUser.favorites,
+                yarnStash: newUser.yarnStash
+            }
+        });
+    } catch (error) {
+        console.error('Signup error:', error.message);
+        res.status(500).json({ error: 'Failed to create account' });
+    }
+});
+
+// POST /api/auth/login — User login
+app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ error: 'Email and password are required' });
+        }
+
+        const user = findUserByEmail(email);
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(401).json({ error: 'Invalid email or password' });
+        }
+
+        const token = generateToken(user);
+        res.json({
+            success: true,
+            token,
+            user: {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+                favorites: user.favorites || [],
+                yarnStash: user.yarnStash || []
+            }
+        });
+    } catch (error) {
+        console.error('Login error:', error.message);
+        res.status(500).json({ error: 'Failed to login' });
+    }
+});
+
+// GET /api/auth/profile — Get current user profile (auth required)
+app.get('/api/auth/profile', authMiddleware, (req, res) => {
+    const user = req.user;
+    res.json({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        favorites: user.favorites || [],
+        yarnStash: user.yarnStash || [],
+        createdAt: user.createdAt
+    });
+});
+
+// PUT /api/auth/profile — Update user profile (auth required)
+app.put('/api/auth/profile', authMiddleware, (req, res) => {
+    try {
+        const { name, favorites, yarnStash } = req.body;
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+
+        if (userIndex === -1) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (name !== undefined) users[userIndex].name = name;
+        if (favorites !== undefined) users[userIndex].favorites = favorites;
+        if (yarnStash !== undefined) users[userIndex].yarnStash = yarnStash;
+
+        saveUsers(users);
+
+        res.json({
+            success: true,
+            user: {
+                id: users[userIndex].id,
+                email: users[userIndex].email,
+                name: users[userIndex].name,
+                favorites: users[userIndex].favorites,
+                yarnStash: users[userIndex].yarnStash
+            }
+        });
+    } catch (error) {
+        console.error('Profile update error:', error.message);
+        res.status(500).json({ error: 'Failed to update profile' });
+    }
+});
+
+// POST /api/auth/favorites — Add pattern to favorites (auth required)
+app.post('/api/auth/favorites', authMiddleware, (req, res) => {
+    try {
+        const { patternId } = req.body;
+        if (!patternId) {
+            return res.status(400).json({ error: 'patternId is required' });
+        }
+
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+
+        if (!users[userIndex].favorites) {
+            users[userIndex].favorites = [];
+        }
+
+        if (!users[userIndex].favorites.includes(patternId)) {
+            users[userIndex].favorites.push(patternId);
+            saveUsers(users);
+        }
+
+        res.json({ success: true, favorites: users[userIndex].favorites });
+    } catch (error) {
+        console.error('Favorites error:', error.message);
+        res.status(500).json({ error: 'Failed to add favorite' });
+    }
+});
+
+// DELETE /api/auth/favorites/:patternId — Remove pattern from favorites (auth required)
+app.delete('/api/auth/favorites/:patternId', authMiddleware, (req, res) => {
+    try {
+        const { patternId } = req.params;
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+
+        if (!users[userIndex].favorites) {
+            users[userIndex].favorites = [];
+        }
+
+        users[userIndex].favorites = users[userIndex].favorites.filter(id => id !== patternId);
+        saveUsers(users);
+
+        res.json({ success: true, favorites: users[userIndex].favorites });
+    } catch (error) {
+        console.error('Favorites error:', error.message);
+        res.status(500).json({ error: 'Failed to remove favorite' });
+    }
+});
+
+// PUT /api/auth/yarn-stash — Update yarn stash (auth required)
+app.put('/api/auth/yarn-stash', authMiddleware, (req, res) => {
+    try {
+        const { yarnStash } = req.body;
+        if (!Array.isArray(yarnStash)) {
+            return res.status(400).json({ error: 'yarnStash must be an array' });
+        }
+
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+        users[userIndex].yarnStash = yarnStash;
+        saveUsers(users);
+
+        res.json({ success: true, yarnStash: users[userIndex].yarnStash });
+    } catch (error) {
+        console.error('Yarn stash error:', error.message);
+        res.status(500).json({ error: 'Failed to update yarn stash' });
+    }
 });
 
 // Shareable pattern links with Open Graph tags
