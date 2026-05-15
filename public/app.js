@@ -996,3 +996,216 @@ document.getElementById('global-feedback-form').addEventListener('submit', async
         alert('Error saving feedback. Please try again.');
     }
 });
+
+// ===== User Authentication =====
+const AUTH_TOKEN_KEY = 'crochetkit-auth-token';
+const AUTH_USER_KEY = 'crochetkit-auth-user';
+
+let currentUser = null;
+let authToken = null;
+
+function loadAuth() {
+    authToken = localStorage.getItem(AUTH_TOKEN_KEY);
+    const userJson = localStorage.getItem(AUTH_USER_KEY);
+    if (userJson) {
+        try {
+            currentUser = JSON.parse(userJson);
+        } catch (e) {
+            currentUser = null;
+        }
+    }
+}
+
+function saveAuth(token, user) {
+    authToken = token;
+    currentUser = user;
+    localStorage.setItem(AUTH_TOKEN_KEY, token);
+    localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+}
+
+function clearAuth() {
+    authToken = null;
+    currentUser = null;
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+    localStorage.removeItem(AUTH_USER_KEY);
+}
+
+function updateAuthUI() {
+    const accountBtn = document.getElementById('accountBtn');
+    const userBadge = document.getElementById('userBadge');
+    const userName = document.getElementById('userName');
+
+    if (currentUser) {
+        accountBtn.style.display = 'none';
+        userBadge.style.display = 'flex';
+        userName.textContent = currentUser.name || currentUser.email;
+    } else {
+        accountBtn.style.display = '';
+        userBadge.style.display = 'none';
+    }
+}
+
+function showAuthModal(isSignup = false) {
+    const modal = document.getElementById('authModal');
+    const title = document.getElementById('authModalTitle');
+    const nameGroup = document.getElementById('authNameGroup');
+    const switchText = document.getElementById('authSwitchText');
+    const switchBtn = document.getElementById('authSwitchBtn');
+    const error = document.getElementById('authError');
+    const submitBtn = document.getElementById('authSubmitBtn');
+    const loading = document.getElementById('authLoading');
+
+    error.style.display = 'none';
+    loading.style.display = 'none';
+    document.getElementById('authForm').style.display = '';
+    document.getElementById('authEmail').value = '';
+    document.getElementById('authPassword').value = '';
+    document.getElementById('authName').value = '';
+
+    if (isSignup) {
+        title.textContent = 'Create Account';
+        nameGroup.style.display = '';
+        switchText.textContent = 'Already have an account?';
+        switchBtn.textContent = 'Sign in';
+    } else {
+        title.textContent = 'Sign In';
+        nameGroup.style.display = 'none';
+        switchText.textContent = "Don't have an account?";
+        switchBtn.textContent = 'Sign up';
+    }
+
+    modal.style.display = 'flex';
+}
+
+function hideAuthModal() {
+    document.getElementById('authModal').style.display = 'none';
+}
+
+async function handleAuthSubmit(e) {
+    e.preventDefault();
+    const isSignup = document.getElementById('authModalTitle').textContent === 'Create Account';
+    const email = document.getElementById('authEmail').value.trim();
+    const password = document.getElementById('authPassword').value;
+    const name = document.getElementById('authName').value.trim();
+    const error = document.getElementById('authError');
+    const loading = document.getElementById('authLoading');
+    const form = document.getElementById('authForm');
+
+    error.style.display = 'none';
+    loading.style.display = 'block';
+    form.style.display = 'none';
+
+    try {
+        const resp = await fetch('/api/auth/' + (isSignup ? 'signup' : 'login'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, name })
+        });
+
+        const data = await resp.json();
+
+        if (data.success) {
+            saveAuth(data.token, data.user);
+            syncFavoritesToCloud();
+            syncYarnStashToCloud();
+            hideAuthModal();
+            updateAuthUI();
+        } else {
+            throw new Error(data.error || 'Authentication failed');
+        }
+    } catch (err) {
+        error.textContent = err.message;
+        error.style.display = 'block';
+        loading.style.display = 'none';
+        form.style.display = '';
+    }
+}
+
+function handleLogout() {
+    clearAuth();
+    updateAuthUI();
+}
+
+async function syncFavoritesToCloud() {
+    if (!authToken) return;
+    const faves = getFaves();
+    try {
+        await fetch('/api/auth/favorites', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            },
+            body: JSON.stringify({ patternId: faves })
+        });
+    } catch (e) {}
+}
+
+async function syncYarnStashToCloud() {
+    if (!authToken) return;
+    const yarns = getYarns();
+    try {
+        await fetch('/api/auth/yarn-stash', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            },
+            body: JSON.stringify({ yarnStash: yarns })
+        });
+    } catch (e) {}
+}
+
+async function loadFavoritesFromCloud() {
+    if (!authToken) return;
+    try {
+        const resp = await fetch('/api/auth/profile', {
+            headers: { 'Authorization': 'Bearer ' + authToken }
+        });
+        if (resp.ok) {
+            const profile = await resp.json();
+            if (profile.favorites && profile.favorites.length > 0) {
+                saveFaves(profile.favorites);
+            }
+        }
+    } catch (e) {}
+}
+
+async function loadYarnStashFromCloud() {
+    if (!authToken) return;
+    try {
+        const resp = await fetch('/api/auth/profile', {
+            headers: { 'Authorization': 'Bearer ' + authToken }
+        });
+        if (resp.ok) {
+            const profile = await resp.json();
+            if (profile.yarnStash && profile.yarnStash.length > 0) {
+                saveYarns(profile.yarnStash);
+            }
+        }
+    } catch (e) {}
+}
+
+// Initialize auth when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    loadAuth();
+    updateAuthUI();
+
+    if (authToken) {
+        loadFavoritesFromCloud();
+        loadYarnStashFromCloud();
+    }
+
+    document.getElementById('accountBtn').addEventListener('click', () => showAuthModal(false));
+    document.getElementById('authModalClose').addEventListener('click', hideAuthModal);
+    document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
+    document.getElementById('authSwitchBtn').addEventListener('click', function() {
+        const isSignup = document.getElementById('authModalTitle').textContent === 'Create Account';
+        showAuthModal(!isSignup);
+    });
+    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+
+    document.getElementById('authModal').addEventListener('click', function(e) {
+        if (e.target === this) hideAuthModal();
+    });
+});
