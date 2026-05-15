@@ -98,6 +98,7 @@ function updateStashStatus() {
 }
 
 const FAVES_KEY = 'crochetkit-faves';
+const DONE_KEY = 'crochetkit-done';
 
 function getFaves() { try { return JSON.parse(localStorage.getItem(FAVES_KEY)) || []; } catch(e) { return []; } }
 
@@ -112,6 +113,21 @@ function toggleFave(id) {
 }
 
 function isFaved(id) { return getFaves().includes(id); }
+
+function getDone() { try { return JSON.parse(localStorage.getItem(DONE_KEY)) || []; } catch(e) { return []; } }
+
+function saveDone(done) { localStorage.setItem(DONE_KEY, JSON.stringify(done)); }
+
+function markAsDone(id) {
+  const done = getDone();
+  if (!done.includes(id)) {
+    done.push(id);
+    saveDone(done);
+  }
+  return true;
+}
+
+function isDone(id) { return getDone().includes(id); }
 
 const WEIGHT_LABELS = [
   'Lace', 'Super Fine (fingering)', 'Fine (sport)', 'Light (DK)',
@@ -255,7 +271,7 @@ function showCatalog() {
   fetch('/api/patterns')
     .then(r => r.json())
     .then(patterns => {
-      function render(pats) {
+      function render(pats, showDoneWarning = false) {
         let html = `<div class="catalog-count">Showing ${pats.length} of ${patterns.length} patterns</div>`;
         html += '<div class="catalog-filters">';
         html += `<select id="catFilterCat"><option value="">All categories</option>${[...new Set(patterns.map(p => p.category))].sort().map(c => `<option value="${c}">${c}</option>`).join('')}</select>`;
@@ -263,15 +279,22 @@ function showCatalog() {
         html += `<input type="number" id="catFilterTime" placeholder="Max hours" min="0" step="0.5">`;
         html += `<input type="text" id="catFilterSearch" placeholder="Search by name...">`;
         html += `<button class="btn btn-sm btn-outline" id="catFilterFaves">♥ Favorites</button>`;
+        html += `<button class="btn btn-sm btn-outline" id="catFilterDone">✓ Done</button>`;
         html += `<button class="btn btn-sm btn-outline" id="catFilterTrending" style="display:none;">🔥 Trending</button>`;
         html += `</div>`;
         html += '<div class="project-cards">';
 
+        if (showDoneWarning && pats.length === 0) {
+          html += '<div class="error" style="grid-column: 1/-1;">No patterns match your filters. Try adjusting or clearing filters.</div>';
+        }
+
         pats.forEach((p, i) => {
           const title = linkifyGlossaryTerms(p.title);
           const fvd = isFaved(p.id) ? 'faved' : '';
-          html += `<div class="project-card" data-catalog-idx="${i}">`;
+          const doneSt = isDone(p.id) ? 'done-st' : '';
+          html += `<div class="project-card ${doneSt}" data-catalog-idx="${i}">`;
           html += `<h3>${title}</h3>`;
+          if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
           html += `<p class="card-desc">${p.description}</p>`;
           html += `<p><strong>Category:</strong> ${p.category} &middot; <strong>Level:</strong> ${p.skill_level}</p>`;
           html += `<p><strong>Time:</strong> ${p.estimated_time}</p>`;
@@ -322,6 +345,10 @@ function showCatalog() {
           this.classList.toggle('active');
           filterCatalog();
         });
+        document.getElementById('catFilterDone').addEventListener('click', function() {
+          this.classList.toggle('active');
+          filterCatalog();
+        });
         const trendingBtn = document.getElementById('catFilterTrending');
         if (trendingBtn) {
           trendingBtn.addEventListener('click', function() {
@@ -336,23 +363,26 @@ function showCatalog() {
           const maxTime = parseFloat(document.getElementById('catFilterTime').value);
           const search = document.getElementById('catFilterSearch').value.toLowerCase().trim();
           const favesOnly = document.getElementById('catFilterFaves').classList.contains('active');
+          const doneOnly = document.getElementById('catFilterDone').classList.contains('active');
           const trendingOnly = document.getElementById('catFilterTrending')?.classList.contains('active');
           const faveIds = getFaves();
+          const doneIds = getDone();
           const filtered = patterns.filter(p => {
             if (cat && p.category !== cat) return false;
             if (diff && p.skill_level !== diff) return false;
             if (maxTime && p.estimated_min_hours > maxTime) return false;
             if (search && !p.title.toLowerCase().includes(search) && !p.description.toLowerCase().includes(search)) return false;
             if (favesOnly && !faveIds.includes(p.id)) return false;
+            if (doneOnly && !doneIds.includes(p.id)) return false;
             return true;
           });
           if (trendingOnly) {
             fetch('/api/popular').then(r => r.json()).then(pop => {
               const trendingIds = new Set(pop.map(p => p.id));
-              render(filtered.filter(p => trendingIds.has(p.id)));
-            }).catch(() => render(filtered));
+              render(filtered.filter(p => trendingIds.has(p.id)), true);
+            }).catch(() => render(filtered, true));
           } else {
-            render(filtered);
+            render(filtered, true);
           }
         }
       }
@@ -367,6 +397,145 @@ function showCatalog() {
     })
     .catch(err => {
       output.innerHTML = `<div class="error">Error loading patterns: ${err.message}</div>`;
+    });
+}
+
+function showMyFaves() {
+  const output = document.getElementById('project-output');
+  const outputCard = document.getElementById('output');
+  outputCard.style.display = 'block';
+
+  const faveIds = getFaves();
+
+  if (faveIds.length === 0) {
+    output.innerHTML = '<div class="card"><h2>My Favorites</h2><p style="text-align:center;color:#888;padding:40px;">You haven\'t hearted any patterns yet.</p><p style="text-align:center;color:#888;">Browse patterns and click the ♡ button to save your favorites here.</p><button class="btn btn-outline" onclick="showCatalog()" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
+    return;
+  }
+
+  output.innerHTML = '<div class="loading">Loading your favorites...</div>';
+
+  fetch('/api/patterns')
+    .then(r => r.json())
+    .then(patterns => {
+      const faves = patterns.filter(p => faveIds.includes(p.id));
+      let html = `<div class="catalog-count">${faves.length} favorited pattern${faves.length !== 1 ? 's' : ''}</div>`;
+      html += '<div class="project-cards">';
+
+      faves.forEach((p, i) => {
+        const title = linkifyGlossaryTerms(p.title);
+        const fvd = isFaved(p.id) ? 'faved' : '';
+        const doneSt = isDone(p.id) ? 'done-st' : '';
+        html += `<div class="project-card ${doneSt}" data-index="${i}">`;
+        html += `<h3>${title}</h3>`;
+        if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
+        html += `<p class="card-desc">${p.description}</p>`;
+        html += `<p><strong>Category:</strong> ${p.category} &middot; <strong>Level:</strong> ${p.skill_level}</p>`;
+        html += `<p><strong>Time:</strong> ${p.estimated_time}</p>`;
+        html += `<div class="card-actions">`;
+        html += `<button class="btn btn-outline btn-sm select-project" data-index="${i}">Select</button>`;
+        html += `<button class="btn btn-success btn-sm download-pdf-card" data-index="${i}">PDF</button>`;
+        html += `<button class="fav-btn ${fvd}" data-id="${p.id}">♥</button>`;
+        html += `${renderShareBtns(p.id, p.title)}`;
+        html += `</div></div>`;
+      });
+
+      html += '</div>';
+      output.innerHTML = html;
+
+      // Store faves for detail view
+      window._currentFaves = faves;
+
+      document.querySelectorAll('.select-project').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.index);
+          trackPopular(faves[idx].id, 'select');
+          showProjectDetail(faves[idx], idx, faves);
+        });
+      });
+
+      document.querySelectorAll('.download-pdf-card').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.index);
+          printProject(faves[idx]);
+        });
+      });
+
+      document.querySelectorAll('.fav-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const id = this.dataset.id;
+          toggleFave(id);
+          if (!getFaves().includes(id)) {
+            showMyFaves();
+          }
+        });
+      });
+    })
+    .catch(err => {
+      output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
+    });
+}
+
+function showMyDone() {
+  const output = document.getElementById('project-output');
+  const outputCard = document.getElementById('output');
+  outputCard.style.display = 'block';
+
+  const doneIds = getDone();
+
+  if (doneIds.length === 0) {
+    output.innerHTML = '<div class="card"><h2>Completed Projects</h2><p style="text-align:center;color:#888;padding:40px;">You haven\'t marked any projects as done yet.</p><p style="text-align:center;color:#888;">When you complete a project, click the "Mark as Done" button to track it here.</p><button class="btn btn-outline" onclick="showCatalog()" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
+    return;
+  }
+
+  output.innerHTML = '<div class="loading">Loading completed projects...</div>';
+
+  fetch('/api/patterns')
+    .then(r => r.json())
+    .then(patterns => {
+      const done = patterns.filter(p => doneIds.includes(p.id));
+      let html = `<div class="catalog-count">${done.length} completed project${done.length !== 1 ? 's' : ''}</div>`;
+      html += '<div class="project-cards">';
+
+      done.forEach((p, i) => {
+        const title = linkifyGlossaryTerms(p.title);
+        html += `<div class="project-card done-st" data-index="${i}">`;
+        html += `<h3>${title}</h3>`;
+        html += `<span class="done-badge">✓ Done</span>`;
+        html += `<p class="card-desc">${p.description}</p>`;
+        html += `<p><strong>Category:</strong> ${p.category} &middot; <strong>Level:</strong> ${p.skill_level}</p>`;
+        html += `<p><strong>Time:</strong> ${p.estimated_time}</p>`;
+        html += `<div class="card-actions">`;
+        html += `<button class="btn btn-outline btn-sm select-project" data-index="${i}">View</button>`;
+        html += `<button class="btn btn-secondary btn-sm undo-done-btn" data-id="${p.id}">↩ Undo</button>`;
+        html += `${renderShareBtns(p.id, p.title)}`;
+        html += `</div></div>`;
+      });
+
+      html += '</div>';
+      output.innerHTML = html;
+
+      window._currentDone = done;
+
+      document.querySelectorAll('.select-project').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.index);
+          showProjectDetail(done[idx], idx, done);
+        });
+      });
+
+      document.querySelectorAll('.undo-done-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const id = this.dataset.id;
+          const done = getDone().filter(d => d !== id);
+          saveDone(done);
+          showMyDone();
+        });
+      });
+    })
+    .catch(err => {
+      output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
     });
 }
 
@@ -764,8 +933,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         const fvd = isFaved(project.id) ? 'faved' : '';
+        const doneSt = isDone(project.id);
         html += `<div class="detail-header"><h2>${convert(project.title)} (${project.skill_level})</h2>`;
-        html += `<button class="fav-btn fav-btn-lg ${fvd}" data-id="${project.id}" title="${isFaved(project.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(project.id) ? '♥' : '♡'}</button></div>`;
+        html += `<div class="detail-actions">`;
+        html += `<button class="fav-btn fav-btn-lg ${fvd}" data-id="${project.id}" title="${isFaved(project.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(project.id) ? '♥' : '♡'}</button>`;
+        if (!doneSt) {
+          html += `<button class="btn btn-secondary btn-sm mark-done-btn" data-id="${project.id}">✓ Mark as Done</button>`;
+        } else {
+          html += `<span class="done-badge done-badge-lg">✓ Done</span>`;
+        }
+        html += `</div></div>`;
         html += `<p>${project.description}</p>`;
         html += `<p><strong>Estimated Time:</strong> ${project.estimated_time}</p>`;
         html += `<p><strong>Difficulty Reason:</strong> ${convert(project.difficulty_reason)}</p>`;
@@ -866,6 +1043,21 @@ document.addEventListener('DOMContentLoaded', async function() {
                 this.classList.toggle('faved', nowFaved);
                 this.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
                 this.textContent = nowFaved ? '♥' : '♡';
+            });
+        }
+
+        const detailDoneBtn = document.querySelector('.detail-header .mark-done-btn');
+        if (detailDoneBtn) {
+            detailDoneBtn.addEventListener('click', function() {
+                const id = this.dataset.id;
+                markAsDone(id);
+                const actionsDiv = document.querySelector('.detail-actions');
+                actionsDiv.innerHTML = `<button class="fav-btn fav-btn-lg ${isFaved(id) ? 'faved' : ''}" data-id="${id}">${isFaved(id) ? '♥' : '♡'}</button><span class="done-badge done-badge-lg">✓ Done</span>`;
+                document.querySelector('.detail-header .fav-btn')?.addEventListener('click', function() {
+                    const nowFaved = toggleFave(id);
+                    this.classList.toggle('faved', nowFaved);
+                    this.textContent = nowFaved ? '♥' : '♡';
+                });
             });
         }
 
@@ -1197,6 +1389,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.getElementById('accountBtn').addEventListener('click', () => showAuthModal(false));
+    document.getElementById('myFavesBtn').addEventListener('click', showMyFaves);
+    document.getElementById('myDoneBtn').addEventListener('click', showMyDone);
     document.getElementById('authModalClose').addEventListener('click', hideAuthModal);
     document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
     document.getElementById('authSwitchBtn').addEventListener('click', function() {

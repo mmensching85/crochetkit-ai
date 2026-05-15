@@ -796,6 +796,44 @@ body {
     flex: 1;
 }
 
+.detail-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.done-badge {
+    display: inline-block;
+    background: #28a745;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.done-badge-lg {
+    font-size: 14px;
+    padding: 6px 14px;
+}
+
+.done-st {
+    opacity: 0.7;
+}
+
+.done-st h3 {
+    text-decoration: line-through;
+    color: #888;
+}
+
+[data-theme="dark"] .done-badge {
+    background: #50c878;
+}
+
+[data-theme="dark"] .done-st {
+    opacity: 0.6;
+}
+
 /* ===== Weight Help Button & Popup ===== */
 .weight-help-btn {
     display: inline-flex;
