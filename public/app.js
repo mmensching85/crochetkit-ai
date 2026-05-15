@@ -909,7 +909,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         });
     }
-    });
 
     // Contact form handler
     document.getElementById('contact-form').addEventListener('submit', async function(e) {
