@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Crochet Project Planner - Find beginner crochet projects based on your available yarn">
+    <meta property="og:title" content="Crochet Project Planner">
+    <meta property="og:description" content="Find crochet projects based on the yarn you already have. Enter your materials, get matched to patterns.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://crochetkit-ai-production.up.railway.app">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Crochet Project Planner</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -28,7 +33,7 @@
         </header>
 
         <div class="btn-group catalog-btn-group">
-            <button type="button" class="btn btn-outline" id="browseAllBtn">Browse All 117 Patterns</button>
+            <button type="button" class="btn btn-outline" id="browseAllBtn">Browse All 138 Patterns</button>
         </div>
 
         <div class="card">
@@ -214,12 +219,14 @@
             <div id="gauge-result" class="gauge-result" style="display:none;"></div>
         </div>
 
-        <div class="card" id="yarns-card">
+            <div class="card" id="yarns-card">
             <h2>My Yarns</h2>
-            <p>Save your yarns so you can quickly fill the form. Pick one below to auto-fill.</p>
+            <p>Save your yarns so you can quickly fill the form. Pick one below to auto-fill, or match against all at once.</p>
             <div id="yarnList" class="yarn-list"></div>
-            <details class="yarn-add-form">
-                <summary class="btn btn-sm btn-outline" style="display:inline-flex;margin-top:12px;">+ Add Yarn</summary>
+            <div class="yarn-actions">
+                <button class="btn btn-primary btn-sm" id="matchYarnsBtn">Match All Yarns</button>
+                <details class="yarn-add-form" style="display:inline-block;vertical-align:middle;">
+                <summary class="btn btn-sm btn-outline" style="display:inline-flex;">+ Add Yarn</summary>
                 <div class="yarn-form-fields">
                     <div class="form-row">
                         <div class="form-group">
@@ -250,6 +257,7 @@
                     <button class="btn btn-primary btn-sm" id="saveYarnBtn">Save Yarn</button>
                 </div>
             </details>
+            </div>
         </div>
 
         <div class="card" id="global-feedback">

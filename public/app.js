@@ -208,6 +208,52 @@ function selectYarn(yarn) {
   if (yarn.hook) document.getElementById('hookSizeMM').value = yarn.hook;
 }
 
+function matchYarns() {
+  const yarns = getYarns();
+  if (!yarns.length) {
+    alert('Add some yarns first!');
+    return;
+  }
+
+  const termSys = document.getElementById('termSystem').value;
+  const userInput = {
+    yarns: yarns.map(y => ({ weightNumber: y.weight, yardage: y.yardage, hookSizeMM: y.hook, name: y.name })),
+    yardageHave: yarns.reduce((s, y) => s + y.yardage, 0),
+    hookSizeMM: yarns[0].hook || null,
+    hookSizeUnknown: false,
+    timeRange: {
+      minHours: parseFloat(document.getElementById('minHours').value),
+      maxHours: parseFloat(document.getElementById('maxHours').value)
+    },
+    difficulty: document.getElementById('difficulty').value,
+    preferredCategory: document.getElementById('preferredCategory').value || null,
+    termSystem: termSys
+  };
+
+  currentTermSystem = termSys;
+  selectedProjectIndex = null;
+  saveStash();
+  updateStashStatus();
+
+  const output = document.getElementById('project-output');
+  output.innerHTML = '<div class="loading">Matching all your yarns...</div>';
+  document.getElementById('output').style.display = 'block';
+
+  fetch('/api/find-project', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userInput)
+  })
+    .then(r => { if (!r.ok) throw new Error('Server error: ' + r.status); return r.json(); })
+    .then(projects => {
+      // Attach matched yarn info to each result for display
+      displayProjectCards(projects);
+    })
+    .catch(err => {
+      output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
+    });
+}
+
 function escHtml(s) {
   if (!s) return '';
   const d = document.createElement('div');
@@ -276,7 +322,8 @@ function showCatalog() {
         let html = `<div class="catalog-count">Showing ${pats.length} of ${patterns.length} patterns</div>`;
         html += '<div class="catalog-filters">';
         html += `<select id="catFilterCat"><option value="">All categories</option>${[...new Set(patterns.map(p => p.category))].sort().map(c => `<option value="${c}">${c}</option>`).join('')}</select>`;
-        html += `<select id="catFilterDiff"><option value="">All levels</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option></select>`;
+        html += `<select id="catFilterDiff"><option value="">All levels</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select>`;
+        html += `<select id="catFilterWeight"><option value="">Any weight</option>${[...new Set(patterns.map(p => p.yarnWeightNumber).filter(w => w !== null).sort((a,b) => a-b))].map(w => `<option value="${w}">${w} — ${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][w] || ''}</option>`).join('')}</select>`;
         html += `<input type="number" id="catFilterTime" placeholder="Max hours" min="0" step="0.5">`;
         html += `<input type="text" id="catFilterSearch" placeholder="Search by name...">`;
         html += `<button class="btn btn-sm btn-outline" id="catFilterFaves">♥ Favorites</button>`;
@@ -294,11 +341,12 @@ function showCatalog() {
           const fvd = isFaved(p.id) ? 'faved' : '';
           const doneSt = isDone(p.id) ? 'done-st' : '';
           html += `<div class="project-card ${doneSt}" data-catalog-idx="${i}">`;
+          html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${p.title}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
           html += `<h3>${title}</h3>`;
           if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
           html += `<p class="card-desc">${p.description}</p>`;
           html += `<p><strong>Category:</strong> ${p.category} &middot; <strong>Level:</strong> ${p.skill_level}</p>`;
-          html += `<p><strong>Time:</strong> ${p.estimated_time}</p>`;
+          html += `<p><strong>Time:</strong> ${p.estimated_time}${p.yarnWeightNumber !== null ? ` &middot; <strong>Weight:</strong> ${p.yarnWeightNumber} (${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][p.yarnWeightNumber] || ''})` : ''}</p>`;
           html += `<p><strong>Stitches:</strong> ${p.stitches_used.join(', ')}</p>`;
           html += `<div class="card-actions">`;
           html += `<button class="btn btn-outline btn-sm catalog-select" data-idx="${i}">Select</button>`;
@@ -340,6 +388,7 @@ function showCatalog() {
 
         document.getElementById('catFilterCat').addEventListener('change', filterCatalog);
         document.getElementById('catFilterDiff').addEventListener('change', filterCatalog);
+        document.getElementById('catFilterWeight').addEventListener('change', filterCatalog);
         document.getElementById('catFilterTime').addEventListener('input', filterCatalog);
         document.getElementById('catFilterSearch').addEventListener('input', filterCatalog);
         document.getElementById('catFilterFaves').addEventListener('click', function() {
@@ -361,6 +410,7 @@ function showCatalog() {
         function filterCatalog() {
           const cat = document.getElementById('catFilterCat').value;
           const diff = document.getElementById('catFilterDiff').value;
+          const weight = document.getElementById('catFilterWeight').value;
           const maxTime = parseFloat(document.getElementById('catFilterTime').value);
           const search = document.getElementById('catFilterSearch').value.toLowerCase().trim();
           const favesOnly = document.getElementById('catFilterFaves').classList.contains('active');
@@ -371,6 +421,7 @@ function showCatalog() {
           const filtered = patterns.filter(p => {
             if (cat && p.category !== cat) return false;
             if (diff && p.skill_level !== diff) return false;
+            if (weight && p.yarnWeightNumber !== null && p.yarnWeightNumber !== parseInt(weight)) return false;
             if (maxTime && p.estimated_min_hours > maxTime) return false;
             if (search && !p.title.toLowerCase().includes(search) && !p.description.toLowerCase().includes(search)) return false;
             if (favesOnly && !faveIds.includes(p.id)) return false;
@@ -687,6 +738,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     renderYarnList();
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
     document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
+    document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
     document.getElementById('saveYarnBtn').addEventListener('click', function() {
       const name = document.getElementById('yarnName').value.trim();
       if (!name) { alert('Please enter a yarn name.'); return; }
@@ -897,6 +949,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             html += `<h3>${title}</h3>`;
             html += `<p class="card-desc">${project.description}</p>`;
             html += `<p><strong>Time:</strong> ${project.estimated_time}</p>`;
+            if (project.matchedYarns && project.matchedYarns.length > 0) {
+              html += `<p><strong>Matched yarns:</strong> ${project.matchedYarns.join(', ')}</p>`;
+            }
             html += `<p><strong>Stitches:</strong> ${stitches}</p>`;
             html += `<div class="card-actions">`;
             html += `<button class="btn btn-outline btn-sm select-project" data-index="${index}">Select</button>`;
@@ -963,9 +1018,10 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (!doneSt) {
           html += `<button class="btn btn-secondary btn-sm mark-done-btn" data-id="${project.id}">✓ Mark as Done</button>`;
         } else {
-          html += `<span class="done-badge done-badge-lg">✓ Done</span>`;
+          html += `<span class="done-badge done-badge-lg done-badge-toggle" style="cursor:pointer;" title="Click to undo">✓ Done</span>`;
         }
         html += `</div></div>`;
+        html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${project.title}" class="detail-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
         html += `<p>${project.description}</p>`;
         html += `<p><strong>Estimated Time:</strong> ${project.estimated_time}</p>`;
         html += `<p><strong>Difficulty Reason:</strong> ${convert(project.difficulty_reason)}</p>`;
@@ -992,12 +1048,14 @@ document.addEventListener('DOMContentLoaded', async function() {
         html += `</ul>`;
 
         html += `<h4>Steps:</h4><ol>`;
-        project.steps.forEach(step => {
+        project.steps.forEach((step, stepIdx) => {
+            const stepNum = stepIdx + 1;
             html += `<li><strong>${convert(step.instruction)}</strong>`;
             if (step.tip) html += ` <span class="tip">(${step.tip})</span>`;
             if (step.visual_description && step.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)") {
                 html += `<p class="visual-desc"><em>Visual:</em> ${step.visual_description}</p>`;
             }
+            html += `<div class="step-image"><img src="/assets/patterns/${project.id}/step-${stepNum}.webp" alt="Step ${stepNum} illustration" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
             html += `</li>`;
         });
         html += `</ol>`;
@@ -1069,20 +1127,26 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         }
 
-        const detailDoneBtn = document.querySelector('.detail-header .mark-done-btn');
-        if (detailDoneBtn) {
-            detailDoneBtn.addEventListener('click', function() {
-                const id = this.dataset.id;
+        outputElement.addEventListener('click', function detailClick(e) {
+            const target = e.target.closest('[data-id]');
+            if (!target) return;
+            const id = target.dataset.id;
+            const actionsDiv = document.querySelector('.detail-actions');
+
+            if (target.classList.contains('done-badge-toggle')) {
+                const done = getDone().filter(d => d !== id);
+                saveDone(done);
+                actionsDiv.innerHTML = `<button class="fav-btn fav-btn-lg ${isFaved(id) ? 'faved' : ''}" data-id="${id}">${isFaved(id) ? '♥' : '♡'}</button><button class="btn btn-secondary btn-sm mark-done-btn" data-id="${id}">✓ Mark as Done</button>`;
+            } else if (target.classList.contains('mark-done-btn')) {
                 markAsDone(id);
-                const actionsDiv = document.querySelector('.detail-actions');
-                actionsDiv.innerHTML = `<button class="fav-btn fav-btn-lg ${isFaved(id) ? 'faved' : ''}" data-id="${id}">${isFaved(id) ? '♥' : '♡'}</button><span class="done-badge done-badge-lg">✓ Done</span>`;
-                document.querySelector('.detail-header .fav-btn')?.addEventListener('click', function() {
-                    const nowFaved = toggleFave(id);
-                    this.classList.toggle('faved', nowFaved);
-                    this.textContent = nowFaved ? '♥' : '♡';
-                });
-            });
-        }
+                actionsDiv.innerHTML = `<button class="fav-btn fav-btn-lg ${isFaved(id) ? 'faved' : ''}" data-id="${id}">${isFaved(id) ? '♥' : '♡'}</button><span class="done-badge done-badge-lg done-badge-toggle" style="cursor:pointer;" title="Click to undo">✓ Done</span>`;
+            } else if (target.classList.contains('fav-btn')) {
+                const nowFaved = toggleFave(id);
+                target.classList.toggle('faved', nowFaved);
+                target.textContent = nowFaved ? '♥' : '♡';
+                target.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
+            }
+        });
 
         const detailPdfBtn = document.querySelector('.detail-pdf-btn');
         if (detailPdfBtn) {

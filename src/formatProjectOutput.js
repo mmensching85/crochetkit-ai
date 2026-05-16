@@ -194,7 +194,10 @@ function formatProjectOutput(matchResult, termSystem) {
     tips_label: tipsLabel,
     variations: variations,
     safety_notes: safetyNotes,
-    printable_summary: printableSummary
+    printable_summary: printableSummary,
+    matchedYarns: matchResult.matchDetails?.matchedYarns || [],
+    yarnWeightNumber: pattern.materials?.yarn?.weightNumber ?? null,
+    estimated_min_hours: pattern.estimatedTime.minHours
   };
 }
 

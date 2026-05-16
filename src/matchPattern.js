@@ -65,17 +65,14 @@ function invalidateCache() {
 }
 
 function matchPattern(userInput, patterns) {
-  // Create deterministic cache key
   const cacheKey = stableStringify(userInput);
   const cached = getFromCache(cacheKey);
-  if (cached) {
-    return cached;
-  }
+  if (cached) return cached;
 
   const userDifficulty = userInput.difficulty || 'beginner';
+  const isMultiYarn = userInput.yarns && userInput.yarns.length > 1;
 
   const filteredPatterns = patterns.filter(p => p.difficulty.level === userDifficulty);
-
   if (filteredPatterns.length === 0) {
     throw new Error(`No ${userDifficulty} patterns found matching your materials. Try adjusting your inputs or selecting a different difficulty.`);
   }
@@ -86,182 +83,160 @@ function matchPattern(userInput, patterns) {
     let score = 0;
     const details = { patternId: pattern.id, criteria: [] };
 
-    if (pattern.materials && pattern.materials.yarn) {
-      const patternWeight = pattern.materials.yarn.weightNumber;
-      const weightDiff = Math.abs(patternWeight - userInput.yarnWeightNumber);
-      if (weightDiff === 0) {
+    const patternWeight = pattern.materials?.yarn?.weightNumber;
+    const minYardage = pattern.materials?.yarn?.suggestedYardageMin;
+    const maxYardage = pattern.materials?.yarn?.suggestedYardageMax;
+    const idealYardage = (minYardage + maxYardage) / 2;
+
+    // Determine effective weight, yardage, hook for this pattern
+    let effWeight, effYardage, effHook;
+
+    if (isMultiYarn) {
+      // Find all user yarns that match this pattern's weight (within ±1)
+      const matchingYarns = userInput.yarns.filter(y => {
+        const wDiff = Math.abs(patternWeight - y.weightNumber);
+        return wDiff <= 1;
+      });
+
+      if (matchingYarns.length === 0) {
+        // No yarn matches this pattern's weight — skip
+        continue;
+      }
+
+      // Use the best weight match for scoring, combine yardage
+      const bestYarn = matchingYarns.reduce((a, b) =>
+        Math.abs(patternWeight - a.weightNumber) <= Math.abs(patternWeight - b.weightNumber) ? a : b
+      );
+      effWeight = bestYarn.weightNumber;
+      effYardage = matchingYarns.reduce((sum, y) => sum + y.yardage, 0);
+      effHook = bestYarn.hookSizeMM || userInput.yarns[0].hookSizeMM || null;
+
+      const wDiff = Math.abs(patternWeight - effWeight);
+      if (wDiff === 0) {
+        score += 3;
+        details.criteria.push({ name: "yarnWeight", met: true, points: 3, info: `Matched ${matchingYarns.length} yarn(s) to this weight` });
+      } else {
+        score += 1.5;
+        details.criteria.push({ name: "yarnWeight", met: true, points: 1.5, info: `Close weight match via ${matchingYarns.length} yarn(s)` });
+      }
+
+      details.matchedYarns = matchingYarns.map(y => y.name || `Weight ${y.weightNumber}`);
+    } else {
+      effWeight = userInput.yarnWeightNumber;
+      effYardage = userInput.yardageHave;
+      effHook = userInput.hookSizeMM;
+
+      const wDiff = Math.abs(patternWeight - effWeight);
+      if (wDiff === 0) {
         score += 3;
         details.criteria.push({ name: "yarnWeight", met: true, points: 3 });
-      } else if (weightDiff === 1) {
+      } else if (wDiff === 1) {
         score += 1.5;
         details.criteria.push({ name: "yarnWeight", met: true, points: 1.5,
-          info: `Close match: pattern uses weight ${patternWeight}, you have ${userInput.yarnWeightNumber}` });
+          info: `Close match: pattern uses weight ${patternWeight}, you have ${effWeight}` });
       } else {
         details.criteria.push({ name: "yarnWeight", met: false, points: 0,
-          info: `Pattern needs weight ${patternWeight}, you have ${userInput.yarnWeightNumber}` });
+          info: `Pattern needs weight ${patternWeight}, you have ${effWeight}` });
       }
     }
 
-    if (pattern.materials && pattern.materials.yarn) {
-      const minYardage = pattern.materials.yarn.suggestedYardageMin;
-      const maxYardage = pattern.materials.yarn.suggestedYardageMax;
-      const idealYardage = (minYardage + maxYardage) / 2;
-      if (userInput.yardageHave >= minYardage) {
-        const excess = userInput.yardageHave - idealYardage;
-        if (excess >= 0 && excess <= 50) {
-          score += 2;
-          details.criteria.push({ name: "yardage", met: true, points: 2,
-            info: `Perfect yardage match!` });
-        } else {
-          score += 1;
-          details.criteria.push({ name: "yardage", met: true, points: 1 });
-        }
-      } else {
-        details.criteria.push({ name: "yardage", met: false, points: 0,
-          info: `You have ${userInput.yardageHave} yds, pattern needs at least ${minYardage} yds` });
-      }
+    // Yardage scoring (uses combined yardage for multi-yarn)
+    if (effYardage >= minYardage) {
+      const excess = effYardage - idealYardage;
+      score += (excess >= 0 && excess <= 50) ? 2 : 1;
+      details.criteria.push({
+        name: "yardage", met: true, points: (excess >= 0 && excess <= 50) ? 2 : 1,
+        info: (excess >= 0 && excess <= 50) ? `Perfect yardage match!` : `Yardage sufficient (${effYardage} yds)`
+      });
+    } else {
+      details.criteria.push({
+        name: "yardage", met: false, points: 0,
+        info: `You have ${effYardage} yds, pattern needs at least ${minYardage} yds`
+      });
     }
 
-    if (!userInput.hookSizeUnknown && pattern.materials && pattern.materials.hook) {
-      const patternHookMM = pattern.materials.hook.sizeMM;
-      const userHookMM = userInput.hookSizeMM;
-      if (userHookMM !== null) {
-        const hookDiff = Math.abs(userHookMM - patternHookMM);
-        if (hookDiff <= 0.5) {
-          score += 1.5;
-          details.criteria.push({ name: "hookSize", met: true, points: 1.5 });
-        } else if (hookDiff <= 1.0) {
-          score += 0.5;
-          details.criteria.push({ name: "hookSize", met: true, points: 0.5,
-            info: `Close hook match: you have ${userHookMM}mm, pattern suggests ${patternHookMM}mm` });
-        } else {
-          details.criteria.push({ name: "hookSize", met: false, points: 0,
-            info: `You have ${userHookMM}mm, pattern suggests ${patternHookMM}mm` });
-        }
-      } else {
-        details.criteria.push({ name: "hookSize", met: null, points: 0,
-          info: "Hook size unknown; will recommend based on pattern." });
-      }
+    // Hook scoring
+    if (!userInput.hookSizeUnknown && pattern.materials?.hook && effHook !== null && effHook !== undefined) {
+      const hookDiff = Math.abs(effHook - pattern.materials.hook.sizeMM);
+      if (hookDiff <= 0.5) { score += 1.5; details.criteria.push({ name: "hookSize", met: true, points: 1.5 }); }
+      else if (hookDiff <= 1.0) { score += 0.5; details.criteria.push({ name: "hookSize", met: true, points: 0.5, info: `Close hook match: ${effHook}mm vs ${pattern.materials.hook.sizeMM}mm` }); }
+      else { details.criteria.push({ name: "hookSize", met: false, points: 0, info: `You have ${effHook}mm, pattern suggests ${pattern.materials.hook.sizeMM}mm` }); }
     } else if (userInput.hookSizeUnknown) {
-      details.criteria.push({ name: "hookSize", met: null, points: 0,
-        info: "Hook size unknown; skipping hook match." });
+      details.criteria.push({ name: "hookSize", met: null, points: 0, info: "Hook size unknown; skipping hook match." });
     }
 
+    // Time scoring
     if (pattern.estimatedTime && userInput.timeRange) {
-      const patternMin = pattern.estimatedTime.minHours;
-      const patternMax = pattern.estimatedTime.maxHours;
-      const userMin = userInput.timeRange.minHours;
-      const userMax = userInput.timeRange.maxHours;
-      const patternMid = (patternMin + patternMax) / 2;
-      const userMid = (userMin + userMax) / 2;
-      const overlaps = !(patternMax < userMin || patternMin > userMax);
+      const pMid = (pattern.estimatedTime.minHours + pattern.estimatedTime.maxHours) / 2;
+      const uMid = (userInput.timeRange.minHours + userInput.timeRange.maxHours) / 2;
+      const overlaps = !(pattern.estimatedTime.maxHours < userInput.timeRange.minHours || pattern.estimatedTime.minHours > userInput.timeRange.maxHours);
       if (overlaps) {
-        const timeDiff = Math.abs(patternMid - userMid);
-        if (timeDiff <= 0.5) {
-          score += 1.5;
-          details.criteria.push({ name: "time", met: true, points: 1.5,
-            info: `Perfect time match!` });
-        } else {
-          score += 1;
-          details.criteria.push({ name: "time", met: true, points: 1 });
-        }
+        score += Math.abs(pMid - uMid) <= 0.5 ? 1.5 : 1;
+        details.criteria.push({ name: "time", met: true, points: Math.abs(pMid - uMid) <= 0.5 ? 1.5 : 1 });
       } else {
-        details.criteria.push({ name: "time", met: false, points: 0,
-          info: `Pattern takes ${patternMin}-${patternMax}h, you have ${userMin}-${userMax}h` });
+        details.criteria.push({ name: "time", met: false, points: 0, info: `Pattern takes ${pattern.estimatedTime.minHours}-${pattern.estimatedTime.maxHours}h, you have ${userInput.timeRange.minHours}-${userInput.timeRange.maxHours}h` });
       }
     }
 
+    // Category scoring
     if (userInput.preferredCategory && pattern.category) {
-      const catUser = userInput.preferredCategory.toLowerCase().trim();
-      const catPat = pattern.category.toLowerCase().trim();
-      if (catPat === catUser || catPat.includes(catUser) || catUser.includes(catPat)) {
-        const exact = catPat === catUser;
+      const cU = userInput.preferredCategory.toLowerCase().trim();
+      const cP = pattern.category.toLowerCase().trim();
+      if (cP === cU || cP.includes(cU) || cU.includes(cP)) {
+        const exact = cP === cU;
         score += exact ? 1.5 : 1;
         details.criteria.push({ name: "category", met: true, points: exact ? 1.5 : 1 });
       } else {
-        details.criteria.push({ name: "category", met: false, points: 0,
-          info: `You preferred ${userInput.preferredCategory}, pattern is ${pattern.category}` });
+        details.criteria.push({ name: "category", met: false, points: 0, info: `You preferred ${userInput.preferredCategory}, pattern is ${pattern.category}` });
       }
     } else if (!userInput.preferredCategory) {
       details.criteria.push({ name: "category", met: null, points: 0 });
     }
 
-    // Bonus: difficulty score proximity
-    if (pattern.difficulty && pattern.difficulty.score !== undefined) {
-      const userDiffScore = userDifficulty === 'beginner' ? 2 : 5;
-      const diff = Math.abs(pattern.difficulty.score - userDiffScore);
-      if (diff <= 1) {
-        score += 1;
-        details.criteria.push({ name: "difficultyFit", met: true, points: 1 });
-      } else {
-        details.criteria.push({ name: "difficultyFit", met: true, points: 0.5 });
-      }
+    // Difficulty fit bonus
+    if (pattern.difficulty?.score !== undefined) {
+      const uDiff = userDifficulty === 'beginner' ? 2 : 5;
+      score += Math.abs(pattern.difficulty.score - uDiff) <= 1 ? 1 : 0.5;
+      details.criteria.push({ name: "difficultyFit", met: true, points: Math.abs(pattern.difficulty.score - uDiff) <= 1 ? 1 : 0.5 });
     }
 
-    scoredPatterns.push({ pattern, score, details });
+    scoredPatterns.push({ pattern, score, details, effYardage, effHook });
+  }
+
+  if (scoredPatterns.length === 0) {
+    throw new Error(`No patterns found matching your materials. Try different yarn weights or more yardage.`);
   }
 
   scoredPatterns.sort((a, b) => b.score - a.score);
+  const bestScore = scoredPatterns[0].score;
+  const topPatterns = scoredPatterns.filter(p => p.score >= bestScore - 1).slice(0, 4);
 
-  const bestScore = scoredPatterns.length > 0 ? scoredPatterns[0].score : 0;
-
-  const threshold = 1;
-  const topPatterns = scoredPatterns.filter(p => p.score >= bestScore - threshold);
-
-  const suggestions = topPatterns.slice(0, 4);
-
-  const results = suggestions.map(({ pattern, score, details }) => {
-    const gapAnalysis = {
-      yardage: { have: userInput.yardageHave, need: null, gap: null, status: '' },
-      hook: { have: userInput.hookSizeMM, need: null, gap: null, status: '' }
-    };
-
-    if (pattern.materials && pattern.materials.yarn) {
-      const minY = pattern.materials.yarn.suggestedYardageMin;
-      const maxY = pattern.materials.yarn.suggestedYardageMax;
-      gapAnalysis.yardage.need = (minY + maxY) / 2;
-      if (userInput.yardageHave >= minY) {
-        gapAnalysis.yardage.status = 'enough';
-        gapAnalysis.yardage.gap = 0;
-      } else {
-        gapAnalysis.yardage.status = 'need-more';
-        gapAnalysis.yardage.gap = minY - userInput.yardageHave;
-      }
-    }
-
-    if (pattern.materials && pattern.materials.hook) {
-      const patternHook = pattern.materials.hook.sizeMM;
-      gapAnalysis.hook.need = patternHook;
-      if (userInput.hookSizeMM === null) {
-        gapAnalysis.hook.status = 'need';
-        gapAnalysis.hook.gap = 1;
-      } else if (Math.abs(userInput.hookSizeMM - patternHook) <= 0.5) {
-        gapAnalysis.hook.status = 'have';
-        gapAnalysis.hook.gap = 0;
-      } else {
-        gapAnalysis.hook.status = 'mismatch';
-        gapAnalysis.hook.gap = 1;
-      }
+  const results = topPatterns.map(({ pattern, score, details, effYardage, effHook }) => {
+    const minY = pattern.materials?.yarn?.suggestedYardageMin;
+    const maxY = pattern.materials?.yarn?.suggestedYardageMax;
+    const gapYardage = { have: effYardage, need: (minY + maxY) / 2, gap: effYardage >= minY ? 0 : minY - effYardage, status: effYardage >= minY ? 'enough' : 'need-more' };
+    const gapHook = { have: effHook, need: pattern.materials?.hook?.sizeMM || null, gap: 0, status: 'have' };
+    if (effHook !== null && effHook !== undefined && pattern.materials?.hook) {
+      gapHook.gap = Math.abs(effHook - pattern.materials.hook.sizeMM) <= 0.5 ? 0 : 1;
+      gapHook.status = gapHook.gap === 0 ? 'have' : 'mismatch';
     }
 
     return {
       matchedPattern: pattern,
       matchScore: score,
       matchDetails: details,
-      materialGap: gapAnalysis,
+      materialGap: { yardage: gapYardage, hook: gapHook },
       summary: {
         projectName: pattern.name,
         difficulty: pattern.difficulty.level,
         estimatedTime: `${pattern.estimatedTime.minHours}-${pattern.estimatedTime.maxHours} ${pattern.estimatedTime.unit}`,
-        yardageStatus: gapAnalysis.yardage.status,
-        hookStatus: gapAnalysis.hook.status
+        yardageStatus: gapYardage.status,
+        hookStatus: gapHook.status
       }
     };
   });
 
-  // Store result in cache before returning
   setCache(cacheKey, results);
-
   return results;
 }
 

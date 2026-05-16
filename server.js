@@ -228,7 +228,8 @@ app.post('/api/find-project', (req, res) => {
     try {
         const userInput = req.body;
 
-        if (userInput.yarnWeightNumber === undefined || userInput.yardageHave === undefined) {
+        const hasYarns = userInput.yarns && userInput.yarns.length > 0;
+        if (!hasYarns && (userInput.yarnWeightNumber === undefined || userInput.yardageHave === undefined)) {
             return res.status(400).json({ error: 'Missing required fields: yarnWeightNumber and yardageHave are required.' });
         }
 
@@ -601,6 +602,33 @@ ${img ? `<meta property="og:image" content="${img}">` : ''}
 `;
         res.send(data.replace('</title>', '</title>' + meta));
     });
+});
+
+// Sitemap
+app.get('/sitemap.xml', (req, res) => {
+    const host = req.get('host');
+    const protocol = req.headers['x-forwarded-proto'] || 'https';
+    const base = `${protocol}://${host}`;
+    const urls = patterns.map(p => `
+  <url>
+    <loc>${base}/p/${p.id}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join('');
+    res.setHeader('Content-Type', 'application/xml');
+    res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${base}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>${urls}
+</urlset>`);
+});
+
+app.get('/robots.txt', (req, res) => {
+    res.setHeader('Content-Type', 'text/plain');
+    res.send('User-agent: *\nAllow: /\nSitemap: https://' + req.get('host') + '/sitemap.xml\n');
 });
 
 // Admin feedback viewer
