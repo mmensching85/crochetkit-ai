@@ -225,6 +225,7 @@
             <div id="yarnList" class="yarn-list"></div>
             <div class="yarn-actions">
                 <button class="btn btn-primary btn-sm" id="matchYarnsBtn">Match All Yarns</button>
+                <button class="btn btn-sm btn-outline" id="viewStashBtn">View Stash Gallery</button>
                 <details class="yarn-add-form" style="display:inline-block;vertical-align:middle;">
                 <summary class="btn btn-sm btn-outline" style="display:inline-flex;">+ Add Yarn</summary>
                 <div class="yarn-form-fields">
@@ -257,6 +258,73 @@
                     <button class="btn btn-primary btn-sm" id="saveYarnBtn">Save Yarn</button>
                 </div>
             </details>
+            <button class="btn btn-sm btn-outline" id="scanLabelBtn" title="Take or upload a photo of your yarn label">📷 Label</button>
+            <input type="file" id="labelPhotoInput" accept="image/*" capture="environment" style="display:none;">
+            <div id="quickAddPanel" class="yarn-quick-add" style="display:none;">
+                <div class="quick-add-layout">
+                    <div class="quick-add-image">
+                        <img id="labelPreview" alt="Yarn label" style="max-width:100%;max-height:180px;border-radius:6px;">
+                    </div>
+                    <div class="quick-add-form">
+                        <div class="form-group">
+                            <label for="qaName">Yarn Name</label>
+                            <input type="text" id="qaName" placeholder="e.g. Red Heart Super Saver">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="qaWeight">Weight</label>
+                                <select id="qaWeight" class="qa-weight-select">
+                                    <option value="">— Select —</option>
+                                    <option value="0">0 — Lace</option>
+                                    <option value="1">1 — Super Fine (fingering)</option>
+                                    <option value="2">2 — Fine (sport)</option>
+                                    <option value="3">3 — Light (DK)</option>
+                                    <option value="4" selected>4 — Medium (worsted)</option>
+                                    <option value="5">5 — Bulky (chunky)</option>
+                                    <option value="6">6 — Super Bulky</option>
+                                    <option value="7">7 — Jumbo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="qaYardage">Yardage <span class="optional">(yds)</span></label>
+                                <input type="number" id="qaYardage" min="0" placeholder="e.g. 364">
+                            </div>
+                        </div>
+                        <div class="qa-presets" id="qaPresets">
+                            <span class="qa-preset-label">Common yardages:</span>
+                            <button class="qa-preset-btn" data-yds="50">50</button>
+                            <button class="qa-preset-btn" data-yds="100">100</button>
+                            <button class="qa-preset-btn" data-yds="200">200</button>
+                            <button class="qa-preset-btn" data-yds="350">350</button>
+                            <button class="qa-preset-btn" data-yds="500">500</button>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="qaHook">Hook <span class="optional">(mm)</span></label>
+                                <input type="number" id="qaHook" step="0.1" placeholder="e.g. 5.0">
+                            </div>
+                            <div class="form-group">
+                                <label for="qaNotes">Notes <span class="optional">(optional)</span></label>
+                                <input type="text" id="qaNotes" placeholder="color, brand">
+                            </div>
+                        </div>
+                        <div class="quick-add-actions">
+                            <button class="btn btn-primary btn-sm" id="qaSaveBtn">Save Yarn</button>
+                            <button class="btn btn-sm btn-outline" id="qaCancelBtn">Cancel</button>
+                        </div>
+                        <div class="qa-label-guide">
+                            <details>
+                                <summary>Where to find info on your label</summary>
+                                <div class="qa-guide-content">
+                                    <p><strong>Weight category</strong> — Look for the CYC number (0-7) or a symbol on the label band. Usually near the yarn name.</p>
+                                    <p><strong>Yardage</strong> — Listed as "yards" or "yds" on the label, typically near the weight/grams.</p>
+                                    <p><strong>Hook size</strong> — A crochet hook symbol with mm size is shown on most labels.</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
 

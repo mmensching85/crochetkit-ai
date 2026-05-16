@@ -240,4 +240,65 @@ function matchPattern(userInput, patterns) {
   return results;
 }
 
-module.exports = { matchPattern, invalidateCache };
+/**
+ * Reverse match: given a pattern and user's yarn stash,
+ * determine which individual yarns match (weight ±1, enough yardage)
+ * and whether the combined stash of matching-weight yarns is sufficient.
+ *
+ * Returns:
+ * {
+ *   patternWeight, minYardage, maxYardage,
+ *   individualMatches: [{ yarn, weightMatch, yardageMatch, overall }],
+ *   combinedMatch: { matchingWeightYarns, totalYardage, enough }
+ * }
+ */
+function reverseMatch(pattern, yarns) {
+  const patternWeight = pattern.materials?.yarn?.weightNumber;
+  const minYardage = pattern.materials?.yarn?.suggestedYardageMin;
+  const maxYardage = pattern.materials?.yarn?.suggestedYardageMax;
+
+  if (!patternWeight) {
+    return {
+      patternWeight: null,
+      minYardage, maxYardage,
+      individualMatches: [],
+      combinedMatch: { matchingWeightYarns: 0, totalYardage: 0, enough: false, reason: 'Pattern has no weight data' }
+    };
+  }
+
+  // Evaluate each yarn individually
+  const individualMatches = (yarns || []).map(yarn => {
+    const wDiff = Math.abs(patternWeight - yarn.weight);
+    const weightMatch = wDiff <= 1;
+    const yardageMatch = yarn.yardage >= minYardage;
+    return {
+      yarn: { id: yarn.id, name: yarn.name || `Weight ${yarn.weight}`, weight: yarn.weight, yardage: yarn.yardage, hook: yarn.hook, notes: yarn.notes },
+      weightMatch,
+      yardageMatch,
+      wDiff,
+      overall: weightMatch && yardageMatch
+    };
+  });
+
+  // Combined: sum yardage of all matching-weight yarns
+  const matchingWeight = individualMatches.filter(m => m.weightMatch);
+  const totalYardage = matchingWeight.reduce((sum, m) => sum + m.yarn.yardage, 0);
+  const enough = totalYardage >= minYardage;
+
+  return {
+    patternWeight,
+    minYardage,
+    maxYardage,
+    individualMatches,
+    combinedMatch: {
+      matchingWeightYarns: matchingWeight.length,
+      totalYardage,
+      enough,
+      reason: enough
+        ? `You have ${totalYardage} yds across ${matchingWeight.length} yarn(s) — enough!`
+        : `You have ${totalYardage} yds across ${matchingWeight.length} yarn(s), need ${minYardage} yds total.`
+    }
+  };
+}
+
+module.exports = { matchPattern, invalidateCache, reverseMatch };

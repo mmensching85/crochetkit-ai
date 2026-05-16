@@ -155,9 +155,9 @@ function saveYarns(yarns) {
   localStorage.setItem(YARNS_KEY, JSON.stringify(yarns));
 }
 
-function addYarn(name, weight, yardage, hook, notes) {
+function addYarn(name, weight, yardage, hook, notes, image) {
   const yarns = getYarns();
-  yarns.push({ id: Date.now(), name, weight: parseInt(weight), yardage: parseInt(yardage), hook: parseFloat(hook), notes });
+  yarns.push({ id: Date.now(), name, weight: parseInt(weight), yardage: parseInt(yardage), hook: parseFloat(hook) || null, notes, image: image || null });
   saveYarns(yarns);
   renderYarnList();
 }
@@ -259,6 +259,124 @@ function escHtml(s) {
   const d = document.createElement('div');
   d.textContent = s;
   return d.innerHTML;
+}
+
+function renderStashMatch(match) {
+  const el = document.getElementById('stashMatchContent');
+  if (!el) return;
+
+  if (!match.patternWeight) {
+    el.innerHTML = '<p style="color:#888;font-size:13px;">This pattern has no weight data.</p>';
+    return;
+  }
+
+  const indiv = match.individualMatches || [];
+  if (indiv.length === 0) {
+    el.innerHTML = '<p style="color:#888;font-size:13px;">No yarns in stash to check.</p>';
+    return;
+  }
+
+  const cm = match.combinedMatch;
+  const weightLabel = ['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][match.patternWeight] || '';
+
+  let html = `<p style="font-size:13px;color:#aaa;">Pattern uses <strong>weight ${match.patternWeight} (${weightLabel})</strong>, needs <strong>${match.minYardage}-${match.maxYardage} yds</strong>.</p>`;
+  html += `<p style="font-size:13px;${cm.enough ? 'color:#4caf50;' : 'color:#ff9800;'}">${escHtml(cm.reason)}</p>`;
+
+  html += '<div class="stash-match-list">';
+  indiv.forEach(m => {
+    const status = m.overall ? 'match-yes' : 'match-no';
+    const statusIcon = m.overall ? '✓' : '✗';
+    const wOk = m.weightMatch;
+    const yOk = m.yardageMatch;
+    const reason = [];
+    if (!wOk) reason.push(`weight ${m.yarn.weight} (needs ±1 of ${match.patternWeight})`);
+    if (wOk && !yOk) reason.push(`only ${m.yarn.yardage} yds (needs ${match.minYardage})`);
+
+    html += `<div class="stash-match-item ${status}">
+      <span class="stash-match-icon">${statusIcon}</span>
+      <span class="stash-match-name">${escHtml(m.yarn.name)}</span>
+      <span class="stash-match-detail">CYC ${m.yarn.weight} &middot; ${m.yarn.yardage} yds</span>
+      ${reason.length ? `<span class="stash-match-reason">${escHtml(reason.join('; '))}</span>` : ''}
+    </div>`;
+  });
+  html += '</div>';
+
+  el.innerHTML = html;
+}
+
+function showStashGallery() {
+  const output = document.getElementById('project-output');
+  const outputCard = document.getElementById('output');
+  outputCard.style.display = 'block';
+
+  const yarns = getYarns();
+  if (!yarns.length) {
+    output.innerHTML = '<div class="card"><h2>My Stash Gallery</h2><p style="text-align:center;color:#888;padding:40px;">No yarns in your stash yet.</p><p style="text-align:center;color:#888;">Use the My Yarns section above to add yarns, then view them here.</p></div>';
+    return;
+  }
+
+  const weightNames = ['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'];
+  const weightColors = ['#c8a8e8','#a8c8e8','#a8e8c8','#e8d8a8','#e8b8a8','#e8a8b8','#b8a8e8','#d0d0d0'];
+
+  function renderGallery(filtered, filterWeight, filterSearch) {
+    let html = `<div class="catalog-count">${filtered.length} of ${yarns.length} yarns</div>`;
+    html += '<div class="catalog-filters">';
+    html += `<select id="galleryFilterWeight"><option value="">Any weight</option>${weightNames.map((n, i) => `<option value="${i}" ${filterWeight === String(i) ? 'selected' : ''}>${i} — ${n}</option>`).join('')}</select>`;
+    html += `<input type="text" id="galleryFilterSearch" placeholder="Search name..." value="${escHtml(filterSearch)}">`;
+    html += '</div>';
+    html += '<div class="stash-gallery">';
+
+    filtered.forEach(y => {
+      const wName = weightNames[y.weight] || `Weight ${y.weight}`;
+      const color = weightColors[y.weight] || '#ccc';
+      html += `<div class="stash-card" data-id="${y.id}">`;
+      if (y.image) {
+        html += `<div class="stash-card-img"><img src="${y.image}" alt="${escHtml(y.name)}" loading="lazy"></div>`;
+      } else {
+        html += `<div class="stash-card-placeholder" style="background:${color};"><span class="stash-card-weight-badge">CYC ${y.weight}</span></div>`;
+      }
+      html += `<div class="stash-card-body">
+        <div class="stash-card-name">${escHtml(y.name)}</div>
+        <div class="stash-card-detail">${wName} &middot; ${y.yardage} yds${y.hook ? ' &middot; ' + y.hook + ' mm' : ''}</div>
+        ${y.notes ? `<div class="stash-card-notes">${escHtml(y.notes)}</div>` : ''}
+        <button class="stash-card-delete" data-id="${y.id}" title="Delete yarn">&times;</button>
+      </div></div>`;
+    });
+
+    html += '</div>';
+    output.innerHTML = html;
+
+    document.getElementById('galleryFilterWeight').addEventListener('change', () => {
+      galleryFilter();
+    });
+    document.getElementById('galleryFilterSearch').addEventListener('input', () => {
+      galleryFilter();
+    });
+
+    output.querySelectorAll('.stash-card-delete').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const id = parseInt(this.dataset.id);
+        if (confirm('Delete this yarn from your stash?')) {
+          deleteYarn(id);
+          showStashGallery();
+        }
+      });
+    });
+
+    function galleryFilter() {
+      const w = document.getElementById('galleryFilterWeight').value;
+      const s = document.getElementById('galleryFilterSearch').value.toLowerCase().trim();
+      const f = yarns.filter(y => {
+        if (w && y.weight !== parseInt(w)) return false;
+        if (s && !y.name.toLowerCase().includes(s) && !(y.notes || '').toLowerCase().includes(s)) return false;
+        return true;
+      });
+      renderGallery(f, w, s);
+    }
+  }
+
+  renderGallery(yarns, '', '');
 }
 
 const SHARE_BASE = window.location.origin;
@@ -739,6 +857,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
     document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
     document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
+    document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);
     document.getElementById('saveYarnBtn').addEventListener('click', function() {
       const name = document.getElementById('yarnName').value.trim();
       if (!name) { alert('Please enter a yarn name.'); return; }
@@ -753,6 +872,65 @@ document.addEventListener('DOMContentLoaded', async function() {
       document.getElementById('yarnNotes').value = '';
       document.querySelector('.yarn-add-form').removeAttribute('open');
     });
+    // Quick-add from label photo
+    document.getElementById('scanLabelBtn').addEventListener('click', function() {
+      document.getElementById('labelPhotoInput').click();
+    });
+
+    document.getElementById('labelPhotoInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        document.getElementById('labelPreview').src = ev.target.result;
+        document.getElementById('quickAddPanel').style.display = 'block';
+        document.getElementById('qaName').focus();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Weight → hook preset
+    const WEIGHT_HOOKS = { 0: 2.25, 1: 3.5, 2: 4.0, 3: 4.5, 4: 5.5, 5: 6.5, 6: 9.0, 7: 12.0 };
+    document.getElementById('qaWeight').addEventListener('change', function() {
+      const hook = WEIGHT_HOOKS[parseInt(this.value)];
+      if (hook) document.getElementById('qaHook').value = hook;
+    });
+
+    // Yardage presets
+    document.querySelectorAll('.qa-preset-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.getElementById('qaYardage').value = this.dataset.yds;
+      });
+    });
+
+    // Quick-add save
+    document.getElementById('qaSaveBtn').addEventListener('click', function() {
+      const name = document.getElementById('qaName').value.trim();
+      const weight = document.getElementById('qaWeight').value;
+      const yardage = document.getElementById('qaYardage').value;
+      if (!name) { alert('Please enter a yarn name.'); return; }
+      if (!weight) { alert('Please select a yarn weight.'); return; }
+      if (!yardage) { alert('Please enter yardage or use a preset.'); return; }
+      const imgSrc = document.getElementById('labelPreview').src || null;
+      addYarn(name, weight, yardage, document.getElementById('qaHook').value || '', document.getElementById('qaNotes').value.trim(), imgSrc);
+      // Reset quick-add
+      document.getElementById('quickAddPanel').style.display = 'none';
+      document.getElementById('labelPhotoInput').value = '';
+      document.getElementById('labelPreview').src = '';
+      document.getElementById('qaName').value = '';
+      document.getElementById('qaWeight').value = '4';
+      document.getElementById('qaYardage').value = '';
+      document.getElementById('qaHook').value = '';
+      document.getElementById('qaNotes').value = '';
+    });
+
+    // Quick-add cancel
+    document.getElementById('qaCancelBtn').addEventListener('click', function() {
+      document.getElementById('quickAddPanel').style.display = 'none';
+      document.getElementById('labelPhotoInput').value = '';
+      document.getElementById('labelPreview').src = '';
+    });
+
     document.addEventListener('click', function(e) {
       const popup = document.getElementById('weightPopup');
       const btn = document.getElementById('weightHelpBtn');
@@ -1088,6 +1266,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
         html += `</ul></details>`;
 
+        // Reverse stash match section
+        html += `<div id="stashMatchSection" class="stash-match-section"><h4>My Stash Match</h4><div id="stashMatchContent"><span class="loading" style="font-size:13px;">Checking your yarns...</span></div></div>`;
+
         // Feedback form
         html += `<div class="feedback-section">`;
         html += `<h4>Was this project helpful?</h4>`;
@@ -1195,6 +1376,25 @@ document.addEventListener('DOMContentLoaded', async function() {
                 alert('Error saving feedback. Please try again.');
             }
         });
+
+        // Fetch stash match for this pattern
+        const stashYarns = getYarns();
+        if (stashYarns.length > 0) {
+            fetch('/api/reverse-match', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ patternId: project.id, yarns: stashYarns })
+            })
+                .then(r => r.json())
+                .then(match => renderStashMatch(match))
+                .catch(() => {
+                    const el = document.getElementById('stashMatchContent');
+                    if (el) el.innerHTML = '<p style="color:#888;font-size:13px;">Could not check stash.</p>';
+                });
+        } else {
+            const el = document.getElementById('stashMatchContent');
+            if (el) el.innerHTML = '<p style="color:#888;font-size:13px;">Save yarns in My Yarns to see what matches this pattern.</p>';
+        }
     }
 
     window.showProjectDetail = showProjectDetail;

@@ -4,7 +4,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const LRU = require('lru-cache');
-const { matchPattern, invalidateCache } = require('./src/matchPattern');
+const { matchPattern, invalidateCache, reverseMatch } = require('./src/matchPattern');
 const { formatProjectOutput } = require('./src/formatProjectOutput');
 const patterns = require('./data/patterns.json');
 const FEEDBACK_FILE = path.join(__dirname, 'data', 'feedback.json');
@@ -243,6 +243,27 @@ app.post('/api/find-project', (req, res) => {
         res.json(formattedOutput);
     } catch (error) {
         console.error('Error processing request:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// POST /api/reverse-match — Given a pattern, show which saved yarns match
+app.post('/api/reverse-match', (req, res) => {
+    try {
+        const { patternId, yarns } = req.body;
+        if (!patternId || !Array.isArray(yarns)) {
+            return res.status(400).json({ error: 'patternId and yarns array are required.' });
+        }
+
+        const pattern = patterns.find(p => p.id === patternId);
+        if (!pattern) {
+            return res.status(404).json({ error: 'Pattern not found.' });
+        }
+
+        const result = reverseMatch(pattern, yarns);
+        res.json(result);
+    } catch (error) {
+        console.error('Reverse match error:', error.message);
         res.status(500).json({ error: error.message });
     }
 });

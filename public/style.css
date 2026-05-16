@@ -966,6 +966,106 @@ body {
     color: #e74c3c;
 }
 
+/* ===== Stash Match (Reverse Matching) ===== */
+.stash-match-section {
+    margin-top: 16px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.stash-match-section h4 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #2c3e50;
+    border: none;
+    padding: 0;
+}
+
+.stash-match-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.stash-match-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.stash-match-item.match-yes {
+    background: #e8f5e9;
+}
+
+.stash-match-item.match-no {
+    background: #fef3e2;
+}
+
+.stash-match-icon {
+    font-weight: 700;
+    width: 18px;
+    text-align: center;
+}
+
+.match-yes .stash-match-icon { color: #2e7d32; }
+.match-no .stash-match-icon { color: #e65100; }
+
+.stash-match-name {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.stash-match-detail {
+    color: #888;
+    font-size: 12px;
+}
+
+.stash-match-reason {
+    color: #e65100;
+    font-size: 11px;
+    width: 100%;
+    padding-left: 24px;
+}
+
+[data-theme="dark"] .stash-match-section {
+    background: #1e1e38;
+    border-color: #2a2a4a;
+}
+
+[data-theme="dark"] .stash-match-section h4 {
+    color: #c8b8e8;
+}
+
+[data-theme="dark"] .stash-match-item.match-yes {
+    background: #1a2e1a;
+}
+
+[data-theme="dark"] .stash-match-item.match-no {
+    background: #2e2a1a;
+}
+
+[data-theme="dark"] .match-yes .stash-match-icon { color: #66bb6a; }
+[data-theme="dark"] .match-no .stash-match-icon { color: #ffa726; }
+
+[data-theme="dark"] .stash-match-name {
+    color: #c8b8e8;
+}
+
+[data-theme="dark"] .stash-match-detail {
+    color: #6a6a8a;
+}
+
+[data-theme="dark"] .stash-match-reason {
+    color: #ffa726;
+}
+
 /* ===== Form Button Group ===== */
 .form-btn-group {
     margin-top: 8px;
@@ -1062,6 +1162,287 @@ body {
 
 .yarn-form-fields .form-group {
     margin-bottom: 0;
+}
+
+/* ===== Quick Add from Label ===== */
+.yarn-quick-add {
+    margin-top: 12px;
+    padding: 14px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px solid #667eea;
+}
+
+.quick-add-layout {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.quick-add-image {
+    flex: 0 0 auto;
+    max-width: 160px;
+}
+
+.quick-add-form {
+    flex: 1;
+    min-width: 0;
+}
+
+.quick-add-form .form-group {
+    margin-bottom: 8px;
+}
+
+.quick-add-form .form-group label {
+    font-size: 12px;
+}
+
+.qa-weight-select {
+    padding: 8px 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+    background: #fff;
+}
+
+.qa-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.qa-preset-label {
+    font-size: 11px;
+    color: #888;
+    margin-right: 4px;
+}
+
+.qa-preset-btn {
+    padding: 3px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    color: #555;
+    transition: all 0.1s;
+}
+
+.qa-preset-btn:hover {
+    background: #667eea;
+    color: #fff;
+    border-color: #667eea;
+}
+
+.quick-add-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.qa-label-guide {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #888;
+}
+
+.qa-label-guide summary {
+    cursor: pointer;
+    color: #667eea;
+    font-size: 12px;
+}
+
+.qa-guide-content {
+    margin-top: 6px;
+    padding: 8px 10px;
+    background: #f0f2ff;
+    border-radius: 6px;
+    border-left: 3px solid #667eea;
+}
+
+.qa-guide-content p {
+    margin: 4px 0;
+    line-height: 1.5;
+}
+
+[data-theme="dark"] .yarn-quick-add {
+    background: #1e1e38;
+    border-color: #764ba2;
+}
+
+[data-theme="dark"] .qa-weight-select {
+    background: #222240;
+    border-color: #3a3a5a;
+    color: #d0d0d8;
+}
+
+[data-theme="dark"] .qa-preset-btn {
+    background: #2a2a4a;
+    border-color: #3a3a5a;
+    color: #9a9ab0;
+}
+
+[data-theme="dark"] .qa-preset-btn:hover {
+    background: #764ba2;
+    color: #fff;
+    border-color: #764ba2;
+}
+
+[data-theme="dark"] .qa-label-guide summary {
+    color: #9a7aea;
+}
+
+[data-theme="dark"] .qa-guide-content {
+    background: #2a2a50;
+    border-left-color: #764ba2;
+    color: #b0b0c0;
+}
+
+[data-theme="dark"] .quick-add-form .form-group label {
+    color: #9a8ab8;
+}
+
+@media (max-width: 600px) {
+    .quick-add-layout {
+        flex-direction: column;
+    }
+    .quick-add-image {
+        max-width: 100%;
+        text-align: center;
+    }
+}
+
+/* ===== Stash Gallery ===== */
+.stash-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.stash-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.15s;
+    position: relative;
+}
+
+.stash-card:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.stash-card-img {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stash-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stash-card-placeholder {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stash-card-weight-badge {
+    background: rgba(0,0,0,0.3);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stash-card-body {
+    padding: 10px 12px;
+    position: relative;
+}
+
+.stash-card-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #2c3e50;
+    margin-bottom: 2px;
+    padding-right: 24px;
+}
+
+.stash-card-detail {
+    font-size: 12px;
+    color: #888;
+}
+
+.stash-card-notes {
+    font-size: 11px;
+    color: #aaa;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.stash-card-delete {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0,0,0,0.05);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    color: #c0392b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.stash-card:hover .stash-card-delete {
+    opacity: 1;
+}
+
+.stash-card-delete:hover {
+    background: rgba(192,57,43,0.15);
+}
+
+[data-theme="dark"] .stash-card {
+    background: #1e1e38;
+    border-color: #2a2a4a;
+}
+
+[data-theme="dark"] .stash-card:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .stash-card-img {
+    background: #222240;
+}
+
+[data-theme="dark"] .stash-card-name {
+    color: #c8b8e8;
+}
+
+[data-theme="dark"] .stash-card-detail {
+    color: #6a6a8a;
+}
+
+[data-theme="dark"] .stash-card-notes {
+    color: #6a6a8a;
 }
 
 /* ===== Catalog Filters ===== */
