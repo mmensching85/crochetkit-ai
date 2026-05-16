@@ -180,6 +180,7 @@ function formatProjectOutput(matchResult, termSystem) {
 
   return {
     id: pattern.id,
+    imageUrl: pattern.imageUrl,
     title: pattern.name,
     description: pattern.shortDescription,
     skill_level: pattern.difficulty.level,
