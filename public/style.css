@@ -555,10 +555,6 @@ body {
     background: #222240;
 }
 
-[data-theme="dark"] .step-image img {
-    border-color: #3a3a5a;
-}
-
 /* ===== Project Image ===== */
 .project-image {
     text-align: center;

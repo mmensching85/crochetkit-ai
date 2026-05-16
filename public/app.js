@@ -1009,9 +1009,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (step.visual_description && step.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)") {
                 html += `<p class="visual-desc"><em>Visual:</em> ${step.visual_description}</p>`;
             }
-            // Instructional image for this step
-            const stepPrompt = encodeURIComponent(step.instruction.replace(/[*#]/g, '').trim().slice(0, 80));
-            html += `<div class="step-image"><img src="https://image.pollinations.ai/prompt/crochet%20tutorial%20${stepPrompt}%20crochet%20hook%20yarn%20closeup" alt="" loading="lazy" onerror="this.style.display='none'"></div>`;
             html += `</li>`;
         });
         html += `</ol>`;
