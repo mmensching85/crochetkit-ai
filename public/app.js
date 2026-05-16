@@ -293,6 +293,9 @@ function showCatalog() {
           const fvd = isFaved(p.id) ? 'faved' : '';
           const doneSt = isDone(p.id) ? 'done-st' : '';
           html += `<div class="project-card ${doneSt}" data-catalog-idx="${i}">`;
+          if (p.imageUrl) {
+            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.src='${window.location.origin}/api/pattern-image/${p.id}'"></div>`;
+          }
           html += `<h3>${title}</h3>`;
           if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
           html += `<p class="card-desc">${p.description}</p>`;
@@ -426,6 +429,9 @@ function showMyFaves() {
         const fvd = isFaved(p.id) ? 'faved' : '';
         const doneSt = isDone(p.id) ? 'done-st' : '';
         html += `<div class="project-card ${doneSt}" data-index="${i}">`;
+        if (p.imageUrl) {
+            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+        }
         html += `<h3>${title}</h3>`;
         if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
         html += `<p class="card-desc">${p.description}</p>`;
@@ -500,6 +506,9 @@ function showMyDone() {
       done.forEach((p, i) => {
         const title = linkifyGlossaryTerms(p.title);
         html += `<div class="project-card done-st" data-index="${i}">`;
+        if (p.imageUrl) {
+            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+        }
         html += `<h3>${title}</h3>`;
         html += `<span class="done-badge">✓ Done</span>`;
         html += `<p class="card-desc">${p.description}</p>`;
@@ -889,6 +898,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             const stitches = project.stitches_used.map(s => convertStitchName(s, currentTermSystem)).join(', ');
             const fvd = isFaved(project.id) ? 'faved' : '';
             html += `<div class="project-card" data-index="${index}">`;
+            if (project.imageUrl) {
+                html += `<div class="card-thumb"><img src="${project.imageUrl}" alt="${project.title}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+            }
             html += `<h3>${title}</h3>`;
             html += `<p class="card-desc">${project.description}</p>`;
             html += `<p><strong>Time:</strong> ${project.estimated_time}</p>`;
@@ -951,7 +963,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back</button><button class="btn btn-success btn-sm detail-pdf-btn">PDF</button>${renderShareBtns(project.id, project.title)}</div>`;
 
         if (project.imageUrl) {
-            html += `<div class="project-image"><img src="${project.imageUrl}" alt="${project.title}" onerror="this.parentElement.style.display='none'"></div>`;
+            html += `<div class="project-image"><img src="${project.imageUrl}" alt="${project.title}" loading="lazy" onerror="this.src='${window.location.origin}/api/pattern-image/${project.id}'"></div>`;
         }
 
         const fvd = isFaved(project.id) ? 'faved' : '';
@@ -997,6 +1009,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (step.visual_description && step.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)") {
                 html += `<p class="visual-desc"><em>Visual:</em> ${step.visual_description}</p>`;
             }
+            // Instructional image for this step
+            const stepPrompt = encodeURIComponent(step.instruction.replace(/[*#]/g, '').trim().slice(0, 80));
+            html += `<div class="step-image"><img src="https://image.pollinations.ai/prompt/crochet%20tutorial%20${stepPrompt}%20crochet%20hook%20yarn%20closeup" alt="" loading="lazy" onerror="this.style.display='none'"></div>`;
             html += `</li>`;
         });
         html += `</ol>`;
