@@ -31,6 +31,9 @@ const CATEGORY_IMAGES = {
   'Granny square': { id: 34151721, desc: 'colorful handmade crochet items' },
   'Garment': { id: 215966, desc: 'scarf' },
   'Accessories': { id: 34151721, desc: 'colorful handmade crochet items' },
+  'Sweater': { id: 1182345, desc: 'woman wearing knitted sweater' },
+  'Slippers': { id: 14419121, desc: 'cozy slippers on feet' },
+  'Poncho': { id: 1436134, desc: 'crochet wrap or poncho' },
 };
 
 function pexelsUrl(photoId) {
