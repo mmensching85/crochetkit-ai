@@ -22,6 +22,28 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
+// Simple in-memory rate limiter
+const rateLimitStore = new Map();
+function rateLimit(maxRequests, windowMs) {
+    return (req, res, next) => {
+        const key = req.ip || req.connection.remoteAddress || 'unknown';
+        const now = Date.now();
+        if (!rateLimitStore.has(key)) {
+            rateLimitStore.set(key, []);
+        }
+        const timestamps = rateLimitStore.get(key).filter(t => now - t < windowMs);
+        if (timestamps.length >= maxRequests) {
+            return res.status(429).json({ error: 'Too many requests. Please slow down.' });
+        }
+        timestamps.push(now);
+        rateLimitStore.set(key, timestamps);
+        next();
+    };
+}
+
+// Apply rate limiting to API routes
+app.use('/api/', rateLimit(60, 60000));
+
 function escHtml(s) {
     if (!s) return '';
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -163,7 +185,6 @@ app.get('/api/patterns', (req, res) => {
             estimated_min_hours: p.estimatedTime.minHours,
             estimated_max_hours: p.estimatedTime.maxHours,
             printable_summary: p.shortDescription,
-            imageUrl: p.imageUrl || `/api/pattern-image/${p.id}`
         }));
         res.json(formatted);
     } catch (error) {
@@ -456,7 +477,23 @@ app.put('/api/auth/profile', authMiddleware, (req, res) => {
     }
 });
 
-// POST /api/auth/favorites — Add pattern to favorites (auth required)
+// GET /api/auth/favorites — Get user's favorites (auth required)
+app.get('/api/auth/favorites', authMiddleware, (req, res) => {
+    try {
+        const users = loadUsers();
+        const user = users.find(u => u.id === req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({ favorites: user.favorites || [] });
+    } catch (error) {
+        console.error('Favorites error:', error.message);
+        res.status(500).json({ error: 'Failed to get favorites' });
+    }
+});
+
+// POST /api/auth/favorites — Add pattern(s) to favorites (auth required)
+// Accepts single { patternId: "id" } OR bulk { patternId: ["id1", "id2"] }
 app.post('/api/auth/favorites', authMiddleware, (req, res) => {
     try {
         const { patternId } = req.body;
@@ -471,8 +508,15 @@ app.post('/api/auth/favorites', authMiddleware, (req, res) => {
             users[userIndex].favorites = [];
         }
 
-        if (!users[userIndex].favorites.includes(patternId)) {
-            users[userIndex].favorites.push(patternId);
+        const ids = Array.isArray(patternId) ? patternId : [patternId];
+        let added = 0;
+        for (const id of ids) {
+            if (!users[userIndex].favorites.includes(id)) {
+                users[userIndex].favorites.push(id);
+                added++;
+            }
+        }
+        if (added > 0) {
             saveUsers(users);
         }
 
@@ -543,7 +587,7 @@ app.get('/p/:id', (req, res) => {
     const title = escHtml(pattern.name) + ' — Crochet Project Planner';
     const desc = escHtml(pattern.shortDescription);
     const url = `https://${req.get('host')}/p/${pattern.id}`;
-    const img = pattern.imageUrl ? `https://${req.get('host')}${pattern.imageUrl}` : `https://${req.get('host')}/api/pattern-image/${pattern.id}`;
+    const img = `https://${req.get('host')}/api/pattern-image/${pattern.id}`;
 
     fs.readFile(path.join(__dirname, 'public', 'index.html'), 'utf-8', (err, data) => {
         if (err) return res.sendFile(path.join(__dirname, 'public', 'index.html'));

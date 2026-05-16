@@ -3,7 +3,6 @@
     "id": "pattern-garter-scarf-001",
     "name": "Garter Stitch Scarf",
     "shortDescription": "A quick, cozy scarf that teaches the basic single crochet stitch. Perfect for using up a skein of worsted yarn.",
-    "imageUrl": "/api/pattern-image/pattern-garter-scarf-001",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -57,7 +56,7 @@
     ],
     "beginnerTips": [
       "Count your stitches at the end of every row to keep the edges straight.",
-      "If your edge looks wavy, you may be adding or dropping a stitch—use a stitch marker.",
+      "If your edge looks wavy, you may be adding or dropping a stitch\u2014use a stitch marker.",
       "Keep your tension relaxed; tight stitches make the fabric stiff."
     ],
     "commonMistakes": [
@@ -77,7 +76,6 @@
     "id": "pattern-scarf-bulky-001",
     "name": "Bulky Ribbed Scarf",
     "shortDescription": "A super-fast scarf using bulky yarn and simple half-double crochet. Great for beginners who want quick results.",
-    "imageUrl": "/api/pattern-image/pattern-scarf-bulky-001",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -129,7 +127,7 @@
     ],
     "beginnerTips": [
       "Working in the back loop only creates a ribbed texture.",
-      "Bulky yarn works up fast—great for a confidence boost.",
+      "Bulky yarn works up fast\u2014great for a confidence boost.",
       "Count your stitches each row."
     ],
     "commonMistakes": [
@@ -149,7 +147,6 @@
     "id": "pattern-scarf-fingerweight-001",
     "name": "Lightweight Lacy Scarf",
     "shortDescription": "A delicate, lightweight scarf using DK weight yarn. Perfect for spring or indoor wear.",
-    "imageUrl": "/api/pattern-image/pattern-scarf-fingerweight-001",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -201,7 +198,7 @@
       "**Finishing:** Fasten off, weave in ends."
     ],
     "beginnerTips": [
-      "This pattern is just one stitch repeated—perfect for muscle memory.",
+      "This pattern is just one stitch repeated\u2014perfect for muscle memory.",
       "DK yarn is lighter; you may want a longer scarf for wrapping."
     ],
     "commonMistakes": [
@@ -221,7 +218,6 @@
     "id": "pattern-scarf-striped-001",
     "name": "Color-Block Scarf",
     "shortDescription": "A simple scarf with color changes, teaching you how to switch yarn colors cleanly.",
-    "imageUrl": "/api/pattern-image/pattern-scarf-striped-001",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -296,7 +292,6 @@
     "id": "pattern-simple-dishcloth-001",
     "name": "Simple Crochet Dishcloth",
     "shortDescription": "A practical, absorbent dishcloth made with cotton yarn. Great for practicing single and double crochet stitches.",
-    "imageUrl": "/api/pattern-image/pattern-simple-dishcloth-001",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
@@ -349,7 +344,7 @@
     "beginnerTips": [
       "Count your stitches at the end of every row (should always be 20).",
       "The turning chain does not count as a stitch.",
-      "Cotton yarn can be less forgiving—keep tension even."
+      "Cotton yarn can be less forgiving\u2014keep tension even."
     ],
     "commonMistakes": [
       "Forgetting to turn the work at the end of a row.",
@@ -369,7 +364,6 @@
     "id": "pattern-dishcloth-spiral-001",
     "name": "Spiral Textured Dishcloth",
     "shortDescription": "A dishcloth with a beautiful spiral texture created by alternating front-post and back-post stitches.",
-    "imageUrl": "/api/pattern-image/pattern-dishcloth-spiral-001",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
@@ -441,7 +435,6 @@
     "id": "pattern-dishcloth-round-001",
     "name": "Round Scrubby Dishcloth",
     "shortDescription": "A small round dishcloth perfect for scrubbing dishes, worked in the round from the center out.",
-    "imageUrl": "/api/pattern-image/pattern-dishcloth-round-001",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
@@ -518,7 +511,6 @@
     "id": "pattern-coaster-001",
     "name": "Simple Crochet Coaster",
     "shortDescription": "A quick, flat coaster perfect for protecting surfaces and practicing basic stitches.",
-    "imageUrl": "/api/pattern-image/pattern-coaster-001",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -587,7 +579,6 @@
     "id": "pattern-coaster-round-001",
     "name": "Round Granny Coaster",
     "shortDescription": "A small round coaster worked in the round, perfect for practicing granny-square techniques on a small scale.",
-    "imageUrl": "/api/pattern-image/pattern-coaster-round-001",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -639,7 +630,7 @@
     ],
     "beginnerTips": [
       "Use a stitch marker to mark the start of each round.",
-      "The ch-3 counts as a stitch—don't skip it.",
+      "The ch-3 counts as a stitch\u2014don't skip it.",
       "If the circle ruffles, go up a hook size."
     ],
     "commonMistakes": [
@@ -658,7 +649,6 @@
     "id": "pattern-coaster-thick-001",
     "name": "Thick Cotton Coaster",
     "shortDescription": "A thick, insulating coaster made with double-stranded yarn for extra protection.",
-    "imageUrl": "/api/pattern-image/pattern-coaster-thick-001",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -729,7 +719,6 @@
     "id": "pattern-headband-001",
     "name": "Easy Crochet Headband",
     "shortDescription": "A stretchy headband that teaches basic ribbing and is perfect for beginners.",
-    "imageUrl": "/api/pattern-image/pattern-headband-001",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -799,7 +788,6 @@
     "id": "pattern-headband-twist-001",
     "name": "Twisted Knit-Look Headband",
     "shortDescription": "A stylish headband with a twisted center, creating a knit-like appearance using only single crochet.",
-    "imageUrl": "/api/pattern-image/pattern-headband-twist-001",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -871,7 +859,6 @@
     "id": "pattern-headband-bow-001",
     "name": "Bow Headband",
     "shortDescription": "A cute headband with a crocheted bow attached, using basic stitches and simple seaming.",
-    "imageUrl": "/api/pattern-image/pattern-headband-bow-001",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -944,8 +931,7 @@
     "id": "pattern-pouch-001",
     "name": "Simple Crochet Pouch",
     "shortDescription": "A small rectangular pouch perfect for storing small items, using basic stitches.",
-    "imageUrl": "/api/pattern-image/pattern-pouch-001",
-    "category": "Simple pouch",
+    "category": "Bag",
     "difficulty": {
       "level": "beginner",
       "score": 1,
@@ -1016,8 +1002,7 @@
     "id": "pattern-pouch-drawstring-001",
     "name": "Drawstring Gift Pouch",
     "shortDescription": "A charming drawstring pouch perfect for gift wrapping small items like jewelry or candy.",
-    "imageUrl": "/api/pattern-image/pattern-pouch-drawstring-001",
-    "category": "Simple pouch",
+    "category": "Bag",
     "difficulty": {
       "level": "beginner",
       "score": 1,
@@ -1090,8 +1075,7 @@
     "id": "pattern-pouch-coin-001",
     "name": "Mini Coin Purse",
     "shortDescription": "A tiny purse for coins or earbuds, using simple stitches and a button closure.",
-    "imageUrl": "/api/pattern-image/pattern-pouch-coin-001",
-    "category": "Simple pouch",
+    "category": "Bag",
     "difficulty": {
       "level": "beginner",
       "score": 1,
@@ -1164,7 +1148,6 @@
     "id": "pattern-grannysquare-001",
     "name": "Basic Granny Square",
     "shortDescription": "A classic granny square that introduces multiple stitch types and can be combined into larger projects.",
-    "imageUrl": "/api/pattern-image/pattern-grannysquare-001",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
@@ -1235,7 +1218,6 @@
     "id": "pattern-grannysquare-solid-001",
     "name": "Solid Granny Square",
     "shortDescription": "A variation of the classic granny square without the gaps, creating a denser fabric.",
-    "imageUrl": "/api/pattern-image/pattern-grannysquare-solid-001",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
@@ -1306,12 +1288,11 @@
     "id": "pattern-grannysquare-mini-001",
     "name": "Mini Granny Square",
     "shortDescription": "A tiny 3-round granny square, perfect for coasters or joining into larger projects.",
-    "imageUrl": "/api/pattern-image/pattern-grannysquare-mini-001",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
       "score": 1,
-      "reasoning": "Same as basic granny square but fewer rounds—very quick."
+      "reasoning": "Same as basic granny square but fewer rounds\u2014very quick."
     },
     "estimatedTime": {
       "minHours": 0.25,
@@ -1356,7 +1337,7 @@
       "**Finishing:** Fasten off, weave in ends."
     ],
     "beginnerTips": [
-      "These work up in minutes—great for practicing.",
+      "These work up in minutes\u2014great for practicing.",
       "Make several and sew them together for a small project."
     ],
     "commonMistakes": [
@@ -1375,7 +1356,6 @@
     "id": "pattern-mugcozy-001",
     "name": "Simple Mug Cozy",
     "shortDescription": "A cozy that fits a standard mug, perfect for practicing ribbing and basic shaping.",
-    "imageUrl": "/api/pattern-image/pattern-mugcozy-001",
     "category": "Mug cozy",
     "difficulty": {
       "level": "beginner",
@@ -1444,7 +1424,6 @@
     "id": "pattern-mugcozy-button-001",
     "name": "Buttoned Mug Cozy",
     "shortDescription": "A mug cozy with a button closure, allowing it to be easily removed and washed.",
-    "imageUrl": "/api/pattern-image/pattern-mugcozy-button-001",
     "category": "Mug cozy",
     "difficulty": {
       "level": "beginner",
@@ -1518,7 +1497,6 @@
     "id": "pattern-plant-hanger-001",
     "name": "Small Plant Hanger",
     "shortDescription": "A simple hanging holder for small pots, using basic chain and slip stitch techniques.",
-    "imageUrl": "/api/pattern-image/pattern-plant-hanger-001",
     "category": "Small plant hanger",
     "difficulty": {
       "level": "beginner",
@@ -1589,7 +1567,6 @@
     "id": "pattern-plant-hanger-macrame-001",
     "name": "Macrame-Style Plant Hanger",
     "shortDescription": "A knotted-looking plant hanger made with simple chain stitches, mimicking macrame.",
-    "imageUrl": "/api/pattern-image/pattern-plant-hanger-macrame-001",
     "category": "Small plant hanger",
     "difficulty": {
       "level": "beginner",
@@ -1662,8 +1639,7 @@
     "id": "pattern-baby-blanket-square-001",
     "name": "Baby Blanket Square",
     "shortDescription": "A soft, square blanket perfect for babies, using simple stitches and a gentle yarn.",
-    "imageUrl": "/api/pattern-image/pattern-baby-blanket-square-001",
-    "category": "Baby blanket square",
+    "category": "Blanket",
     "difficulty": {
       "level": "beginner",
       "score": 1,
@@ -1732,8 +1708,7 @@
     "id": "pattern-baby-blanket-ribbed-001",
     "name": "Ribbed Baby Blanket",
     "shortDescription": "A dense, warm baby blanket with a ribbed texture, using only single crochet worked in the back loop.",
-    "imageUrl": "/api/pattern-image/pattern-baby-blanket-ribbed-001",
-    "category": "Baby blanket square",
+    "category": "Blanket",
     "difficulty": {
       "level": "beginner",
       "score": 1,
@@ -1804,8 +1779,7 @@
     "id": "pattern-baby-blanket-striped-001",
     "name": "Striped Baby Blanket",
     "shortDescription": "A colorful striped baby blanket using alternating rows of single and double crochet.",
-    "imageUrl": "/api/pattern-image/pattern-baby-blanket-striped-001",
-    "category": "Baby blanket square",
+    "category": "Blanket",
     "difficulty": {
       "level": "beginner",
       "score": 1,
@@ -1878,8 +1852,7 @@
     "id": "pattern-beginner-tote-001",
     "name": "Beginner Crochet Tote",
     "shortDescription": "A simple tote bag that introduces basic shaping and stitch variety, perfect for beginners.",
-    "imageUrl": "/api/pattern-image/pattern-beginner-tote-001",
-    "category": "Beginner tote",
+    "category": "Bag",
     "difficulty": {
       "level": "beginner",
       "score": 1,
@@ -1952,8 +1925,7 @@
     "id": "pattern-tote-market-001",
     "name": "Market Tote Bag",
     "shortDescription": "A roomy market tote with wide handles, perfect for grocery shopping or library books.",
-    "imageUrl": "/api/pattern-image/pattern-tote-market-001",
-    "category": "Beginner tote",
+    "category": "Bag",
     "difficulty": {
       "level": "beginner",
       "score": 1,
@@ -2007,7 +1979,7 @@
     "beginnerTips": [
       "The handles are worked as part of the bag, not attached separately.",
       "Make the handles longer by chaining more.",
-      "Cotton yarn stretches—expect the bag to lengthen with use."
+      "Cotton yarn stretches\u2014expect the bag to lengthen with use."
     ],
     "commonMistakes": [
       "Twisting the handle chains before working into them.",
@@ -2026,8 +1998,7 @@
     "id": "pattern-tote-mini-001",
     "name": "Mini Drawstring Tote",
     "shortDescription": "A tiny tote with a drawstring closure, perfect for small gifts or as a pouch.",
-    "imageUrl": "/api/pattern-image/pattern-tote-mini-001",
-    "category": "Beginner tote",
+    "category": "Bag",
     "difficulty": {
       "level": "beginner",
       "score": 1,
@@ -2101,7 +2072,6 @@
     "id": "pattern-bookmark-simple-001",
     "name": "Simple Crochet Bookmark",
     "shortDescription": "A quick and easy bookmark using basic stitches. Perfect for a first project or last-minute gift.",
-    "imageUrl": "/api/pattern-image/pattern-bookmark-simple-001",
     "category": "Bookmark",
     "difficulty": {
       "level": "beginner",
@@ -2151,7 +2121,7 @@
       "**Finishing:** Fasten off, weave in ends. Add a tassel by cutting 6 lengths of yarn and tying them to the bottom."
     ],
     "beginnerTips": [
-      "This project uses very little yarn—great for scraps.",
+      "This project uses very little yarn\u2014great for scraps.",
       "Add a tassel or bead for decoration.",
       "Keep stitches tight so the bookmark is sturdy."
     ],
@@ -2172,7 +2142,6 @@
     "id": "pattern-bookmark-flower-001",
     "name": "Flower Bookmark",
     "shortDescription": "A charming bookmark topped with a simple crocheted flower. Great for practicing basic flower motifs.",
-    "imageUrl": "/api/pattern-image/pattern-bookmark-flower-001",
     "category": "Bookmark",
     "difficulty": {
       "level": "beginner",
@@ -2224,7 +2193,7 @@
       "**Finishing:** Fasten off, weave in ends."
     ],
     "beginnerTips": [
-      "The flower is a basic 5-petal motif—easy to customize.",
+      "The flower is a basic 5-petal motif\u2014easy to customize.",
       "Add leaves by chaining 5 and working sc back down."
     ],
     "commonMistakes": [
@@ -2244,7 +2213,6 @@
     "id": "pattern-keychain-heart-001",
     "name": "Crochet Heart Keychain",
     "shortDescription": "A cute little heart keychain that teaches simple shaping and works up in minutes.",
-    "imageUrl": "/api/pattern-image/pattern-keychain-heart-001",
     "category": "Keychain",
     "difficulty": {
       "level": "beginner",
@@ -2295,7 +2263,7 @@
       "**Attach ring:** Thread the keychain ring through the top loop."
     ],
     "beginnerTips": [
-      "This heart is worked in one piece—no seaming required.",
+      "This heart is worked in one piece\u2014no seaming required.",
       "Use a contrasting color for the keychain ring.",
       "Make a pair and give as a gift."
     ],
@@ -2317,7 +2285,6 @@
     "id": "pattern-keychain-star-001",
     "name": "Star Keychain",
     "shortDescription": "A 5-pointed star keychain using simple increases and decreases. Fast and fun.",
-    "imageUrl": "/api/pattern-image/pattern-keychain-star-001",
     "category": "Keychain",
     "difficulty": {
       "level": "beginner",
@@ -2390,7 +2357,6 @@
     "id": "pattern-wristband-simple-001",
     "name": "Simple Wristband",
     "shortDescription": "A comfortable wristband using single crochet, perfect for practicing consistent tension.",
-    "imageUrl": "/api/pattern-image/pattern-wristband-simple-001",
     "category": "Wristband",
     "difficulty": {
       "level": "beginner",
@@ -2462,7 +2428,6 @@
     "id": "pattern-wristband-cable-001",
     "name": "Braided Wristband",
     "shortDescription": "A trendy braided-look wristband made with crocheted chains braided together.",
-    "imageUrl": "/api/pattern-image/pattern-wristband-cable-001",
     "category": "Wristband",
     "difficulty": {
       "level": "beginner",
@@ -2515,7 +2480,7 @@
       "**Finishing:** Sew a button to one end and a loop to the other. Or attach a clasp."
     ],
     "beginnerTips": [
-      "Chaining is the most basic crochet skill—this is a confidence-building project.",
+      "Chaining is the most basic crochet skill\u2014this is a confidence-building project.",
       "Use colors that match your wardrobe.",
       "Adjust chain length to fit your wrist."
     ],
@@ -2536,7 +2501,6 @@
     "id": "pattern-eyeglass-case-001",
     "name": "Simple Eyeglass Case",
     "shortDescription": "A padded eyeglass case using basic stitches. Great for protecting your glasses.",
-    "imageUrl": "/api/pattern-image/pattern-eyeglass-case-001",
     "category": "Eyeglass case",
     "difficulty": {
       "level": "beginner",
@@ -2611,7 +2575,6 @@
     "id": "pattern-phone-case-001",
     "name": "Basic Phone Case",
     "shortDescription": "A simple pouch for your phone, with a drawstring top. Customizable to any phone size.",
-    "imageUrl": "/api/pattern-image/pattern-phone-case-001",
     "category": "Cell phone case",
     "difficulty": {
       "level": "beginner",
@@ -2687,7 +2650,6 @@
     "id": "pattern-water-bottle-holder-001",
     "name": "Water Bottle Holder",
     "shortDescription": "A sling for your water bottle with an adjustable strap. Perfect for hikes or daily walks.",
-    "imageUrl": "/api/pattern-image/pattern-water-bottle-holder-001",
     "category": "Water bottle holder",
     "difficulty": {
       "level": "beginner",
@@ -2760,10 +2722,9 @@
     "id": "pattern-beanie-slouchy-001",
     "name": "Slouchy Beanie",
     "shortDescription": "A relaxed beanie worked in the round with a ribbed brim and simple crown decreases.",
-    "imageUrl": "/api/pattern-image/pattern-beanie-slouchy-001",
     "category": "Hat",
     "difficulty": {
-      "level": "intermediate",
+      "level": "advanced",
       "score": 2,
       "reasoning": "Requires working in the round, maintaining stitch count, and making evenly spaced decreases for the crown."
     },
@@ -2838,10 +2799,9 @@
     "id": "pattern-fingerless-gloves-001",
     "name": "Fingerless Gloves",
     "shortDescription": "Cozy fingerless gloves with a thumb opening, working flat with seaming.",
-    "imageUrl": "/api/pattern-image/pattern-fingerless-gloves-001",
     "category": "Accessories",
     "difficulty": {
-      "level": "intermediate",
+      "level": "advanced",
       "score": 2,
       "reasoning": "Requires shaping for the thumb hole, working flat and seaming, and maintaining consistent tension."
     },
@@ -2914,7 +2874,6 @@
     "id": "pattern-market-bag-001",
     "name": "Mesh Market Bag",
     "shortDescription": "A stretchy mesh bag worked in the round with a drawstring closure and sturdy handles.",
-    "imageUrl": "/api/pattern-image/pattern-market-bag-001",
     "category": "Bag",
     "difficulty": {
       "level": "intermediate",
@@ -2992,7 +2951,6 @@
     "id": "pattern-chevron-blanket-001",
     "name": "Chevron Lap Blanket",
     "shortDescription": "A warm lap blanket with a chevron ripple pattern using increases and decreases.",
-    "imageUrl": "/api/pattern-image/pattern-chevron-blanket-001",
     "category": "Blanket",
     "difficulty": {
       "level": "intermediate",
@@ -3047,7 +3005,7 @@
     ],
     "beginnerTips": [
       "Use stitch markers at the peak (ch-1 space) and valley (skip 2) to stay on track.",
-      "Count your stitches each row—each peak and valley should line up.",
+      "Count your stitches each row\u2014each peak and valley should line up.",
       "Change colors every few rows for a striped effect."
     ],
     "commonMistakes": [
@@ -3067,7 +3025,6 @@
     "id": "pattern-cable-scarf-001",
     "name": "Cable-Look Scarf",
     "shortDescription": "A knit-look scarf with braided cable effects created using front-post and back-post double crochet.",
-    "imageUrl": "/api/pattern-image/pattern-cable-scarf-001",
     "category": "Scarf",
     "difficulty": {
       "level": "intermediate",
@@ -3122,7 +3079,7 @@
     ],
     "beginnerTips": [
       "fpdc: yarn over, insert hook from front to back around the post, complete as dc.",
-      "The cable cross is created by working out of order—stitch into the farther post first.",
+      "The cable cross is created by working out of order\u2014stitch into the farther post first.",
       "Blocking helps the cable pattern open up and look professional."
     ],
     "commonMistakes": [
@@ -3143,7 +3100,6 @@
     "id": "pattern-triangle-shawl-001",
     "name": "Triangle Lace Shawl",
     "shortDescription": "A lightweight lace shawl worked from the top down with increasing rows and open shells.",
-    "imageUrl": "/api/pattern-image/pattern-triangle-shawl-001",
     "category": "Shawl",
     "difficulty": {
       "level": "intermediate",
@@ -3200,7 +3156,7 @@
     ],
     "beginnerTips": [
       "Place stitch markers at the center top to track the midline.",
-      "Blocking is essential for lace—it opens the stitch pattern dramatically.",
+      "Blocking is essential for lace\u2014it opens the stitch pattern dramatically.",
       "Use a larger hook for a drapier fabric."
     ],
     "commonMistakes": [
@@ -3220,7 +3176,6 @@
     "id": "pattern-bucket-hat-001",
     "name": "Structured Bucket Hat",
     "shortDescription": "A firm bucket hat with a wide brim, worked in continuous rounds with even increases.",
-    "imageUrl": "/api/pattern-image/pattern-bucket-hat-001",
     "category": "Hat",
     "difficulty": {
       "level": "intermediate",
@@ -3276,7 +3231,7 @@
       "**Finishing:** Fasten off, weave in ends."
     ],
     "beginnerTips": [
-      "Use a stitch marker in the first stitch of each round—continuous rounds have no visible join.",
+      "Use a stitch marker in the first stitch of each round\u2014continuous rounds have no visible join.",
       "Crown increases create a flat circle; stop when it fits your head.",
       "The brim should be firm enough to hold its shape."
     ],
@@ -3297,7 +3252,6 @@
     "id": "pattern-baby-booties-001",
     "name": "Baby Booties",
     "shortDescription": "Adorable crochet booties for babies with a simple sole, sides, and ankle ties.",
-    "imageUrl": "/api/pattern-image/pattern-baby-booties-001",
     "category": "Baby",
     "difficulty": {
       "level": "intermediate",
@@ -3375,7 +3329,6 @@
     "id": "pattern-c2c-square-001",
     "name": "Corner-to-Corner Square",
     "shortDescription": "A square worked diagonally using the corner-to-corner technique with increasing and decreasing blocks.",
-    "imageUrl": "/api/pattern-image/pattern-c2c-square-001",
     "category": "Granny square",
     "difficulty": {
       "level": "intermediate",
@@ -3435,7 +3388,7 @@
       "Carry unused yarn across the back for small color blocks."
     ],
     "commonMistakes": [
-      "Counting blocks incorrectly—use a row counter.",
+      "Counting blocks incorrectly\u2014use a row counter.",
       "Pulling the slip stitch join too tight, puckering the fabric."
     ],
     "keywords": [
@@ -3450,8 +3403,7 @@
   {
     "id": "pattern-amigurumi-ball-001",
     "name": "Amigurumi Ball",
-    "shortDescription": "A perfect round ball using continuous spiral rounds with even increases and decreases—the foundation of amigurumi.",
-    "imageUrl": "/api/pattern-image/pattern-amigurumi-ball-001",
+    "shortDescription": "A perfect round ball using continuous spiral rounds with even increases and decreases\u2014the foundation of amigurumi.",
     "category": "Toy",
     "difficulty": {
       "level": "intermediate",
@@ -3511,13 +3463,13 @@
       "**Finishing:** Cut tail, thread through front loops of remaining 6 stitches, pull tight. Weave in end."
     ],
     "beginnerTips": [
-      "Always use a stitch marker for spiral rounds—there's no join to reset your count.",
+      "Always use a stitch marker for spiral rounds\u2014there's no join to reset your count.",
       "Stuff firmly but not bulging; shape as you stuff.",
       "The magic ring creates a closed center with no hole."
     ],
     "commonMistakes": [
       "Forgetting to mark the first stitch of each round.",
-      "Stitches too loose—stuffing will peek through."
+      "Stitches too loose\u2014stuffing will peek through."
     ],
     "keywords": [
       "amigurumi",
@@ -3533,7 +3485,6 @@
     "id": "pattern-granny-hexagon-001",
     "name": "Granny Hexagon Throw",
     "shortDescription": "A hexagonal granny motif that can be joined to make a blanket, shawl, or cardigan.",
-    "imageUrl": "/api/pattern-image/pattern-granny-hexagon-001",
     "category": "Granny square",
     "difficulty": {
       "level": "intermediate",
@@ -3588,11 +3539,11 @@
     "beginnerTips": [
       "Each corner has 2 dc, ch 2, 2 dc. Each side space gets ch 1, 2 dc.",
       "Make several hexagons and join for a throw or cardigan.",
-      "Blocking makes joining much easier—all motifs should be identical."
+      "Blocking makes joining much easier\u2014all motifs should be identical."
     ],
     "commonMistakes": [
       "Forgetting the chain-1 between side clusters.",
-      "Hexagon not lying flat—check corner increases."
+      "Hexagon not lying flat\u2014check corner increases."
     ],
     "keywords": [
       "granny",
@@ -3607,7 +3558,6 @@
     "id": "pattern-mandala-hanging-001",
     "name": "Mandala Wall Hanging",
     "shortDescription": "A colorful mandala with concentric rounds of different stitch patterns, finished with a hanging loop.",
-    "imageUrl": "/api/pattern-image/pattern-mandala-hanging-001",
     "category": "Home Decor",
     "difficulty": {
       "level": "intermediate",
@@ -3630,7 +3580,7 @@
           "Cotton",
           "Acrylic"
         ],
-        "notes": "Multiple colors make the mandala pop—use 3-5 colors."
+        "notes": "Multiple colors make the mandala pop\u2014use 3-5 colors."
       },
       "hook": {
         "sizeMM": 4.5,
@@ -3668,7 +3618,7 @@
     ],
     "beginnerTips": [
       "Change colors by pulling the new yarn through the last yarn-over of the previous stitch.",
-      "Blocking transforms a mandala—it opens the lace and evens the stitches.",
+      "Blocking transforms a mandala\u2014it opens the lace and evens the stitches.",
       "Mount on a wooden dowel or embroidery hoop for display."
     ],
     "commonMistakes": [
@@ -3689,7 +3639,6 @@
     "id": "pattern-glasses-002",
     "name": "Quilted Eyeglass Case",
     "shortDescription": "A padded eyeglass case using the thermal stitch (back-loop only) for a quilted look. Keeps lenses safe and scratch-free.",
-    "imageUrl": "/api/pattern-image/pattern-glasses-002",
     "category": "Eyeglass case",
     "difficulty": {
       "level": "beginner",
@@ -3763,7 +3712,6 @@
     "id": "pattern-phone-002",
     "name": "Textured Phone Sleeve",
     "shortDescription": "A simple phone sleeve using half double crochet. Works up fast and makes a great gift.",
-    "imageUrl": "/api/pattern-image/pattern-phone-002",
     "category": "Cell phone case",
     "difficulty": {
       "level": "beginner",
@@ -3817,11 +3765,11 @@
     ],
     "beginnerTips": [
       "Use a stitch marker to keep track of the first and last stitch.",
-      "Make the sleeve slightly snug — cotton stretches a bit with use."
+      "Make the sleeve slightly snug \u2014 cotton stretches a bit with use."
     ],
     "commonMistakes": [
       "Skipping the first stitch after the turning chain.",
-      "Making the sleeve too tight — leave a little room."
+      "Making the sleeve too tight \u2014 leave a little room."
     ],
     "keywords": [
       "phone case",
@@ -3835,7 +3783,6 @@
     "id": "pattern-bottle-002",
     "name": "Simple Bottle Bag",
     "shortDescription": "A sturdy mesh bag to carry a water bottle. Uses double crochet mesh for stretch and breathability.",
-    "imageUrl": "/api/pattern-image/pattern-bottle-002",
     "category": "Water bottle holder",
     "difficulty": {
       "level": "beginner",
@@ -3882,15 +3829,15 @@
       "**Base:** Chain 4, join with slip stitch to form a ring.",
       "**Round 1:** Chain 3 (counts as dc), work 11 double crochet into ring, join. (12 dc)",
       "**Round 2:** Chain 3, double crochet in same stitch, 2 dc in each stitch around, join. (24 dc)",
-      "**Round 3:** Chain 4 (counts as dc + ch 1), skip 1 stitch, dc in next stitch, chain 1, skip 1 — repeat around, join.",
-      "**Round 4:** Slip stitch to chain-1 space, chain 4 (counts as dc + ch 1), dc in next chain-1 space, chain 1 — repeat around, join.",
+      "**Round 3:** Chain 4 (counts as dc + ch 1), skip 1 stitch, dc in next stitch, chain 1, skip 1 \u2014 repeat around, join.",
+      "**Round 4:** Slip stitch to chain-1 space, chain 4 (counts as dc + ch 1), dc in next chain-1 space, chain 1 \u2014 repeat around, join.",
       "**Repeat Round 4:** Continue until bag measures about 8 inches tall.",
       "**Handle:** Chain 30, skip 6 mesh spaces, slip stitch into next space, chain 30, skip 6, join.",
       "**Finishing:** Fasten off and weave in ends."
     ],
     "beginnerTips": [
       "Place a stitch marker at the start of each round.",
-      "The mesh pattern is very forgiving — just keep the chain-1 spaces lined up."
+      "The mesh pattern is very forgiving \u2014 just keep the chain-1 spaces lined up."
     ],
     "commonMistakes": [
       "Forgetting the chain 1 between double crochets.",
@@ -3908,7 +3855,6 @@
     "id": "pattern-headband-002",
     "name": "Simple Headband",
     "shortDescription": "A twisted knot headband made with half double crochet. Quick, stylish, and uses very little yarn.",
-    "imageUrl": "/api/pattern-image/pattern-headband-002",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -3966,7 +3912,7 @@
     ],
     "commonMistakes": [
       "Forgetting to twist before seaming.",
-      "Making the band too short — measure around your head first."
+      "Making the band too short \u2014 measure around your head first."
     ],
     "keywords": [
       "headband",
@@ -3981,7 +3927,6 @@
     "id": "pattern-bag-002",
     "name": "Granny Square Tote",
     "shortDescription": "A cheerful tote bag made from joined granny squares. A perfect next step after learning the granny square.",
-    "imageUrl": "/api/pattern-image/pattern-bag-002",
     "category": "Bag",
     "difficulty": {
       "level": "beginner",
@@ -4030,7 +3975,7 @@
       "**Arrange:** Lay out 2 rows of 3 squares each.",
       "**Join rows:** Using a whip stitch or single crochet join, attach squares side by side in each row.",
       "**Join rows together:** Seam the two rows together to form a 2x3 rectangle.",
-      "**Fold:** Fold the rectangle in half widthwise — the bottom row becomes the front and back panels.",
+      "**Fold:** Fold the rectangle in half widthwise \u2014 the bottom row becomes the front and back panels.",
       "**Seam sides:** Single crochet or whip stitch the side edges together.",
       "**Handles:** Chain 60. Attach with slip stitch at the top edge of each side panel. Repeat for second handle.",
       "**Finishing:** Weave in all ends. Line with fabric if desired."
@@ -4040,7 +3985,7 @@
       "Use a contrasting color for the join to make it decorative."
     ],
     "commonMistakes": [
-      "Squares not matching in size — always block them.",
+      "Squares not matching in size \u2014 always block them.",
       "Twisting the handles when attaching."
     ],
     "keywords": [
@@ -4055,7 +4000,6 @@
     "id": "pattern-blanket-002",
     "name": "Corner-to-Corner Baby Blanket",
     "shortDescription": "A modern corner-to-corner (C2C) baby blanket using double crochet. Works up diagonally, making it easy to resize.",
-    "imageUrl": "/api/pattern-image/pattern-blanket-002",
     "category": "Blanket",
     "difficulty": {
       "level": "beginner",
@@ -4112,7 +4056,7 @@
     ],
     "beginnerTips": [
       "Use a different color for each row to see the diagonal structure clearly.",
-      "C2C is very forgiving — missed stitches are easy to fix."
+      "C2C is very forgiving \u2014 missed stitches are easy to fix."
     ],
     "commonMistakes": [
       "Losing count of tiles in the increase section.",
@@ -4131,7 +4075,6 @@
     "id": "pattern-shawl-002",
     "name": "Simple Triangle Shawl",
     "shortDescription": "A top-down triangle shawl using double crochet. Easy to resize and perfect for using one beautiful skein.",
-    "imageUrl": "/api/pattern-image/pattern-shawl-002",
     "category": "Shawl",
     "difficulty": {
       "level": "beginner",
@@ -4187,11 +4130,11 @@
     ],
     "beginnerTips": [
       "Place stitch markers at the corner space so you never miss the increase.",
-      "The shawl grows fast — each row only adds a few minutes."
+      "The shawl grows fast \u2014 each row only adds a few minutes."
     ],
     "commonMistakes": [
       "Forgetting to turn at the end of each row.",
-      "Working too tightly — a loose tension gives better drape."
+      "Working too tightly \u2014 a loose tension gives better drape."
     ],
     "keywords": [
       "shawl",
@@ -4206,7 +4149,6 @@
     "id": "pattern-baby-002",
     "name": "Newborn Hat",
     "shortDescription": "A simple newborn hat worked in the round. Uses double crochet and works up in under an hour.",
-    "imageUrl": "/api/pattern-image/pattern-baby-002",
     "category": "Baby",
     "difficulty": {
       "level": "beginner",
@@ -4265,7 +4207,7 @@
       "Add a pom-pom on top for cuteness."
     ],
     "commonMistakes": [
-      "Increasing too many or too few stitches — count after each round.",
+      "Increasing too many or too few stitches \u2014 count after each round.",
       "Not joining at the end of each round."
     ],
     "keywords": [
@@ -4281,7 +4223,6 @@
     "id": "pattern-toy-002",
     "name": "Crochet Cube (Amigurumi)",
     "shortDescription": "A soft, squishy crochet cube made from 6 squares sewn together. A perfect first amigurumi project.",
-    "imageUrl": "/api/pattern-image/pattern-toy-002",
     "category": "Toy",
     "difficulty": {
       "level": "beginner",
@@ -4331,7 +4272,7 @@
       "**Row 2:** Chain 1, turn. Single crochet in each stitch across. (10 sc)",
       "**Repeat Row 2:** Continue until square (10 rows total). Fasten off.",
       "**Repeat for 5 more squares.**",
-      "**Arrange:** Lay out the 6 squares in a cross shape (like a T) — 4 in a row, 1 above the 2nd, 1 below the 2nd.",
+      "**Arrange:** Lay out the 6 squares in a cross shape (like a T) \u2014 4 in a row, 1 above the 2nd, 1 below the 2nd.",
       "**Seam:** Using whip stitch or single crochet join, seam the edges together to form a cube.",
       "**Stuff:** Before closing the last side, fill the cube with stuffing.",
       "**Close:** Seam the final edge. Weave in all ends."
@@ -4341,8 +4282,8 @@
       "Squeeze the stuffing into the corners before closing."
     ],
     "commonMistakes": [
-      "Squares not matching size — check your gauge.",
-      "Overstuffing — it should be firm but squishy."
+      "Squares not matching size \u2014 check your gauge.",
+      "Overstuffing \u2014 it should be firm but squishy."
     ],
     "keywords": [
       "toy",
@@ -4358,7 +4299,6 @@
     "id": "pattern-home-002",
     "name": "Potholder (Double Thick)",
     "shortDescription": "A double-thick cotton potholder worked as two layers joined at the edge. Uses single crochet throughout.",
-    "imageUrl": "/api/pattern-image/pattern-home-002",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -4380,7 +4320,7 @@
         "fiberType": [
           "Cotton"
         ],
-        "notes": "Must use 100% cotton — acrylic melts under heat!"
+        "notes": "Must use 100% cotton \u2014 acrylic melts under heat!"
       },
       "hook": {
         "sizeMM": 5,
@@ -4412,7 +4352,7 @@
       "**Finishing:** Fasten off, weave in ends."
     ],
     "beginnerTips": [
-      "Always use 100% cotton for potholders — acrylic can melt!",
+      "Always use 100% cotton for potholders \u2014 acrylic can melt!",
       "Block both squares to the same size before joining."
     ],
     "commonMistakes": [
@@ -4432,7 +4372,6 @@
     "id": "pattern-accessories-003",
     "name": "Scrunchie",
     "shortDescription": "A quick and stylish hair scrunchie using single crochet. Uses scraps of yarn and a hair elastic.",
-    "imageUrl": "/api/pattern-image/pattern-accessories-003",
     "category": "Accessories",
     "difficulty": {
       "level": "beginner",
@@ -4486,10 +4425,10 @@
     ],
     "beginnerTips": [
       "Use stretchy cotton for better hold.",
-      "White elastic shows through thin yarn — darker yarns hide it better."
+      "White elastic shows through thin yarn \u2014 darker yarns hide it better."
     ],
     "commonMistakes": [
-      "Working too tightly — the elastic needs room to stretch.",
+      "Working too tightly \u2014 the elastic needs room to stretch.",
       "Not covering the elastic completely in the first round."
     ],
     "keywords": [
@@ -4504,7 +4443,6 @@
     "id": "pattern-baby-003",
     "name": "Baby Rattle",
     "shortDescription": "A safe and soft baby rattle with a crochet ball and a bell inside. A charming baby shower gift.",
-    "imageUrl": "/api/pattern-image/pattern-baby-003",
     "category": "Baby",
     "difficulty": {
       "level": "beginner",
@@ -4566,7 +4504,7 @@
       "Make sure the bell is securely enclosed."
     ],
     "commonMistakes": [
-      "Stitches too loose — stuffing shows through.",
+      "Stitches too loose \u2014 stuffing shows through.",
       "Forgetting to insert the bell before closing."
     ],
     "keywords": [
@@ -4582,7 +4520,6 @@
     "id": "pattern-bag-003",
     "name": "Drawstring Pouch",
     "shortDescription": "A simple drawstring pouch worked in the round. Great for gifts, jewelry, or small items.",
-    "imageUrl": "/api/pattern-image/pattern-bag-003",
     "category": "Bag",
     "difficulty": {
       "level": "beginner",
@@ -4630,7 +4567,7 @@
       "**Foundation:** Chain 26, join with slip stitch.",
       "**Round 1:** Chain 1, sc in each chain around, join. (26 sc)",
       "**Rounds 2-12:** Chain 1, sc in each stitch around, join.",
-      "**Eyelet round:** Chain 4 (counts as dc + ch 1), skip 1 stitch, dc in next, ch 1, skip 1 — repeat around, join.",
+      "**Eyelet round:** Chain 4 (counts as dc + ch 1), skip 1 stitch, dc in next, ch 1, skip 1 \u2014 repeat around, join.",
       "**Finishing:** Fasten off.",
       "**Drawstring:** Chain 60. Weave through the eyelet holes. Tie knots at the ends."
     ],
@@ -4639,8 +4576,8 @@
       "Use a contrasting color for the drawstring."
     ],
     "commonMistakes": [
-      "Eyelet holes not lining up — count the stitches between each ch-1.",
-      "Drawstring too short — make it generous."
+      "Eyelet holes not lining up \u2014 count the stitches between each ch-1.",
+      "Drawstring too short \u2014 make it generous."
     ],
     "keywords": [
       "pouch",
@@ -4653,8 +4590,7 @@
   {
     "id": "pattern-blanket-003",
     "name": "Solid Granny Throw",
-    "shortDescription": "A solid (no holes) granny square blanket using double crochet. Dense and warm — classic stashbuster.",
-    "imageUrl": "/api/pattern-image/pattern-blanket-003",
+    "shortDescription": "A solid (no holes) granny square blanket using double crochet. Dense and warm \u2014 classic stashbuster.",
     "category": "Blanket",
     "difficulty": {
       "level": "beginner",
@@ -4710,7 +4646,7 @@
     ],
     "beginnerTips": [
       "Change colors every few rounds for a striped effect.",
-      "The ch-2 corners are the only tricky part — place markers there."
+      "The ch-2 corners are the only tricky part \u2014 place markers there."
     ],
     "commonMistakes": [
       "Forgetting to chain 2 at the corners.",
@@ -4729,7 +4665,6 @@
     "id": "pattern-shawl-003",
     "name": "Rectangle Poncho",
     "shortDescription": "A simple poncho made from two rectangles sewn together. Cozy, stylish, and very beginner-friendly.",
-    "imageUrl": "/api/pattern-image/pattern-shawl-003",
     "category": "Shawl",
     "difficulty": {
       "level": "beginner",
@@ -4784,7 +4719,7 @@
     ],
     "beginnerTips": [
       "Block the rectangles before seaming for a cleaner finish.",
-      "Make the neck opening generous — it's hard to fix later."
+      "Make the neck opening generous \u2014 it's hard to fix later."
     ],
     "commonMistakes": [
       "Making the neck opening too small.",
@@ -4801,8 +4736,7 @@
   {
     "id": "pattern-toy-003",
     "name": "Amigurumi Egg",
-    "shortDescription": "A cute, simple amigurumi egg shape. Works up in minutes — perfect for Easter or learning amigurumi basics.",
-    "imageUrl": "/api/pattern-image/pattern-toy-003",
+    "shortDescription": "A cute, simple amigurumi egg shape. Works up in minutes \u2014 perfect for Easter or learning amigurumi basics.",
     "category": "Toy",
     "difficulty": {
       "level": "beginner",
@@ -4863,7 +4797,7 @@
       "Vary colors for a whole set of decorated eggs."
     ],
     "commonMistakes": [
-      "Not stuffing firmly enough — eggs should be solid.",
+      "Not stuffing firmly enough \u2014 eggs should be solid.",
       "Loose tension causing gaps."
     ],
     "keywords": [
@@ -4879,7 +4813,6 @@
     "id": "pattern-home-003",
     "name": "Simple Throw Pillow Cover",
     "shortDescription": "A 16-inch square pillow cover using half double crochet. Uses a simple envelope closure on the back.",
-    "imageUrl": "/api/pattern-image/pattern-home-003",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -4929,7 +4862,7 @@
       "**Make front panel:** Chain 50. Hdc in 3rd chain and each across. (48 hdc)",
       "**Row 2:** Chain 2, turn. Hdc in each stitch across.",
       "**Repeat Row 2:** Continue until panel is 16 inches tall.",
-      "**Make back panels (2 pieces):** Make 2 panels the same width (chain 50, hdc in 3rd chain and each across, 48 hdc each row) — each 11 inches tall (about 15 rows).",
+      "**Make back panels (2 pieces):** Make 2 panels the same width (chain 50, hdc in 3rd chain and each across, 48 hdc each row) \u2014 each 11 inches tall (about 15 rows).",
       "**Button band (left back panel):** Sc evenly along one long edge. Next row: sc in 3, ch 2, skip 2, *sc in 14, ch 2, skip 2; repeat from * once more, sc in last 3. (3 buttonholes)",
       "**Sew buttons** on right back panel edge opposite each buttonhole. Overlap panels with button band on top.",
       "**Finishing:** Weave in ends. Insert pillow form."
@@ -4939,8 +4872,8 @@
       "Use a pillow insert that's 1-2 inches larger for a snug fit."
     ],
     "commonMistakes": [
-      "Panels not matching size — block them.",
-      "Buttonholes too small — make them generous."
+      "Panels not matching size \u2014 block them.",
+      "Buttonholes too small \u2014 make them generous."
     ],
     "keywords": [
       "pillow",
@@ -4954,7 +4887,6 @@
     "id": "pattern-hat-003",
     "name": "Slouchy Beret",
     "shortDescription": "A slouchy beret-style hat worked top-down. Uses double crochet increases for a relaxed, stylish fit.",
-    "imageUrl": "/api/pattern-image/pattern-hat-003",
     "category": "Hat",
     "difficulty": {
       "level": "beginner",
@@ -5016,8 +4948,8 @@
       "A looser gauge gives more drape and slouch."
     ],
     "commonMistakes": [
-      "Making the crown too large — stop increasing when it's palm-sized.",
-      "Brim too tight — use a smaller hook for the brim if needed."
+      "Making the crown too large \u2014 stop increasing when it's palm-sized.",
+      "Brim too tight \u2014 use a smaller hook for the brim if needed."
     ],
     "keywords": [
       "hat",
@@ -5031,7 +4963,6 @@
     "id": "pattern-scarf-006",
     "name": "Moss Stitch Scarf",
     "shortDescription": "A textured scarf using the moss stitch (alternating sc and ch-1). A great next step after basic stitches.",
-    "imageUrl": "/api/pattern-image/pattern-scarf-006",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -5077,17 +5008,17 @@
     },
     "instructions": [
       "**Foundation:** Chain an even number (e.g., 24).",
-      "**Row 1:** Sc in 2nd chain from hook, chain 1, skip 1 — repeat across, ending with sc in last chain.",
+      "**Row 1:** Sc in 2nd chain from hook, chain 1, skip 1 \u2014 repeat across, ending with sc in last chain.",
       "**Row 2:** Chain 1, turn. Sc in first sc, *sc in next chain-1 space, chain 1, skip next sc; repeat from * to end, ending with sc in last chain-1 space, sc in last sc.",
       "**Repeat Row 2:** Continue until scarf reaches desired length (about 60 inches).",
       "**Finishing:** Fasten off, weave in ends."
     ],
     "beginnerTips": [
       "The moss stitch is also called the woven or linen stitch.",
-      "It looks different on each side — pick your favorite as the right side."
+      "It looks different on each side \u2014 pick your favorite as the right side."
     ],
     "commonMistakes": [
-      "Working into the wrong spaces — only work sc into chain-1 spaces.",
+      "Working into the wrong spaces \u2014 only work sc into chain-1 spaces.",
       "Losing count of the pattern repeat."
     ],
     "keywords": [
@@ -5102,7 +5033,6 @@
     "id": "pattern-scarf-007",
     "name": "Infinity Scarf (Mobius)",
     "shortDescription": "A twisted infinity scarf worked in the round. A simple twist gives a modern look.",
-    "imageUrl": "/api/pattern-image/pattern-scarf-007",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -5173,7 +5103,6 @@
     "id": "pattern-granny-006",
     "name": "Sunburst Granny Square",
     "shortDescription": "A colorful sunburst granny square with a textured center. Great for blankets, bags, and pillows.",
-    "imageUrl": "/api/pattern-image/pattern-granny-006",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
@@ -5220,7 +5149,7 @@
     "instructions": [
       "**Round 1 (Color A):** Magic ring, chain 3, 11 dc in ring, join. (12 dc). Fasten off.",
       "**Round 2 (Color B):** Join new color in any dc. Chain 3, dc in same stitch. 2 dc in each stitch around, join. (24 dc). Fasten off.",
-      "**Round 3 (Color C):** Join in any stitch. (Sc, hdc, dc) in same stitch, skip 1 — repeat around, join.",
+      "**Round 3 (Color C):** Join in any stitch. (Sc, hdc, dc) in same stitch, skip 1 \u2014 repeat around, join.",
       "**Round 4 (Color C):** Slip stitch in next 2 stitches to reach a hdc. Chain 3 (counts as dc), dc in same stitch (increase), *dc in next 8 stitches, (2 dc, ch 2, 2 dc) in next stitch (corner); repeat from * 3 more times, dc in next 8 stitches, (2 dc, ch 2, 2 dc) in last stitch, join to top of ch-3."
     ],
     "beginnerTips": [
@@ -5228,7 +5157,7 @@
       "Block all squares to the same size before joining."
     ],
     "commonMistakes": [
-      "Not changing colors tightly — leave room for the next round.",
+      "Not changing colors tightly \u2014 leave room for the next round.",
       "Uneven tension making the square lopsided."
     ],
     "keywords": [
@@ -5243,7 +5172,6 @@
     "id": "pattern-granny-007",
     "name": "Solid Hexagon",
     "shortDescription": "A solid hexagon motif using double crochet. Great for blankets, rugs, and joining into creative shapes.",
-    "imageUrl": "/api/pattern-image/pattern-granny-007",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
@@ -5291,13 +5219,13 @@
     "instructions": [
       "**Round 1:** Magic ring, chain 3 (counts as dc), 11 dc in ring, join. (12 dc)",
       "**Round 2:** Chain 4 (counts as dc + ch 1), *dc in next stitch, chain 1; repeat from * around, join in 3rd ch of starting chain 4. (12 dc, 12 ch-1 sps)",
-      "**Round 3:** Slip stitch to first ch-1 space. Chain 3 (counts as dc), (dc, ch 2, 2 dc) in same space — first corner. *2 dc in next ch-1 space, (2 dc, ch 2, 2 dc) in next ch-1 space (corner); repeat from * around, ending with 2 dc in last ch-1 space, join. (6 corners)",
+      "**Round 3:** Slip stitch to first ch-1 space. Chain 3 (counts as dc), (dc, ch 2, 2 dc) in same space \u2014 first corner. *2 dc in next ch-1 space, (2 dc, ch 2, 2 dc) in next ch-1 space (corner); repeat from * around, ending with 2 dc in last ch-1 space, join. (6 corners)",
       "**Round 4:** Slip stitch to corner space. Chain 3, (dc, ch 2, 2 dc) in same space. *Dc in each stitch across to next corner (4 dc), (2 dc, ch 2, 2 dc) in corner space; repeat from * around, join.",
-      "**Round 5:** Repeat Round 4 — each side gains 4 more dc. Continue until hexagon reaches desired size.",
+      "**Round 5:** Repeat Round 4 \u2014 each side gains 4 more dc. Continue until hexagon reaches desired size.",
       "**Finishing:** Fasten off, weave in ends."
     ],
     "beginnerTips": [
-      "Each round adds 2 dc per side — it grows fast!",
+      "Each round adds 2 dc per side \u2014 it grows fast!",
       "Join hexagons at the corners for unique patterns."
     ],
     "commonMistakes": [
@@ -5317,12 +5245,11 @@
     "id": "pattern-dishcloth-004",
     "name": "Diagonal Waffle Cloth",
     "shortDescription": "A dishcloth with a diagonal waffle texture using front post double crochet. Absorbent and scrubby.",
-    "imageUrl": "/api/pattern-image/pattern-dishcloth-004",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
       "score": 3,
-      "reasoning": "Introduces front post double crochet (FPdc) — the waffle texture."
+      "reasoning": "Introduces front post double crochet (FPdc) \u2014 the waffle texture."
     },
     "estimatedTime": {
       "minHours": 1,
@@ -5362,18 +5289,18 @@
     "instructions": [
       "**Foundation:** Chain 24.",
       "**Row 1:** Dc in 4th chain from hook and each across. (22 dc)",
-      "**Row 2:** Chain 3, turn. FPdc around next dc, dc in next — repeat across, ending with dc in top of turning chain.",
-      "**Row 3:** Chain 3, turn. Dc in next, FPdc around next — alternate across, ending with dc.",
+      "**Row 2:** Chain 3, turn. FPdc around next dc, dc in next \u2014 repeat across, ending with dc in top of turning chain.",
+      "**Row 3:** Chain 3, turn. Dc in next, FPdc around next \u2014 alternate across, ending with dc.",
       "**Rows 4-18:** Repeat Rows 2 and 3 (waffle pattern).",
       "**Border:** Sc evenly around the edges, working 3 sc in corners.",
       "**Finishing:** Fasten off, weave in ends."
     ],
     "beginnerTips": [
-      "Only use cotton — acrylic is unsafe and doesn't absorb well.",
+      "Only use cotton \u2014 acrylic is unsafe and doesn't absorb well.",
       "The waffle texture gets softer with each wash."
     ],
     "commonMistakes": [
-      "Confusing FPdc with regular dc — FPdc goes around the post, not through the top.",
+      "Confusing FPdc with regular dc \u2014 FPdc goes around the post, not through the top.",
       "Using non-cotton yarn."
     ],
     "keywords": [
@@ -5389,7 +5316,6 @@
     "id": "pattern-coaster-004",
     "name": "Spiral Rope Coaster",
     "shortDescription": "A thick, absorbent coaster made from cotton rope. Works up fast and protects surfaces from moisture.",
-    "imageUrl": "/api/pattern-image/pattern-coaster-004",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -5432,7 +5358,7 @@
       "notes": "Gauge is not critical."
     },
     "instructions": [
-      "**Round 1:** Magic ring, 6 sc in ring. Do not join — work in a continuous spiral.",
+      "**Round 1:** Magic ring, 6 sc in ring. Do not join \u2014 work in a continuous spiral.",
       "**Round 2:** 2 sc in each stitch around. (12 sc)",
       "**Round 3:** (Sc in next, 2 sc in next) repeat around. (18 sc)",
       "**Round 4:** (Sc in next 2, 2 sc in next) repeat around. (24 sc)",
@@ -5445,7 +5371,7 @@
       "Use a tighter tension so the coaster lies flat."
     ],
     "commonMistakes": [
-      "The coaster curling into a bowl — add more increases or block it flat.",
+      "The coaster curling into a bowl \u2014 add more increases or block it flat.",
       "Losing count of rounds without a marker."
     ],
     "keywords": [
@@ -5460,7 +5386,6 @@
     "id": "pattern-accessories-004",
     "name": "Simple Cowl",
     "shortDescription": "A cozy infinity-style cowl worked in the round. Uses only double crochet and works up in an evening.",
-    "imageUrl": "/api/pattern-image/pattern-accessories-004",
     "category": "Accessories",
     "difficulty": {
       "level": "beginner",
@@ -5531,7 +5456,6 @@
     "id": "pattern-hat-004",
     "name": "Messy Bun Beanie",
     "shortDescription": "A trendy beanie with a hole at the crown for ponytails or buns. Quick to make and perfect for gifting.",
-    "imageUrl": "/api/pattern-image/pattern-hat-004",
     "category": "Hat",
     "difficulty": {
       "level": "beginner",
@@ -5590,7 +5514,6 @@
     "id": "pattern-blanket-004",
     "name": "Corner to Corner Baby Blanket",
     "shortDescription": "A modern baby blanket worked diagonally from corner to corner. Uses only double crochet and chain stitches.",
-    "imageUrl": "/api/pattern-image/pattern-blanket-004",
     "category": "Blanket",
     "difficulty": {
       "level": "intermediate",
@@ -5649,10 +5572,9 @@
     "id": "pattern-shawl-004",
     "name": "Simple Lace Triangle Shawl",
     "shortDescription": "An airy triangular shawl with an easy-to-memorize lace repeat. A great introduction to lace crochet.",
-    "imageUrl": "/api/pattern-image/pattern-shawl-004",
     "category": "Shawl",
     "difficulty": {
-      "level": "intermediate",
+      "level": "advanced",
       "score": 4,
       "reasoning": "Lace pattern requires counting stitches and repeating rows."
     },
@@ -5690,7 +5612,7 @@
       "**Finishing:** Fasten off, weave in ends. Block gently to open up the lace pattern."
     ],
     "beginnerTips": [
-      "Blocking is key for lace — it opens up the stitches beautifully.",
+      "Blocking is key for lace \u2014 it opens up the stitches beautifully.",
       "Use stitch markers at the center chain-2 space to avoid losing your place."
     ],
     "commonMistakes": [
@@ -5709,10 +5631,9 @@
     "id": "pattern-tote-004",
     "name": "Granny Square Tote Bag",
     "shortDescription": "A boho-style tote made from granny squares. A great way to use up scrap yarn in multiple colors.",
-    "imageUrl": "/api/pattern-image/pattern-tote-004",
     "category": "Bag",
     "difficulty": {
-      "level": "intermediate",
+      "level": "advanced",
       "score": 4,
       "reasoning": "Requires making multiple granny squares and seaming them together."
     },
@@ -5769,7 +5690,6 @@
     "id": "pattern-amigurumi-002",
     "name": "Tiny Amigurumi Cat",
     "shortDescription": "A cute miniature cat that works up quickly. Learn amigurumi basics: magic ring, increases, and invisible decreases.",
-    "imageUrl": "/api/pattern-image/pattern-amigurumi-002",
     "category": "Toy",
     "difficulty": {
       "level": "beginner",
@@ -5811,7 +5731,7 @@
       "**Assembly:** Sew head to body. Attach ears to top of head. Sew tail to back. Embroider eyes, nose, and whiskers with black thread."
     ],
     "beginnerTips": [
-      "Use a stitch marker to track rounds — it's easy to lose count in amigurumi.",
+      "Use a stitch marker to track rounds \u2014 it's easy to lose count in amigurumi.",
       "Stuff firmly but not too tight; the toy should be squishable."
     ],
     "commonMistakes": [
@@ -5830,7 +5750,6 @@
     "id": "pattern-coaster-005",
     "name": "Macrame-Inspired Coaster Set",
     "shortDescription": "A set of four cotton coasters with a knotted macrame look. Made with front post stitches and simple color blocks.",
-    "imageUrl": "/api/pattern-image/pattern-coaster-005",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -5870,7 +5789,7 @@
       "**Repeat:** Make 4 identical coasters."
     ],
     "beginnerTips": [
-      "Front post stitches create the woven macrame effect — practice on a swatch first.",
+      "Front post stitches create the woven macrame effect \u2014 practice on a swatch first.",
       "Cotton yarn is best for coasters as it's absorbent and heat-tolerant."
     ],
     "commonMistakes": [
@@ -5889,7 +5808,6 @@
     "id": "pattern-home-004",
     "name": "Twisted Headband Ear Warmer",
     "shortDescription": "A stylish twisted headband that doubles as an ear warmer. One piece construction with a sewn twist for a modern look.",
-    "imageUrl": "/api/pattern-image/pattern-home-004",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -5929,7 +5847,7 @@
     ],
     "beginnerTips": [
       "Use soft, non-itchy yarn since this sits against the forehead.",
-      "The twist naturally creates the fit — adjust the tightness by sewing the seam slightly tighter or looser."
+      "The twist naturally creates the fit \u2014 adjust the tightness by sewing the seam slightly tighter or looser."
     ],
     "commonMistakes": [
       "Using scratchy yarn that irritates the forehead.",
@@ -5947,7 +5865,6 @@
     "id": "pattern-scarf-008",
     "name": "Infinity Scarf Loop",
     "shortDescription": "A seamless infinity scarf worked in the round. Creates a cozy, wearable loop with no ends to seam.",
-    "imageUrl": "/api/pattern-image/pattern-scarf-008",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -5988,7 +5905,7 @@
       "**Finishing:** Weave in ends. Block lightly if desired."
     ],
     "beginnerTips": [
-      "Make sure the foundation chain isn't twisted before joining — this is the most common mistake!",
+      "Make sure the foundation chain isn't twisted before joining \u2014 this is the most common mistake!",
       "Use a stitch marker to mark the start of each round."
     ],
     "commonMistakes": [
@@ -6007,7 +5924,6 @@
     "id": "pattern-bag-004",
     "name": "Linen Stitch Market Bag",
     "shortDescription": "A sturdy, eco-friendly market bag made with the linen stitch. Expands to hold groceries and folds flat when not in use.",
-    "imageUrl": "/api/pattern-image/pattern-bag-004",
     "category": "Bag",
     "difficulty": {
       "level": "beginner",
@@ -6048,7 +5964,7 @@
       "**Finishing:** Fasten off, weave in all ends."
     ],
     "beginnerTips": [
-      "Cotton yarn is ideal — it's strong and machine washable.",
+      "Cotton yarn is ideal \u2014 it's strong and machine washable.",
       "The linen stitch creates a dense fabric that holds its shape well."
     ],
     "commonMistakes": [
@@ -6067,7 +5983,6 @@
     "id": "pattern-baby-004",
     "name": "Baby Rattle Ball",
     "shortDescription": "A soft, safe baby rattle made with a crochet ball and a hidden jingle bell inside. Machine washable and baby-safe.",
-    "imageUrl": "/api/pattern-image/pattern-baby-004",
     "category": "Baby",
     "difficulty": {
       "level": "beginner",
@@ -6126,7 +6041,6 @@
     "id": "pattern-fine-001",
     "name": "Lace Wrist Warmers",
     "shortDescription": "Delicate fingerless mitts using sport-weight yarn. A quick, elegant project that's perfect for cooler mornings.",
-    "imageUrl": "/api/pattern-image/pattern-fine-001",
     "category": "Accessories",
     "difficulty": {
       "level": "intermediate",
@@ -6185,7 +6099,7 @@
     ],
     "commonMistakes": [
       "Twisting the foundation chain when joining.",
-      "Making the thumb opening too tight—chain loosely."
+      "Making the thumb opening too tight\u2014chain loosely."
     ],
     "keywords": [
       "wrist warmers",
@@ -6200,7 +6114,6 @@
     "id": "pattern-fine-002",
     "name": "Sport-Weight Baby Booties",
     "shortDescription": "Adorable newborn booties using fine sport-weight yarn. Makes a wonderful baby shower gift.",
-    "imageUrl": "/api/pattern-image/pattern-fine-002",
     "category": "Baby",
     "difficulty": {
       "level": "intermediate",
@@ -6259,7 +6172,7 @@
     ],
     "commonMistakes": [
       "Using the wrong loop (work in back loops only for the upper).",
-      "Skipping the gauge swatch—booties need to fit."
+      "Skipping the gauge swatch\u2014booties need to fit."
     ],
     "keywords": [
       "booties",
@@ -6274,7 +6187,6 @@
     "id": "pattern-dk-001",
     "name": "DK Triangle Shawl",
     "shortDescription": "A classic top-down triangle shawl using DK weight yarn. Lightweight and perfect for spring evenings.",
-    "imageUrl": "/api/pattern-image/pattern-dk-001",
     "category": "Shawl",
     "difficulty": {
       "level": "intermediate",
@@ -6333,7 +6245,7 @@
     ],
     "commonMistakes": [
       "Forgetting the chain-1 between increases.",
-      "Uneven edges—make sure to dc in the top of the turning chain."
+      "Uneven edges\u2014make sure to dc in the top of the turning chain."
     ],
     "keywords": [
       "shawl",
@@ -6348,7 +6260,6 @@
     "id": "pattern-dk-002",
     "name": "Lightweight Pullover Sweater",
     "shortDescription": "A beginner-friendly crochet sweater made from two simple rectangles seamed together. DK weight keeps it lightweight.",
-    "imageUrl": "/api/pattern-image/pattern-dk-002",
     "category": "Sweater",
     "difficulty": {
       "level": "intermediate",
@@ -6423,7 +6334,6 @@
     "id": "pattern-dk-003",
     "name": "Crochet Market Tote",
     "shortDescription": "A sturdy market bag using DK cotton yarn. The mesh pattern stretches to hold groceries while being compact when folded.",
-    "imageUrl": "/api/pattern-image/pattern-dk-003",
     "category": "Bag",
     "difficulty": {
       "level": "intermediate",
@@ -6477,7 +6387,7 @@
     ],
     "beginnerTips": [
       "Use a stitch marker to track the start of each round.",
-      "Cotton yarn has less stretch—make handles generously long."
+      "Cotton yarn has less stretch\u2014make handles generously long."
     ],
     "commonMistakes": [
       "Twisting the base chain when joining.",
@@ -6496,7 +6406,6 @@
     "id": "pattern-dk-004",
     "name": "Striped Mug Cozy",
     "shortDescription": "A cheerful striped mug cozy in DK yarn. Quick to make and customizable with your favorite colors.",
-    "imageUrl": "/api/pattern-image/pattern-dk-004",
     "category": "Mug cozy",
     "difficulty": {
       "level": "beginner",
@@ -6552,7 +6461,7 @@
       "Work a gauge swatch if you want a custom fit for a specific mug."
     ],
     "commonMistakes": [
-      "Making the band too tight—it should wrap around with a slight overlap.",
+      "Making the band too tight\u2014it should wrap around with a slight overlap.",
       "Forgetting to leave a button opening."
     ],
     "keywords": [
@@ -6569,7 +6478,6 @@
     "id": "pattern-slippers-001",
     "name": "Cozy House Slippers",
     "shortDescription": "Warm, sturdy house slippers made with worsted weight yarn. The double-thick sole keeps your feet off cold floors.",
-    "imageUrl": "/api/pattern-image/pattern-slippers-001",
     "category": "Slippers",
     "difficulty": {
       "level": "intermediate",
@@ -6625,10 +6533,10 @@
     ],
     "beginnerTips": [
       "Use stitch markers to count increases on the sole.",
-      "Test fit as you go—adjust length by adding or removing chains on the sole."
+      "Test fit as you go\u2014adjust length by adding or removing chains on the sole."
     ],
     "commonMistakes": [
-      "Making the sole too flat—the increase rounds are important for the foot shape.",
+      "Making the sole too flat\u2014the increase rounds are important for the foot shape.",
       "Forgetting to work in back loops only for the side walls."
     ],
     "keywords": [
@@ -6644,7 +6552,6 @@
     "id": "pattern-poncho-001",
     "name": "Simple Beginner Poncho",
     "shortDescription": "A cozy poncho made from two large rectangles sewn together. Extremely beginner-friendly and forgiving of gauge.",
-    "imageUrl": "/api/pattern-image/pattern-poncho-001",
     "category": "Poncho",
     "difficulty": {
       "level": "beginner",
@@ -6702,8 +6609,8 @@
       "Try the poncho on before adding fringe to check the length."
     ],
     "commonMistakes": [
-      "Making the neck opening too small—measure your head circumference.",
-      "Uneven panels—count rows carefully."
+      "Making the neck opening too small\u2014measure your head circumference.",
+      "Uneven panels\u2014count rows carefully."
     ],
     "keywords": [
       "poncho",
@@ -6718,7 +6625,6 @@
     "id": "pattern-basket-001",
     "name": "Rope Storage Basket",
     "shortDescription": "A sturdy storage basket made by crocheting with t-shirt yarn or triple-strand worsted weight. Perfect for organizing shelves.",
-    "imageUrl": "/api/pattern-image/pattern-basket-001",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -6761,7 +6667,7 @@
       "rows": 10,
       "unit": "4 inches",
       "stitchPattern": "single crochet",
-      "notes": "Gauge affects stiffness—tighter is better for baskets."
+      "notes": "Gauge affects stiffness\u2014tighter is better for baskets."
     },
     "instructions": [
       "**Base:** Make a magic ring. Round 1: 6 sc in ring. (6 sc)",
@@ -6777,8 +6683,8 @@
       "Hold two strands together for a sturdier basket."
     ],
     "commonMistakes": [
-      "Crocheting too loosely—tight tension gives the basket structure.",
-      "Not increasing enough on the base—it should lie flat."
+      "Crocheting too loosely\u2014tight tension gives the basket structure.",
+      "Not increasing enough on the base\u2014it should lie flat."
     ],
     "keywords": [
       "basket",
@@ -6793,7 +6699,6 @@
     "id": "pattern-potholder-001",
     "name": "Thick Cotton Potholder",
     "shortDescription": "A double-thick potholder using cotton yarn. The thermal stitch creates an insulating layer for kitchen safety.",
-    "imageUrl": "/api/pattern-image/pattern-potholder-001",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
@@ -6815,7 +6720,7 @@
         "fiberType": [
           "Cotton"
         ],
-        "notes": "Use 100% cotton—acrylic will melt with heat!"
+        "notes": "Use 100% cotton\u2014acrylic will melt with heat!"
       },
       "hook": {
         "sizeMM": 5,
@@ -6844,12 +6749,12 @@
       "**Finishing:** Fold a second matching potholder (make two total). Sc around the edges to join them, working 3 sc in corners for a neat finish. Weave in ends."
     ],
     "beginnerTips": [
-      "Cotton is mandatory—never use acrylic for potholders.",
+      "Cotton is mandatory\u2014never use acrylic for potholders.",
       "Work tightly for better insulation."
     ],
     "commonMistakes": [
       "Using acrylic yarn that can melt.",
-      "Crocheting too loosely—the potholder should be dense."
+      "Crocheting too loosely\u2014the potholder should be dense."
     ],
     "keywords": [
       "potholder",
@@ -6864,7 +6769,6 @@
     "id": "pattern-scrunchie-001",
     "name": "Quick Velvet Scrunchies",
     "shortDescription": "Luxurious velvet scrunchies that work up in minutes. Great for using small amounts of specialty yarn.",
-    "imageUrl": "/api/pattern-image/pattern-scrunchie-001",
     "category": "Accessories",
     "difficulty": {
       "level": "beginner",
@@ -6921,7 +6825,7 @@
       "Experiment with different yarn textures for different looks."
     ],
     "commonMistakes": [
-      "Crocheting too tightly around the elastic—it should stretch.",
+      "Crocheting too tightly around the elastic\u2014it should stretch.",
       "Not covering the elastic completely in the first round."
     ],
     "keywords": [
@@ -6937,7 +6841,6 @@
     "id": "pattern-bulky-002",
     "name": "Bulky Beanies",
     "shortDescription": "A quick-to-make beanie using bulky yarn. Works up in under an hour for instant gratification.",
-    "imageUrl": "/api/pattern-image/pattern-bulky-002",
     "category": "Hat",
     "difficulty": {
       "level": "beginner",
@@ -6996,8 +6899,8 @@
       "Try the beanie on as you go to check the fit."
     ],
     "commonMistakes": [
-      "Increasing too much—the crown should lie flat, not ruffle.",
-      "Making the hat too tall—bulky yarn stacks up fast."
+      "Increasing too much\u2014the crown should lie flat, not ruffle.",
+      "Making the hat too tall\u2014bulky yarn stacks up fast."
     ],
     "keywords": [
       "beanie",
@@ -7012,7 +6915,6 @@
     "id": "pattern-bulky-003",
     "name": "Bulky Cowl Neck Warmer",
     "shortDescription": "A stylish infinity cowl worked in bulky yarn. The half double crochet creates a warm, dense fabric perfect for winter.",
-    "imageUrl": "/api/pattern-image/pattern-bulky-003",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -7068,8 +6970,8 @@
       "Block the cowl lightly to even out the stitches."
     ],
     "commonMistakes": [
-      "Twisting the foundation chain when joining—lay it flat first.",
-      "Crocheting too tightly—bulky yarn needs a relaxed tension."
+      "Twisting the foundation chain when joining\u2014lay it flat first.",
+      "Crocheting too tightly\u2014bulky yarn needs a relaxed tension."
     ],
     "keywords": [
       "cowl",
@@ -7084,7 +6986,6 @@
     "id": "pattern-bulky-004",
     "name": "Chunky Throw Pillow",
     "shortDescription": "A super-chunky throw pillow cover using bulky yarn. The simple rectangle folds into a pillow cover with an envelope back.",
-    "imageUrl": "/api/pattern-image/pattern-bulky-004",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -7142,7 +7043,7 @@
       "Block the panel before seaming for a professional finish."
     ],
     "commonMistakes": [
-      "Making the panel too small—measure against the pillow form.",
+      "Making the panel too small\u2014measure against the pillow form.",
       "Using a hook that's too small, making stiff fabric that doesn't drape."
     ],
     "keywords": [
@@ -7157,8 +7058,7 @@
   {
     "id": "pattern-superbulky-001",
     "name": "Super Bulky Arm Knit Blanket",
-    "shortDescription": "A luxurious hand-crocheted blanket using super bulky yarn. Works up incredibly fast—perfect for last-minute gifts.",
-    "imageUrl": "/api/pattern-image/pattern-superbulky-001",
+    "shortDescription": "A luxurious hand-crocheted blanket using super bulky yarn. Works up incredibly fast\u2014perfect for last-minute gifts.",
     "category": "Blanket",
     "difficulty": {
       "level": "beginner",
@@ -7211,11 +7111,11 @@
       "**Finishing:** Weave in ends with a large yarn needle. Block gently if needed."
     ],
     "beginnerTips": [
-      "This project is heavy—support the weight as you work.",
+      "This project is heavy\u2014support the weight as you work.",
       "Count stitches every few rows since mistakes are visible in giant yarn."
     ],
     "commonMistakes": [
-      "Using regular-weight yarn instead of super bulky—the look won't be the same.",
+      "Using regular-weight yarn instead of super bulky\u2014the look won't be the same.",
       "Forgetting that this blanket is heavy when finished."
     ],
     "keywords": [
@@ -7231,7 +7131,6 @@
     "id": "pattern-superbulky-002",
     "name": "Jumbo Pet Bed",
     "shortDescription": "A plush, round pet bed using super bulky yarn. Your cat or small dog will love this cozy nest.",
-    "imageUrl": "/api/pattern-image/pattern-superbulky-002",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -7290,8 +7189,8 @@
       "Test the bed size by having your pet sit on it midway."
     ],
     "commonMistakes": [
-      "Increasing too fast—the base should lie flat without ruffling.",
-      "Making the walls too tall—pets prefer low walls they can climb over."
+      "Increasing too fast\u2014the base should lie flat without ruffling.",
+      "Making the walls too tall\u2014pets prefer low walls they can climb over."
     ],
     "keywords": [
       "pet bed",
@@ -7306,7 +7205,6 @@
     "id": "pattern-legwarmers-001",
     "name": "Cozy Leg Warmers",
     "shortDescription": "Leg warmers worked flat and seamed. Customize the length and add a fold-over cuff for extra warmth.",
-    "imageUrl": "/api/pattern-image/pattern-legwarmers-001",
     "category": "Accessories",
     "difficulty": {
       "level": "beginner",
@@ -7364,7 +7262,7 @@
       "Add an edging of single crochet for a cleaner finish."
     ],
     "commonMistakes": [
-      "Making the leg too wide—it should fit snugly without bagging.",
+      "Making the leg too wide\u2014it should fit snugly without bagging.",
       "Forgetting to make the second one the same size."
     ],
     "keywords": [
@@ -7380,7 +7278,6 @@
     "id": "pattern-ornament-001",
     "name": "Crochet Christmas Ornaments",
     "shortDescription": "Set of mini crochet ornaments: a star, a heart, and a mini stocking. Great for using scrap yarn and making gifts.",
-    "imageUrl": "/api/pattern-image/pattern-ornament-001",
     "category": "Keychain",
     "difficulty": {
       "level": "intermediate",
@@ -7428,7 +7325,7 @@
     "instructions": [
       "**Star (make 2):** Chain 2. 5 sc in 2nd chain from hook. (5 sc)",
       "**Star Points:** Chain 4, sl st in 2nd chain from hook, sc in next, hdc in last. Sl st to next sc on the base. Repeat 4 more times to make 5 points. Fasten off.",
-      "**Heart:** Magic ring, ch 2, 2 dc, ch 2, sl st, ch 2, 2 dc, hdc — all in ring. Pull tight to form heart shape. Fasten off.",
+      "**Heart:** Magic ring, ch 2, 2 dc, ch 2, sl st, ch 2, 2 dc, hdc \u2014 all in ring. Pull tight to form heart shape. Fasten off.",
       "**Mini Stocking:** Chain 6. Sc in 2nd chain from hook and next 3, 3 sc in last. Continue on opposite side: sc in 4 chains, 2 sc in last. Join. (14 sc)",
       "Work 3 rounds sc evenly. For the heel: sc decrease, sc in 3, sc decrease. For the cuff: ch 4, sc in 2nd chain and next 2, slip stitch to stocking. Fasten off.",
       "**Assembly:** Attach ribbon or ornament hook to each piece. Block lightly. (Optional: dip in diluted glue to stiffen.)"
@@ -7438,8 +7335,8 @@
       "Block the star pieces before sewing them together."
     ],
     "commonMistakes": [
-      "Ornaments are too loose—use a smaller hook for tighter stitches.",
-      "Skipping the stiffening step—they'll hold shape better with glue."
+      "Ornaments are too loose\u2014use a smaller hook for tighter stitches.",
+      "Skipping the stiffening step\u2014they'll hold shape better with glue."
     ],
     "keywords": [
       "ornaments",
@@ -7454,7 +7351,6 @@
     "id": "pattern-earrings-001",
     "name": "Crochet Hoop Earrings",
     "shortDescription": "Lightweight, modern hoop earrings made with fine thread and wire hoops. An advanced beginner project that looks impressive.",
-    "imageUrl": "/api/pattern-image/pattern-earrings-001",
     "category": "Accessories",
     "difficulty": {
       "level": "intermediate",
@@ -7509,12 +7405,12 @@
       "**Finishing:** Use jewelry pliers to close the hoop finding. Weave in the thread tail carefully. Repeat for second earring."
     ],
     "beginnerTips": [
-      "Work in good lighting—fine thread is hard to see.",
+      "Work in good lighting\u2014fine thread is hard to see.",
       "Use a thimble if your fingers get sore from the small hook."
     ],
     "commonMistakes": [
-      "Using regular yarn instead of thread—it won't fit through the hoop.",
-      "Crocheting too loosely—the stitches should hug the hoop snugly."
+      "Using regular yarn instead of thread\u2014it won't fit through the hoop.",
+      "Crocheting too loosely\u2014the stitches should hug the hoop snugly."
     ],
     "keywords": [
       "earrings",
@@ -7529,7 +7425,6 @@
     "id": "pattern-plant-hanger-003",
     "name": "Boho Plant Hanger with Beads",
     "shortDescription": "A macrame-style crochet plant hanger using worsted cotton. Wooden beads add a boho touch.",
-    "imageUrl": "/api/pattern-image/pattern-plant-hanger-003",
     "category": "Small plant hanger",
     "difficulty": {
       "level": "intermediate",
@@ -7588,7 +7483,7 @@
     ],
     "commonMistakes": [
       "Forgetting to add beads before closing loops.",
-      "Making the hanger too short—the pot should sit inside comfortably."
+      "Making the hanger too short\u2014the pot should sit inside comfortably."
     ],
     "keywords": [
       "plant hanger",
@@ -7603,7 +7498,6 @@
     "id": "pattern-bookmark-003",
     "name": "Lacy Bookmark with Bead",
     "shortDescription": "An elegant lace bookmark using cotton thread. Makes a wonderful, thoughtful gift for book lovers.",
-    "imageUrl": "/api/pattern-image/pattern-bookmark-003",
     "category": "Bookmark",
     "difficulty": {
       "level": "intermediate",
@@ -7677,7 +7571,6 @@
     "id": "pattern-phone-case-003",
     "name": "Textured Phone Pouch",
     "shortDescription": "A protective phone pouch with a textured stitch pattern. The flap keeps your phone secure.",
-    "imageUrl": "/api/pattern-image/pattern-phone-case-003",
     "category": "Cell phone case",
     "difficulty": {
       "level": "beginner",
@@ -7736,7 +7629,7 @@
       "Use contrasting thread to sew the button for a pop of color."
     ],
     "commonMistakes": [
-      "Making the pouch too narrow—test with your phone.",
+      "Making the pouch too narrow\u2014test with your phone.",
       "Sewing the button in the wrong position."
     ],
     "keywords": [
@@ -7752,7 +7645,6 @@
     "id": "pattern-water-bottle-003",
     "name": "Insulated Water Bottle Sling",
     "shortDescription": "A water bottle holder with an adjustable strap and drawstring top. The double-thick base insulates your drink.",
-    "imageUrl": "/api/pattern-image/pattern-water-bottle-003",
     "category": "Water bottle holder",
     "difficulty": {
       "level": "intermediate",
@@ -7811,8 +7703,8 @@
       "Use a plastic canvas circle inside the base for extra stability."
     ],
     "commonMistakes": [
-      "Making the base too big—the bottle should fit snugly.",
-      "Drawstring holes not aligned—count stitches evenly."
+      "Making the base too big\u2014the bottle should fit snugly.",
+      "Drawstring holes not aligned\u2014count stitches evenly."
     ],
     "keywords": [
       "water bottle",
@@ -7827,7 +7719,6 @@
     "id": "pattern-eyeglass-003",
     "name": "Quilted Eyeglass Case",
     "shortDescription": "A padded eyeglass case with a quilted texture. The flap closure keeps glasses secure.",
-    "imageUrl": "/api/pattern-image/pattern-eyeglass-003",
     "category": "Eyeglass case",
     "difficulty": {
       "level": "intermediate",
@@ -7885,7 +7776,7 @@
       "Block the piece before seaming for a professional look."
     ],
     "commonMistakes": [
-      "Making the case too flat—glasses need a bit of depth.",
+      "Making the case too flat\u2014glasses need a bit of depth.",
       "Sewing seams too tight, creating a lumpy edge."
     ],
     "keywords": [
@@ -7901,7 +7792,6 @@
     "id": "pattern-wristband-003",
     "name": "Infinity Wristband",
     "shortDescription": "A braided-looking wristband made with a clever crochet technique. Adjustable to any wrist size.",
-    "imageUrl": "/api/pattern-image/pattern-wristband-003",
     "category": "Wristband",
     "difficulty": {
       "level": "beginner",
@@ -7958,8 +7848,8 @@
       "Make the button loop slightly smaller than the button diameter."
     ],
     "commonMistakes": [
-      "Making the band too loose—the braid stretches with wear.",
-      "Skipping the button loop—check before fastening off."
+      "Making the band too loose\u2014the braid stretches with wear.",
+      "Skipping the button loop\u2014check before fastening off."
     ],
     "keywords": [
       "wristband",
@@ -7974,7 +7864,6 @@
     "id": "pattern-keychain-003",
     "name": "Mini Amigurumi Keychain",
     "shortDescription": "An adorable mini amigurumi animal keychain. Choose a bear, bunny, or cat face design.",
-    "imageUrl": "/api/pattern-image/pattern-keychain-003",
     "category": "Keychain",
     "difficulty": {
       "level": "intermediate",
@@ -8032,11 +7921,11 @@
     ],
     "beginnerTips": [
       "Use safety eyes with locking washers for children's items.",
-      "Stuff firmly but don't overstuff—the shape should be round, not lumpy."
+      "Stuff firmly but don't overstuff\u2014the shape should be round, not lumpy."
     ],
     "commonMistakes": [
-      "Crocheting too loosely—use a smaller hook for amigurumi.",
-      "Forgetting to weave in ends securely—keychains get a lot of handling."
+      "Crocheting too loosely\u2014use a smaller hook for amigurumi.",
+      "Forgetting to weave in ends securely\u2014keychains get a lot of handling."
     ],
     "keywords": [
       "keychain",
@@ -8045,6 +7934,451 @@
       "intermediate",
       "toy",
       "cute"
+    ]
+  },
+  {
+    "id": "pattern-lace-dolly-001",
+    "name": "Classic Pineapple Doily",
+    "shortDescription": "An elegant pineapple-motif doily perfect for lace-weight thread. Makes a 12-inch round table centerpiece.",
+    "category": "Home Decor",
+    "difficulty": {
+      "level": "advanced",
+      "score": 8,
+      "reasoning": "Complex pineapple stitch pattern requires counting and concentration."
+    },
+    "estimatedTime": {
+      "minHours": 15,
+      "maxHours": 25,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "0 (Lace)",
+        "weightNumber": 0,
+        "suggestedYardageMin": 300,
+        "suggestedYardageMax": 400,
+        "fiberType": [
+          "Cotton"
+        ],
+        "notes": "Size 10 crochet cotton thread recommended."
+      },
+      "hook": {
+        "sizeMM": 1.5,
+        "sizeUS": "7 steel",
+        "sizeUK": "3\u00bd",
+        "notes": "Use steel hook for thread work."
+      },
+      "notions": [
+        "Yarn needle",
+        "Spray starch for blocking",
+        "T-pins",
+        "Blocking board"
+      ]
+    },
+    "gauge": {
+      "stitches": 10,
+      "rows": 8,
+      "unit": "4 inches",
+      "stitchPattern": "double crochet",
+      "notes": "Exact gauge is important for doily sizing."
+    },
+    "instructions": [
+      "**Foundation:** Make a magic ring, chain 4 (counts as first dc + ch 1).",
+      "**Round 1:** Work 11 dc into ring, joining with sl st to 3rd ch of beginning ch-4. (12 dc spaces)",
+      "**Round 2:** Ch 4, dc in same st, *ch 1, skip 1 dc, (dc, ch 1, dc) in next dc; rep from * around, join. (12 V-stitches)",
+      "**Round 3:** Sl st into first ch-1 space, ch 4, dc in same space, *ch 2, (dc, ch 1, dc) in next ch-1 space; rep from * around, join.",
+      "**Pineapple section:** Follow chart for pineapple motif expansion (Rounds 4-20). Each pineapple grows by 2 dc per side per round.",
+      "**Mesh rounds:** After pineapples complete, work 4 rounds of ch-5 mesh (dc, ch 5, dc in each ch-5 loop).",
+      "**Edging:** Work picot edging around entire doily: (sc, ch 3, sc in 3rd ch from hook) in each sc around.",
+      "**Finish:** Fasten off, weave in ends. Block to 12 inches using starch for best results."
+    ],
+    "beginnerTips": [
+      "Count each pineapple section separately using stitch markers.",
+      "Blocking is essential for lace doilies to open up the pattern.",
+      "Use a smooth cotton thread for best stitch definition."
+    ],
+    "commonMistakes": [
+      "Tight tension creates a cupped doily that won't lie flat.",
+      "Skipping the ch-1 between V-stitches in early rounds.",
+      "Not counting stitches at the end of each round."
+    ],
+    "keywords": [
+      "doily",
+      "lace",
+      "pineapple",
+      "table centerpiece",
+      "home decor"
+    ]
+  },
+  {
+    "id": "pattern-lace-shawl-001",
+    "name": "Feather & Fan Lace Shawl",
+    "shortDescription": "A delicate triangular shawl featuring the classic feather-and-fan stitch pattern. Lightweight and airy for warm weather.",
+    "category": "Shawl",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Repeating lace pattern is easy once established."
+    },
+    "estimatedTime": {
+      "minHours": 10,
+      "maxHours": 18,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "0 (Lace)",
+        "weightNumber": 0,
+        "suggestedYardageMin": 600,
+        "suggestedYardageMax": 800,
+        "fiberType": [
+          "Mohair",
+          "Silk",
+          "Nylon"
+        ],
+        "notes": "Lace-weight yarn or 2-ply fingering weight."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Larger hook creates open, drapey fabric."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers",
+        "Blocking wires"
+      ]
+    },
+    "gauge": {
+      "stitches": 12,
+      "rows": 6,
+      "unit": "4 inches",
+      "stitchPattern": "feather and fan (one repeat)",
+      "notes": "Gauge swatch should include at least 2 pattern repeats."
+    },
+    "instructions": [
+      "**Foundation:** Chain 6, join with sl st to form a ring.",
+      "**Row 1 (WS):** Ch 3 (counts as dc), work 3 dc into ring, ch 3, work 3 dc into ring. Turn.",
+      "**Row 2 (RS):** Ch 3, 2 dc in first st, dc in each dc across to ch-3 space, (2 dc, ch 3, 2 dc) in ch-3 space, dc in each dc across, 3 dc in top of turning ch. Turn.",
+      "**Row 3:** Ch 3, 2 dc in first st, dc in each dc across to ch-3 space, (2 dc, ch 3, 2 dc) in ch-3 space, dc in each dc across, 3 dc in top of turning ch. Turn.",
+      "**Begin Feather & Fan:** Ch 3, *sk 2 dc, work 5 dc in next dc (fan), sk 2 dc, sc in next dc; rep from * across to ch-3 center.",
+      "**Center:** Work (fan, ch 3, fan) in ch-3 space.",
+      "**Complete row:** Sc in next dc, *sk 2 dc, 5 dc in next dc, sk 2 dc, sc in next dc; rep from * to end, 3 dc in top of turning ch. Turn.",
+      "**Repeat:** Alternate the dc increase rows (Rows 2-3 style) and feather & fan rows, increasing at center and edges each time.",
+      "**Continue** until shawl measures approximately 60 inches across the top edge, ending with a feather & fan row.",
+      "**Edging:** Ch 1, sc evenly along top edge. Fasten off. Block aggressively to open lace pattern."
+    ],
+    "beginnerTips": [
+      "Place a stitch marker at the center ch-3 space to track increases.",
+      "Blocking transforms lace \u2014 don't skip it!",
+      "Use blocking wires for a straight top edge."
+    ],
+    "commonMistakes": [
+      "Missing the center ch-3 increase causes the shawl to curve.",
+      "Using a smaller hook than recommended makes stiff fabric.",
+      "Not counting fans at the end of each feather & fan row."
+    ],
+    "keywords": [
+      "shawl",
+      "lace",
+      "feather and fan",
+      "triangular",
+      "lightweight",
+      "summer"
+    ]
+  },
+  {
+    "id": "pattern-lace-bookmark-001",
+    "name": "Victorian Lace Bookmark",
+    "shortDescription": "A quick lace bookmark project that works up in an evening. Makes a lovely gift for book lovers.",
+    "category": "Bookmark",
+    "difficulty": {
+      "level": "beginner",
+      "score": 3,
+      "reasoning": "Small project with repeating pattern, easy to learn."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 2,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "0 (Lace)",
+        "weightNumber": 0,
+        "suggestedYardageMin": 25,
+        "suggestedYardageMax": 50,
+        "fiberType": [
+          "Cotton"
+        ],
+        "notes": "Size 20 crochet cotton thread works beautifully."
+      },
+      "hook": {
+        "sizeMM": 1.25,
+        "sizeUS": "8 steel",
+        "sizeUK": "4",
+        "notes": "Steel hook recommended for thread crochet."
+      },
+      "notions": [
+        "Yarn needle",
+        "Optional: small bead for tassel"
+      ]
+    },
+    "gauge": {
+      "stitches": 8,
+      "rows": 10,
+      "unit": "1 inch",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge is not critical for this small project."
+    },
+    "instructions": [
+      "**Foundation:** Chain 25.",
+      "**Row 1:** Sc in 2nd ch from hook and each ch across. (24 sc) Ch 1, turn.",
+      "**Row 2:** Sc in each sc across. Ch 5, turn.",
+      "**Row 3:** Skip 3 sc, dc in next sc, *ch 3, skip 2 sc, dc in next sc; rep from * across. (8 dc, 7 ch-3 spaces) Ch 1, turn.",
+      "**Row 4:** Sl st into first ch-3 space, (sc, hdc, 3 dc, hdc, sc) in each ch-3 space across. Ch 1, turn.",
+      "**Row 5:** Sl st in first 2 sts, sc in center dc of first shell, *ch 5, sc in center dc of next shell; rep from * across. (7 ch-5 loops) Ch 1, turn.",
+      "**Row 6:** (Sc, hdc, 5 dc, hdc, sc) in each ch-5 loop across. Ch 1, turn.",
+      "**Rows 7-40:** Repeat Rows 5-6, alternating shell sizes for a scalloped edge. The pattern will naturally form a zigzag.",
+      "**Finish row:** Sc in each st across the top. Ch 1, turn.",
+      "**Edging:** Work (sc, ch 3, picot) evenly around entire bookmark.",
+      "**Tassel:** Cut 10 strands of thread 6 inches long. Fold in half, pull loop through bottom corner, thread ends through loop. Trim evenly."
+    ],
+    "beginnerTips": [
+      "Count your chains carefully at the start.",
+      "Use a stitch marker to track your rows.",
+      "This is a great TV-watching project once the pattern is memorized."
+    ],
+    "commonMistakes": [
+      "Skipping the turning chain at the start of each row.",
+      "Working too tightly \u2014 keep tension light and even.",
+      "Forgetting to ch 5 between shells."
+    ],
+    "keywords": [
+      "bookmark",
+      "lace",
+      "victorian",
+      "thread crochet",
+      "gift"
+    ]
+  },
+  {
+    "id": "pattern-jumbo-blanket-001",
+    "name": "Giant Arm-Knit Blanket",
+    "shortDescription": "A luxuriously thick blanket you can make using just your hands \u2014 no hooks needed! Works up in under 2 hours.",
+    "category": "Blanket",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "No hook required, just basic loops with your hands."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 2,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "7 (Jumbo)",
+        "weightNumber": 7,
+        "suggestedYardageMin": 80,
+        "suggestedYardageMax": 120,
+        "fiberType": [
+          "Acrylic",
+          "Polyester"
+        ],
+        "notes": "Use jumbo blanket yarn (like Bernat Blanket Big or similar). 3-4 skeins."
+      },
+      "hook": {
+        "sizeMM": 0,
+        "sizeUS": "None (arm knit)",
+        "sizeUK": "",
+        "notes": "This pattern uses arm knitting, no hook needed."
+      },
+      "notions": [
+        "Scissors"
+      ]
+    },
+    "gauge": {
+      "stitches": 2,
+      "rows": 2,
+      "unit": "4 inches",
+      "stitchPattern": "arm knit stitch",
+      "notes": "Gauge varies with arm tension but won't affect finished size."
+    },
+    "instructions": [
+      "**Cast on:** Leaving a 6-8 inch tail, make a slip knot on your right wrist (loosely!). Cast on 12 stitches onto your right arm using the thumb method.",
+      "**Row 1 (Knit):** Hold yarn in left hand. With right arm, pull a loop through the first stitch from back to front, transfer to left arm. Repeat across all 12 stitches.",
+      "**Rows 2-40:** Repeat knit stitch across all rows. Keep tension even but loose \u2014 tight stitches are hard to work.",
+      "**Bind off:** Knit 2 stitches, lift first stitch over the second and off your arm. Knit 1 more, lift first over second. Repeat across until 1 stitch remains.",
+      "**Finish:** Cut yarn leaving a 12-inch tail. Pull through last loop. Weave tail through edge stitches to secure.",
+      "**Optional:** Add a chunky tassel to each corner using remaining yarn."
+    ],
+    "beginnerTips": [
+      "Work on a clean surface \u2014 jumbo yarn picks up lint.",
+      "Knit loosely! Tight stitches are painful to work with jumbo yarn.",
+      "Count stitches every few rows to avoid accidental increases."
+    ],
+    "commonMistakes": [
+      "Casting on too tightly \u2014 stitches should slide easily on your arm.",
+      "Dropping stitches when transferring between arms.",
+      "Using yarn that sheds excessively."
+    ],
+    "keywords": [
+      "blanket",
+      "jumbo",
+      "arm knit",
+      "chunky",
+      "quick",
+      "beginner"
+    ]
+  },
+  {
+    "id": "pattern-jumbo-cowl-001",
+    "name": "Chunky Infinity Cowl",
+    "shortDescription": "A supersized cozy cowl that works up in under an hour. Perfect for cold weather and absolute beginners.",
+    "category": "Accessories",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Single stitch repeated in the round. Easiest possible project."
+    },
+    "estimatedTime": {
+      "minHours": 0.5,
+      "maxHours": 1,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "7 (Jumbo)",
+        "weightNumber": 7,
+        "suggestedYardageMin": 40,
+        "suggestedYardageMax": 60,
+        "fiberType": [
+          "Acrylic",
+          "Wool",
+          "Polyester"
+        ],
+        "notes": "1-2 skeins of jumbo yarn."
+      },
+      "hook": {
+        "sizeMM": 15,
+        "sizeUS": "P/Q",
+        "sizeUK": "000",
+        "notes": "A large hook makes working with jumbo yarn easier."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 4,
+      "rows": 3,
+      "unit": "4 inches",
+      "stitchPattern": "half double crochet",
+      "notes": "Gauge is not critical \u2014 cowl size is flexible."
+    },
+    "instructions": [
+      "**Foundation:** Chain 35 loosely. Join with sl st to form a ring, being careful not to twist.",
+      "**Round 1:** Ch 2 (counts as hdc), hdc in each ch around. Join with sl st to top of ch-2. (35 hdc)",
+      "**Rounds 2-10:** Ch 2, hdc in each hdc around. Join with sl st.",
+      "**Finish:** Fasten off. Weave in ends using a large-eye yarn needle.",
+      "**Wear:** Wrap around neck twice for a snug cowl, or once for a loose infinity scarf."
+    ],
+    "beginnerTips": [
+      "Use a yarn needle with a large eye for weaving in jumbo yarn ends.",
+      "Mark your first stitch of each round to track where you started.",
+      "Jumbo yarn works up so fast you can make this in one sitting."
+    ],
+    "commonMistakes": [
+      "Joining the foundation chain twisted \u2014 always lay it flat before joining.",
+      "Using too much tension \u2014 jumbo yarn needs loose, relaxed stitches.",
+      "Splitting the yarn with the hook tip."
+    ],
+    "keywords": [
+      "cowl",
+      "jumbo",
+      "chunky",
+      "infinity scarf",
+      "beginner",
+      "quick"
+    ]
+  },
+  {
+    "id": "pattern-jumbo-basket-001",
+    "name": "Super Chunky Storage Basket",
+    "shortDescription": "A sturdy, stylish storage basket for blankets, toys, or yarn. Holds its shape beautifully with jumbo-weight yarn.",
+    "category": "Home Decor",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Requires consistent tension and shaping to keep the basket walls straight."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "7 (Jumbo)",
+        "weightNumber": 7,
+        "suggestedYardageMin": 100,
+        "suggestedYardageMax": 150,
+        "fiberType": [
+          "Cotton",
+          "T-shirt yarn",
+          "Polyester"
+        ],
+        "notes": "Use a firm yarn that holds shape. T-shirt yarn works great."
+      },
+      "hook": {
+        "sizeMM": 12,
+        "sizeUS": "O",
+        "sizeUK": "000",
+        "notes": "Use smaller hook than recommended for tight, firm fabric."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 5,
+      "rows": 4,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Tighter gauge is important for structure."
+    },
+    "instructions": [
+      "**Base:** Chain 2. Work 6 sc into 2nd ch from hook. Mark first stitch. (6 sc)",
+      "**Round 2:** Work 2 sc in each sc around. (12 sc)",
+      "**Round 3:** *Sc in next sc, 2 sc in next sc; rep from * around. (18 sc)",
+      "**Round 4:** *Sc in next 2 sc, 2 sc in next sc; rep from * around. (24 sc)",
+      "**Rounds 5-8:** Continue increasing evenly (sc in each sc, 2 sc in each increase space) until base measures approximately 10 inches across. (48-60 sc depending on tension)",
+      "**Side walls (Round 1):** Sc in back loop only of each sc around. This creates the corner fold for the base-to-wall transition.",
+      "**Rounds 2-12:** Sc in both loops of each sc around. Do not increase. The basket walls will rise straight up.",
+      "**Optional rim:** For a rolled edge, work 2 rounds of reverse sc (crab stitch) around the top.",
+      "**Finish:** Fasten off, weave in ends. Block by shaping with your hands."
+    ],
+    "beginnerTips": [
+      "Use a smaller hook than recommended for stiffer sides.",
+      "Mark the first stitch of each round so you don't lose your place.",
+      "If walls lean outward, go down a hook size."
+    ],
+    "commonMistakes": [
+      "Crocheting too loosely \u2014 basket will flop and not hold shape.",
+      "Skipping the back-loop-only round at the base-to-wall transition.",
+      "Not using stitch markers in the increases."
+    ],
+    "keywords": [
+      "basket",
+      "jumbo",
+      "storage",
+      "home decor",
+      "chunky"
     ]
   }
 ]

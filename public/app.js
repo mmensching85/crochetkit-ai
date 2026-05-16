@@ -294,9 +294,6 @@ function showCatalog() {
           const fvd = isFaved(p.id) ? 'faved' : '';
           const doneSt = isDone(p.id) ? 'done-st' : '';
           html += `<div class="project-card ${doneSt}" data-catalog-idx="${i}">`;
-          if (p.imageUrl) {
-            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${p.id}'"></div>`;
-          }
           html += `<h3>${title}</h3>`;
           if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
           html += `<p class="card-desc">${p.description}</p>`;
@@ -430,9 +427,6 @@ function showMyFaves() {
         const fvd = isFaved(p.id) ? 'faved' : '';
         const doneSt = isDone(p.id) ? 'done-st' : '';
         html += `<div class="project-card ${doneSt}" data-index="${i}">`;
-        if (p.imageUrl) {
-            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${p.id}'"></div>`;
-        }
         html += `<h3>${title}</h3>`;
         if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
         html += `<p class="card-desc">${p.description}</p>`;
@@ -507,9 +501,6 @@ function showMyDone() {
       done.forEach((p, i) => {
         const title = linkifyGlossaryTerms(p.title);
         html += `<div class="project-card done-st" data-index="${i}">`;
-        if (p.imageUrl) {
-            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${p.id}'"></div>`;
-        }
         html += `<h3>${title}</h3>`;
         html += `<span class="done-badge">✓ Done</span>`;
         html += `<p class="card-desc">${p.description}</p>`;
@@ -903,9 +894,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             const stitches = project.stitches_used.map(s => convertStitchName(s, currentTermSystem)).join(', ');
             const fvd = isFaved(project.id) ? 'faved' : '';
             html += `<div class="project-card" data-index="${index}">`;
-            if (project.imageUrl) {
-                html += `<div class="card-thumb"><img src="${project.imageUrl}" alt="${project.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${project.id}'"></div>`;
-            }
             html += `<h3>${title}</h3>`;
             html += `<p class="card-desc">${project.description}</p>`;
             html += `<p><strong>Time:</strong> ${project.estimated_time}</p>`;
@@ -966,10 +954,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         let html = `<div class="project-detail" data-index="${index}">`;
         html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back</button><button class="btn btn-success btn-sm detail-pdf-btn">PDF</button>${renderShareBtns(project.id, project.title)}</div>`;
-
-        if (project.imageUrl) {
-            html += `<div class="project-image"><img src="${project.imageUrl}" alt="${project.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${project.id}'"></div>`;
-        }
 
         const fvd = isFaved(project.id) ? 'faved' : '';
         const doneSt = isDone(project.id);
