@@ -88,9 +88,14 @@ function matchPattern(userInput, patterns) {
 
     if (pattern.materials && pattern.materials.yarn) {
       const patternWeight = pattern.materials.yarn.weightNumber;
-      if (patternWeight === userInput.yarnWeightNumber) {
-        score += 2;
-        details.criteria.push({ name: "yarnWeight", met: true, points: 2 });
+      const weightDiff = Math.abs(patternWeight - userInput.yarnWeightNumber);
+      if (weightDiff === 0) {
+        score += 3;
+        details.criteria.push({ name: "yarnWeight", met: true, points: 3 });
+      } else if (weightDiff === 1) {
+        score += 1.5;
+        details.criteria.push({ name: "yarnWeight", met: true, points: 1.5,
+          info: `Close match: pattern uses weight ${patternWeight}, you have ${userInput.yarnWeightNumber}` });
       } else {
         details.criteria.push({ name: "yarnWeight", met: false, points: 0,
           info: `Pattern needs weight ${patternWeight}, you have ${userInput.yarnWeightNumber}` });
@@ -99,9 +104,18 @@ function matchPattern(userInput, patterns) {
 
     if (pattern.materials && pattern.materials.yarn) {
       const minYardage = pattern.materials.yarn.suggestedYardageMin;
+      const maxYardage = pattern.materials.yarn.suggestedYardageMax;
+      const idealYardage = (minYardage + maxYardage) / 2;
       if (userInput.yardageHave >= minYardage) {
-        score += 1;
-        details.criteria.push({ name: "yardage", met: true, points: 1 });
+        const excess = userInput.yardageHave - idealYardage;
+        if (excess >= 0 && excess <= 50) {
+          score += 2;
+          details.criteria.push({ name: "yardage", met: true, points: 2,
+            info: `Perfect yardage match!` });
+        } else {
+          score += 1;
+          details.criteria.push({ name: "yardage", met: true, points: 1 });
+        }
       } else {
         details.criteria.push({ name: "yardage", met: false, points: 0,
           info: `You have ${userInput.yardageHave} yds, pattern needs at least ${minYardage} yds` });
@@ -111,15 +125,22 @@ function matchPattern(userInput, patterns) {
     if (!userInput.hookSizeUnknown && pattern.materials && pattern.materials.hook) {
       const patternHookMM = pattern.materials.hook.sizeMM;
       const userHookMM = userInput.hookSizeMM;
-      if (userHookMM !== null && Math.abs(userHookMM - patternHookMM) <= 0.5) {
-        score += 1;
-        details.criteria.push({ name: "hookSize", met: true, points: 1 });
-      } else if (userHookMM === null) {
+      if (userHookMM !== null) {
+        const hookDiff = Math.abs(userHookMM - patternHookMM);
+        if (hookDiff <= 0.5) {
+          score += 1.5;
+          details.criteria.push({ name: "hookSize", met: true, points: 1.5 });
+        } else if (hookDiff <= 1.0) {
+          score += 0.5;
+          details.criteria.push({ name: "hookSize", met: true, points: 0.5,
+            info: `Close hook match: you have ${userHookMM}mm, pattern suggests ${patternHookMM}mm` });
+        } else {
+          details.criteria.push({ name: "hookSize", met: false, points: 0,
+            info: `You have ${userHookMM}mm, pattern suggests ${patternHookMM}mm` });
+        }
+      } else {
         details.criteria.push({ name: "hookSize", met: null, points: 0,
           info: "Hook size unknown; will recommend based on pattern." });
-      } else {
-        details.criteria.push({ name: "hookSize", met: false, points: 0,
-          info: `You have ${userHookMM}mm, pattern suggests ${patternHookMM}mm` });
       }
     } else if (userInput.hookSizeUnknown) {
       details.criteria.push({ name: "hookSize", met: null, points: 0,
@@ -131,10 +152,19 @@ function matchPattern(userInput, patterns) {
       const patternMax = pattern.estimatedTime.maxHours;
       const userMin = userInput.timeRange.minHours;
       const userMax = userInput.timeRange.maxHours;
+      const patternMid = (patternMin + patternMax) / 2;
+      const userMid = (userMin + userMax) / 2;
       const overlaps = !(patternMax < userMin || patternMin > userMax);
       if (overlaps) {
-        score += 1;
-        details.criteria.push({ name: "time", met: true, points: 1 });
+        const timeDiff = Math.abs(patternMid - userMid);
+        if (timeDiff <= 0.5) {
+          score += 1.5;
+          details.criteria.push({ name: "time", met: true, points: 1.5,
+            info: `Perfect time match!` });
+        } else {
+          score += 1;
+          details.criteria.push({ name: "time", met: true, points: 1 });
+        }
       } else {
         details.criteria.push({ name: "time", met: false, points: 0,
           info: `Pattern takes ${patternMin}-${patternMax}h, you have ${userMin}-${userMax}h` });
@@ -142,15 +172,30 @@ function matchPattern(userInput, patterns) {
     }
 
     if (userInput.preferredCategory && pattern.category) {
-      if (pattern.category.toLowerCase() === userInput.preferredCategory.toLowerCase()) {
-        score += 1;
-        details.criteria.push({ name: "category", met: true, points: 1 });
+      const catUser = userInput.preferredCategory.toLowerCase().trim();
+      const catPat = pattern.category.toLowerCase().trim();
+      if (catPat === catUser || catPat.includes(catUser) || catUser.includes(catPat)) {
+        const exact = catPat === catUser;
+        score += exact ? 1.5 : 1;
+        details.criteria.push({ name: "category", met: true, points: exact ? 1.5 : 1 });
       } else {
         details.criteria.push({ name: "category", met: false, points: 0,
           info: `You preferred ${userInput.preferredCategory}, pattern is ${pattern.category}` });
       }
     } else if (!userInput.preferredCategory) {
       details.criteria.push({ name: "category", met: null, points: 0 });
+    }
+
+    // Bonus: difficulty score proximity
+    if (pattern.difficulty && pattern.difficulty.score !== undefined) {
+      const userDiffScore = userDifficulty === 'beginner' ? 2 : 5;
+      const diff = Math.abs(pattern.difficulty.score - userDiffScore);
+      if (diff <= 1) {
+        score += 1;
+        details.criteria.push({ name: "difficultyFit", met: true, points: 1 });
+      } else {
+        details.criteria.push({ name: "difficultyFit", met: true, points: 0.5 });
+      }
     }
 
     scoredPatterns.push({ pattern, score, details });

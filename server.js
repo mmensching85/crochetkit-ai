@@ -51,6 +51,49 @@ function getPopular() {
     return readJSON(POPULAR_FILE) || {};
 }
 
+// SVG color palettes by category
+const CAT_COLORS = {
+  'Scarf': { bg: ['#667eea', '#764ba2'], accent: '#fff', text: '#e8d8ff' },
+  'Hat': { bg: ['#e74c3c', '#c0392b'], accent: '#fff', text: '#ffd8d0' },
+  'Headband': { bg: ['#9b59b6', '#8e44ad'], accent: '#fff', text: '#e8d0ff' },
+  'Dishcloth': { bg: ['#3498db', '#2980b9'], accent: '#fff', text: '#d0e8ff' },
+  'Coaster': { bg: ['#1abc9c', '#16a085'], accent: '#fff', text: '#d0fff0' },
+  'Bag': { bg: ['#f39c12', '#e67e22'], accent: '#fff', text: '#fff0d0' },
+  'Blanket': { bg: ['#e91e63', '#c2185b'], accent: '#fff', text: '#ffd0e0' },
+  'Baby': { bg: ['#00bcd4', '#0097a7'], accent: '#fff', text: '#d0f8ff' },
+  'Toy': { bg: ['#ff5722', '#e64a19'], accent: '#fff', text: '#ffe0d0' },
+  'Shawl': { bg: ['#9c27b0', '#7b1fa2'], accent: '#fff', text: '#f0d0ff' },
+};
+const CAT_DEFAULT = { bg: ['#667eea', '#764ba2'], accent: '#fff', text: '#e8d8ff' };
+
+function generatePatternSVG(pattern) {
+    const colors = CAT_COLORS[pattern.category] || CAT_DEFAULT;
+    const name = escHtml(pattern.name || 'Crochet Pattern');
+    const cat = escHtml(pattern.category || '');
+    const diff = pattern.difficulty ? pattern.difficulty.level : '';
+    const time = pattern.estimatedTime ? `${pattern.estimatedTime.minHours}-${pattern.estimatedTime.maxHours} ${pattern.estimatedTime.unit}` : '';
+    const bg1 = colors.bg[0];
+    const bg2 = colors.bg[1];
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:${bg1}"/>
+      <stop offset="100%" style="stop-color:${bg2}"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#g)" rx="12"/>
+  <circle cx="60" cy="70" r="40" fill="rgba(255,255,255,0.08)"/>
+  <circle cx="350" cy="250" r="50" fill="rgba(255,255,255,0.06)"/>
+  <circle cx="200" cy="50" r="80" fill="rgba(255,255,255,0.04)"/>
+  <text x="200" y="100" text-anchor="middle" fill="${colors.accent}" font-family="sans-serif" font-size="22" font-weight="bold">${name.length > 28 ? name.slice(0, 28) + '...' : name}</text>
+  <line x1="80" y1="120" x2="320" y2="120" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="200" y="155" text-anchor="middle" fill="${colors.text}" font-family="sans-serif" font-size="14">${cat}</text>
+  <text x="200" y="185" text-anchor="middle" fill="${colors.text}" font-family="sans-serif" font-size="13">${diff} &middot; ${time}</text>
+  <text x="200" y="230" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="sans-serif" font-size="40">&#9829;</text>
+  <text x="200" y="280" text-anchor="middle" fill="rgba(255,255,255,0.15)" font-family="sans-serif" font-size="11">CrochetKit AI</text>
+</svg>`;
+}
+
 function trackPopular(patternId, action) {
     const pop = getPopular();
     if (!pop[patternId]) pop[patternId] = { views: 0, selects: 0, pdfs: 0 };
@@ -126,7 +169,7 @@ app.get('/api/patterns', (req, res) => {
             ],
             stitches_used: extractStitches(p.instructions),
             printable_summary: p.shortDescription,
-            imageUrl: p.imageUrl
+            imageUrl: p.imageUrl || `/api/pattern-image/${p.id}`
         }));
         res.json(formatted);
     } catch (error) {
@@ -482,6 +525,17 @@ app.put('/api/auth/yarn-stash', authMiddleware, (req, res) => {
     }
 });
 
+// GET /api/pattern-image/:id — Generate SVG pattern image
+app.get('/api/pattern-image/:id', (req, res) => {
+    const pattern = patterns.find(p => p.id === req.params.id);
+    if (!pattern) {
+        return res.status(404).send('Pattern not found');
+    }
+    res.setHeader('Content-Type', 'image/svg+xml');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    res.send(generatePatternSVG(pattern));
+});
+
 // Shareable pattern links with Open Graph tags
 app.get('/p/:id', (req, res) => {
     const pattern = patterns.find(p => p.id === req.params.id);
@@ -490,7 +544,7 @@ app.get('/p/:id', (req, res) => {
     const title = escHtml(pattern.name) + ' — Crochet Project Planner';
     const desc = escHtml(pattern.shortDescription);
     const url = `https://${req.get('host')}/p/${pattern.id}`;
-    const img = pattern.imageUrl ? `https://${req.get('host')}${pattern.imageUrl}` : '';
+    const img = pattern.imageUrl ? `https://${req.get('host')}${pattern.imageUrl}` : `https://${req.get('host')}/api/pattern-image/${pattern.id}`;
 
     fs.readFile(path.join(__dirname, 'public', 'index.html'), 'utf-8', (err, data) => {
         if (err) return res.sendFile(path.join(__dirname, 'public', 'index.html'));

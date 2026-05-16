@@ -5526,5 +5526,310 @@
       "round",
       "quick"
     ]
+  },
+  {
+    "id": "pattern-hat-004",
+    "name": "Messy Bun Beanie",
+    "shortDescription": "A trendy beanie with a hole at the crown for ponytails or buns. Quick to make and perfect for gifting.",
+    "imageUrl": null,
+    "category": "Hat",
+    "difficulty": { "level": "beginner", "score": 2, "reasoning": "Simple construction with basic stitches and increases." },
+    "estimatedTime": { "minHours": 2, "maxHours": 4, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["acrylic", "wool"], "weightCategory": "Medium (worsted)", "weightNumber": 4, "suggestedYardageMin": 150, "suggestedYardageMax": 250 },
+      "hook": { "sizeUS": "H-8", "sizeMM": 5.0 },
+      "notions": ["Tapestry needle", "Stitch marker"]
+    },
+    "instructions": [
+      "**Round 1:** Make a magic ring. Chain 1, work 10 double crochet into the ring, join. (10 dc)",
+      "**Round 2:** Chain 1, 2 double crochet in each stitch around, join. (20 dc)",
+      "**Round 3:** Chain 1, *double crochet in next stitch, 2 dc in next*, repeat around, join. (30 dc)",
+      "**Rounds 4-12:** Chain 1, double crochet in each stitch around, join.",
+      "**Finishing:** Chain 1, slip stitch in next 8 stitches to create a small brim fold. Fasten off, weave in ends."
+    ],
+    "beginnerTips": [
+      "Use a stitch marker to track the start of each round.",
+      "Keep tension consistent for an even brim."
+    ],
+    "commonMistakes": [
+      "Not marking the start of the round.",
+      "Tightening the magic ring too much."
+    ],
+    "keywords": ["messy bun", "beanie", "ponytail", "hat", "quick"]
+  },
+  {
+    "id": "pattern-blanket-004",
+    "name": "Corner to Corner Baby Blanket",
+    "shortDescription": "A modern baby blanket worked diagonally from corner to corner. Uses only double crochet and chain stitches.",
+    "imageUrl": null,
+    "category": "Blanket",
+    "difficulty": { "level": "intermediate", "score": 4, "reasoning": "C2C technique requires counting and following a diagonal pattern." },
+    "estimatedTime": { "minHours": 8, "maxHours": 16, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["acrylic", "cotton"], "weightCategory": "Medium (worsted)", "weightNumber": 4, "suggestedYardageMin": 600, "suggestedYardageMax": 900 },
+      "hook": { "sizeUS": "I-9", "sizeMM": 5.5 },
+      "notions": ["Tapestry needle", "Scissors"]
+    },
+    "instructions": [
+      "**Row 1 (Increase):** Chain 6. Double crochet in 4th chain from hook and in next 2 chains. This makes the first block.",
+      "**Row 2 (Increase):** Chain 6. Double crochet in 4th chain from hook and in next 2 chains. Slip stitch to the chain-3 space of previous row, chain 3, work 3 dc in same space.",
+      "**Rows 3-20 (Increase):** Continue increasing. Chain 6 at start of each new row. Work 3 dc blocks in each chain-3 space across, increasing by one block each row.",
+      "**Rows 21-40 (Decrease):** Slip stitch across first block to start the row. Chain 3, work 3 dc in next chain-3 space across. Decrease by one block each row until one block remains.",
+      "**Finishing:** Fasten off, weave in ends. Add a single crochet border around the entire blanket if desired."
+    ],
+    "beginnerTips": [
+      "Use a different color for every 5 rows to track your progress.",
+      "Count your blocks after every row to catch mistakes early."
+    ],
+    "commonMistakes": [
+      "Not counting blocks before starting the decrease section.",
+      "Skipping the chain-6 at the start of increase rows."
+    ],
+    "keywords": ["corner to corner", "baby blanket", "c2c", "diagonal", "gift"]
+  },
+  {
+    "id": "pattern-shawl-004",
+    "name": "Simple Lace Triangle Shawl",
+    "shortDescription": "An airy triangular shawl with an easy-to-memorize lace repeat. A great introduction to lace crochet.",
+    "imageUrl": null,
+    "category": "Shawl",
+    "difficulty": { "level": "intermediate", "score": 4, "reasoning": "Lace pattern requires counting stitches and repeating rows." },
+    "estimatedTime": { "minHours": 6, "maxHours": 12, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["acrylic", "wool blend"], "weightCategory": "Light (DK)", "weightNumber": 3, "suggestedYardageMin": 400, "suggestedYardageMax": 600 },
+      "hook": { "sizeUS": "G-6", "sizeMM": 4.0 },
+      "notions": ["Tapestry needle", "Stitch markers"]
+    },
+    "instructions": [
+      "**Foundation:** Chain 4. Work 3 double crochet in 4th chain from hook (this forms the center point). Chain 2, 4 double crochet in same stitch. Turn.",
+      "**Row 1:** Chain 3 (counts as dc). Work 3 dc in first stitch. (Chain 1, skip 1, dc in next stitch) across to center. Chain 2 at center point, dc in same stitch. Repeat (dc, ch 1, skip 1) across. Work 4 dc in last stitch. Turn.",
+      "**Row 2:** Chain 3, 3 dc in first stitch. (Chain 2, sc in next ch-1 space) across to center. Chain 2 at center. Repeat (sc in next ch-1 space, ch 2) across. 4 dc in last stitch. Turn.",
+      "**Row 3:** Chain 3, 3 dc in first stitch. (Chain 3, sc in next ch-2 space) across to center. Chain 3 at center. Repeat (sc in ch-2 space, ch 3) across. 4 dc in last stitch. Turn.",
+      "**Repeat:** Continue rows 1-3, increasing the lace pattern by one repeat on each side every row. Work until shawl reaches desired size.",
+      "**Finishing:** Fasten off, weave in ends. Block gently to open up the lace pattern."
+    ],
+    "beginnerTips": [
+      "Blocking is key for lace — it opens up the stitches beautifully.",
+      "Use stitch markers at the center chain-2 space to avoid losing your place."
+    ],
+    "commonMistakes": [
+      "Forgetting the chain-2 increase at the center.",
+      "Not blocking the finished shawl to see the lace pattern."
+    ],
+    "keywords": ["lace", "triangle", "shawl", "lightweight", "intermediate"]
+  },
+  {
+    "id": "pattern-tote-004",
+    "name": "Granny Square Tote Bag",
+    "shortDescription": "A boho-style tote made from granny squares. A great way to use up scrap yarn in multiple colors.",
+    "imageUrl": null,
+    "category": "Bag",
+    "difficulty": { "level": "intermediate", "score": 4, "reasoning": "Requires making multiple granny squares and seaming them together." },
+    "estimatedTime": { "minHours": 8, "maxHours": 14, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["cotton", "acrylic"], "weightCategory": "Medium (worsted)", "weightNumber": 4, "suggestedYardageMin": 350, "suggestedYardageMax": 500 },
+      "hook": { "sizeUS": "H-8", "sizeMM": 5.0 },
+      "notions": ["Tapestry needle", "Lining fabric (optional)", "Magnetic snap (optional)"]
+    },
+    "instructions": [
+      "**Make 10 Granny Squares (follow standard granny square pattern):** Round 1: Chain 4, join with slip stitch to form ring. Chain 3, 2 dc in ring, (ch 2, 3 dc in ring) 3 times, ch 2, join. Round 2: Slip stitch to corner, ch 3, (2 dc, ch 2, 3 dc) in corner, *ch 1, (3 dc, ch 2, 3 dc) in next corner*, repeat around, join. Rounds 3-4: Continue, adding (3 dc, ch 1) along sides and (3 dc, ch 2, 3 dc) in corners.",
+      "**Seaming:** Arrange squares in a 2x5 rectangle. Using tapestry needle and matching yarn, whip stitch squares together through back loops only.",
+      "**Fold:** Fold rectangle in half widthwise so the 2-square ends overlap. Sew side seams.",
+      "**Handles:** Attach yarn at top edge. Chain 80, slip stitch back to starting point. Double crochet evenly along the chain for a sturdy handle. Repeat on the other side.",
+      "**Finishing:** Weave in all ends. Optionally sew in a fabric lining and add a magnetic snap closure."
+    ],
+    "beginnerTips": [
+      "Block all squares to the same size before seaming for a professional look.",
+      "Weave in ends as you go to save time at the end."
+    ],
+    "commonMistakes": [
+      "Squares not matching size, making seaming difficult.",
+      "Twisting the handles when attaching them."
+    ],
+    "keywords": ["granny square", "tote", "bag", "boho", "scrap yarn"]
+  },
+  {
+    "id": "pattern-amigurumi-002",
+    "name": "Tiny Amigurumi Cat",
+    "shortDescription": "A cute miniature cat that works up quickly. Learn amigurumi basics: magic ring, increases, and invisible decreases.",
+    "imageUrl": null,
+    "category": "Toy",
+    "difficulty": { "level": "beginner", "score": 3, "reasoning": "Small project with simple shapes, but requires careful counting for amigurumi." },
+    "estimatedTime": { "minHours": 2, "maxHours": 4, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["acrylic", "cotton"], "weightCategory": "Fine (sport)", "weightNumber": 2, "suggestedYardageMin": 50, "suggestedYardageMax": 100 },
+      "hook": { "sizeUS": "C-2", "sizeMM": 2.75 },
+      "notions": ["Tapestry needle", "Stitch marker", "Polyester stuffing", "Black embroidery thread for face"]
+    },
+    "instructions": [
+      "**Head:** Make a magic ring. Round 1: 6 sc in ring. (6) Round 2: 2 sc in each stitch. (12) Round 3: (sc in next, 2 sc in next) repeat around. (18) Rounds 4-6: sc in each stitch. (18) Round 7: (sc in next, sc2tog) repeat around. (12) Stuff firmly. Round 8: sc2tog around. (6) Fasten off, weave closed.",
+      "**Body:** Make a magic ring. Round 1: 6 sc in ring. (6) Round 2: 2 sc in each stitch. (12) Round 3: (sc in next, 2 sc in next) repeat around. (18) Rounds 4-5: sc in each stitch. (18) Round 6: (sc in next, sc2tog) repeat around. (12) Stuff. Round 7: sc2tog around. (6) Fasten off, leaving a tail for sewing.",
+      "**Ears (make 2):** Chain 4. Sc in 2nd chain from hook, hdc in next, dc in last. Fasten off, leaving tail.",
+      "**Tail:** Chain 10. Sc in 2nd chain from hook and across. Fasten off, leaving tail.",
+      "**Assembly:** Sew head to body. Attach ears to top of head. Sew tail to back. Embroider eyes, nose, and whiskers with black thread."
+    ],
+    "beginnerTips": [
+      "Use a stitch marker to track rounds — it's easy to lose count in amigurumi.",
+      "Stuff firmly but not too tight; the toy should be squishable."
+    ],
+    "commonMistakes": [
+      "Losing count of stitches between rounds.",
+      "Overstuffing, which causes the fabric to stretch and show stuffing."
+    ],
+    "keywords": ["amigurumi", "cat", "toy", "miniature", "stuffed animal"]
+  },
+  {
+    "id": "pattern-coaster-005",
+    "name": "Macrame-Inspired Coaster Set",
+    "shortDescription": "A set of four cotton coasters with a knotted macrame look. Made with front post stitches and simple color blocks.",
+    "imageUrl": null,
+    "category": "Coaster",
+    "difficulty": { "level": "beginner", "score": 2, "reasoning": "Uses post stitches but the pattern is repetitive and easy to memorize." },
+    "estimatedTime": { "minHours": 1, "maxHours": 2, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["cotton"], "weightCategory": "Medium (worsted)", "weightNumber": 4, "suggestedYardageMin": 80, "suggestedYardageMax": 120 },
+      "hook": { "sizeUS": "G-6", "sizeMM": 4.0 },
+      "notions": ["Tapestry needle"]
+    },
+    "instructions": [
+      "**Foundation:** Chain 6, join with slip stitch to form ring.",
+      "**Round 1:** Chain 1, work 12 single crochet into ring, join. (12 sc)",
+      "**Round 2:** Chain 2, double crochet in same stitch. 2 dc in each stitch around, join. (24 dc)",
+      "**Round 3:** Chain 2, *FPdc around next stitch, dc in next* repeat around, join. (12 FPdc, 12 dc)",
+      "**Round 4:** Chain 2, *dc in next, FPdc around next* repeat around, join. (12 dc, 12 FPdc)",
+      "**Round 5:** Chain 1, sc in each stitch around, join. Fasten off and weave in ends.",
+      "**Repeat:** Make 4 identical coasters."
+    ],
+    "beginnerTips": [
+      "Front post stitches create the woven macrame effect — practice on a swatch first.",
+      "Cotton yarn is best for coasters as it's absorbent and heat-tolerant."
+    ],
+    "commonMistakes": [
+      "Confusing FPdc (front post) with regular dc placement.",
+      "Skipping the slip stitch join at the end of each round."
+    ],
+    "keywords": ["coaster", "macrame", "set", "home decor", "cotton"]
+  },
+  {
+    "id": "pattern-home-004",
+    "name": "Twisted Headband Ear Warmer",
+    "shortDescription": "A stylish twisted headband that doubles as an ear warmer. One piece construction with a sewn twist for a modern look.",
+    "imageUrl": null,
+    "category": "Headband",
+    "difficulty": { "level": "beginner", "score": 2, "reasoning": "Simple rectangle with a sewn twist. No shaping required." },
+    "estimatedTime": { "minHours": 1, "maxHours": 2, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["acrylic", "wool"], "weightCategory": "Bulky (chunky)", "weightNumber": 5, "suggestedYardageMin": 60, "suggestedYardageMax": 100 },
+      "hook": { "sizeUS": "K-10.5", "sizeMM": 6.5 },
+      "notions": ["Tapestry needle"]
+    },
+    "instructions": [
+      "**Rectangle:** Chain 13. Half double crochet in 3rd chain from hook and across. (11 hdc)",
+      "**Rows 2-30:** Chain 2 (counts as hdc), skip first stitch, hdc in each stitch across. (11 hdc)",
+      "**Finishing Row:** Chain 1, sc in each stitch across. Fasten off leaving a long tail.",
+      "**Twist:** Fold the rectangle in half so the short ends meet. Twist the center once, then sew the short ends together using the long tail.",
+      "**Final:** Weave in any remaining ends. The headband naturally curves to fit the head."
+    ],
+    "beginnerTips": [
+      "Use soft, non-itchy yarn since this sits against the forehead.",
+      "The twist naturally creates the fit — adjust the tightness by sewing the seam slightly tighter or looser."
+    ],
+    "commonMistakes": [
+      "Using scratchy yarn that irritates the forehead.",
+      "Not leaving a long enough tail for seaming the twist."
+    ],
+    "keywords": ["headband", "ear warmer", "twisted", "winter", "bulky yarn"]
+  },
+  {
+    "id": "pattern-scarf-008",
+    "name": "Infinity Scarf Loop",
+    "shortDescription": "A seamless infinity scarf worked in the round. Creates a cozy, wearable loop with no ends to seam.",
+    "imageUrl": null,
+    "category": "Scarf",
+    "difficulty": { "level": "beginner", "score": 2, "reasoning": "Worked in the round with simple stitches. No seaming required." },
+    "estimatedTime": { "minHours": 3, "maxHours": 5, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["acrylic", "wool blend"], "weightCategory": "Bulky (chunky)", "weightNumber": 5, "suggestedYardageMin": 180, "suggestedYardageMax": 250 },
+      "hook": { "sizeUS": "L-11", "sizeMM": 8.0 },
+      "notions": ["Tapestry needle", "Stitch marker"]
+    },
+    "instructions": [
+      "**Foundation:** Chain 80, being careful not to twist. Join with slip stitch to form a ring.",
+      "**Round 1:** Chain 1, single crochet in each chain around, join. (80 sc)",
+      "**Round 2:** Chain 2 (counts as hdc), half double crochet in each stitch around, join. (80 hdc)",
+      "**Rounds 3-8:** Repeat Round 2.",
+      "**Round 9:** Chain 1, reverse single crochet (crab stitch) in each stitch around for a decorative edge. Fasten off.",
+      "**Finishing:** Weave in ends. Block lightly if desired."
+    ],
+    "beginnerTips": [
+      "Make sure the foundation chain isn't twisted before joining — this is the most common mistake!",
+      "Use a stitch marker to mark the start of each round."
+    ],
+    "commonMistakes": [
+      "Twisting the chain when joining to form the loop.",
+      "Tight tension making the scarf too stiff."
+    ],
+    "keywords": ["infinity scarf", "loop", "circle", "seamless", "bulky"]
+  },
+  {
+    "id": "pattern-bag-004",
+    "name": "Linen Stitch Market Bag",
+    "shortDescription": "A sturdy, eco-friendly market bag made with the linen stitch. Expands to hold groceries and folds flat when not in use.",
+    "imageUrl": null,
+    "category": "Bag",
+    "difficulty": { "level": "beginner", "score": 2, "reasoning": "Simple repeat of chain and single crochet. Easy to memorize." },
+    "estimatedTime": { "minHours": 3, "maxHours": 6, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["cotton"], "weightCategory": "Medium (worsted)", "weightNumber": 4, "suggestedYardageMin": 250, "suggestedYardageMax": 350 },
+      "hook": { "sizeUS": "H-8", "sizeMM": 5.0 },
+      "notions": ["Tapestry needle", "Stitch marker"]
+    },
+    "instructions": [
+      "**Base:** Chain 26. Round 1: Sc in 2nd chain from hook and across. Work on other side of chain: sc in each chain across, join. (50 sc)",
+      "**Rounds 2-5:** Chain 1, sc in each stitch around, join. This forms the flat base.",
+      "**Round 6 (Linen Stitch start):** Chain 1, *sc in next, ch 1, skip 1* repeat around, join. (25 sc, 25 ch-1 spaces)",
+      "**Rounds 7-16:** Chain 1, *sc in next ch-1 space, ch 1, skip next sc* repeat around, join.",
+      "**Handles:** Find the center 10 stitches on each side. Mark them. Round 17: Linen stitch as established, but chain 20 over the marked stitches to create handle openings.",
+      "**Round 18:** Sc in each stitch and chain around, working 20 sc into each handle chain. (60 sc)",
+      "**Finishing:** Fasten off, weave in all ends."
+    ],
+    "beginnerTips": [
+      "Cotton yarn is ideal — it's strong and machine washable.",
+      "The linen stitch creates a dense fabric that holds its shape well."
+    ],
+    "commonMistakes": [
+      "Losing count of the linen stitch pattern (sc in space, ch 1, skip).",
+      "Making handles too short to fit over the shoulder."
+    ],
+    "keywords": ["market bag", "linen stitch", "eco-friendly", "cotton", "grocery"]
+  },
+  {
+    "id": "pattern-baby-004",
+    "name": "Baby Rattle Ball",
+    "shortDescription": "A soft, safe baby rattle made with a crochet ball and a hidden jingle bell inside. Machine washable and baby-safe.",
+    "imageUrl": null,
+    "category": "Baby",
+    "difficulty": { "level": "beginner", "score": 2, "reasoning": "Simple sphere construction with increases and decreases." },
+    "estimatedTime": { "minHours": 1, "maxHours": 2, "unit": "hours" },
+    "materials": {
+      "yarn": { "fiberType": ["cotton"], "weightCategory": "Fine (sport)", "weightNumber": 2, "suggestedYardageMin": 30, "suggestedYardageMax": 50 },
+      "hook": { "sizeUS": "D-3", "sizeMM": 3.25 },
+      "notions": ["Tapestry needle", "Polyester stuffing", "Small jingle bell (baby-safe, 20mm)", "Stitch marker"]
+    },
+    "instructions": [
+      "**Ball:** Make a magic ring. Round 1: 6 sc in ring. (6) Round 2: 2 sc in each stitch. (12) Round 3: (sc in next, 2 sc in next) repeat. (18) Rounds 4-7: sc in each stitch. (18) Insert jingle bell inside, stuff around it. Round 8: (sc in next, sc2tog) repeat. (12) Round 9: sc2tog around. (6) Fasten off, weave closed.",
+      "**Stripe detail (optional):** Before closing completely, add a round in a contrasting color for visual interest.",
+      "**Safety check:** Ensure the bell is fully encased and no stuffing is poking through. Give it a gentle squeeze test.",
+      "**Finishing:** Weave in all ends securely. Wash gently before giving to baby."
+    ],
+    "beginnerTips": [
+      "Use a baby-safe jingle bell that won't rust or break apart.",
+      "Make sure no stitches are loose enough for small fingers to pull stuffing out."
+    ],
+    "commonMistakes": [
+      "Using a bell that's too large or has sharp edges.",
+      "Not stuffing enough around the bell, leaving it loose inside."
+    ],
+    "keywords": ["baby", "rattle", "toy", "gift", "cotton"]
   }
 ]

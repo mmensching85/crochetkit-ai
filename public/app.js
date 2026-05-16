@@ -856,7 +856,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
 
             if (!response.ok) throw new Error(`Server error: ${response.status}`);
-            const projects = await response.json();
+
+            let projects = await response.json();
+            // Filter out done patterns
+            const doneIds = getDone();
+            const undone = projects.filter(p => !doneIds.includes(p.id));
+            if (undone.length > 0) {
+                projects = undone;
+            }
             const pick = projects[Math.floor(Math.random() * projects.length)];
             const idx = projects.indexOf(pick);
             displayProjectCards(projects);
@@ -869,8 +876,15 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
     function displayProjectCards(projects) {
-        let html = '<div class="project-cards">';
-        projects.forEach((project, index) => {
+        const doneIds = getDone();
+        const hasDone = projects.some(p => doneIds.includes(p.id));
+        let html = '';
+        if (hasDone) {
+            html += `<div style="text-align:center;margin-bottom:12px;"><label style="font-size:14px;color:#888;cursor:pointer;"><input type="checkbox" id="hideDoneResults" checked> Hide completed projects</label></div>`;
+        }
+        html += '<div class="project-cards">';
+        const filteredProjects = hasDone ? projects.filter(p => !doneIds.includes(p.id)) : projects;
+        filteredProjects.forEach((project, index) => {
             const title = linkifyGlossaryTerms(project.title);
             const stitches = project.stitches_used.map(s => convertStitchName(s, currentTermSystem)).join(', ');
             const fvd = isFaved(project.id) ? 'faved' : '';
@@ -894,16 +908,16 @@ document.addEventListener('DOMContentLoaded', async function() {
             btn.addEventListener('click', function() {
                 const idx = parseInt(this.getAttribute('data-index'));
                 selectedProjectIndex = idx;
-                trackPopular(projects[idx].id, 'select');
-                showProjectDetail(projects[idx], idx, projects);
+                trackPopular(filteredProjects[idx].id, 'select');
+                showProjectDetail(filteredProjects[idx], idx, filteredProjects);
             });
         });
 
         document.querySelectorAll('.download-pdf-card').forEach(btn => {
             btn.addEventListener('click', function() {
                 const idx = parseInt(this.getAttribute('data-index'));
-                trackPopular(projects[idx].id, 'pdf');
-                printProject(projects[idx]);
+                trackPopular(filteredProjects[idx].id, 'pdf');
+                printProject(filteredProjects[idx]);
             });
         });
 
@@ -917,6 +931,14 @@ document.addEventListener('DOMContentLoaded', async function() {
                 this.textContent = nowFaved ? '♥' : '♡';
             });
         });
+
+        // Hide completed toggle
+        const hideCheck = document.getElementById('hideDoneResults');
+        if (hideCheck) {
+            hideCheck.addEventListener('change', function() {
+                displayProjectCards(projects);
+            });
+        }
     }
 
     function showProjectDetail(project, index, allProjects) {
