@@ -1,6 +1,7 @@
 // Frontend logic for Crochet Project Planner
 let glossaryData = {};
 let currentTermSystem = 'US';
+let outputElement, selectedProjectIndex;
 
 function getCurrentGlossary() {
   const g = {};
@@ -720,9 +721,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
     const form = document.getElementById('project-form');
-    const outputElement = document.getElementById('project-output');
+    outputElement = document.getElementById('project-output');
     let currentUserInput = null;
-    let selectedProjectIndex = null;
+    selectedProjectIndex = null;
 
     // Term system toggle
     document.getElementById('termSystem').addEventListener('change', function() {
@@ -1147,6 +1148,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         });
     }
+
+    window.showProjectDetail = showProjectDetail;
+    window.displayProjectCards = displayProjectCards;
 
     // Contact form handler
     document.getElementById('contact-form').addEventListener('submit', async function(e) {

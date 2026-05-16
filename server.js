@@ -308,12 +308,17 @@ app.get('/api/popular', (req, res) => {
 
 // POST /api/track-popular — Track interaction with a pattern
 app.post('/api/track-popular', (req, res) => {
-    const { patternId, action } = req.body;
-    if (!patternId || !['view', 'select', 'pdf'].includes(action)) {
-        return res.status(400).json({ error: 'patternId and action (view/select/pdf) required.' });
+    try {
+        const { patternId, action } = req.body;
+        if (!patternId || !['view', 'select', 'pdf'].includes(action)) {
+            return res.status(400).json({ error: 'patternId and action (view/select/pdf) required.' });
+        }
+        trackPopular(patternId, action);
+        res.json({ success: true });
+    } catch (e) {
+        console.error('track-popular error:', e.message);
+        res.json({ success: true });
     }
-    trackPopular(patternId, action);
-    res.json({ success: true });
 });
 
 // POST /api/auth/signup — User registration
