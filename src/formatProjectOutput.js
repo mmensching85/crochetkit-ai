@@ -183,6 +183,7 @@ function formatProjectOutput(matchResult, termSystem) {
     imageUrl: pattern.imageUrl,
     title: pattern.name,
     description: pattern.shortDescription,
+    category: pattern.category,
     skill_level: pattern.difficulty.level,
     estimated_time: `${pattern.estimatedTime.minHours}-${pattern.estimatedTime.maxHours} ${pattern.estimatedTime.unit}`,
     difficulty_reason: pattern.difficulty.reasoning,
