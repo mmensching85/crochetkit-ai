@@ -8380,5 +8380,1555 @@
       "home decor",
       "chunky"
     ]
+  },
+  {
+    "id": "pattern-fingering-socks-001",
+    "name": "Simple Striped Socks",
+    "shortDescription": "Top-down fingering weight socks with a classic striped pattern. Perfect first sock project with a comfortable ribbed cuff.",
+    "category": "Accessories",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Working in the round, heel turning, and Kitchener stitch require intermediate skills."
+    },
+    "estimatedTime": {
+      "minHours": 8,
+      "maxHours": 12,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "1 (Super Fine)",
+        "weightNumber": 1,
+        "suggestedYardageMin": 350,
+        "suggestedYardageMax": 450,
+        "fiberType": [
+          "Wool",
+          "Nylon",
+          "Merino"
+        ],
+        "notes": "Sock yarn with nylon for durability."
+      },
+      "hook": {
+        "sizeMM": 2.5,
+        "sizeUS": "C-2",
+        "sizeUK": "12",
+        "notes": "Use smaller hook for dense, durable fabric."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers",
+        "Measuring tape"
+      ]
+    },
+    "gauge": {
+      "stitches": 28,
+      "rows": 32,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Tension must be consistent for proper fit."
+    },
+    "instructions": [
+      "**Cuff:** Chain 40, join with sl st to form ring. Work sc in back loop only for 12 rounds.",
+      "**Leg:** Switch to sc in both loops. Alternate colors every 4 rounds for 30 rounds.",
+      "**Heel flap:** Work 20 sc back and forth in rows for 10 rows.",
+      "**Turn heel:** Sc2tog at each end of each row, decreasing to 10 stitches.",
+      "**Gusset:** Pick up stitches along heel flap edges, join back to round.",
+      "**Foot:** Work in sc in the round for 30 rounds or until desired length.",
+      "**Toe:** Decrease evenly at each side every round until 8 stitches remain. Finish with Kitchener stitch.",
+      "**Repeat** entire pattern for second sock."
+    ],
+    "beginnerTips": [
+      "Use stitch markers at each side of the foot to track decreases.",
+      "Try sock yarn with 20% nylon for durability.",
+      "Always measure against the foot as you go."
+    ],
+    "commonMistakes": [
+      "Working too tightly makes sock fabric stiff.",
+      "Skipping the gauge swatch leads to ill-fitting socks.",
+      "Forgetting to alternate colors at the correct round."
+    ],
+    "keywords": [
+      "socks",
+      "fingering",
+      "striped",
+      "wearable",
+      "intermediate"
+    ]
+  },
+  {
+    "id": "pattern-fingering-wrist-warmers-001",
+    "name": "Lace Wrist Warmers",
+    "shortDescription": "Delicate lace wrist warmers from fingering weight yarn. Open work design keeps hands warm while allowing breathability.",
+    "category": "Accessories",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 4,
+      "reasoning": "Simple lace repeat is easy to memorize."
+    },
+    "estimatedTime": {
+      "minHours": 4,
+      "maxHours": 6,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "1 (Super Fine)",
+        "weightNumber": 1,
+        "suggestedYardageMin": 150,
+        "suggestedYardageMax": 200,
+        "fiberType": [
+          "Merino",
+          "Silk",
+          "Alpaca"
+        ],
+        "notes": "A soft, non-itchy fingering weight."
+      },
+      "hook": {
+        "sizeMM": 3,
+        "sizeUS": "D-3",
+        "sizeUK": "10",
+        "notes": "One size larger than typical for fingering to create drape."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 20,
+      "rows": 18,
+      "unit": "4 inches",
+      "stitchPattern": "lace pattern",
+      "notes": "Block swatch before measuring."
+    },
+    "instructions": [
+      "**Foundation:** Chain 28. Join with sl st to form ring.",
+      "**Cuff:** Sc in each ch around for 4 rounds.",
+      "**Lace round:** Ch 3, *ch 1, skip 1, dc in next; rep from * around.",
+      "**Rounds 2-15:** Continue lace pattern: (dc, ch 1, dc) in each ch-1 space.",
+      "**Thumb opening:** At round 15, ch 6, skip 2 spaces, continue pattern.",
+      "**Final cuff:** Work 3 rounds of sc around the bottom edge for stability.",
+      "**Finish** and make second one identically."
+    ],
+    "beginnerTips": [
+      "Block the finished wrist warmers to open the lace pattern.",
+      "Use a stitch marker to mark the start of each round.",
+      "Try a solid color for your first pair to see the lace clearly."
+    ],
+    "commonMistakes": [
+      "Missing the ch-1 between dc stitches in the lace pattern.",
+      "Working the thumb opening in the wrong round.",
+      "Not leaving enough flexibility in the thumb opening ch-6."
+    ],
+    "keywords": [
+      "wrist warmers",
+      "fingering",
+      "lace",
+      "accessories",
+      "intermediate"
+    ]
+  },
+  {
+    "id": "pattern-fingering-baby-hat-001",
+    "name": "Fingering Weight Baby Hat",
+    "shortDescription": "A lightweight, soft baby hat perfect for delicate newborn skin. The fine gauge creates a smooth, comfortable fabric.",
+    "category": "Baby",
+    "difficulty": {
+      "level": "beginner",
+      "score": 2,
+      "reasoning": "Simple single crochet in the round with basic decreases."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "1 (Super Fine)",
+        "weightNumber": 1,
+        "suggestedYardageMin": 100,
+        "suggestedYardageMax": 150,
+        "fiberType": [
+          "Cotton",
+          "Merino",
+          "Bamboo"
+        ],
+        "notes": "Choose a soft baby-safe yarn that's machine washable."
+      },
+      "hook": {
+        "sizeMM": 3,
+        "sizeUS": "D-3",
+        "sizeUK": "10",
+        "notes": "Adjust hook size to achieve a dense but soft fabric."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 22,
+      "rows": 24,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge affects fit for baby hats."
+    },
+    "instructions": [
+      "**Foundation:** Chain 3, work 10 sc in 3rd ch from hook. Join.",
+      "**Rounds 2-4:** Increase evenly to 40 sc.",
+      "**Rounds 5-18:** Sc in each sc around.",
+      "**Fold brim:** Fold bottom 4 rounds up to create a rolled brim.",
+      "**Optional tie:** Chain 30, weave through round 2 for a chin strap.",
+      "**Finish:** Fasten off, weave in ends."
+    ],
+    "beginnerTips": [
+      "Use a stitch marker to keep your place in the round.",
+      "Cotton yarn is ideal for baby items.",
+      "Make the hat slightly larger for longer use."
+    ],
+    "commonMistakes": [
+      "Increasing too many rounds makes the hat too big.",
+      "Using scratchy wool that irritates baby skin.",
+      "Not weaving ends securely enough for baby safety."
+    ],
+    "keywords": [
+      "baby hat",
+      "fingering",
+      "newborn",
+      "baby shower gift",
+      "beginner"
+    ]
+  },
+  {
+    "id": "pattern-fingering-shawl-002",
+    "name": "Lightweight Triangular Shawl",
+    "shortDescription": "A large triangular shawl worked from the top down. The simple repeating pattern makes it a relaxing project.",
+    "category": "Shawl",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Long project requiring consistent tension and stitch counting."
+    },
+    "estimatedTime": {
+      "minHours": 10,
+      "maxHours": 15,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "1 (Super Fine)",
+        "weightNumber": 1,
+        "suggestedYardageMin": 500,
+        "suggestedYardageMax": 600,
+        "fiberType": [
+          "Merino",
+          "Alpaca",
+          "Silk"
+        ],
+        "notes": "A gradient or hand-dyed yarn makes a stunning shawl."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Slightly larger hook for drape."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers",
+        "Blocking wires"
+      ]
+    },
+    "gauge": {
+      "stitches": 16,
+      "rows": 10,
+      "unit": "4 inches",
+      "stitchPattern": "dc rows",
+      "notes": "Gauge is flexible for this shawl style."
+    },
+    "instructions": [
+      "**Foundation:** Chain 4, work 3 dc in 4th ch from hook. Turn.",
+      "**Rows 2-50:** Increase at both edges and center every row.",
+      "**Lace section (Rows 51-80):** Work dc clusters with ch-2 spaces between.",
+      "**Edging:** Sc evenly along all three edges. Work picot edge.",
+      "**Block:** Pin to shape using blocking wires. Mist with water.",
+      "**Finish:** Weave in ends. Measures approximately 60 inches across."
+    ],
+    "beginnerTips": [
+      "Place stitch markers at the center stitch to track increases.",
+      "Blocking is essential for shawls.",
+      "Use a lifeline every 10 rows."
+    ],
+    "commonMistakes": [
+      "Losing count of center increases causes lopsided shawl.",
+      "Not blocking aggressively enough leaves stitches uneven.",
+      "Using a yarn that pills quickly."
+    ],
+    "keywords": [
+      "shawl",
+      "fingering",
+      "triangular",
+      "lace",
+      "intermediate"
+    ]
+  },
+  {
+    "id": "pattern-fingering-beanie-001",
+    "name": "Fingering Weight Beanie",
+    "shortDescription": "A lightweight beanie perfect for spring and fall. Fine gauge creates smooth fabric with excellent stitch definition.",
+    "category": "Hat",
+    "difficulty": {
+      "level": "beginner",
+      "score": 2,
+      "reasoning": "Simple sc in the round with standard decreases."
+    },
+    "estimatedTime": {
+      "minHours": 3,
+      "maxHours": 5,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "1 (Super Fine)",
+        "weightNumber": 1,
+        "suggestedYardageMin": 200,
+        "suggestedYardageMax": 300,
+        "fiberType": [
+          "Wool",
+          "Cotton",
+          "Acrylic"
+        ],
+        "notes": "Any fingering weight yarn works."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Hook size can be adjusted for desired density."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 20,
+      "rows": 22,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Check gauge for proper fit."
+    },
+    "instructions": [
+      "**Foundation:** Magic ring, ch 1, work 8 sc into ring.",
+      "**Rounds 2-8:** Increase evenly to 60 sc.",
+      "**Rounds 9-35:** Sc in each sc around.",
+      "**Crown:** Decrease every 9th stitch until 12 remain.",
+      "**Finish:** Fasten off, weave tail through remaining stitches.",
+      "**Optional:** Fold bottom 2 inches up for a rolled brim."
+    ],
+    "beginnerTips": [
+      "Place a stitch marker at the beginning of each round.",
+      "Count stitches after each decrease round.",
+      "Block the hat over a balloon for shape."
+    ],
+    "commonMistakes": [
+      "Increases not evenly spaced.",
+      "Working too tightly makes the hat stiff.",
+      "Missing the stitch marker when starting a new round."
+    ],
+    "keywords": [
+      "beanie",
+      "fingering",
+      "lightweight",
+      "spring hat",
+      "beginner"
+    ]
+  },
+  {
+    "id": "pattern-fingering-cowl-001",
+    "name": "Sock Yarn Infinity Cowl",
+    "shortDescription": "A lightweight infinity cowl made from sock yarn. Open stitch pattern creates an airy fabric perfect for layering.",
+    "category": "Accessories",
+    "difficulty": {
+      "level": "beginner",
+      "score": 2,
+      "reasoning": "Simple repeat in the round with basic stitches."
+    },
+    "estimatedTime": {
+      "minHours": 3,
+      "maxHours": 4,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "1 (Super Fine)",
+        "weightNumber": 1,
+        "suggestedYardageMin": 200,
+        "suggestedYardageMax": 250,
+        "fiberType": [
+          "Wool",
+          "Nylon",
+          "Merino"
+        ],
+        "notes": "Self-striping sock yarn creates beautiful color patterns automatically."
+      },
+      "hook": {
+        "sizeMM": 4,
+        "sizeUS": "G-6",
+        "sizeUK": "8",
+        "notes": "Larger hook for airy fabric."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 14,
+      "rows": 8,
+      "unit": "4 inches",
+      "stitchPattern": "pattern stitch",
+      "notes": "Gauge is flexible for an open cowl."
+    },
+    "instructions": [
+      "**Foundation:** Chain 120. Join with sl st.",
+      "**Round 1:** Sc in each ch around.",
+      "**Rounds 2-20:** Ch 3, *ch 1, skip 1, dc in next; rep from *.",
+      "**Final round:** Sc in each dc and ch-1 space around.",
+      "**Finish:** Fasten off, weave in ends. Block gently.",
+      "**Wear:** Loop twice around the neck for a cozy double-layer cowl."
+    ],
+    "beginnerTips": [
+      "Self-striping yarn does all the color work for you!",
+      "Blocking helps even out the mesh stitches.",
+      "Count your foundation chains twice."
+    ],
+    "commonMistakes": [
+      "Twisting the foundation chain when joining.",
+      "Forgetting the ch-1 between dc stitches.",
+      "Using too-small hook makes stiff fabric."
+    ],
+    "keywords": [
+      "cowl",
+      "fingering",
+      "sock yarn",
+      "infinity",
+      "mesh",
+      "lightweight"
+    ]
+  },
+  {
+    "id": "pattern-fingering-washcloth-001",
+    "name": "Fingering Weight Washcloth",
+    "shortDescription": "A delicate but durable washcloth from fingering weight cotton. Perfect for gentle face cleansing.",
+    "category": "Dishcloth",
+    "difficulty": {
+      "level": "beginner",
+      "score": 2,
+      "reasoning": "Simple rows, easy to count and repeat."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 2,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "1 (Super Fine)",
+        "weightNumber": 1,
+        "suggestedYardageMin": 50,
+        "suggestedYardageMax": 75,
+        "fiberType": [
+          "Cotton",
+          "Bamboo"
+        ],
+        "notes": "Cotton is ideal for washcloths."
+      },
+      "hook": {
+        "sizeMM": 3,
+        "sizeUS": "D-3",
+        "sizeUK": "10",
+        "notes": "Use recommended hook size."
+      },
+      "notions": [
+        "Yarn needle"
+      ]
+    },
+    "gauge": {
+      "stitches": 22,
+      "rows": 24,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge is not critical."
+    },
+    "instructions": [
+      "**Foundation:** Chain 41.",
+      "**Rows 1-40:** Sc in each sc across.",
+      "**Edging:** Sc evenly around all 4 sides, 3 sc in corners.",
+      "**Picot edge:** *Sc in next 3, ch 3, sl st in 3rd ch; rep from * around.",
+      "**Hanging loop:** Chain 15, sl st to same stitch.",
+      "**Finish:** Fasten off, weave in ends."
+    ],
+    "beginnerTips": [
+      "Cotton yarn is inelastic \u2014 keep tension even.",
+      "Blocking helps straighten edges.",
+      "Make a set in different colors for gifts."
+    ],
+    "commonMistakes": [
+      "Cotton yarn splits easily \u2014 use a sharp-pointed hook.",
+      "Edges getting tighter as you go.",
+      "Skipping the ch 1 at the end of each row."
+    ],
+    "keywords": [
+      "washcloth",
+      "fingering",
+      "cotton",
+      "face cloth",
+      "beginner",
+      "quick"
+    ]
+  },
+  {
+    "id": "pattern-sport-baby-blanket-001",
+    "name": "Sport Weight Baby Blanket",
+    "shortDescription": "A soft, drapey baby blanket in sport weight yarn with alternating solid and mesh rows.",
+    "category": "Baby",
+    "difficulty": {
+      "level": "beginner",
+      "score": 3,
+      "reasoning": "Large project but repetitive rows make it easy."
+    },
+    "estimatedTime": {
+      "minHours": 8,
+      "maxHours": 12,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 600,
+        "suggestedYardageMax": 800,
+        "fiberType": [
+          "Cotton",
+          "Acrylic",
+          "Bamboo"
+        ],
+        "notes": "Machine washable yarn recommended for baby gifts."
+      },
+      "hook": {
+        "sizeMM": 4,
+        "sizeUS": "G-6",
+        "sizeUK": "8",
+        "notes": "Slightly larger hook for drape."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 16,
+      "rows": 14,
+      "unit": "4 inches",
+      "stitchPattern": "pattern stitch",
+      "notes": "Gauge affects finished size."
+    },
+    "instructions": [
+      "**Foundation:** Chain 121.",
+      "**Row 1 (solid):** Sc in each ch across.",
+      "**Row 2 (mesh):** Ch 3, *ch 1, skip 1, dc in next; rep from *.",
+      "**Row 3 (solid):** Sc in each dc and ch-1 space across.",
+      "**Rows 4-80:** Repeat rows 2-3 alternately.",
+      "**Border:** Sc evenly around all 4 edges.",
+      "**Shell edging:** *Skip 1, 5 dc in next, skip 1, sl st in next; rep from *.",
+      "**Finish:** Fasten off, weave in ends. Block to size."
+    ],
+    "beginnerTips": [
+      "Count stitches after each solid row.",
+      "Use stitch markers at the edges.",
+      "Easy to customize by changing colors every 10 rows."
+    ],
+    "commonMistakes": [
+      "Dropping stitches at the beginning of mesh rows.",
+      "Not counting ch-1 spaces correctly.",
+      "Edges curling \u2014 block the finished blanket flat."
+    ],
+    "keywords": [
+      "baby blanket",
+      "sport weight",
+      "mesh",
+      "gift",
+      "beginner"
+    ]
+  },
+  {
+    "id": "pattern-sport-cardigan-001",
+    "name": "Sport Weight Baby Cardigan",
+    "shortDescription": "A sweet button-up cardigan for baby in sport weight yarn. Easy construction with minimal seaming.",
+    "category": "Baby",
+    "difficulty": {
+      "level": "advanced",
+      "score": 7,
+      "reasoning": "Garment construction with buttonholes and shaping."
+    },
+    "estimatedTime": {
+      "minHours": 15,
+      "maxHours": 20,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 500,
+        "suggestedYardageMax": 700,
+        "fiberType": [
+          "Cotton",
+          "Merino",
+          "Acrylic"
+        ],
+        "notes": "Soft, washable yarn suitable for baby skin."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Use recommended hook size for proper garment fit."
+      },
+      "notions": [
+        "Yarn needle",
+        "3-4 small buttons",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 20,
+      "rows": 18,
+      "unit": "4 inches",
+      "stitchPattern": "half double crochet",
+      "notes": "Gauge is critical for proper fit."
+    },
+    "instructions": [
+      "**Back panel:** Chain 56. Hdc in each ch across for 30 rows.",
+      "**Shoulder shaping:** Decrease 1 stitch at each end of next 2 rows.",
+      "**Front panels:** Chain 28. Hdc for 30 rows with buttonholes on right side.",
+      "**Sleeves:** Chain 36. Hdc in the round for 20 rounds.",
+      "**Seaming:** Sew shoulder seams. Sew sleeves into armholes.",
+      "**Button band:** Sc evenly along left front edge for 3 rows.",
+      "**Collar:** Sc evenly around neck edge for 3 rounds.",
+      "**Finish:** Sew buttons opposite buttonholes."
+    ],
+    "beginnerTips": [
+      "Block all pieces before seaming.",
+      "Use stitch markers to track armhole placement.",
+      "Measure against an existing cardigan for size."
+    ],
+    "commonMistakes": [
+      "Not blocking pieces before assembly.",
+      "Buttonholes too small for buttons.",
+      "Seams pulling \u2014 use a stretchy seaming stitch."
+    ],
+    "keywords": [
+      "cardigan",
+      "baby",
+      "sport weight",
+      "garment",
+      "advanced",
+      "buttons"
+    ]
+  },
+  {
+    "id": "pattern-sport-tank-001",
+    "name": "Lightweight Summer Tank",
+    "shortDescription": "A breezy summer tank top in sport weight cotton. Worked top-down with minimal finishing.",
+    "category": "Sweater",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 6,
+      "reasoning": "Garment shaping with straps and armholes."
+    },
+    "estimatedTime": {
+      "minHours": 10,
+      "maxHours": 15,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 500,
+        "suggestedYardageMax": 700,
+        "fiberType": [
+          "Cotton",
+          "Linen",
+          "Bamboo"
+        ],
+        "notes": "Plant fibers are ideal for summer garments."
+      },
+      "hook": {
+        "sizeMM": 4,
+        "sizeUS": "G-6",
+        "sizeUK": "8",
+        "notes": "Slightly larger hook for airflow."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 18,
+      "rows": 14,
+      "unit": "4 inches",
+      "stitchPattern": "double crochet",
+      "notes": "Make a generous gauge swatch."
+    },
+    "instructions": [
+      "**Foundation:** Chain 90. Join to form ring.",
+      "**Body:** Dc in the round for 40 rounds.",
+      "**Divide for armholes:** 40 dc, ch 8 (skip 10 dc), 40 dc, ch 8.",
+      "**Lower body:** Dc in the round for 30 more rounds.",
+      "**Hem:** Work 3 rounds of sc.",
+      "**Straps:** Work 4 rows of dc across 8 stitches at each shoulder.",
+      "**Finish:** Weave in ends. Block to shape.",
+      "**Optional:** Add lace trim around armholes."
+    ],
+    "beginnerTips": [
+      "Try the tank on as you go to check fit.",
+      "Use a stretchy stitch for armhole edges.",
+      "Blocking is essential for cotton garments."
+    ],
+    "commonMistakes": [
+      "Armholes too large or too small.",
+      "Using inelastic cotton that stretches.",
+      "Not counting stitches after armhole division."
+    ],
+    "keywords": [
+      "tank top",
+      "summer",
+      "sport weight",
+      "cotton",
+      "garment",
+      "intermediate"
+    ]
+  },
+  {
+    "id": "pattern-sport-earflap-hat-001",
+    "name": "Sport Weight Earflap Hat",
+    "shortDescription": "A warm earflap hat in sport weight yarn with braided ties.",
+    "category": "Hat",
+    "difficulty": {
+      "level": "beginner",
+      "score": 3,
+      "reasoning": "Simple stitches with basic earflap shaping."
+    },
+    "estimatedTime": {
+      "minHours": 3,
+      "maxHours": 5,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 150,
+        "suggestedYardageMax": 200,
+        "fiberType": [
+          "Wool",
+          "Acrylic",
+          "Alpaca"
+        ],
+        "notes": "Warm fiber recommended."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Use hook size recommended on yarn label."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 18,
+      "rows": 20,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge should be firm for a warm fabric."
+    },
+    "instructions": [
+      "**Hat body:** Magic ring, 8 sc. Increase evenly to 56 sc.",
+      "**Work even:** Sc in each sc for 30 rounds.",
+      "**Earflaps:** Mark positions 16 stitches apart at bottom edge.",
+      "**Work 8 rows, decreasing 1 stitch each side each row.",
+      "**Ties:** Cut 3 strands 36 inches each. Braid 12 inches.",
+      "**Edging:** Sc evenly around brim and earflap edges.",
+      "**Optional:** Make a 3-inch pom-pom for the top.",
+      "**Finish:** Weave in ends."
+    ],
+    "beginnerTips": [
+      "Use stitch markers to mark earflap positions.",
+      "Make a test braid before committing to tie length.",
+      "Block the hat over a bowl to shape."
+    ],
+    "commonMistakes": [
+      "Earflaps placed too close together.",
+      "Braids tied too tight.",
+      "Pom-pom too heavy for the hat."
+    ],
+    "keywords": [
+      "hat",
+      "earflap",
+      "sport weight",
+      "winter",
+      "children",
+      "braids"
+    ]
+  },
+  {
+    "id": "pattern-bulky-slouchy-hat-001",
+    "name": "Bulky Slouchy Hat",
+    "shortDescription": "A cozy slouchy beanie made with bulky yarn. Works up in under 2 hours and makes a great last-minute gift.",
+    "category": "Hat",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Single stitch repeated in the round, no complex shaping."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 2,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "5 (Bulky)",
+        "weightNumber": 5,
+        "suggestedYardageMin": 100,
+        "suggestedYardageMax": 150,
+        "fiberType": [
+          "Acrylic",
+          "Wool",
+          "Alpaca"
+        ],
+        "notes": "One skein of bulky yarn is usually enough."
+      },
+      "hook": {
+        "sizeMM": 8,
+        "sizeUS": "L-11",
+        "sizeUK": "0",
+        "notes": "Use the hook size recommended on your yarn label."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 10,
+      "rows": 8,
+      "unit": "4 inches",
+      "stitchPattern": "half double crochet",
+      "notes": "Gauge is flexible for a slouchy fit."
+    },
+    "instructions": [
+      "**Foundation:** Magic ring, ch 2, work 10 hdc into ring. Join. (10 hdc)",
+      "**Round 2:** Ch 2, 2 hdc in each hdc around. Join. (20 hdc)",
+      "**Round 3:** Ch 2, *hdc in next hdc, 2 hdc in next; rep from * around. Join. (30 hdc)",
+      "**Rounds 4-14:** Ch 2, hdc in each hdc around. Join.",
+      "**Round 15:** Ch 2, *hdc in next 8, hdc2tog; rep from * around. Join. (27 hdc)",
+      "**Round 16:** Ch 2, *hdc in next 7, hdc2tog; rep from * around. Join. (24 hdc)",
+      "**Finish:** Fasten off, weave in ends.",
+      "**Wear:** Fold bottom edge up for a rolled brim."
+    ],
+    "beginnerTips": [
+      "Bulky yarn works up fast \u2014 perfect for last-minute gifts.",
+      "Use a stitch marker to track your rounds.",
+      "Make it longer for more slouch."
+    ],
+    "commonMistakes": [
+      "Using too much tension \u2014 bulky yarn needs loose stitches.",
+      "Not counting stitches at the end of each round.",
+      "Hat too tight \u2014 add a few extra stitches to round 3."
+    ],
+    "keywords": [
+      "hat",
+      "slouchy",
+      "bulky",
+      "beanie",
+      "beginner",
+      "quick"
+    ]
+  },
+  {
+    "id": "pattern-bulky-pillow-001",
+    "name": "Chunky Throw Pillow",
+    "shortDescription": "A textured throw pillow cover made with bulky yarn. The chunky stitches create a modern, cozy look for any couch.",
+    "category": "Home Decor",
+    "difficulty": {
+      "level": "beginner",
+      "score": 2,
+      "reasoning": "Simple rectangles seamed together."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "5 (Bulky)",
+        "weightNumber": 5,
+        "suggestedYardageMin": 150,
+        "suggestedYardageMax": 200,
+        "fiberType": [
+          "Acrylic",
+          "Cotton",
+          "Polyester"
+        ],
+        "notes": "A durable, easy-care bulky yarn."
+      },
+      "hook": {
+        "sizeMM": 9,
+        "sizeUS": "M/N-13",
+        "sizeUK": "00",
+        "notes": "Use a large hook for a soft, drapable fabric."
+      },
+      "notions": [
+        "Yarn needle",
+        "18-inch pillow form",
+        "Optional: zipper or buttons for removable cover"
+      ]
+    },
+    "gauge": {
+      "stitches": 8,
+      "rows": 6,
+      "unit": "4 inches",
+      "stitchPattern": "half double crochet",
+      "notes": "Gauge affects finished pillow size."
+    },
+    "instructions": [
+      "**Front panel:** Chain 36. Hdc in 3rd ch from hook and each ch across. (34 hdc) Ch 2, turn.",
+      "**Rows 2-25:** Hdc in each hdc across. Ch 2, turn.",
+      "**Back panel:** Repeat front panel.",
+      "**Seaming:** Place panels wrong sides together. Sl st along 3 sides.",
+      "**Insert pillow form** through open side.",
+      "**Close:** Sl st the fourth side closed.",
+      "**Optional:** Add 3 large buttons along one edge for a decorative closure.",
+      "**Finish:** Weave in ends."
+    ],
+    "beginnerTips": [
+      "Make the cover slightly smaller than the pillow form for a snug fit.",
+      "Use a pillow form that's machine washable.",
+      "Try a cable stitch pattern for added texture."
+    ],
+    "commonMistakes": [
+      "Pillow cover too loose \u2014 check gauge before starting.",
+      "Seams puckering \u2014 use a consistent tension when seaming.",
+      "Pillow form showing through \u2014 use a denser stitch."
+    ],
+    "keywords": [
+      "pillow",
+      "chunky",
+      "home decor",
+      "bulky",
+      "beginner",
+      "couch"
+    ]
+  },
+  {
+    "id": "pattern-bulky-mitts-001",
+    "name": "Bulky Fingerless Mitts",
+    "shortDescription": "Quick-to-make fingerless mitts in bulky yarn. Keep your hands warm while leaving fingers free \u2014 perfect for cold offices.",
+    "category": "Accessories",
+    "difficulty": {
+      "level": "beginner",
+      "score": 2,
+      "reasoning": "Simple tube construction with thumb opening."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 2,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "5 (Bulky)",
+        "weightNumber": 5,
+        "suggestedYardageMin": 80,
+        "suggestedYardageMax": 120,
+        "fiberType": [
+          "Wool",
+          "Acrylic",
+          "Alpaca"
+        ],
+        "notes": "A warm, soft bulky yarn."
+      },
+      "hook": {
+        "sizeMM": 8,
+        "sizeUS": "L-11",
+        "sizeUK": "0",
+        "notes": "Adjust hook size for desired fabric density."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 10,
+      "rows": 8,
+      "unit": "4 inches",
+      "stitchPattern": "half double crochet",
+      "notes": "Gauge is flexible due to stretchy nature of mitts."
+    },
+    "instructions": [
+      "**Foundation:** Chain 20. Join with sl st to form ring.",
+      "**Round 1:** Ch 2, hdc in each ch around. Join. (20 hdc)",
+      "**Rounds 2-10:** Ch 2, hdc in each hdc around. Join.",
+      "**Thumb opening:** Ch 4, skip 4 hdc, hdc in next hdc. Continue in hdc around. Join.",
+      "**Next round:** Work hdc into each hdc and each ch of the thumb opening.",
+      "**Rounds 12-16:** Continue hdc in each stitch around.",
+      "**Finish:** Fasten off, weave in ends. Make second mitt.",
+      "**Optional:** Add a single crochet edge around the thumb opening for a clean finish."
+    ],
+    "beginnerTips": [
+      "Make the tube slightly shorter than you think \u2014 bulky yarn stretches.",
+      "Use a stitch marker at the start of each round.",
+      "Try them on as you go to check length."
+    ],
+    "commonMistakes": [
+      "Thumb opening too small \u2014 make the chain longer if needed.",
+      "Mitts too loose \u2014 go down a hook size.",
+      "Forgetting to make the second mitt match the first."
+    ],
+    "keywords": [
+      "fingerless mitts",
+      "bulky",
+      "warm",
+      "beginner",
+      "quick",
+      "handwear"
+    ]
+  },
+  {
+    "id": "pattern-bulky-scarf-002",
+    "name": "Quick Chunky Scarf",
+    "shortDescription": "A fast, cozy scarf in bulky yarn using a simple stitch pattern. Perfect for beginners who want a wearable project fast.",
+    "category": "Scarf",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Simple row after row of half double crochet."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "5 (Bulky)",
+        "weightNumber": 5,
+        "suggestedYardageMin": 150,
+        "suggestedYardageMax": 200,
+        "fiberType": [
+          "Acrylic",
+          "Wool",
+          "Polyester"
+        ],
+        "notes": "2 skeins of bulky yarn for a full-length scarf."
+      },
+      "hook": {
+        "sizeMM": 10,
+        "sizeUS": "N/P-15",
+        "sizeUK": "000",
+        "notes": "Larger hook creates a soft, drapable fabric."
+      },
+      "notions": [
+        "Yarn needle"
+      ]
+    },
+    "gauge": {
+      "stitches": 7,
+      "rows": 5,
+      "unit": "4 inches",
+      "stitchPattern": "half double crochet",
+      "notes": "Gauge is not critical."
+    },
+    "instructions": [
+      "**Foundation:** Chain 20.",
+      "**Row 1:** Hdc in 3rd ch from hook and each ch across. (18 hdc) Ch 2, turn.",
+      "**Rows 2-50:** Hdc in each hdc across. Ch 2, turn.",
+      "**Finish:** At row 50, fasten off, weave in ends.",
+      "**Optional fringe:** Cut 20 strands 12 inches long. Fold 2 strands together, pull loop through end stitch, thread ends through loop.",
+      "**Trim fringe** evenly to desired length.",
+      "**Block:** Lightly steam block to even out stitches.",
+      "**Wear:** Drape loosely or wrap around neck."
+    ],
+    "beginnerTips": [
+      "Bulky yarn means this scarf works up in about 2 hours!",
+      "Add fringe for a polished look.",
+      "This makes a great last-minute gift."
+    ],
+    "commonMistakes": [
+      "Scarf too short \u2014 keep going until it measures 60 inches.",
+      "Edges curling \u2014 block the finished scarf.",
+      "Fringe too long \u2014 keep it proportional to the scarf width."
+    ],
+    "keywords": [
+      "scarf",
+      "chunky",
+      "bulky",
+      "beginner",
+      "quick gift"
+    ]
+  },
+  {
+    "id": "pattern-superbulky-throw-001",
+    "name": "Super Chunky Throw Blanket",
+    "shortDescription": "A quick, oversized throw blanket in super bulky yarn. Works up in a weekend using basic stitches.",
+    "category": "Blanket",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Large but simple repetitive rows."
+    },
+    "estimatedTime": {
+      "minHours": 4,
+      "maxHours": 6,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "6 (Super Bulky)",
+        "weightNumber": 6,
+        "suggestedYardageMin": 200,
+        "suggestedYardageMax": 300,
+        "fiberType": [
+          "Acrylic",
+          "Polyester",
+          "Wool"
+        ],
+        "notes": "5-6 skeins of super bulky yarn."
+      },
+      "hook": {
+        "sizeMM": 15,
+        "sizeUS": "P/Q",
+        "sizeUK": "000",
+        "notes": "Large hook makes the blanket work up fast."
+      },
+      "notions": [
+        "Yarn needle"
+      ]
+    },
+    "gauge": {
+      "stitches": 5,
+      "rows": 4,
+      "unit": "4 inches",
+      "stitchPattern": "half double crochet",
+      "notes": "Gauge is flexible for a throw."
+    },
+    "instructions": [
+      "**Foundation:** Chain 52.",
+      "**Row 1:** Hdc in 3rd ch from hook and each ch across. (50 hdc) Ch 2, turn.",
+      "**Rows 2-60:** Hdc in each hdc across. Ch 2, turn.",
+      "**Border:** Sc evenly around all 4 edges, 3 sc in each corner.",
+      "**Second border round:** Reverse sc (crab stitch) around for a decorative edge.",
+      "**Finish:** Fasten off, weave in ends.",
+      "**Block:** Lightly steam to even out stitches if needed.",
+      "**Enjoy:** Measures approximately 40x60 inches."
+    ],
+    "beginnerTips": [
+      "Count your stitches every 10 rows to stay on track.",
+      "Super bulky yarn works up deceptively fast!",
+      "Use stitch markers at the edges to track rows."
+    ],
+    "commonMistakes": [
+      "Blanket too small \u2014 add more foundation chains.",
+      "Dropped stitches at the edges \u2014 use stitch markers.",
+      "Uneven tension \u2014 practice on a small swatch first."
+    ],
+    "keywords": [
+      "blanket",
+      "super bulky",
+      "throw",
+      "beginner",
+      "quick"
+    ]
+  },
+  {
+    "id": "pattern-superbulky-pet-bed-001",
+    "name": "Chunky Pet Bed",
+    "shortDescription": "A cozy, plush pet bed in super bulky yarn. Quick to make and machine washable \u2014 your furry friend will love it.",
+    "category": "Home Decor",
+    "difficulty": {
+      "level": "beginner",
+      "score": 3,
+      "reasoning": "Simple circle construction with side walls."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 4,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "6 (Super Bulky)",
+        "weightNumber": 6,
+        "suggestedYardageMin": 150,
+        "suggestedYardageMax": 250,
+        "fiberType": [
+          "Acrylic",
+          "Polyester",
+          "Cotton"
+        ],
+        "notes": "Machine washable yarn is important for pet items."
+      },
+      "hook": {
+        "sizeMM": 12,
+        "sizeUS": "O",
+        "sizeUK": "000",
+        "notes": "Smaller hook creates denser, more durable fabric."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 6,
+      "rows": 5,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Firm gauge is important for structure."
+    },
+    "instructions": [
+      "**Base:** Magic ring, 6 sc. Increase evenly to 42 sc (about 7 rounds).",
+      "**Base should** measure approximately 18 inches across.",
+      "**Side wall (Round 1):** Sc in back loop only of each sc \u2014 creates the corner fold.",
+      "**Rounds 2-12:** Sc in each sc around. Do not increase.",
+      "**Optional cushion:** Stuff the base with polyfill before closing if desired.",
+      "**Edging:** Work a round of reverse sc for a finished edge.",
+      "**Finish:** Fasten off, weave in ends.",
+      "**Care:** Machine wash gentle, tumble dry low."
+    ],
+    "beginnerTips": [
+      "Use stitch markers to track rounds.",
+      "Make the base wider for larger pets.",
+      "Choose washable yarn \u2014 pet beds get dirty!"
+    ],
+    "commonMistakes": [
+      "Base too small \u2014 measure your pet's current bed.",
+      "Walls too short \u2014 add more rounds.",
+      "Using non-washable yarn that can't be cleaned."
+    ],
+    "keywords": [
+      "pet bed",
+      "super bulky",
+      "chunky",
+      "dog bed",
+      "cat bed",
+      "home decor"
+    ]
+  },
+  {
+    "id": "pattern-superbulky-hat-001",
+    "name": "Super Chunky Beanie",
+    "shortDescription": "An ultra-quick beanie in super bulky yarn. Takes less than an hour from start to finish.",
+    "category": "Hat",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Simplest possible hat \u2014 all half double crochet in the round."
+    },
+    "estimatedTime": {
+      "minHours": 0.5,
+      "maxHours": 1,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "6 (Super Bulky)",
+        "weightNumber": 6,
+        "suggestedYardageMin": 60,
+        "suggestedYardageMax": 100,
+        "fiberType": [
+          "Acrylic",
+          "Wool"
+        ],
+        "notes": "One skein of super bulky yarn."
+      },
+      "hook": {
+        "sizeMM": 12,
+        "sizeUS": "O",
+        "sizeUK": "000",
+        "notes": "Large hook for quick work."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 7,
+      "rows": 5,
+      "unit": "4 inches",
+      "stitchPattern": "half double crochet",
+      "notes": "Check gauge for proper fit."
+    },
+    "instructions": [
+      "**Foundation:** Magic ring, ch 2, work 8 hdc into ring. Join. (8 hdc)",
+      "**Round 2:** Ch 2, 2 hdc in each hdc around. Join. (16 hdc)",
+      "**Round 3:** Ch 2, *hdc in next, 2 hdc in next; rep from * around. Join. (24 hdc)",
+      "**Rounds 4-10:** Ch 2, hdc in each hdc around. Join.",
+      "**Optional brim:** Fold bottom round up for a rolled edge look.",
+      "**Finish:** Fasten off, weave in ends.",
+      "**Time:** This hat takes about 45 minutes to complete.",
+      "**Tip:** Perfect for using up a single skein of super bulky yarn."
+    ],
+    "beginnerTips": [
+      "Super bulky yarn makes this a 45-minute project!",
+      "Use a stitch marker to track your rounds.",
+      "Great for beginners wanting a quick first project."
+    ],
+    "commonMistakes": [
+      "Hat too small \u2014 add an extra increase round.",
+      "Tension too tight \u2014 keep it loose and even.",
+      "Not joining rounds properly \u2014 use consistent technique."
+    ],
+    "keywords": [
+      "beanie",
+      "super bulky",
+      "hat",
+      "quick",
+      "beginner",
+      "chunky"
+    ]
+  },
+  {
+    "id": "pattern-superbulky-basket-001",
+    "name": "Super Chunky Storage Basket",
+    "shortDescription": "A sturdy storage basket in super bulky yarn perfect for organizing toys, yarn, or blankets.",
+    "category": "Home Decor",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Requires consistent tension and shaping for straight walls."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "6 (Super Bulky)",
+        "weightNumber": 6,
+        "suggestedYardageMin": 100,
+        "suggestedYardageMax": 150,
+        "fiberType": [
+          "Cotton",
+          "T-shirt yarn",
+          "Polyester"
+        ],
+        "notes": "Use a firm yarn that holds its shape."
+      },
+      "hook": {
+        "sizeMM": 10,
+        "sizeUS": "N/P-15",
+        "sizeUK": "000",
+        "notes": "Slightly smaller hook for tighter, stiffer fabric."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 6,
+      "rows": 5,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Tighter gauge is important for structure."
+    },
+    "instructions": [
+      "**Base:** Chain 2, 6 sc in 2nd ch from hook.",
+      "**Rounds 2-6:** Increase evenly to 36 sc.",
+      "**Side wall:** Sc in back loop only of each sc \u2014 creates base fold.",
+      "**Rounds 8-18:** Sc in each sc around. Do not increase.",
+      "**Optional handles:** At round 16, ch 10, skip 6 sc on each side.",
+      "**Next round:** Sc into ch-10 handles.",
+      "**Edging:** Work reverse sc around the top edge.",
+      "**Finish:** Fasten off, weave in ends."
+    ],
+    "beginnerTips": [
+      "Use a smaller hook than recommended for stiffer sides.",
+      "Mark the first stitch of each round.",
+      "If walls lean outward, go down a hook size."
+    ],
+    "commonMistakes": [
+      "Crocheting too loosely makes the basket flop.",
+      "Skipping the back-loop-only round for the base fold.",
+      "Not using stitch markers for increases."
+    ],
+    "keywords": [
+      "basket",
+      "super bulky",
+      "storage",
+      "home decor",
+      "intermediate"
+    ]
+  },
+  {
+    "id": "pattern-superbulky-scarf-002",
+    "name": "Super Chunky Scarf",
+    "shortDescription": "An ultra-thick, cozy scarf that works up in an hour. Perfect for extreme cold weather.",
+    "category": "Scarf",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Simple half double crochet rows."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 2,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "6 (Super Bulky)",
+        "weightNumber": 6,
+        "suggestedYardageMin": 80,
+        "suggestedYardageMax": 120,
+        "fiberType": [
+          "Acrylic",
+          "Wool",
+          "Polyester"
+        ],
+        "notes": "2-3 skeins of super bulky yarn."
+      },
+      "hook": {
+        "sizeMM": 15,
+        "sizeUS": "P/Q",
+        "sizeUK": "000",
+        "notes": "Large hook for quick work."
+      },
+      "notions": [
+        "Yarn needle"
+      ]
+    },
+    "gauge": {
+      "stitches": 5,
+      "rows": 4,
+      "unit": "4 inches",
+      "stitchPattern": "half double crochet",
+      "notes": "Gauge is flexible."
+    },
+    "instructions": [
+      "**Foundation:** Chain 16.",
+      "**Row 1:** Hdc in 3rd ch from hook and each ch across. (14 hdc) Ch 2, turn.",
+      "**Rows 2-30:** Hdc in each hdc across. Ch 2, turn.",
+      "**Check length** \u2014 scarf should be approximately 60 inches.",
+      "**Finish:** Fasten off, weave in ends.",
+      "**Optional fringe:** Add chunky fringe to both ends.",
+      "**Block:** Steam lightly if edges are uneven.",
+      "**Wear:** Wrap once for a thick, cozy cowl."
+    ],
+    "beginnerTips": [
+      "One hour project \u2014 perfect for last-minute gifts.",
+      "Use stitch markers at the edges to prevent dropped stitches.",
+      "Keep tension relaxed for a soft, drapey fabric."
+    ],
+    "commonMistakes": [
+      "Scarf too stiff \u2014 use a larger hook.",
+      "Scarf too short \u2014 keep going to 60 inches.",
+      "Edges uneven \u2014 check that you're working in the last stitch."
+    ],
+    "keywords": [
+      "scarf",
+      "super bulky",
+      "chunky",
+      "beginner",
+      "quick gift"
+    ]
+  },
+  {
+    "id": "pattern-superbulky-bathmat-001",
+    "name": "Chunky Bath Mat",
+    "shortDescription": "A thick, absorbent bath mat in super bulky cotton yarn. Quick to make and machine washable.",
+    "category": "Home Decor",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 4,
+      "reasoning": "Requires even tension for a flat, rectangular shape."
+    },
+    "estimatedTime": {
+      "minHours": 3,
+      "maxHours": 4,
+      "unit": "hours"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "6 (Super Bulky)",
+        "weightNumber": 6,
+        "suggestedYardageMin": 150,
+        "suggestedYardageMax": 200,
+        "fiberType": [
+          "Cotton",
+          "T-shirt yarn"
+        ],
+        "notes": "Cotton or t-shirt yarn for absorbency."
+      },
+      "hook": {
+        "sizeMM": 12,
+        "sizeUS": "O",
+        "sizeUK": "000",
+        "notes": "Use smaller hook for denser, more absorbent fabric."
+      },
+      "notions": [
+        "Yarn needle",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 6,
+      "rows": 5,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Firm gauge is important for a bath mat."
+    },
+    "instructions": [
+      "**Foundation:** Chain 31.",
+      "**Row 1:** Sc in 2nd ch from hook and each ch across. (30 sc) Ch 1, turn.",
+      "**Rows 2-60:** Sc in each sc across. Ch 1, turn.",
+      "**Check size** \u2014 mat should be approximately 20x30 inches.",
+      "**Border:** Sc evenly around all 4 edges.",
+      "**Non-slip backing:** Optional \u2014 apply a thin layer of non-slip rug backing.",
+      "**Finish:** Fasten off, weave in ends.",
+      "**Care:** Machine wash cold, tumble dry low."
+    ],
+    "beginnerTips": [
+      "Cotton is best for absorbency \u2014 avoid acrylic.",
+      "Make the mat slightly smaller than your bath rug area.",
+      "Use stitch markers at edges to maintain straight sides."
+    ],
+    "commonMistakes": [
+      "Using acrylic yarn that doesn't absorb water.",
+      "Mat curling at edges \u2014 block thoroughly.",
+      "Not making it long enough \u2014 measure your bathroom space."
+    ],
+    "keywords": [
+      "bath mat",
+      "super bulky",
+      "cotton",
+      "home decor",
+      "intermediate"
+    ]
   }
 ]
