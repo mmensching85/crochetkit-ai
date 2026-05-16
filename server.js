@@ -527,11 +527,11 @@ app.put('/api/auth/yarn-stash', authMiddleware, (req, res) => {
 // GET /api/pattern-image/:id — Generate SVG pattern image
 app.get('/api/pattern-image/:id', (req, res) => {
     const pattern = patterns.find(p => p.id === req.params.id);
-    if (!pattern) {
-        return res.status(404).send('Pattern not found');
-    }
     res.setHeader('Content-Type', 'image/svg+xml');
     res.setHeader('Cache-Control', 'public, max-age=86400');
+    if (!pattern) {
+        return res.send(generatePatternSVG({ name: req.params.id, category: '', difficulty: { level: '' }, estimatedTime: null }));
+    }
     res.send(generatePatternSVG(pattern));
 });
 
