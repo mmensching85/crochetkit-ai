@@ -887,12 +887,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     function displayProjectCards(projects) {
         const doneIds = getDone();
         const hasDone = projects.some(p => doneIds.includes(p.id));
+
+        const existingCheck = document.getElementById('hideDoneResults');
+        const hideDone = existingCheck ? existingCheck.checked : true;
+
         let html = '';
         if (hasDone) {
-            html += `<div style="text-align:center;margin-bottom:12px;"><label style="font-size:14px;color:#888;cursor:pointer;"><input type="checkbox" id="hideDoneResults" checked> Hide completed projects</label></div>`;
+            html += `<div style="text-align:center;margin-bottom:12px;"><label style="font-size:14px;color:#888;cursor:pointer;"><input type="checkbox" id="hideDoneResults" ${hideDone ? 'checked' : ''}> Hide completed projects</label></div>`;
         }
         html += '<div class="project-cards">';
-        const filteredProjects = hasDone ? projects.filter(p => !doneIds.includes(p.id)) : projects;
+        const filteredProjects = (hasDone && hideDone) ? projects.filter(p => !doneIds.includes(p.id)) : projects;
         filteredProjects.forEach((project, index) => {
             const title = linkifyGlossaryTerms(project.title);
             const stitches = project.stitches_used.map(s => convertStitchName(s, currentTermSystem)).join(', ');

@@ -151,29 +151,23 @@ function authMiddleware(req, res, next) {
 // API: get all patterns (for Browse All catalog)
 app.get('/api/patterns', (req, res) => {
     try {
+        const dummyMatch = (p) => ({
+            matchedPattern: p,
+            materialGap: { yardage: { status: 'ok' }, hook: { status: 'ok' } }
+        });
         const formatted = patterns.map(p => ({
-            id: p.id,
-            title: p.name,
-            description: p.shortDescription,
+            ...formatProjectOutput(dummyMatch(p), 'US'),
             category: p.category,
             difficulty: p.difficulty.level,
             difficultyScore: p.difficulty.score,
-            difficulty_reason: p.difficulty.reasoning,
-            estimated_time: `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit}`,
             estimated_min_hours: p.estimatedTime.minHours,
             estimated_max_hours: p.estimatedTime.maxHours,
-            skill_level: p.difficulty.level,
-            materials: [
-                `${p.materials.yarn.suggestedYardageMin}-${p.materials.yarn.suggestedYardageMax} yards of ${p.materials.yarn.weightCategory} yarn`,
-                `Hook: ${p.materials.hook.sizeUS} (${p.materials.hook.sizeMM} mm)`
-            ],
-            stitches_used: extractStitches(p.instructions),
             printable_summary: p.shortDescription,
             imageUrl: p.imageUrl || `/api/pattern-image/${p.id}`
         }));
         res.json(formatted);
     } catch (error) {
-        console.error('Error fetching patterns:', error.message);
+        console.error('Error fetching patterns:', error.message, error.stack);
         res.status(500).json({ error: error.message });
     }
 });
