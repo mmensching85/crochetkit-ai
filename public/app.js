@@ -430,7 +430,7 @@ function showMyFaves() {
         const doneSt = isDone(p.id) ? 'done-st' : '';
         html += `<div class="project-card ${doneSt}" data-index="${i}">`;
         if (p.imageUrl) {
-            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${p.id}'"></div>`;
         }
         html += `<h3>${title}</h3>`;
         if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
@@ -507,7 +507,7 @@ function showMyDone() {
         const title = linkifyGlossaryTerms(p.title);
         html += `<div class="project-card done-st" data-index="${i}">`;
         if (p.imageUrl) {
-            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${p.id}'"></div>`;
         }
         html += `<h3>${title}</h3>`;
         html += `<span class="done-badge">✓ Done</span>`;
@@ -899,7 +899,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             const fvd = isFaved(project.id) ? 'faved' : '';
             html += `<div class="project-card" data-index="${index}">`;
             if (project.imageUrl) {
-                html += `<div class="card-thumb"><img src="${project.imageUrl}" alt="${project.title}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+                html += `<div class="card-thumb"><img src="${project.imageUrl}" alt="${project.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${project.id}'"></div>`;
             }
             html += `<h3>${title}</h3>`;
             html += `<p class="card-desc">${project.description}</p>`;
