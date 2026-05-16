@@ -3,7 +3,7 @@
     "id": "pattern-garter-scarf-001",
     "name": "Garter Stitch Scarf",
     "shortDescription": "A quick, cozy scarf that teaches the basic single crochet stitch. Perfect for using up a skein of worsted yarn.",
-    "imageUrl": "https://images.pexels.com/photos/215966/pexels-photo-215966.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-garter-scarf-001",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -77,7 +77,7 @@
     "id": "pattern-scarf-bulky-001",
     "name": "Bulky Ribbed Scarf",
     "shortDescription": "A super-fast scarf using bulky yarn and simple half-double crochet. Great for beginners who want quick results.",
-    "imageUrl": "https://images.pexels.com/photos/215966/pexels-photo-215966.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-scarf-bulky-001",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -149,7 +149,7 @@
     "id": "pattern-scarf-fingerweight-001",
     "name": "Lightweight Lacy Scarf",
     "shortDescription": "A delicate, lightweight scarf using DK weight yarn. Perfect for spring or indoor wear.",
-    "imageUrl": "https://images.pexels.com/photos/215966/pexels-photo-215966.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-scarf-fingerweight-001",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -221,7 +221,7 @@
     "id": "pattern-scarf-striped-001",
     "name": "Color-Block Scarf",
     "shortDescription": "A simple scarf with color changes, teaching you how to switch yarn colors cleanly.",
-    "imageUrl": "https://images.pexels.com/photos/215966/pexels-photo-215966.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-scarf-striped-001",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -296,7 +296,7 @@
     "id": "pattern-simple-dishcloth-001",
     "name": "Simple Crochet Dishcloth",
     "shortDescription": "A practical, absorbent dishcloth made with cotton yarn. Great for practicing single and double crochet stitches.",
-    "imageUrl": "https://images.pexels.com/photos/7585855/pexels-photo-7585855.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-simple-dishcloth-001",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
@@ -369,7 +369,7 @@
     "id": "pattern-dishcloth-spiral-001",
     "name": "Spiral Textured Dishcloth",
     "shortDescription": "A dishcloth with a beautiful spiral texture created by alternating front-post and back-post stitches.",
-    "imageUrl": "https://images.pexels.com/photos/7585855/pexels-photo-7585855.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-dishcloth-spiral-001",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
@@ -441,7 +441,7 @@
     "id": "pattern-dishcloth-round-001",
     "name": "Round Scrubby Dishcloth",
     "shortDescription": "A small round dishcloth perfect for scrubbing dishes, worked in the round from the center out.",
-    "imageUrl": "https://images.pexels.com/photos/7585855/pexels-photo-7585855.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-dishcloth-round-001",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
@@ -518,7 +518,7 @@
     "id": "pattern-coaster-001",
     "name": "Simple Crochet Coaster",
     "shortDescription": "A quick, flat coaster perfect for protecting surfaces and practicing basic stitches.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-coaster-001",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -587,7 +587,7 @@
     "id": "pattern-coaster-round-001",
     "name": "Round Granny Coaster",
     "shortDescription": "A small round coaster worked in the round, perfect for practicing granny-square techniques on a small scale.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-coaster-round-001",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -658,7 +658,7 @@
     "id": "pattern-coaster-thick-001",
     "name": "Thick Cotton Coaster",
     "shortDescription": "A thick, insulating coaster made with double-stranded yarn for extra protection.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-coaster-thick-001",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -729,7 +729,7 @@
     "id": "pattern-headband-001",
     "name": "Easy Crochet Headband",
     "shortDescription": "A stretchy headband that teaches basic ribbing and is perfect for beginners.",
-    "imageUrl": "https://images.pexels.com/photos/4723538/pexels-photo-4723538.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-headband-001",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -799,7 +799,7 @@
     "id": "pattern-headband-twist-001",
     "name": "Twisted Knit-Look Headband",
     "shortDescription": "A stylish headband with a twisted center, creating a knit-like appearance using only single crochet.",
-    "imageUrl": "https://images.pexels.com/photos/4723538/pexels-photo-4723538.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-headband-twist-001",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -871,7 +871,7 @@
     "id": "pattern-headband-bow-001",
     "name": "Bow Headband",
     "shortDescription": "A cute headband with a crocheted bow attached, using basic stitches and simple seaming.",
-    "imageUrl": "https://images.pexels.com/photos/4723538/pexels-photo-4723538.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-headband-bow-001",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -944,7 +944,7 @@
     "id": "pattern-pouch-001",
     "name": "Simple Crochet Pouch",
     "shortDescription": "A small rectangular pouch perfect for storing small items, using basic stitches.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-pouch-001",
     "category": "Simple pouch",
     "difficulty": {
       "level": "beginner",
@@ -1016,7 +1016,7 @@
     "id": "pattern-pouch-drawstring-001",
     "name": "Drawstring Gift Pouch",
     "shortDescription": "A charming drawstring pouch perfect for gift wrapping small items like jewelry or candy.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-pouch-drawstring-001",
     "category": "Simple pouch",
     "difficulty": {
       "level": "beginner",
@@ -1090,7 +1090,7 @@
     "id": "pattern-pouch-coin-001",
     "name": "Mini Coin Purse",
     "shortDescription": "A tiny purse for coins or earbuds, using simple stitches and a button closure.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-pouch-coin-001",
     "category": "Simple pouch",
     "difficulty": {
       "level": "beginner",
@@ -1164,7 +1164,7 @@
     "id": "pattern-grannysquare-001",
     "name": "Basic Granny Square",
     "shortDescription": "A classic granny square that introduces multiple stitch types and can be combined into larger projects.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-grannysquare-001",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
@@ -1235,7 +1235,7 @@
     "id": "pattern-grannysquare-solid-001",
     "name": "Solid Granny Square",
     "shortDescription": "A variation of the classic granny square without the gaps, creating a denser fabric.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-grannysquare-solid-001",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
@@ -1306,7 +1306,7 @@
     "id": "pattern-grannysquare-mini-001",
     "name": "Mini Granny Square",
     "shortDescription": "A tiny 3-round granny square, perfect for coasters or joining into larger projects.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-grannysquare-mini-001",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
@@ -1375,7 +1375,7 @@
     "id": "pattern-mugcozy-001",
     "name": "Simple Mug Cozy",
     "shortDescription": "A cozy that fits a standard mug, perfect for practicing ribbing and basic shaping.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-mugcozy-001",
     "category": "Mug cozy",
     "difficulty": {
       "level": "beginner",
@@ -1444,7 +1444,7 @@
     "id": "pattern-mugcozy-button-001",
     "name": "Buttoned Mug Cozy",
     "shortDescription": "A mug cozy with a button closure, allowing it to be easily removed and washed.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-mugcozy-button-001",
     "category": "Mug cozy",
     "difficulty": {
       "level": "beginner",
@@ -1518,7 +1518,7 @@
     "id": "pattern-plant-hanger-001",
     "name": "Small Plant Hanger",
     "shortDescription": "A simple hanging holder for small pots, using basic chain and slip stitch techniques.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-plant-hanger-001",
     "category": "Small plant hanger",
     "difficulty": {
       "level": "beginner",
@@ -1589,7 +1589,7 @@
     "id": "pattern-plant-hanger-macrame-001",
     "name": "Macrame-Style Plant Hanger",
     "shortDescription": "A knotted-looking plant hanger made with simple chain stitches, mimicking macrame.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-plant-hanger-macrame-001",
     "category": "Small plant hanger",
     "difficulty": {
       "level": "beginner",
@@ -1662,7 +1662,7 @@
     "id": "pattern-baby-blanket-square-001",
     "name": "Baby Blanket Square",
     "shortDescription": "A soft, square blanket perfect for babies, using simple stitches and a gentle yarn.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-baby-blanket-square-001",
     "category": "Baby blanket square",
     "difficulty": {
       "level": "beginner",
@@ -1732,7 +1732,7 @@
     "id": "pattern-baby-blanket-ribbed-001",
     "name": "Ribbed Baby Blanket",
     "shortDescription": "A dense, warm baby blanket with a ribbed texture, using only single crochet worked in the back loop.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-baby-blanket-ribbed-001",
     "category": "Baby blanket square",
     "difficulty": {
       "level": "beginner",
@@ -1804,7 +1804,7 @@
     "id": "pattern-baby-blanket-striped-001",
     "name": "Striped Baby Blanket",
     "shortDescription": "A colorful striped baby blanket using alternating rows of single and double crochet.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-baby-blanket-striped-001",
     "category": "Baby blanket square",
     "difficulty": {
       "level": "beginner",
@@ -1878,7 +1878,7 @@
     "id": "pattern-beginner-tote-001",
     "name": "Beginner Crochet Tote",
     "shortDescription": "A simple tote bag that introduces basic shaping and stitch variety, perfect for beginners.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-beginner-tote-001",
     "category": "Beginner tote",
     "difficulty": {
       "level": "beginner",
@@ -1952,7 +1952,7 @@
     "id": "pattern-tote-market-001",
     "name": "Market Tote Bag",
     "shortDescription": "A roomy market tote with wide handles, perfect for grocery shopping or library books.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-tote-market-001",
     "category": "Beginner tote",
     "difficulty": {
       "level": "beginner",
@@ -2026,7 +2026,7 @@
     "id": "pattern-tote-mini-001",
     "name": "Mini Drawstring Tote",
     "shortDescription": "A tiny tote with a drawstring closure, perfect for small gifts or as a pouch.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-tote-mini-001",
     "category": "Beginner tote",
     "difficulty": {
       "level": "beginner",
@@ -2101,7 +2101,7 @@
     "id": "pattern-bookmark-simple-001",
     "name": "Simple Crochet Bookmark",
     "shortDescription": "A quick and easy bookmark using basic stitches. Perfect for a first project or last-minute gift.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bookmark-simple-001",
     "category": "Bookmark",
     "difficulty": {
       "level": "beginner",
@@ -2172,7 +2172,7 @@
     "id": "pattern-bookmark-flower-001",
     "name": "Flower Bookmark",
     "shortDescription": "A charming bookmark topped with a simple crocheted flower. Great for practicing basic flower motifs.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bookmark-flower-001",
     "category": "Bookmark",
     "difficulty": {
       "level": "beginner",
@@ -2244,7 +2244,7 @@
     "id": "pattern-keychain-heart-001",
     "name": "Crochet Heart Keychain",
     "shortDescription": "A cute little heart keychain that teaches simple shaping and works up in minutes.",
-    "imageUrl": "https://images.pexels.com/photos/4102835/pexels-photo-4102835.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-keychain-heart-001",
     "category": "Keychain",
     "difficulty": {
       "level": "beginner",
@@ -2317,7 +2317,7 @@
     "id": "pattern-keychain-star-001",
     "name": "Star Keychain",
     "shortDescription": "A 5-pointed star keychain using simple increases and decreases. Fast and fun.",
-    "imageUrl": "https://images.pexels.com/photos/4102835/pexels-photo-4102835.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-keychain-star-001",
     "category": "Keychain",
     "difficulty": {
       "level": "beginner",
@@ -2390,7 +2390,7 @@
     "id": "pattern-wristband-simple-001",
     "name": "Simple Wristband",
     "shortDescription": "A comfortable wristband using single crochet, perfect for practicing consistent tension.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-wristband-simple-001",
     "category": "Wristband",
     "difficulty": {
       "level": "beginner",
@@ -2462,7 +2462,7 @@
     "id": "pattern-wristband-cable-001",
     "name": "Braided Wristband",
     "shortDescription": "A trendy braided-look wristband made with crocheted chains braided together.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-wristband-cable-001",
     "category": "Wristband",
     "difficulty": {
       "level": "beginner",
@@ -2536,7 +2536,7 @@
     "id": "pattern-eyeglass-case-001",
     "name": "Simple Eyeglass Case",
     "shortDescription": "A padded eyeglass case using basic stitches. Great for protecting your glasses.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-eyeglass-case-001",
     "category": "Eyeglass case",
     "difficulty": {
       "level": "beginner",
@@ -2611,7 +2611,7 @@
     "id": "pattern-phone-case-001",
     "name": "Basic Phone Case",
     "shortDescription": "A simple pouch for your phone, with a drawstring top. Customizable to any phone size.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-phone-case-001",
     "category": "Cell phone case",
     "difficulty": {
       "level": "beginner",
@@ -2687,7 +2687,7 @@
     "id": "pattern-water-bottle-holder-001",
     "name": "Water Bottle Holder",
     "shortDescription": "A sling for your water bottle with an adjustable strap. Perfect for hikes or daily walks.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-water-bottle-holder-001",
     "category": "Water bottle holder",
     "difficulty": {
       "level": "beginner",
@@ -2760,7 +2760,7 @@
     "id": "pattern-beanie-slouchy-001",
     "name": "Slouchy Beanie",
     "shortDescription": "A relaxed beanie worked in the round with a ribbed brim and simple crown decreases.",
-    "imageUrl": "https://images.pexels.com/photos/6712145/pexels-photo-6712145.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-beanie-slouchy-001",
     "category": "Hat",
     "difficulty": {
       "level": "intermediate",
@@ -2838,7 +2838,7 @@
     "id": "pattern-fingerless-gloves-001",
     "name": "Fingerless Gloves",
     "shortDescription": "Cozy fingerless gloves with a thumb opening, working flat with seaming.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-fingerless-gloves-001",
     "category": "Accessories",
     "difficulty": {
       "level": "intermediate",
@@ -2914,7 +2914,7 @@
     "id": "pattern-market-bag-001",
     "name": "Mesh Market Bag",
     "shortDescription": "A stretchy mesh bag worked in the round with a drawstring closure and sturdy handles.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-market-bag-001",
     "category": "Bag",
     "difficulty": {
       "level": "intermediate",
@@ -2992,7 +2992,7 @@
     "id": "pattern-chevron-blanket-001",
     "name": "Chevron Lap Blanket",
     "shortDescription": "A warm lap blanket with a chevron ripple pattern using increases and decreases.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-chevron-blanket-001",
     "category": "Blanket",
     "difficulty": {
       "level": "intermediate",
@@ -3067,7 +3067,7 @@
     "id": "pattern-cable-scarf-001",
     "name": "Cable-Look Scarf",
     "shortDescription": "A knit-look scarf with braided cable effects created using front-post and back-post double crochet.",
-    "imageUrl": "https://images.pexels.com/photos/215966/pexels-photo-215966.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-cable-scarf-001",
     "category": "Scarf",
     "difficulty": {
       "level": "intermediate",
@@ -3143,7 +3143,7 @@
     "id": "pattern-triangle-shawl-001",
     "name": "Triangle Lace Shawl",
     "shortDescription": "A lightweight lace shawl worked from the top down with increasing rows and open shells.",
-    "imageUrl": "https://images.pexels.com/photos/1436134/pexels-photo-1436134.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-triangle-shawl-001",
     "category": "Shawl",
     "difficulty": {
       "level": "intermediate",
@@ -3220,7 +3220,7 @@
     "id": "pattern-bucket-hat-001",
     "name": "Structured Bucket Hat",
     "shortDescription": "A firm bucket hat with a wide brim, worked in continuous rounds with even increases.",
-    "imageUrl": "https://images.pexels.com/photos/6712145/pexels-photo-6712145.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bucket-hat-001",
     "category": "Hat",
     "difficulty": {
       "level": "intermediate",
@@ -3297,7 +3297,7 @@
     "id": "pattern-baby-booties-001",
     "name": "Baby Booties",
     "shortDescription": "Adorable crochet booties for babies with a simple sole, sides, and ankle ties.",
-    "imageUrl": "https://images.pexels.com/photos/30435352/pexels-photo-30435352.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-baby-booties-001",
     "category": "Baby",
     "difficulty": {
       "level": "intermediate",
@@ -3375,7 +3375,7 @@
     "id": "pattern-c2c-square-001",
     "name": "Corner-to-Corner Square",
     "shortDescription": "A square worked diagonally using the corner-to-corner technique with increasing and decreasing blocks.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-c2c-square-001",
     "category": "Granny square",
     "difficulty": {
       "level": "intermediate",
@@ -3451,7 +3451,7 @@
     "id": "pattern-amigurumi-ball-001",
     "name": "Amigurumi Ball",
     "shortDescription": "A perfect round ball using continuous spiral rounds with even increases and decreases—the foundation of amigurumi.",
-    "imageUrl": "https://images.pexels.com/photos/4102835/pexels-photo-4102835.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-amigurumi-ball-001",
     "category": "Toy",
     "difficulty": {
       "level": "intermediate",
@@ -3533,7 +3533,7 @@
     "id": "pattern-granny-hexagon-001",
     "name": "Granny Hexagon Throw",
     "shortDescription": "A hexagonal granny motif that can be joined to make a blanket, shawl, or cardigan.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-granny-hexagon-001",
     "category": "Granny square",
     "difficulty": {
       "level": "intermediate",
@@ -3607,7 +3607,7 @@
     "id": "pattern-mandala-hanging-001",
     "name": "Mandala Wall Hanging",
     "shortDescription": "A colorful mandala with concentric rounds of different stitch patterns, finished with a hanging loop.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-mandala-hanging-001",
     "category": "Home Decor",
     "difficulty": {
       "level": "intermediate",
@@ -3689,7 +3689,7 @@
     "id": "pattern-glasses-002",
     "name": "Quilted Eyeglass Case",
     "shortDescription": "A padded eyeglass case using the thermal stitch (back-loop only) for a quilted look. Keeps lenses safe and scratch-free.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-glasses-002",
     "category": "Eyeglass case",
     "difficulty": {
       "level": "beginner",
@@ -3763,7 +3763,7 @@
     "id": "pattern-phone-002",
     "name": "Textured Phone Sleeve",
     "shortDescription": "A simple phone sleeve using half double crochet. Works up fast and makes a great gift.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-phone-002",
     "category": "Cell phone case",
     "difficulty": {
       "level": "beginner",
@@ -3835,7 +3835,7 @@
     "id": "pattern-bottle-002",
     "name": "Simple Bottle Bag",
     "shortDescription": "A sturdy mesh bag to carry a water bottle. Uses double crochet mesh for stretch and breathability.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bottle-002",
     "category": "Water bottle holder",
     "difficulty": {
       "level": "beginner",
@@ -3908,7 +3908,7 @@
     "id": "pattern-headband-002",
     "name": "Simple Headband",
     "shortDescription": "A twisted knot headband made with half double crochet. Quick, stylish, and uses very little yarn.",
-    "imageUrl": "https://images.pexels.com/photos/4723538/pexels-photo-4723538.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-headband-002",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -3981,7 +3981,7 @@
     "id": "pattern-bag-002",
     "name": "Granny Square Tote",
     "shortDescription": "A cheerful tote bag made from joined granny squares. A perfect next step after learning the granny square.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bag-002",
     "category": "Bag",
     "difficulty": {
       "level": "beginner",
@@ -4055,7 +4055,7 @@
     "id": "pattern-blanket-002",
     "name": "Corner-to-Corner Baby Blanket",
     "shortDescription": "A modern corner-to-corner (C2C) baby blanket using double crochet. Works up diagonally, making it easy to resize.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-blanket-002",
     "category": "Blanket",
     "difficulty": {
       "level": "beginner",
@@ -4131,7 +4131,7 @@
     "id": "pattern-shawl-002",
     "name": "Simple Triangle Shawl",
     "shortDescription": "A top-down triangle shawl using double crochet. Easy to resize and perfect for using one beautiful skein.",
-    "imageUrl": "https://images.pexels.com/photos/1436134/pexels-photo-1436134.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-shawl-002",
     "category": "Shawl",
     "difficulty": {
       "level": "beginner",
@@ -4206,7 +4206,7 @@
     "id": "pattern-baby-002",
     "name": "Newborn Hat",
     "shortDescription": "A simple newborn hat worked in the round. Uses double crochet and works up in under an hour.",
-    "imageUrl": "https://images.pexels.com/photos/30435352/pexels-photo-30435352.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-baby-002",
     "category": "Baby",
     "difficulty": {
       "level": "beginner",
@@ -4281,7 +4281,7 @@
     "id": "pattern-toy-002",
     "name": "Crochet Cube (Amigurumi)",
     "shortDescription": "A soft, squishy crochet cube made from 6 squares sewn together. A perfect first amigurumi project.",
-    "imageUrl": "https://images.pexels.com/photos/4102835/pexels-photo-4102835.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-toy-002",
     "category": "Toy",
     "difficulty": {
       "level": "beginner",
@@ -4358,7 +4358,7 @@
     "id": "pattern-home-002",
     "name": "Potholder (Double Thick)",
     "shortDescription": "A double-thick cotton potholder worked as two layers joined at the edge. Uses single crochet throughout.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-home-002",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -4432,7 +4432,7 @@
     "id": "pattern-accessories-003",
     "name": "Scrunchie",
     "shortDescription": "A quick and stylish hair scrunchie using single crochet. Uses scraps of yarn and a hair elastic.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-accessories-003",
     "category": "Accessories",
     "difficulty": {
       "level": "beginner",
@@ -4504,7 +4504,7 @@
     "id": "pattern-baby-003",
     "name": "Baby Rattle",
     "shortDescription": "A safe and soft baby rattle with a crochet ball and a bell inside. A charming baby shower gift.",
-    "imageUrl": "https://images.pexels.com/photos/30435352/pexels-photo-30435352.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-baby-003",
     "category": "Baby",
     "difficulty": {
       "level": "beginner",
@@ -4582,7 +4582,7 @@
     "id": "pattern-bag-003",
     "name": "Drawstring Pouch",
     "shortDescription": "A simple drawstring pouch worked in the round. Great for gifts, jewelry, or small items.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bag-003",
     "category": "Bag",
     "difficulty": {
       "level": "beginner",
@@ -4654,7 +4654,7 @@
     "id": "pattern-blanket-003",
     "name": "Solid Granny Throw",
     "shortDescription": "A solid (no holes) granny square blanket using double crochet. Dense and warm — classic stashbuster.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-blanket-003",
     "category": "Blanket",
     "difficulty": {
       "level": "beginner",
@@ -4729,7 +4729,7 @@
     "id": "pattern-shawl-003",
     "name": "Rectangle Poncho",
     "shortDescription": "A simple poncho made from two rectangles sewn together. Cozy, stylish, and very beginner-friendly.",
-    "imageUrl": "https://images.pexels.com/photos/1436134/pexels-photo-1436134.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-shawl-003",
     "category": "Shawl",
     "difficulty": {
       "level": "beginner",
@@ -4802,7 +4802,7 @@
     "id": "pattern-toy-003",
     "name": "Amigurumi Egg",
     "shortDescription": "A cute, simple amigurumi egg shape. Works up in minutes — perfect for Easter or learning amigurumi basics.",
-    "imageUrl": "https://images.pexels.com/photos/4102835/pexels-photo-4102835.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-toy-003",
     "category": "Toy",
     "difficulty": {
       "level": "beginner",
@@ -4879,7 +4879,7 @@
     "id": "pattern-home-003",
     "name": "Simple Throw Pillow Cover",
     "shortDescription": "A 16-inch square pillow cover using half double crochet. Uses a simple envelope closure on the back.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-home-003",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -4954,7 +4954,7 @@
     "id": "pattern-hat-003",
     "name": "Slouchy Beret",
     "shortDescription": "A slouchy beret-style hat worked top-down. Uses double crochet increases for a relaxed, stylish fit.",
-    "imageUrl": "https://images.pexels.com/photos/6712145/pexels-photo-6712145.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-hat-003",
     "category": "Hat",
     "difficulty": {
       "level": "beginner",
@@ -5031,7 +5031,7 @@
     "id": "pattern-scarf-006",
     "name": "Moss Stitch Scarf",
     "shortDescription": "A textured scarf using the moss stitch (alternating sc and ch-1). A great next step after basic stitches.",
-    "imageUrl": "https://images.pexels.com/photos/215966/pexels-photo-215966.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-scarf-006",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -5102,7 +5102,7 @@
     "id": "pattern-scarf-007",
     "name": "Infinity Scarf (Mobius)",
     "shortDescription": "A twisted infinity scarf worked in the round. A simple twist gives a modern look.",
-    "imageUrl": "https://images.pexels.com/photos/215966/pexels-photo-215966.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-scarf-007",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -5173,7 +5173,7 @@
     "id": "pattern-granny-006",
     "name": "Sunburst Granny Square",
     "shortDescription": "A colorful sunburst granny square with a textured center. Great for blankets, bags, and pillows.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-granny-006",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
@@ -5243,7 +5243,7 @@
     "id": "pattern-granny-007",
     "name": "Solid Hexagon",
     "shortDescription": "A solid hexagon motif using double crochet. Great for blankets, rugs, and joining into creative shapes.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-granny-007",
     "category": "Granny square",
     "difficulty": {
       "level": "beginner",
@@ -5317,7 +5317,7 @@
     "id": "pattern-dishcloth-004",
     "name": "Diagonal Waffle Cloth",
     "shortDescription": "A dishcloth with a diagonal waffle texture using front post double crochet. Absorbent and scrubby.",
-    "imageUrl": "https://images.pexels.com/photos/7585855/pexels-photo-7585855.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-dishcloth-004",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
@@ -5389,7 +5389,7 @@
     "id": "pattern-coaster-004",
     "name": "Spiral Rope Coaster",
     "shortDescription": "A thick, absorbent coaster made from cotton rope. Works up fast and protects surfaces from moisture.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-coaster-004",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -5460,7 +5460,7 @@
     "id": "pattern-accessories-004",
     "name": "Simple Cowl",
     "shortDescription": "A cozy infinity-style cowl worked in the round. Uses only double crochet and works up in an evening.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-accessories-004",
     "category": "Accessories",
     "difficulty": {
       "level": "beginner",
@@ -5531,7 +5531,7 @@
     "id": "pattern-hat-004",
     "name": "Messy Bun Beanie",
     "shortDescription": "A trendy beanie with a hole at the crown for ponytails or buns. Quick to make and perfect for gifting.",
-    "imageUrl": "https://images.pexels.com/photos/6712145/pexels-photo-6712145.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-hat-004",
     "category": "Hat",
     "difficulty": {
       "level": "beginner",
@@ -5590,7 +5590,7 @@
     "id": "pattern-blanket-004",
     "name": "Corner to Corner Baby Blanket",
     "shortDescription": "A modern baby blanket worked diagonally from corner to corner. Uses only double crochet and chain stitches.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-blanket-004",
     "category": "Blanket",
     "difficulty": {
       "level": "intermediate",
@@ -5649,7 +5649,7 @@
     "id": "pattern-shawl-004",
     "name": "Simple Lace Triangle Shawl",
     "shortDescription": "An airy triangular shawl with an easy-to-memorize lace repeat. A great introduction to lace crochet.",
-    "imageUrl": "https://images.pexels.com/photos/1436134/pexels-photo-1436134.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-shawl-004",
     "category": "Shawl",
     "difficulty": {
       "level": "intermediate",
@@ -5709,7 +5709,7 @@
     "id": "pattern-tote-004",
     "name": "Granny Square Tote Bag",
     "shortDescription": "A boho-style tote made from granny squares. A great way to use up scrap yarn in multiple colors.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-tote-004",
     "category": "Bag",
     "difficulty": {
       "level": "intermediate",
@@ -5769,7 +5769,7 @@
     "id": "pattern-amigurumi-002",
     "name": "Tiny Amigurumi Cat",
     "shortDescription": "A cute miniature cat that works up quickly. Learn amigurumi basics: magic ring, increases, and invisible decreases.",
-    "imageUrl": "https://images.pexels.com/photos/4102835/pexels-photo-4102835.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-amigurumi-002",
     "category": "Toy",
     "difficulty": {
       "level": "beginner",
@@ -5830,7 +5830,7 @@
     "id": "pattern-coaster-005",
     "name": "Macrame-Inspired Coaster Set",
     "shortDescription": "A set of four cotton coasters with a knotted macrame look. Made with front post stitches and simple color blocks.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-coaster-005",
     "category": "Coaster",
     "difficulty": {
       "level": "beginner",
@@ -5889,7 +5889,7 @@
     "id": "pattern-home-004",
     "name": "Twisted Headband Ear Warmer",
     "shortDescription": "A stylish twisted headband that doubles as an ear warmer. One piece construction with a sewn twist for a modern look.",
-    "imageUrl": "https://images.pexels.com/photos/4723538/pexels-photo-4723538.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-home-004",
     "category": "Headband",
     "difficulty": {
       "level": "beginner",
@@ -5947,7 +5947,7 @@
     "id": "pattern-scarf-008",
     "name": "Infinity Scarf Loop",
     "shortDescription": "A seamless infinity scarf worked in the round. Creates a cozy, wearable loop with no ends to seam.",
-    "imageUrl": "https://images.pexels.com/photos/215966/pexels-photo-215966.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-scarf-008",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -6007,7 +6007,7 @@
     "id": "pattern-bag-004",
     "name": "Linen Stitch Market Bag",
     "shortDescription": "A sturdy, eco-friendly market bag made with the linen stitch. Expands to hold groceries and folds flat when not in use.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bag-004",
     "category": "Bag",
     "difficulty": {
       "level": "beginner",
@@ -6067,7 +6067,7 @@
     "id": "pattern-baby-004",
     "name": "Baby Rattle Ball",
     "shortDescription": "A soft, safe baby rattle made with a crochet ball and a hidden jingle bell inside. Machine washable and baby-safe.",
-    "imageUrl": "https://images.pexels.com/photos/30435352/pexels-photo-30435352.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-baby-004",
     "category": "Baby",
     "difficulty": {
       "level": "beginner",
@@ -6126,7 +6126,7 @@
     "id": "pattern-fine-001",
     "name": "Lace Wrist Warmers",
     "shortDescription": "Delicate fingerless mitts using sport-weight yarn. A quick, elegant project that's perfect for cooler mornings.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-fine-001",
     "category": "Accessories",
     "difficulty": {
       "level": "intermediate",
@@ -6200,7 +6200,7 @@
     "id": "pattern-fine-002",
     "name": "Sport-Weight Baby Booties",
     "shortDescription": "Adorable newborn booties using fine sport-weight yarn. Makes a wonderful baby shower gift.",
-    "imageUrl": "https://images.pexels.com/photos/30435352/pexels-photo-30435352.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-fine-002",
     "category": "Baby",
     "difficulty": {
       "level": "intermediate",
@@ -6274,7 +6274,7 @@
     "id": "pattern-dk-001",
     "name": "DK Triangle Shawl",
     "shortDescription": "A classic top-down triangle shawl using DK weight yarn. Lightweight and perfect for spring evenings.",
-    "imageUrl": "https://images.pexels.com/photos/1436134/pexels-photo-1436134.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-dk-001",
     "category": "Shawl",
     "difficulty": {
       "level": "intermediate",
@@ -6348,7 +6348,7 @@
     "id": "pattern-dk-002",
     "name": "Lightweight Pullover Sweater",
     "shortDescription": "A beginner-friendly crochet sweater made from two simple rectangles seamed together. DK weight keeps it lightweight.",
-    "imageUrl": "https://images.pexels.com/photos/1182345/pexels-photo-1182345.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-dk-002",
     "category": "Sweater",
     "difficulty": {
       "level": "intermediate",
@@ -6423,7 +6423,7 @@
     "id": "pattern-dk-003",
     "name": "Crochet Market Tote",
     "shortDescription": "A sturdy market bag using DK cotton yarn. The mesh pattern stretches to hold groceries while being compact when folded.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-dk-003",
     "category": "Bag",
     "difficulty": {
       "level": "intermediate",
@@ -6496,7 +6496,7 @@
     "id": "pattern-dk-004",
     "name": "Striped Mug Cozy",
     "shortDescription": "A cheerful striped mug cozy in DK yarn. Quick to make and customizable with your favorite colors.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-dk-004",
     "category": "Mug cozy",
     "difficulty": {
       "level": "beginner",
@@ -6569,7 +6569,7 @@
     "id": "pattern-slippers-001",
     "name": "Cozy House Slippers",
     "shortDescription": "Warm, sturdy house slippers made with worsted weight yarn. The double-thick sole keeps your feet off cold floors.",
-    "imageUrl": "https://images.pexels.com/photos/14419121/pexels-photo-14419121.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-slippers-001",
     "category": "Slippers",
     "difficulty": {
       "level": "intermediate",
@@ -6644,7 +6644,7 @@
     "id": "pattern-poncho-001",
     "name": "Simple Beginner Poncho",
     "shortDescription": "A cozy poncho made from two large rectangles sewn together. Extremely beginner-friendly and forgiving of gauge.",
-    "imageUrl": "https://images.pexels.com/photos/1436134/pexels-photo-1436134.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-poncho-001",
     "category": "Poncho",
     "difficulty": {
       "level": "beginner",
@@ -6718,7 +6718,7 @@
     "id": "pattern-basket-001",
     "name": "Rope Storage Basket",
     "shortDescription": "A sturdy storage basket made by crocheting with t-shirt yarn or triple-strand worsted weight. Perfect for organizing shelves.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-basket-001",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -6793,7 +6793,7 @@
     "id": "pattern-potholder-001",
     "name": "Thick Cotton Potholder",
     "shortDescription": "A double-thick potholder using cotton yarn. The thermal stitch creates an insulating layer for kitchen safety.",
-    "imageUrl": "https://images.pexels.com/photos/7585855/pexels-photo-7585855.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-potholder-001",
     "category": "Dishcloth",
     "difficulty": {
       "level": "beginner",
@@ -6864,7 +6864,7 @@
     "id": "pattern-scrunchie-001",
     "name": "Quick Velvet Scrunchies",
     "shortDescription": "Luxurious velvet scrunchies that work up in minutes. Great for using small amounts of specialty yarn.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-scrunchie-001",
     "category": "Accessories",
     "difficulty": {
       "level": "beginner",
@@ -6937,7 +6937,7 @@
     "id": "pattern-bulky-002",
     "name": "Bulky Beanies",
     "shortDescription": "A quick-to-make beanie using bulky yarn. Works up in under an hour for instant gratification.",
-    "imageUrl": "https://images.pexels.com/photos/6712145/pexels-photo-6712145.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bulky-002",
     "category": "Hat",
     "difficulty": {
       "level": "beginner",
@@ -7012,7 +7012,7 @@
     "id": "pattern-bulky-003",
     "name": "Bulky Cowl Neck Warmer",
     "shortDescription": "A stylish infinity cowl worked in bulky yarn. The half double crochet creates a warm, dense fabric perfect for winter.",
-    "imageUrl": "https://images.pexels.com/photos/215966/pexels-photo-215966.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bulky-003",
     "category": "Scarf",
     "difficulty": {
       "level": "beginner",
@@ -7084,7 +7084,7 @@
     "id": "pattern-bulky-004",
     "name": "Chunky Throw Pillow",
     "shortDescription": "A super-chunky throw pillow cover using bulky yarn. The simple rectangle folds into a pillow cover with an envelope back.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bulky-004",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -7158,7 +7158,7 @@
     "id": "pattern-superbulky-001",
     "name": "Super Bulky Arm Knit Blanket",
     "shortDescription": "A luxurious hand-crocheted blanket using super bulky yarn. Works up incredibly fast—perfect for last-minute gifts.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-superbulky-001",
     "category": "Blanket",
     "difficulty": {
       "level": "beginner",
@@ -7231,7 +7231,7 @@
     "id": "pattern-superbulky-002",
     "name": "Jumbo Pet Bed",
     "shortDescription": "A plush, round pet bed using super bulky yarn. Your cat or small dog will love this cozy nest.",
-    "imageUrl": "https://images.pexels.com/photos/30066882/pexels-photo-30066882.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-superbulky-002",
     "category": "Home Decor",
     "difficulty": {
       "level": "beginner",
@@ -7306,7 +7306,7 @@
     "id": "pattern-legwarmers-001",
     "name": "Cozy Leg Warmers",
     "shortDescription": "Leg warmers worked flat and seamed. Customize the length and add a fold-over cuff for extra warmth.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-legwarmers-001",
     "category": "Accessories",
     "difficulty": {
       "level": "beginner",
@@ -7380,7 +7380,7 @@
     "id": "pattern-ornament-001",
     "name": "Crochet Christmas Ornaments",
     "shortDescription": "Set of mini crochet ornaments: a star, a heart, and a mini stocking. Great for using scrap yarn and making gifts.",
-    "imageUrl": "https://images.pexels.com/photos/4102835/pexels-photo-4102835.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-ornament-001",
     "category": "Keychain",
     "difficulty": {
       "level": "intermediate",
@@ -7454,7 +7454,7 @@
     "id": "pattern-earrings-001",
     "name": "Crochet Hoop Earrings",
     "shortDescription": "Lightweight, modern hoop earrings made with fine thread and wire hoops. An advanced beginner project that looks impressive.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-earrings-001",
     "category": "Accessories",
     "difficulty": {
       "level": "intermediate",
@@ -7529,7 +7529,7 @@
     "id": "pattern-plant-hanger-003",
     "name": "Boho Plant Hanger with Beads",
     "shortDescription": "A macrame-style crochet plant hanger using worsted cotton. Wooden beads add a boho touch.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-plant-hanger-003",
     "category": "Small plant hanger",
     "difficulty": {
       "level": "intermediate",
@@ -7603,7 +7603,7 @@
     "id": "pattern-bookmark-003",
     "name": "Lacy Bookmark with Bead",
     "shortDescription": "An elegant lace bookmark using cotton thread. Makes a wonderful, thoughtful gift for book lovers.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-bookmark-003",
     "category": "Bookmark",
     "difficulty": {
       "level": "intermediate",
@@ -7677,7 +7677,7 @@
     "id": "pattern-phone-case-003",
     "name": "Textured Phone Pouch",
     "shortDescription": "A protective phone pouch with a textured stitch pattern. The flap keeps your phone secure.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-phone-case-003",
     "category": "Cell phone case",
     "difficulty": {
       "level": "beginner",
@@ -7752,7 +7752,7 @@
     "id": "pattern-water-bottle-003",
     "name": "Insulated Water Bottle Sling",
     "shortDescription": "A water bottle holder with an adjustable strap and drawstring top. The double-thick base insulates your drink.",
-    "imageUrl": "https://images.pexels.com/photos/9695851/pexels-photo-9695851.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-water-bottle-003",
     "category": "Water bottle holder",
     "difficulty": {
       "level": "intermediate",
@@ -7827,7 +7827,7 @@
     "id": "pattern-eyeglass-003",
     "name": "Quilted Eyeglass Case",
     "shortDescription": "A padded eyeglass case with a quilted texture. The flap closure keeps glasses secure.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-eyeglass-003",
     "category": "Eyeglass case",
     "difficulty": {
       "level": "intermediate",
@@ -7901,7 +7901,7 @@
     "id": "pattern-wristband-003",
     "name": "Infinity Wristband",
     "shortDescription": "A braided-looking wristband made with a clever crochet technique. Adjustable to any wrist size.",
-    "imageUrl": "https://images.pexels.com/photos/34151721/pexels-photo-34151721.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-wristband-003",
     "category": "Wristband",
     "difficulty": {
       "level": "beginner",
@@ -7974,7 +7974,7 @@
     "id": "pattern-keychain-003",
     "name": "Mini Amigurumi Keychain",
     "shortDescription": "An adorable mini amigurumi animal keychain. Choose a bear, bunny, or cat face design.",
-    "imageUrl": "https://images.pexels.com/photos/4102835/pexels-photo-4102835.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "imageUrl": "/api/pattern-image/pattern-keychain-003",
     "category": "Keychain",
     "difficulty": {
       "level": "intermediate",
