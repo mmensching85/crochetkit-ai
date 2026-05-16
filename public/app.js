@@ -294,7 +294,7 @@ function showCatalog() {
           const doneSt = isDone(p.id) ? 'done-st' : '';
           html += `<div class="project-card ${doneSt}" data-catalog-idx="${i}">`;
           if (p.imageUrl) {
-            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.src='${window.location.origin}/api/pattern-image/${p.id}'"></div>`;
+            html += `<div class="card-thumb"><img src="${p.imageUrl}" alt="${p.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${p.id}'"></div>`;
           }
           html += `<h3>${title}</h3>`;
           if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
@@ -963,7 +963,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back</button><button class="btn btn-success btn-sm detail-pdf-btn">PDF</button>${renderShareBtns(project.id, project.title)}</div>`;
 
         if (project.imageUrl) {
-            html += `<div class="project-image"><img src="${project.imageUrl}" alt="${project.title}" loading="lazy" onerror="this.src='${window.location.origin}/api/pattern-image/${project.id}'"></div>`;
+            html += `<div class="project-image"><img src="${project.imageUrl}" alt="${project.title}" loading="lazy" onerror="this.onerror=null;this.src='${window.location.origin}/api/pattern-image/${project.id}'"></div>`;
         }
 
         const fvd = isFaved(project.id) ? 'faved' : '';
