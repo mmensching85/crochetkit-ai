@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "generate": "python3 src/generate_patterns_json.py",
+    "generate-heroes": "python3 scripts/generate_images.py --hero-only",
+    "generate-steps": "python3 scripts/generate_images.py --steps-only",
     "test": "node src/test_matcher.js"
   },
   "keywords": [],

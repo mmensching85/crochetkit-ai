@@ -41,20 +41,16 @@ To provide beginner crocheters with personalized project recommendations based o
 ## Current Status
 
 ### Completed
-- **Phase 1 & 2 (Niche & Rules Defined):** Complete. Focus on beginner crochet, max 1-2 days, printable guides, excluding complex projects.
-- **MVP Core Logic:** 
-  - `src/matchPattern.js` — Rule-based pattern matcher that returns multiple top-scoring projects
-  - `data/patterns.json` — 38 patterns across 16 categories
-  - `src/formatProjectOutput.js` — Transforms matched data into the specified JSON schema
-  - `src/test_matcher.js` — Test suite for pattern matching pipeline
-- **User Interface:** 
-  - Web UI with input form, multi-project card display, and detail view
-  - "Select" to view full project details with steps, tips, visual descriptions, and glossary
-  - "PDF" button to download each project as a printable document
-- **Visual Guidance:** Enhanced textual descriptions for each step, explaining what each stitch should look like
-- **Glossary:** 12 crochet terms hyperlinked throughout the text, with collapsible glossary section
-- **PDF Export:** Generates print-ready PDFs with full project details, glossary, and styled layout
-- **Pattern Catalog:** 38 beginner patterns across 16 categories with varying yarn weights and time commitments
+- **Pattern Database:** 58 patterns across 26 categories with weights 1-6 and 3 difficulty levels
+- **Matching Engine:** `src/matchPattern.js` — Rule-based pattern matcher with LRU cache, UK/US term support, reverse stash matching
+- **User Interface:** Web UI with form input, project cards, detail view, PDF export, gauge calculator, stash gallery, and full dark mode
+- **User Accounts:** JWT-based auth with cloud sync for favorites and yarn stash
+- **Visual Assets:** Hero images for all 58 patterns via Pixazo.ai FLUX.1-schnell, 900+ step images
+- **Glossary:** 15+ crochet terms hyperlinked throughout with collapsible glossary section
+- **Feedback Loop:** Per-project and global feedback forms stored in `data/feedback.json`
+- **Yarn Management:** Photo label scanning, quick-add with yardage presets, stash gallery with filtering
+- **Accessibility:** ARIA labels, screen-reader descriptions, keyboard-navigable, responsive mobile layout
+- **Testing:** 13 test scenarios covering weight matching, difficulty, UK terms, edge cases
 
 ## Architecture
 ```
@@ -65,22 +61,33 @@ crochetkit-ai/
 ├── src/
 │   ├── matchPattern.js          # Rule-based pattern matcher
 │   ├── formatProjectOutput.js   # Formats matched patterns into project JSON
+│   ├── termConverter.js         # Crochet terminology conversion (US/UK)
 │   ├── generate_patterns_json.py # Python script to generate pattern data
-│   └── test_matcher.js          # Test scenarios
+│   └── test_matcher.js          # 13 test scenarios
 ├── data/
-│   └── patterns.json            # 38 beginner crochet patterns
+│   ├── patterns.json            # 58 patterns across 26 categories
+│   ├── feedback.json            # User feedback on recommendations
+│   ├── users.json               # User accounts (bcrypt hashed)
+│   ├── match-count.json         # Usage tracking
+│   ├── contacts.json            # Contact form submissions
+│   └── popular.json             # Popular patterns cache
+├── scripts/
+│   └── generate_images.py       # Hero + step image generation (Pixazo.ai FLUX)
 └── public/
     ├── index.html               # Web UI
-    ├── style.css                # Styling
-    ├── app.js                   # Frontend logic
+    ├── style.css                # Styling (dark mode, responsive)
+    ├── app.js                   # Frontend logic (auth, stash, gallery, gauge calc)
     └── glossary.json            # Crochet term definitions
 ```
 
 ## Running the App
 ```bash
-npm install        # Install dependencies
-npm start          # Start the server at http://localhost:3000
-npm run generate   # Regenerate patterns.json from Python script
+npm install           # Install dependencies
+npm start             # Start the server at http://localhost:3000
+npm run generate      # Regenerate patterns.json from Python script
+npm run generate-heroes  # Generate hero images for patterns
+npm run generate-steps   # Generate step-by-step images
+npm test              # Run the test suite (13 scenarios)
 ```
 
 ## Docker Deployment
@@ -119,8 +126,9 @@ docker stop crochetkit-ai
 ## CI/CD
 A basic GitHub Actions workflow is included in `.github/workflows/ci.yml`. It runs tests on each push and pull request.
 
-## Next Steps for LLMs / Collaborators
-1. **Better Styling & Accessibility** — Refine CSS, make responsive, add ARIA labels, implement print view
-2. **User Feedback Loop** — Add a rating/comment form and store feedback in `data/feedback.json`
-3. **Monetize** — Free basic generation, paid advanced patterns, affiliate checkout, retailer integrations
-4. **Documentation & Deployment** — Add Dockerfile, deployment steps, CI/CD
+## Next Steps
+1. **Content expansion** — Add more patterns for weight 2-3 (still underrepresented) and advanced difficulty
+2. **Personalization** — Track user preferences over time, learn which categories they prefer
+3. **Social features** — Share completed projects, pattern ratings from community
+4. **Mobile app** — PWA or React Native wrapper for offline stash management
+5. **Monetization** — Premium pattern bundles, affiliate yarn shopping links

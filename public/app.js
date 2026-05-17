@@ -44,30 +44,30 @@ function convertStitchName(name, system) {
     'double crochet (dc)': 'treble (tr)',
     'treble crochet (tr)': 'double treble (dtr)',
   };
-  return fullMap[name.toLowerCase()] || name.replace(/\b(sc|hdc|dc|tr)\b/g, m => abbrMap[m] || m);
+  return fullMap[name.toLowerCase()] || name.replace(/\b(hdc|dc|sc|tr|ch|sl st)\b/g, m => abbrMap[m] || m);
 }
 
 const STASH_KEY = 'crochetkit-stash';
 
 function saveStash() {
   const data = {
-    yarnWeightNumber: document.getElementById('yarnWeightNumber').value,
-    yardageHave: document.getElementById('yardageHave').value,
-    hookSizeMM: document.getElementById('hookSizeMM').value,
-    hookSizeUnknown: document.getElementById('hookSizeUnknown').checked,
-    minHours: document.getElementById('minHours').value,
-    maxHours: document.getElementById('maxHours').value,
-    difficulty: document.getElementById('difficulty').value,
-    preferredCategory: document.getElementById('preferredCategory').value,
-    termSystem: document.getElementById('termSystem').value
+    yarnWeightNumber: document.getElementById('yarnWeightNumber')?.value || '',
+    yardageHave: document.getElementById('yardageHave')?.value || '',
+    hookSizeMM: document.getElementById('hookSizeMM')?.value || '',
+    hookSizeUnknown: document.getElementById('hookSizeUnknown')?.checked || false,
+    minHours: document.getElementById('minHours')?.value || '',
+    maxHours: document.getElementById('maxHours')?.value || '',
+    difficulty: document.getElementById('difficulty')?.value || '',
+    preferredCategory: document.getElementById('preferredCategory')?.value || '',
+    termSystem: document.getElementById('termSystem')?.value || 'US'
   };
-  localStorage.setItem(STASH_KEY, JSON.stringify(data));
+  try { localStorage.setItem(STASH_KEY, JSON.stringify(data)); } catch(e) {}
 }
 
 function loadStash() {
-  const raw = localStorage.getItem(STASH_KEY);
-  if (!raw) return;
   try {
+    const raw = localStorage.getItem(STASH_KEY);
+    if (!raw) return;
     const data = JSON.parse(raw);
     if (data.yarnWeightNumber) document.getElementById('yarnWeightNumber').value = data.yarnWeightNumber;
     if (data.yardageHave) document.getElementById('yardageHave').value = data.yardageHave;
@@ -82,18 +82,21 @@ function loadStash() {
 }
 
 function clearStash() {
-  localStorage.removeItem(STASH_KEY);
+  try { localStorage.removeItem(STASH_KEY); } catch(e) {}
   updateStashStatus();
 }
 
 function updateStashStatus() {
   const el = document.getElementById('stashStatus');
   if (!el) return;
-  const raw = localStorage.getItem(STASH_KEY);
-  if (raw) {
-    el.innerHTML = '<span class="stash-saved">&#10003; Stash saved</span><span class="clear-stash" id="clearStashBtn">clear</span>';
-    document.getElementById('clearStashBtn').addEventListener('click', clearStash);
-  } else {
+  try {
+    const raw = localStorage.getItem(STASH_KEY);
+    if (raw) {
+      el.innerHTML = '<span class="stash-saved">&#10003; Stash saved</span><span class="clear-stash" id="clearStashBtn">clear</span>';
+    } else {
+      el.innerHTML = '';
+    }
+  } catch(e) {
     el.innerHTML = '';
   }
 }
@@ -103,7 +106,7 @@ const DONE_KEY = 'crochetkit-done';
 
 function getFaves() { try { return JSON.parse(localStorage.getItem(FAVES_KEY)) || []; } catch(e) { return []; } }
 
-function saveFaves(faves) { localStorage.setItem(FAVES_KEY, JSON.stringify(faves)); }
+function saveFaves(faves) { try { localStorage.setItem(FAVES_KEY, JSON.stringify(faves)); } catch(e) {} }
 
 function toggleFave(id) {
   const faves = getFaves();
@@ -117,7 +120,7 @@ function isFaved(id) { return getFaves().includes(id); }
 
 function getDone() { try { return JSON.parse(localStorage.getItem(DONE_KEY)) || []; } catch(e) { return []; } }
 
-function saveDone(done) { localStorage.setItem(DONE_KEY, JSON.stringify(done)); }
+function saveDone(done) { try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch(e) {} }
 
 function markAsDone(id) {
   const done = getDone();
@@ -152,7 +155,7 @@ function getYarns() {
 }
 
 function saveYarns(yarns) {
-  localStorage.setItem(YARNS_KEY, JSON.stringify(yarns));
+  try { localStorage.setItem(YARNS_KEY, JSON.stringify(yarns)); } catch(e) {}
 }
 
 function addYarn(name, weight, yardage, hook, notes, image) {
@@ -250,6 +253,7 @@ function matchYarns() {
       displayProjectCards(projects);
     })
     .catch(err => {
+      console.error('Fetch error:', err);
       output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
     });
 }
@@ -406,7 +410,8 @@ function renderShareBtns(id, title) {
 }
 
 function initDarkMode() {
-  const saved = localStorage.getItem('crochetkit-dark');
+  let saved;
+  try { saved = localStorage.getItem('crochetkit-dark'); } catch(e) {}
   if (saved === 'true' || (saved === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.setAttribute('data-theme', 'dark');
     const btn = document.getElementById('darkToggle');
@@ -419,10 +424,10 @@ function toggleDark() {
   const isDark = html.getAttribute('data-theme') === 'dark';
   if (isDark) {
     html.removeAttribute('data-theme');
-    localStorage.setItem('crochetkit-dark', 'false');
+    try { localStorage.setItem('crochetkit-dark', 'false'); } catch(e) {}
   } else {
     html.setAttribute('data-theme', 'dark');
-    localStorage.setItem('crochetkit-dark', 'true');
+    try { localStorage.setItem('crochetkit-dark', 'true'); } catch(e) {}
   }
 }
 
@@ -436,8 +441,22 @@ function showCatalog() {
   fetch('/api/patterns')
     .then(r => r.json())
     .then(patterns => {
+      let catalogPage = 1;
+
       function render(pats, showDoneWarning = false) {
-        let html = `<div class="catalog-count">Showing ${pats.length} of ${patterns.length} patterns</div>`;
+        const perPage = 12;
+        const pageCount = Math.ceil(pats.length / perPage);
+        if (catalogPage > pageCount) catalogPage = Math.max(1, pageCount);
+        const start = (catalogPage - 1) * perPage;
+        const pagePats = pats.slice(start, start + perPage);
+
+        if (pagePats.length === 0 && !showDoneWarning) {
+          output.innerHTML = '<div class="error">No patterns available. Please try again later.</div>';
+          return;
+        }
+        let html = `<div class="catalog-count">Showing ${pagePats.length} of ${pats.length} patterns`;
+        if (pageCount > 1) html += ` &middot; Page ${catalogPage} of ${pageCount}`;
+        html += `</div>`;
         html += '<div class="catalog-filters">';
         html += `<select id="catFilterCat"><option value="">All categories</option>${[...new Set(patterns.map(p => p.category))].sort().map(c => `<option value="${c}">${c}</option>`).join('')}</select>`;
         html += `<select id="catFilterDiff"><option value="">All levels</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select>`;
@@ -454,7 +473,7 @@ function showCatalog() {
           html += '<div class="error" style="grid-column: 1/-1;">No patterns match your filters. Try adjusting or clearing filters.</div>';
         }
 
-        pats.forEach((p, i) => {
+        pagePats.forEach((p, i) => {
           const title = linkifyGlossaryTerms(p.title);
           const fvd = isFaved(p.id) ? 'faved' : '';
           const doneSt = isDone(p.id) ? 'done-st' : '';
@@ -475,7 +494,21 @@ function showCatalog() {
         });
 
         html += '</div>';
+
+        if (pageCount > 1) {
+          html += '<div class="pagination">';
+          html += `<button class="btn btn-sm btn-outline pagination-prev" ${catalogPage <= 1 ? 'disabled' : ''}>← Previous</button>`;
+          html += `<span class="pagination-info">Page ${catalogPage} of ${pageCount}</span>`;
+          html += `<button class="btn btn-sm btn-outline pagination-next" ${catalogPage >= pageCount ? 'disabled' : ''}>Next →</button>`;
+          html += '</div>';
+        }
+
         output.innerHTML = html;
+
+        const prevBtn = output.querySelector('.pagination-prev');
+        const nextBtn = output.querySelector('.pagination-next');
+        if (prevBtn) prevBtn.addEventListener('click', () => { catalogPage--; render(pats, showDoneWarning); });
+        if (nextBtn) nextBtn.addEventListener('click', () => { catalogPage++; render(pats, showDoneWarning); });
 
         document.querySelectorAll('.catalog-select').forEach(btn => {
           btn.addEventListener('click', function() {
@@ -526,6 +559,7 @@ function showCatalog() {
         }
 
         function filterCatalog() {
+          catalogPage = 1;
           const cat = document.getElementById('catFilterCat').value;
           const diff = document.getElementById('catFilterDiff').value;
           const weight = document.getElementById('catFilterWeight').value;
@@ -550,7 +584,10 @@ function showCatalog() {
             fetch('/api/popular').then(r => r.json()).then(pop => {
               const trendingIds = new Set(pop.map(p => p.id));
               render(filtered.filter(p => trendingIds.has(p.id)), true);
-            }).catch(() => render(filtered, true));
+            }).catch(err => {
+              console.error('Fetch error:', err);
+              render(filtered, true);
+            });
           } else {
             render(filtered, true);
           }
@@ -563,9 +600,14 @@ function showCatalog() {
           const btn = document.getElementById('catFilterTrending');
           if (btn) { btn.style.display = ''; btn.textContent = '🔥 Trending (' + pop.length + ')'; }
         }
-      }).catch(() => {});
+      }).catch(err => {
+        console.error('Fetch error:', err);
+        const catalogEl = document.getElementById('catalogOutput') || document.getElementById('project-output');
+        if (catalogEl) catalogEl.innerHTML = '<div class="error-message">Could not load trending patterns.</div>';
+      });
     })
     .catch(err => {
+      console.error('Fetch error:', err);
       output.innerHTML = `<div class="error">Error loading patterns: ${err.message}</div>`;
     });
 }
@@ -642,6 +684,7 @@ function showMyFaves() {
       });
     })
     .catch(err => {
+      console.error('Fetch error:', err);
       output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
     });
 }
@@ -705,6 +748,7 @@ function showMyDone() {
       });
     })
     .catch(err => {
+      console.error('Fetch error:', err);
       output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
     });
 }
@@ -819,6 +863,7 @@ document.addEventListener('DOMContentLoaded', async function() {
       const resp = await fetch('/glossary.json');
       glossaryData = await resp.json();
     } catch (e) {
+      console.error('Fetch error:', e);
       glossaryData = {};
     }
 
@@ -830,7 +875,22 @@ document.addEventListener('DOMContentLoaded', async function() {
       if (bar) {
         bar.innerHTML = `<span><strong>${stats.patternCount}</strong> patterns</span><span><strong>${stats.categoryCount}</strong> categories</span><span><strong>${stats.matchCount}</strong> projects matched</span>`;
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('Failed to load stats:', e);
+    }
+
+    // Populate category datalist from patterns
+    try {
+      const catResp = await fetch('/api/patterns');
+      const catPats = await catResp.json();
+      const categories = [...new Set(catPats.map(p => p.category))].sort();
+      const datalist = document.getElementById('categoryList');
+      if (datalist) {
+        datalist.innerHTML = categories.map(c => `<option value="${c}">`).join('');
+      }
+    } catch(e) {
+      console.error('Failed to load categories:', e);
+    }
 
     // Check for shareable pattern link (/p/:id)
     const pathMatch = window.location.pathname.match(/^\/p\/(.+)$/);
@@ -845,7 +905,9 @@ document.addEventListener('DOMContentLoaded', async function() {
           const idx = allPats.indexOf(target);
           showProjectDetail(target, idx, allPats);
         }
-      } catch (e) {}
+      } catch (e) {
+        console.error('Failed to load pattern link:', e);
+      }
     }
 
     initDarkMode();
@@ -853,6 +915,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     updateWeightLabel();
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
     updateStashStatus();
+    document.getElementById('stashStatus').addEventListener('click', function(e) {
+      if (e.target.id === 'clearStashBtn') clearStash();
+    });
     renderYarnList();
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
     document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
@@ -1019,14 +1084,35 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         const termSys = document.getElementById('termSystem').value;
 
+        const yarnWeight = parseInt(document.getElementById('yarnWeightNumber').value);
+        const yardage = parseInt(document.getElementById('yardageHave').value);
+        const minH = parseFloat(document.getElementById('minHours').value);
+        const maxH = parseFloat(document.getElementById('maxHours').value);
+
+        if (isNaN(yarnWeight) || yarnWeight < 0 || yarnWeight > 7) {
+            outputElement.innerHTML = '<div class="error-message">Please select a valid yarn weight (0–7).</div>';
+            document.getElementById('output').style.display = 'block';
+            return;
+        }
+        if (isNaN(yardage) || yardage < 0) {
+            outputElement.innerHTML = '<div class="error-message">Please enter a valid yardage amount.</div>';
+            document.getElementById('output').style.display = 'block';
+            return;
+        }
+        if (isNaN(minH) || isNaN(maxH) || minH > maxH || minH < 0) {
+            outputElement.innerHTML = '<div class="error-message">Please enter valid time range (min ≤ max, and at least 0).</div>';
+            document.getElementById('output').style.display = 'block';
+            return;
+        }
+
         currentUserInput = {
-            yarnWeightNumber: parseInt(document.getElementById('yarnWeightNumber').value),
-            yardageHave: parseInt(document.getElementById('yardageHave').value),
+            yarnWeightNumber: yarnWeight,
+            yardageHave: yardage,
             hookSizeMM: document.getElementById('hookSizeMM').value ? parseFloat(document.getElementById('hookSizeMM').value) : null,
             hookSizeUnknown: document.getElementById('hookSizeUnknown').checked,
             timeRange: {
-                minHours: parseFloat(document.getElementById('minHours').value),
-                maxHours: parseFloat(document.getElementById('maxHours').value)
+                minHours: minH,
+                maxHours: maxH
             },
             difficulty: document.getElementById('difficulty').value,
             preferredCategory: document.getElementById('preferredCategory').value || null,
@@ -1387,7 +1473,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             })
                 .then(r => r.json())
                 .then(match => renderStashMatch(match))
-                .catch(() => {
+                .catch(err => {
+                    console.error('Fetch error:', err);
                     const el = document.getElementById('stashMatchContent');
                     if (el) el.innerHTML = '<p style="color:#888;font-size:13px;">Could not check stash.</p>';
                 });
@@ -1487,29 +1574,22 @@ let currentUser = null;
 let authToken = null;
 
 function loadAuth() {
-    authToken = localStorage.getItem(AUTH_TOKEN_KEY);
-    const userJson = localStorage.getItem(AUTH_USER_KEY);
-    if (userJson) {
-        try {
-            currentUser = JSON.parse(userJson);
-        } catch (e) {
-            currentUser = null;
-        }
-    }
+    try { authToken = localStorage.getItem(AUTH_TOKEN_KEY); } catch(e) { authToken = null; }
+    try { currentUser = JSON.parse(localStorage.getItem(AUTH_USER_KEY) || 'null'); } catch(e) { currentUser = null; }
 }
 
 function saveAuth(token, user) {
     authToken = token;
     currentUser = user;
-    localStorage.setItem(AUTH_TOKEN_KEY, token);
-    localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+    try { localStorage.setItem(AUTH_TOKEN_KEY, token); } catch(e) {}
+    try { localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user)); } catch(e) {}
 }
 
 function clearAuth() {
     authToken = null;
     currentUser = null;
-    localStorage.removeItem(AUTH_TOKEN_KEY);
-    localStorage.removeItem(AUTH_USER_KEY);
+    try { localStorage.removeItem(AUTH_TOKEN_KEY); } catch(e) {}
+    try { localStorage.removeItem(AUTH_USER_KEY); } catch(e) {}
 }
 
 function updateAuthUI() {
@@ -1620,7 +1700,9 @@ async function syncFavoritesToCloud() {
             },
             body: JSON.stringify({ patternId: faves })
         });
-    } catch (e) {}
+    } catch (e) {
+      console.error('Failed to sync favorites:', e);
+    }
 }
 
 async function syncYarnStashToCloud() {
@@ -1635,7 +1717,9 @@ async function syncYarnStashToCloud() {
             },
             body: JSON.stringify({ yarnStash: yarns })
         });
-    } catch (e) {}
+    } catch (e) {
+      console.error('Failed to sync stash:', e);
+    }
 }
 
 async function loadFavoritesFromCloud() {
@@ -1650,7 +1734,9 @@ async function loadFavoritesFromCloud() {
                 saveFaves(profile.favorites);
             }
         }
-    } catch (e) {}
+    } catch (e) {
+      console.error('Failed to load favorites from cloud:', e);
+    }
 }
 
 async function loadYarnStashFromCloud() {
@@ -1665,7 +1751,9 @@ async function loadYarnStashFromCloud() {
                 saveYarns(profile.yarnStash);
             }
         }
-    } catch (e) {}
+    } catch (e) {
+      console.error('Failed to load stash from cloud:', e);
+    }
 }
 
 // Initialize auth when DOM is ready

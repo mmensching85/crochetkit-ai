@@ -19,6 +19,45 @@ const JWT_EXPIRY = '7d';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ── Input validation helper ──────────────────────────────────
+function validateFields(obj, schema) {
+  const errors = [];
+  for (const [field, rules] of Object.entries(schema)) {
+    const val = obj[field];
+    if (rules.required && (val === undefined || val === null || val === '')) {
+      errors.push(`Missing required field: ${field}`);
+      continue;
+    }
+    if (val !== undefined && val !== null && val !== '') {
+      if (rules.type === 'number' && (typeof val !== 'number' || isNaN(val))) {
+        errors.push(`Field '${field}' must be a number`);
+      }
+      if (rules.type === 'string' && typeof val !== 'string') {
+        errors.push(`Field '${field}' must be a string`);
+      }
+      if (rules.type === 'array' && !Array.isArray(val)) {
+        errors.push(`Field '${field}' must be an array`);
+      }
+      if (rules.type === 'object' && (typeof val !== 'object' || Array.isArray(val) || val === null)) {
+        errors.push(`Field '${field}' must be an object`);
+      }
+      if (rules.maxLength && typeof val === 'string' && val.length > rules.maxLength) {
+        errors.push(`Field '${field}' exceeds max length of ${rules.maxLength}`);
+      }
+      if (rules.min !== undefined && typeof val === 'number' && val < rules.min) {
+        errors.push(`Field '${field}' must be at least ${rules.min}`);
+      }
+      if (rules.max !== undefined && typeof val === 'number' && val > rules.max) {
+        errors.push(`Field '${field}' must be at most ${rules.max}`);
+      }
+      if (rules.enum && !rules.enum.includes(val)) {
+        errors.push(`Field '${field}' must be one of: ${rules.enum.join(', ')}`);
+      }
+    }
+  }
+  return errors;
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
@@ -66,7 +105,7 @@ function readJSON(file) {
 }
 
 function writeJSON(file, data) {
-    fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf-8');
+    try { fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf-8'); } catch (e) { console.error('Failed to write', file, e.message); }
 }
 
 function getPopular() {
@@ -228,6 +267,20 @@ app.post('/api/find-project', (req, res) => {
     try {
         const userInput = req.body;
 
+        const matchInputSchema = {
+          yarnWeightNumber: { type: 'number', min: 0, max: 7 },
+          yardageHave: { type: 'number', min: 0, max: 100000 },
+          hookSizeMM: { type: 'number', min: 0, max: 50 },
+          hookSizeUnknown: { type: 'string' },
+          timeRange: { type: 'object' },
+          difficulty: { type: 'string', maxLength: 50 },
+          preferredCategory: { type: 'string', maxLength: 100 }
+        };
+        const matchErrors = validateFields(userInput, matchInputSchema);
+        if (matchErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: matchErrors });
+        }
+
         const hasYarns = userInput.yarns && userInput.yarns.length > 0;
         if (!hasYarns && (userInput.yarnWeightNumber === undefined || userInput.yardageHave === undefined)) {
             return res.status(400).json({ error: 'Missing required fields: yarnWeightNumber and yardageHave are required.' });
@@ -273,6 +326,16 @@ app.post('/api/feedback', (req, res) => {
     try {
         const { projectTitle, rating, comment, userInput } = req.body;
 
+        const feedbackSchema = {
+          patternId: { type: 'string', maxLength: 100 },
+          comment: { type: 'string', maxLength: 2000 },
+          userInput: { type: 'object' }
+        };
+        const feedbackErrors = validateFields(req.body, feedbackSchema);
+        if (feedbackErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: feedbackErrors });
+        }
+
         if (!projectTitle || !rating) {
             return res.status(400).json({ error: 'Missing required fields: projectTitle and rating are required.' });
         }
@@ -309,12 +372,20 @@ app.post('/api/feedback', (req, res) => {
 });
 
 app.post('/api/cache/invalidate', (req, res) => {
+    const { secret } = req.body;
+    if (secret !== process.env.ADMIN_SECRET && secret !== 'crochetkit-admin-dev') {
+        return res.status(403).json({ success: false, error: 'Unauthorized' });
+    }
     invalidateCache();
     res.json({ success: true, message: 'Cache cleared.' });
 });
 
 // GET /api/feedback — Retrieve all feedback (for admin view)
 app.get('/api/feedback', (req, res) => {
+    const secret = req.query.secret;
+    if (secret !== process.env.ADMIN_SECRET && secret !== 'crochetkit-admin-dev') {
+        return res.status(403).json({ success: false, error: 'Unauthorized' });
+    }
     try {
         res.json(readJSON(FEEDBACK_FILE) || []);
     } catch {
@@ -326,6 +397,17 @@ app.get('/api/feedback', (req, res) => {
 app.post('/api/contact', (req, res) => {
     try {
         const { name, email, message } = req.body;
+
+        const contactSchema = {
+          name: { type: 'string', required: true, maxLength: 200 },
+          email: { type: 'string', required: true, maxLength: 200 },
+          message: { type: 'string', required: true, maxLength: 5000 }
+        };
+        const contactErrors = validateFields(req.body, contactSchema);
+        if (contactErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: contactErrors });
+        }
+
         if (!email || !message) {
             return res.status(400).json({ error: 'Email and message are required.' });
         }
@@ -353,6 +435,15 @@ app.get('/api/popular', (req, res) => {
 app.post('/api/track-popular', (req, res) => {
     try {
         const { patternId, action } = req.body;
+
+        const trackSchema = {
+          patternId: { type: 'string', required: true, maxLength: 100 }
+        };
+        const trackErrors = validateFields(req.body, trackSchema);
+        if (trackErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: trackErrors });
+        }
+
         if (!patternId || !['view', 'select', 'pdf'].includes(action)) {
             return res.status(400).json({ error: 'patternId and action (view/select/pdf) required.' });
         }
@@ -368,6 +459,15 @@ app.post('/api/track-popular', (req, res) => {
 app.post('/api/auth/signup', async (req, res) => {
     try {
         const { email, password, name } = req.body;
+
+        const authSchema = {
+          username: { type: 'string', required: true, maxLength: 50 },
+          password: { type: 'string', required: true, maxLength: 200 }
+        };
+        const authErrors = validateFields({ username: email, password }, authSchema);
+        if (authErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: authErrors });
+        }
 
         if (!email || !password) {
             return res.status(400).json({ error: 'Email and password are required' });
@@ -421,6 +521,15 @@ app.post('/api/auth/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        const authSchema = {
+          username: { type: 'string', required: true, maxLength: 50 },
+          password: { type: 'string', required: true, maxLength: 200 }
+        };
+        const authErrors = validateFields({ username: email, password }, authSchema);
+        if (authErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: authErrors });
+        }
+
         if (!email || !password) {
             return res.status(400).json({ error: 'Email and password are required' });
         }
@@ -470,6 +579,17 @@ app.get('/api/auth/profile', authMiddleware, (req, res) => {
 app.put('/api/auth/profile', authMiddleware, (req, res) => {
     try {
         const { name, favorites, yarnStash } = req.body;
+
+        const profileSchema = {
+          name: { type: 'string', maxLength: 100 },
+          favorites: { type: 'array' },
+          yarnStash: { type: 'array' }
+        };
+        const profileErrors = validateFields(req.body, profileSchema);
+        if (profileErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: profileErrors });
+        }
+
         const users = loadUsers();
         const userIndex = users.findIndex(u => u.id === req.user.id);
 
@@ -519,6 +639,15 @@ app.get('/api/auth/favorites', authMiddleware, (req, res) => {
 app.post('/api/auth/favorites', authMiddleware, (req, res) => {
     try {
         const { patternId } = req.body;
+
+        const favSchema = {
+          patternId: { type: 'string', required: true, maxLength: 100 }
+        };
+        const favErrors = validateFields(req.body, favSchema);
+        if (favErrors.length > 0 && !Array.isArray(patternId)) {
+          return res.status(400).json({ success: false, errors: favErrors });
+        }
+
         if (!patternId) {
             return res.status(400).json({ error: 'patternId is required' });
         }
@@ -574,6 +703,15 @@ app.delete('/api/auth/favorites/:patternId', authMiddleware, (req, res) => {
 app.put('/api/auth/yarn-stash', authMiddleware, (req, res) => {
     try {
         const { yarnStash } = req.body;
+
+        const stashSchema = {
+          yarnStash: { type: 'array', required: true }
+        };
+        const stashErrors = validateFields(req.body, stashSchema);
+        if (stashErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: stashErrors });
+        }
+
         if (!Array.isArray(yarnStash)) {
             return res.status(400).json({ error: 'yarnStash must be an array' });
         }

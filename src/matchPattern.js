@@ -166,15 +166,17 @@ function matchPattern(userInput, patterns) {
     }
 
     // Time scoring
-    if (pattern.estimatedTime && userInput.timeRange) {
-      const pMid = (pattern.estimatedTime.minHours + pattern.estimatedTime.maxHours) / 2;
-      const uMid = (userInput.timeRange.minHours + userInput.timeRange.maxHours) / 2;
-      const overlaps = !(pattern.estimatedTime.maxHours < userInput.timeRange.minHours || pattern.estimatedTime.minHours > userInput.timeRange.maxHours);
+    const pEst = pattern.estimatedTime;
+    const uRange = userInput.timeRange;
+    if (pEst && pEst.minHours != null && pEst.maxHours != null && uRange && uRange.minHours != null && uRange.maxHours != null) {
+      const pMid = (pEst.minHours + pEst.maxHours) / 2;
+      const uMid = (uRange.minHours + uRange.maxHours) / 2;
+      const overlaps = !(pEst.maxHours < uRange.minHours || pEst.minHours > uRange.maxHours);
       if (overlaps) {
         score += Math.abs(pMid - uMid) <= 0.5 ? 1.5 : 1;
         details.criteria.push({ name: "time", met: true, points: Math.abs(pMid - uMid) <= 0.5 ? 1.5 : 1 });
       } else {
-        details.criteria.push({ name: "time", met: false, points: 0, info: `Pattern takes ${pattern.estimatedTime.minHours}-${pattern.estimatedTime.maxHours}h, you have ${userInput.timeRange.minHours}-${userInput.timeRange.maxHours}h` });
+        details.criteria.push({ name: "time", met: false, points: 0, info: `Pattern takes ${pEst.minHours}-${pEst.maxHours}h, you have ${uRange.minHours}-${uRange.maxHours}h` });
       }
     }
 
@@ -212,8 +214,8 @@ function matchPattern(userInput, patterns) {
   const topPatterns = scoredPatterns.filter(p => p.score >= bestScore - 1).slice(0, 4);
 
   const results = topPatterns.map(({ pattern, score, details, effYardage, effHook }) => {
-    const minY = pattern.materials?.yarn?.suggestedYardageMin;
-    const maxY = pattern.materials?.yarn?.suggestedYardageMax;
+    const minY = pattern.materials?.yarn?.suggestedYardageMin ?? 0;
+    const maxY = pattern.materials?.yarn?.suggestedYardageMax ?? minY;
     const gapYardage = { have: effYardage, need: (minY + maxY) / 2, gap: effYardage >= minY ? 0 : minY - effYardage, status: effYardage >= minY ? 'enough' : 'need-more' };
     const gapHook = { have: effHook, need: pattern.materials?.hook?.sizeMM || null, gap: 0, status: 'have' };
     if (effHook !== null && effHook !== undefined && pattern.materials?.hook) {

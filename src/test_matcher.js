@@ -59,3 +59,51 @@ testScenario("Scenario 5: Intermediate, Scarf", {
   hookSizeUnknown: false, timeRange: { minHours: 3, maxHours: 5 },
   difficulty: "intermediate", preferredCategory: "Scarf"
 });
+
+testScenario("Scenario 6: UK Term System, Scarf, beginner", {
+  yarnWeightNumber: 4, yardageHave: 180, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 1, maxHours: 3 },
+  difficulty: "beginner", preferredCategory: "Scarf", termSystem: "UK"
+});
+
+testScenario("Scenario 7: No match — extreme yarn weight (lace, weight 0)", {
+  yarnWeightNumber: 0, yardageHave: 50, hookSizeMM: 2.25,
+  hookSizeUnknown: false, timeRange: { minHours: 1, maxHours: 3 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 8: Insufficient yardage (20yd for worsted)", {
+  yarnWeightNumber: 4, yardageHave: 20, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 0.5, maxHours: 1 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 9: Advanced difficulty, any category", {
+  yarnWeightNumber: 4, yardageHave: 500, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 3, maxHours: 8 },
+  difficulty: "advanced", preferredCategory: null
+});
+
+testScenario("Scenario 10: Granny square, low yardage, intermediate", {
+  yarnWeightNumber: 4, yardageHave: 80, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 0.5, maxHours: 2 },
+  difficulty: "intermediate", preferredCategory: "Granny square"
+});
+
+testScenario("Scenario 11: Weight 3 (DK), plenty of yardage", {
+  yarnWeightNumber: 3, yardageHave: 400, hookSizeMM: 4.5,
+  hookSizeUnknown: false, timeRange: { minHours: 1, maxHours: 4 },
+  difficulty: "intermediate", preferredCategory: null
+});
+
+testScenario("Scenario 12: Bulky weight 5, quick beginner project", {
+  yarnWeightNumber: 5, yardageHave: 120, hookSizeMM: 6.5,
+  hookSizeUnknown: false, timeRange: { minHours: 0.5, maxHours: 2 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 13: Category with no patterns ('Slippers')", {
+  yarnWeightNumber: 4, yardageHave: 100, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 0.5, maxHours: 2 },
+  difficulty: "beginner", preferredCategory: "Slippers"
+});

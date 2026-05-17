@@ -23,22 +23,22 @@ function formatProjectOutput(matchResult, termSystem) {
 
   // Helper to extract stitches
   function extractStitches(instructions) {
-    const stitchAbbreviations = ["ch", "sc", "dc", "sl st", "hdc", "tr"]; // Add more as needed
+    // Order matters: check longer abbreviations BEFORE shorter ones
+    // e.g. "hdc" before "dc", "sl st" before "sc"
+    const stitchPatterns = [
+      { abbr: "sl st", name: "Slip stitch (sl st)" },
+      { abbr: "hdc",   name: "Half Double Crochet (hdc)" },
+      { abbr: "sc",    name: "Single crochet (sc)" },
+      { abbr: "dc",    name: "Double crochet (dc)" },
+      { abbr: "tr",    name: "Treble Crochet (tr)" },
+      { abbr: "ch",    name: "Chain (ch)" }
+    ];
     const stitchesFound = new Set();
     instructions.forEach(instruction => {
-      stitchAbbreviations.forEach(abbr => {
-        if (instruction.toLowerCase().includes(abbr.toLowerCase())) {
-          let fullName;
-          switch (abbr) {
-            case "ch": fullName = "Chain (ch)"; break;
-            case "sc": fullName = "Single crochet (sc)"; break;
-            case "dc": fullName = "Double crochet (dc)"; break;
-            case "sl st": fullName = "Slip stitch (sl st)"; break;
-            case "hdc": fullName = "Half Double Crochet (hdc)"; break;
-            case "tr": fullName = "Treble Crochet (tr)"; break;
-            default: fullName = abbr;
-          }
-          stitchesFound.add(fullName);
+      const lower = instruction.toLowerCase();
+      stitchPatterns.forEach(({ abbr, name }) => {
+        if (lower.includes(abbr)) {
+          stitchesFound.add(name);
         }
       });
     });
@@ -100,29 +100,36 @@ function formatProjectOutput(matchResult, termSystem) {
 
   // Materials formatting
   const materialsList = [];
-  if (pattern.materials.yarn) {
+  const yarn = pattern.materials?.yarn;
+  if (yarn) {
+    const fiberType = Array.isArray(yarn.fiberType) ? yarn.fiberType.join('/') : 'yarn';
+    const weightCat = yarn.weightCategory ? yarn.weightCategory.replace(/\(.*?\)/g, '').trim() : 'weight';
+    const yardMin = yarn.suggestedYardageMin ?? '?';
+    const yardMax = yarn.suggestedYardageMax ?? '?';
     materialsList.push(
-      `1 skein of ${pattern.materials.yarn.weightCategory.replace(/\(.*?\)/g, '').trim()} ${pattern.materials.yarn.fiberType.join('/')} yarn (approx. ${pattern.materials.yarn.suggestedYardageMin}-${pattern.materials.yarn.suggestedYardageMax} yards)`
+      `1 skein of ${weightCat} ${fiberType} yarn (approx. ${yardMin}-${yardMax} yards)`
     );
   }
-  if (pattern.materials.hook) {
+  if (pattern.materials?.hook) {
+    const h = pattern.materials.hook;
     materialsList.push(
-      `Size ${pattern.materials.hook.sizeUS} (${pattern.materials.hook.sizeMM} mm) crochet hook`
+      `Size ${h.sizeUS || '?'} (${h.sizeMM || '?'} mm) crochet hook`
     );
   }
-  if (pattern.materials.notions && pattern.materials.notions.length > 0) {
+  if (pattern.materials?.notions?.length > 0) {
     pattern.materials.notions.forEach(notion => materialsList.push(notion));
   }
 
   // Missing materials
   const missingMaterialsList = [];
-  if (materialGap.yardage.status === 'need-more') {
+  if (materialGap?.yardage?.status === 'need-more') {
     missingMaterialsList.push(`Additional ${Math.ceil(materialGap.yardage.gap)} yards of yarn.`);
   }
-  if (materialGap.hook.status === 'need') {
+  if (materialGap?.hook?.status === 'need') {
     missingMaterialsList.push(`Crochet hook (recommended size: ${materialGap.hook.need} mm).`);
-  } else if (materialGap.hook.status === 'mismatch') {
-     missingMaterialsList.push(`Consider a Size ${pattern.materials.hook.sizeUS} (${pattern.materials.hook.sizeMM} mm) crochet hook as it's recommended.`);
+  } else if (materialGap?.hook?.status === 'mismatch') {
+     const hook = pattern.materials?.hook;
+     missingMaterialsList.push(`Consider a Size ${hook?.sizeUS || '?'} (${hook?.sizeMM || '?'} mm) crochet hook as it's recommended.`);
   }
 
   // Steps
@@ -167,37 +174,41 @@ function formatProjectOutput(matchResult, termSystem) {
 
 
   // Printable Summary
+  const estTime = pattern.estimatedTime || {};
+  const estStr = estTime.minHours != null && estTime.maxHours ? `${estTime.minHours}-${estTime.maxHours} ${estTime.unit || 'hours'}` : 'Varies';
+  const instructions = Array.isArray(pattern.instructions) ? pattern.instructions : [];
   const printableSummary = [
-    `${pattern.name} –`,
-    `${pattern.estimatedTime.minHours}-${pattern.estimatedTime.maxHours} ${pattern.estimatedTime.unit} –`,
-    `Materials: ${materialsList.slice(0, 2).join(', ')}.`, // Just first two materials for brevity
-    `Stitches: ${extractStitches(pattern.instructions).map(s => s.split(' ')[0]).join(', ')}.`, // Just abbreviations
-    `Steps: ${pattern.instructions.map(inst => inst.split(':')[0].replace(/\*\*/g, '')).join(', ')}.`, // First part of each instruction
-    "Tips: count stitches, consistent tension." // Generic tips
+    `${pattern.name || 'Project'} –`,
+    `${estStr} –`,
+    `Materials: ${materialsList.slice(0, 2).join(', ')}.`,
+    `Stitches: ${extractStitches(instructions).map(s => s.split(' ')[0]).join(', ')}.`,
+    `Steps: ${instructions.map(inst => inst.split(':')[0].replace(/\*\*/g, '')).join(', ')}.`,
+    "Tips: count stitches, consistent tension."
   ].join(' ');
 
-  const tipsLabel = pattern.difficulty.level === 'beginner' ? 'Beginner Tips' : 'Tips';
+  const diffLevel = pattern.difficulty?.level || 'beginner';
+  const tipsLabel = diffLevel === 'beginner' ? 'Beginner Tips' : 'Tips';
 
   return {
     id: pattern.id,
     title: pattern.name,
     description: pattern.shortDescription,
     category: pattern.category,
-    skill_level: pattern.difficulty.level,
-    estimated_time: `${pattern.estimatedTime.minHours}-${pattern.estimatedTime.maxHours} ${pattern.estimatedTime.unit}`,
-    difficulty_reason: pattern.difficulty.reasoning,
+    skill_level: diffLevel,
+    estimated_time: estStr,
+    difficulty_reason: pattern.difficulty?.reasoning || '',
     materials: materialsList,
     missing_materials: missingMaterialsList,
-    stitches_used: extractStitches(pattern.instructions),
+    stitches_used: extractStitches(instructions),
     steps: formattedSteps,
-    beginner_tips: pattern.beginnerTips,
+    beginner_tips: pattern.beginnerTips || [],
     tips_label: tipsLabel,
     variations: variations,
     safety_notes: safetyNotes,
     printable_summary: printableSummary,
     matchedYarns: matchResult.matchDetails?.matchedYarns || [],
     yarnWeightNumber: pattern.materials?.yarn?.weightNumber ?? null,
-    estimated_min_hours: pattern.estimatedTime.minHours
+    estimated_min_hours: estTime.minHours ?? null
   };
 }
 
