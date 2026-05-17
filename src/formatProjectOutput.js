@@ -80,20 +80,29 @@ function formatProjectOutput(matchResult, termSystem) {
   function generateVisualDescription(instruction) {
     const lowerInstruction = instruction.toLowerCase();
 
-    if (lowerInstruction.includes("chain")) {
-      return "Hold the hook in your dominant hand and the yarn in your other hand. Make a slip knot, then wrap the yarn over the hook from back to front, and pull it through the loop on your hook. This creates one chain stitch. Repeat to make a chain that looks like a braid.";
-    } else if (lowerInstruction.includes("single crochet") && lowerInstruction.includes("2nd chain from hook")) {
-      return "Skip the first chain from your hook. Insert your hook into the center of the next chain stitch. You should see two strands of yarn on top of your hook. Yarn over, pull a loop through the chain. Now you have two loops on your hook. Yarn over again, and pull through both loops on your hook. This creates a compact 'V' shape.";
-    } else if (lowerInstruction.includes("single crochet") && lowerInstruction.includes("each stitch across")) {
-      return "Insert your hook under both loops of the next stitch (it looks like a small 'V' on the top edge of your fabric). Yarn over, pull a loop through. You have two loops on your hook. Yarn over, pull through both loops. Your single crochet will form a dense fabric.";
-    } else if (lowerInstruction.includes("double crochet") && lowerInstruction.includes("each stitch across")) {
-      return "Yarn over your hook once. Insert your hook under both loops of the next stitch. Yarn over, pull a loop through the stitch (three loops on hook). Yarn over, pull through the first two loops (two loops on hook). Yarn over, pull through the last two loops (one loop on hook). This stitch is taller than a single crochet and creates a looser fabric.";
-    } else if (lowerInstruction.includes("turn")) {
-      return "At the end of the row, turn your work over as if turning a page in a book. The back side of your stitches will now be facing you, and you'll work into them for the next row.";
-    } else if (lowerInstruction.includes("fasten off")) {
+    if (lowerInstruction.includes("fasten off")) {
       return "Cut the yarn, leaving a tail of about 6 inches. Yarn over your hook one last time, pull the tail completely through the remaining loop on your hook, and pull tight to secure. This locks your last stitch.";
-    } else if (lowerInstruction.includes("weave in ends")) {
+    }
+    if (lowerInstruction.includes("weave in ends")) {
       return "Thread the yarn tail onto a yarn needle. Carefully weave the needle in and out through the stitches on the wrong side of your fabric for several inches, changing direction occasionally, to hide the tail securely.";
+    }
+    if (lowerInstruction.includes("foundation chain")) {
+      return "Hold the hook in your dominant hand and the yarn in your other hand. Make a slip knot, then wrap the yarn over the hook from back to front, and pull it through the loop on your hook. This creates one chain stitch. Repeat to make a chain that looks like a braid.";
+    }
+    if (lowerInstruction.includes("single crochet") && lowerInstruction.includes("2nd chain from hook")) {
+      return "Skip the first chain from your hook. Insert your hook into the center of the next chain stitch. You should see two strands of yarn on top of your hook. Yarn over, pull a loop through the chain. Now you have two loops on your hook. Yarn over again, and pull through both loops on your hook. This creates a compact 'V' shape.";
+    }
+    if (lowerInstruction.includes("single crochet") && (lowerInstruction.includes("each stitch") || lowerInstruction.includes("each chain") || lowerInstruction.includes("across"))) {
+      return "Insert your hook under both loops of the next stitch (it looks like a small 'V' on the top edge of your fabric). Yarn over, pull a loop through. You have two loops on your hook. Yarn over, pull through both loops. Your single crochet will form a dense fabric.";
+    }
+    if (lowerInstruction.includes("double crochet") && (lowerInstruction.includes("each stitch") || lowerInstruction.includes("across"))) {
+      return "Yarn over your hook once. Insert your hook under both loops of the next stitch. Yarn over, pull a loop through the stitch (three loops on hook). Yarn over, pull through the first two loops (two loops on hook). Yarn over, pull through the last two loops (one loop on hook). This stitch is taller than a single crochet and creates a looser fabric.";
+    }
+    if (lowerInstruction.includes("turn")) {
+      return "At the end of the row, turn your work over as if turning a page in a book. The back side of your stitches will now be facing you, and you'll work into them for the next row.";
+    }
+    if (lowerInstruction.includes("fold") && lowerInstruction.includes("slip stitch")) {
+      return "Fold the fabric so the right sides face each other. Insert your hook through both layers, yarn over, and pull through both layers and the loop on your hook. This creates a seamless seam.";
     }
     return "(No specific visual guidance for this step, focus on the written instruction.)";
   }
