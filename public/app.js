@@ -1364,7 +1364,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         html += `<div class="star-rating">`;
         for (let i = 1; i <= 5; i++) {
             html += `<input type="radio" id="star${i}" name="rating" value="${i}" ${i === 5 ? 'checked' : ''}>`;
-            html += `<label for="star${i}" title="${i} star${i > 1 ? 's' : ''}">Star</label>`;
+            html += `<label for="star${i}" title="${i} star${i > 1 ? 's' : ''}">★</label>`;
         }
         html += `</div></div>`;
         html += `<div class="feedback-comment">`;

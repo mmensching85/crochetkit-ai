@@ -19,10 +19,8 @@ Requirements:
 import argparse
 import json
 import os
-import re
 import sys
 import time
-import urllib.parse
 from pathlib import Path
 
 import requests
@@ -95,18 +93,27 @@ def build_hero_prompt(pattern: dict) -> str:
         f"{STYLE_SUFFIX}"
     )
 
+STEP_VARIETY = [
+    "top-down view, hands holding hook near the starting edge",
+    "slightly angled side view, hook inserted into fabric loop",
+    "close side view, yarn wrapped around hook, fingers guiding yarn",
+    "angled view, pulling yarn through loop to form new stitch",
+    "straight-on view, completed row of stitches visible on fabric",
+    "slightly elevated view, resting hands position after completing stitch",
+    "side view, turning the work over to start next row",
+    "close macro view, hook tip and yarn loop in sharp focus",
+]
+
 def build_step_prompt(pattern: dict, step_text: str, step_num: int) -> str:
     name = pattern["name"]
-    # Strip markdown bold markers and clean up
-    clean_step = re.sub(r'\*+', '', step_text).strip()
-    # Extract the step label if present (e.g. "Foundation Chain: ...")
-    step_label = clean_step.split(":")[0].strip() if ":" in clean_step else f"Step {step_num}"
+    variety = STEP_VARIETY[(step_num - 1) % len(STEP_VARIETY)]
 
     return (
-        f"Close-up instructional photo showing '{step_label}' for crocheting a {name.lower()}, "
-        f"hands holding a crochet hook and yarn, clear demonstration of the technique, "
-        f"beginner crochet tutorial style, step {step_num}, "
-        f"{STYLE_SUFFIX}"
+        f"Close-up photograph of hands crocheting {name.lower()} with a metal crochet hook, "
+        f"{variety}, yarn and textured crochet fabric in frame, soft natural lighting, "
+        f"cozy craft photography, warm pastel background, shallow depth of field, "
+        f"sharp focus on yarn and hook, photorealistic, clean image, "
+        f"no text, no labels, no caption, no watermark"
     )
 
 # ── Pollinations.AI API call ──────────────────────────────────────────────────
