@@ -208,7 +208,8 @@ function renderYarnList() {
 function selectYarn(yarn) {
   document.getElementById('yarnWeightNumber').value = yarn.weight;
   document.getElementById('yardageHave').value = yarn.yardage;
-  if (yarn.hook) document.getElementById('hookSizeMM').value = yarn.hook;
+  document.getElementById('hookSizeMM').value = (yarn.hook != null && yarn.hook !== '') ? yarn.hook : '';
+  updateWeightLabel();
 }
 
 function matchYarns() {
@@ -219,14 +220,17 @@ function matchYarns() {
   }
 
   const termSys = document.getElementById('termSystem').value;
+  const minH = parseFloat(document.getElementById('minHours').value);
+  const maxH = parseFloat(document.getElementById('maxHours').value);
+
   const userInput = {
     yarns: yarns.map(y => ({ weightNumber: y.weight, yardage: y.yardage, hookSizeMM: y.hook, name: y.name })),
     yardageHave: yarns.reduce((s, y) => s + y.yardage, 0),
-    hookSizeMM: yarns[0].hook || null,
+    hookSizeMM: (yarns[0].hook != null && yarns[0].hook !== '') ? yarns[0].hook : null,
     hookSizeUnknown: false,
     timeRange: {
-      minHours: parseFloat(document.getElementById('minHours').value),
-      maxHours: parseFloat(document.getElementById('maxHours').value)
+      minHours: isNaN(minH) ? null : minH,
+      maxHours: isNaN(maxH) ? null : maxH
     },
     difficulty: document.getElementById('difficulty').value,
     preferredCategory: document.getElementById('preferredCategory').value || null,
@@ -1147,16 +1151,34 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.getElementById('surpriseBtn').addEventListener('click', async function() {
         const termSys = document.getElementById('termSystem').value;
+        const yw = parseInt(document.getElementById('yarnWeightNumber').value);
+        const yd = parseInt(document.getElementById('yardageHave').value);
+        const minH = parseFloat(document.getElementById('minHours').value);
+        const maxH = parseFloat(document.getElementById('maxHours').value);
+
+        if (isNaN(yw) || yw < 0 || yw > 7) {
+            outputElement.innerHTML = '<div class="error-message">Please select a valid yarn weight (0–7).</div>';
+            document.getElementById('output').style.display = 'block';
+            return;
+        }
+        if (isNaN(yd) || yd < 0) {
+            outputElement.innerHTML = '<div class="error-message">Please enter a valid yardage amount.</div>';
+            document.getElementById('output').style.display = 'block';
+            return;
+        }
+        if (isNaN(minH) || isNaN(maxH) || minH > maxH || minH < 0) {
+            outputElement.innerHTML = '<div class="error-message">Please enter valid time range (min ≤ max).</div>';
+            document.getElementById('output').style.display = 'block';
+            return;
+        }
+
         currentTermSystem = termSys;
         currentUserInput = {
-            yarnWeightNumber: parseInt(document.getElementById('yarnWeightNumber').value),
-            yardageHave: parseInt(document.getElementById('yardageHave').value),
+            yarnWeightNumber: yw,
+            yardageHave: yd,
             hookSizeMM: document.getElementById('hookSizeMM').value ? parseFloat(document.getElementById('hookSizeMM').value) : null,
             hookSizeUnknown: document.getElementById('hookSizeUnknown').checked,
-            timeRange: {
-                minHours: parseFloat(document.getElementById('minHours').value),
-                maxHours: parseFloat(document.getElementById('maxHours').value)
-            },
+            timeRange: { minHours: minH, maxHours: maxH },
             difficulty: document.getElementById('difficulty').value,
             preferredCategory: document.getElementById('preferredCategory').value || null,
             termSystem: termSys

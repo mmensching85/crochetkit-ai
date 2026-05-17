@@ -107,3 +107,78 @@ testScenario("Scenario 13: Category with no patterns ('Slippers')", {
   hookSizeUnknown: false, timeRange: { minHours: 0.5, maxHours: 2 },
   difficulty: "beginner", preferredCategory: "Slippers"
 });
+
+testScenario("Scenario 14: Hook size mismatch (user has 8mm, pattern expects ~5.5mm)", {
+  yarnWeightNumber: 4, yardageHave: 200, hookSizeMM: 8.0,
+  hookSizeUnknown: false, timeRange: { minHours: 1, maxHours: 3 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 15: Multi-yarn stash — 2x weight-4 yarns combined", {
+  yarns: [
+    { weightNumber: 4, yardage: 100, hookSizeMM: 5.0, name: "Yarn A" },
+    { weightNumber: 4, yardage: 80, hookSizeMM: 5.0, name: "Yarn B" }
+  ],
+  yardageHave: 180, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 1, maxHours: 3 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 16: Weight ±1 close match — weight 3, 100 yds", {
+  yarnWeightNumber: 3, yardageHave: 100, hookSizeMM: 4.5,
+  hookSizeUnknown: false, timeRange: { minHours: 0.5, maxHours: 2 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 17: No time overlap — user has 0-0.5h, patterns take longer", {
+  yarnWeightNumber: 4, yardageHave: 100, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 0, maxHours: 0.5 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 18: Zero yardage edge case", {
+  yarnWeightNumber: 4, yardageHave: 0, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 0.5, maxHours: 1 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 19: Super bulky weight 6, beginner", {
+  yarnWeightNumber: 6, yardageHave: 80, hookSizeMM: 9.0,
+  hookSizeUnknown: false, timeRange: { minHours: 0.5, maxHours: 2 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 20: Partial category match (lowercase 'scarf')", {
+  yarnWeightNumber: 4, yardageHave: 200, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 1, maxHours: 4 },
+  difficulty: "beginner", preferredCategory: "scarf"
+});
+
+testScenario("Scenario 21: UK terms, intermediate, ample yardage", {
+  yarnWeightNumber: 4, yardageHave: 400, hookSizeMM: 5.5,
+  hookSizeUnknown: false, timeRange: { minHours: 2, maxHours: 6 },
+  difficulty: "intermediate", preferredCategory: null, termSystem: "UK"
+});
+
+testScenario("Scenario 22: Multiple yarns mixed weights — only weight-4 yarns should match", {
+  yarns: [
+    { weightNumber: 4, yardage: 200, hookSizeMM: 5.0, name: "Worsted A" },
+    { weightNumber: 2, yardage: 100, hookSizeMM: 4.0, name: "Fine B" },
+    { weightNumber: 4, yardage: 50, hookSizeMM: 5.0, name: "Worsted C" }
+  ],
+  yardageHave: 350, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 1, maxHours: 4 },
+  difficulty: "beginner", preferredCategory: null
+});
+
+testScenario("Scenario 23: Advanced difficulty, weight 4, high yardage", {
+  yarnWeightNumber: 4, yardageHave: 600, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: { minHours: 4, maxHours: 10 },
+  difficulty: "advanced", preferredCategory: null
+});
+
+testScenario("Scenario 24: Missing timeRange (null safety edge case)", {
+  yarnWeightNumber: 4, yardageHave: 100, hookSizeMM: 5.0,
+  hookSizeUnknown: false, timeRange: null,
+  difficulty: "beginner", preferredCategory: ""
+});

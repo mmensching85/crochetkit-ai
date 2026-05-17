@@ -327,30 +327,22 @@ app.post('/api/reverse-match', (req, res) => {
 // POST /api/feedback — Save user feedback
 app.post('/api/feedback', (req, res) => {
     try {
-        const { projectTitle, rating, comment, userInput } = req.body;
+    const { projectTitle, rating, comment, userInput } = req.body;
 
-        const feedbackSchema = {
-          patternId: { type: 'string', maxLength: 100 },
-          comment: { type: 'string', maxLength: 2000 },
-          userInput: { type: 'object' }
-        };
-        const feedbackErrors = validateFields(req.body, feedbackSchema);
-        if (feedbackErrors.length > 0) {
-          return res.status(400).json({ success: false, errors: feedbackErrors });
-        }
+    const feedbackSchema = {
+      projectTitle: { type: 'string', required: true, maxLength: 200 },
+      rating: { type: 'number', required: true, min: 1, max: 5 },
+      comment: { type: 'string', maxLength: 2000 },
+      userInput: { type: 'object' }
+    };
+    const feedbackErrors = validateFields(req.body, feedbackSchema);
+    if (feedbackErrors.length > 0) {
+      return res.status(400).json({ success: false, errors: feedbackErrors });
+    }
 
-        if (!projectTitle || !rating) {
-            return res.status(400).json({ error: 'Missing required fields: projectTitle and rating are required.' });
-        }
-
-        const ratingNum = parseInt(rating, 10);
-        if (ratingNum < 1 || ratingNum > 5) {
-            return res.status(400).json({ error: 'Rating must be between 1 and 5.' });
-        }
-
-        const entry = {
-            projectTitle,
-            rating: ratingNum,
+    const entry = {
+        projectTitle,
+        rating,
             comment: comment || '',
             userInput: userInput || null,
             timestamp: new Date().toISOString()
