@@ -38,6 +38,9 @@ function validateFields(obj, schema) {
       if (rules.type === 'array' && !Array.isArray(val)) {
         errors.push(`Field '${field}' must be an array`);
       }
+      if (rules.type === 'boolean' && typeof val !== 'boolean') {
+        errors.push(`Field '${field}' must be a boolean`);
+      }
       if (rules.type === 'object' && (typeof val !== 'object' || Array.isArray(val) || val === null)) {
         errors.push(`Field '${field}' must be an object`);
       }
@@ -271,7 +274,7 @@ app.post('/api/find-project', (req, res) => {
           yarnWeightNumber: { type: 'number', min: 0, max: 7 },
           yardageHave: { type: 'number', min: 0, max: 100000 },
           hookSizeMM: { type: 'number', min: 0, max: 50 },
-          hookSizeUnknown: { type: 'string' },
+          hookSizeUnknown: { type: 'boolean' },
           timeRange: { type: 'object' },
           difficulty: { type: 'string', maxLength: 50 },
           preferredCategory: { type: 'string', maxLength: 100 }
