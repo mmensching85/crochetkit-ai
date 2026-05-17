@@ -193,6 +193,115 @@ NEW_PATTERNS = [
 
     # ===== WRISTBAND =====
     ("pattern-wristband-003", "Embroidered Wristband", "A single crochet wristband with simple embroidery stitches on top for decoration.", "Wristband", 4, "beginner", 0.5, 1, "Beginner", 15, 25, ["Cotton"], "sc", 5),
+
+    # ===== NEW BAG PATTERNS =====
+    ("pattern-bag-005", "Messenger Bag", "A crossbody messenger bag with a flap closure and adjustable strap. Features an inner pocket.", "Bag", 4, "advanced", 5, 8, "Advanced", 400, 500, ["Cotton"], "sc", 7),
+    ("pattern-bag-006", "Beach Bag", "A large open tote perfect for beach trips. Made with cotton yarn that's easy to rinse.", "Bag", 4, "beginner", 3, 5, "Beginner", 350, 450, ["Cotton"], "sc", 5),
+    ("pattern-bag-007", "Bucket Bag", "A trendy bucket bag with a drawstring closure and leather base. Lined for structure.", "Bag", 4, "advanced", 4, 6, "Advanced", 300, 400, ["Cotton"], "sc", 7),
+    ("pattern-bag-008", "Drawstring Backpack", "A casual drawstring backpack with rope-style straps. Great for hiking or school.", "Bag", 5, "intermediate", 3, 5, "Intermediate", 300, 400, ["Cotton"], "sc", 6),
+    ("pattern-bag-009", "Market Tote", "A sturdy market tote with wide straps that won't dig into your shoulders.", "Bag", 5, "beginner", 2, 4, "Beginner", 200, 300, ["Cotton"], "sc", 5),
+
+    # ===== NEW BLANKET PATTERNS =====
+    ("pattern-blanket-005", "Lap Blanket", "A cozy lap-sized blanket perfect for reading chairs. Uses the lemon peel stitch for texture.", "Blanket", 4, "beginner", 4, 6, "Beginner", 400, 500, ["Acrylic"], "sc-dc", 5),
+    ("pattern-blanket-006", "Twin Size Blanket", "A full twin-sized blanket made of joined granny stripes. Colorful and warm.", "Blanket", 4, "intermediate", 8, 12, "Intermediate", 800, 1000, ["Acrylic"], "dc", 6),
+    ("pattern-blanket-007", "Baby Bobble Blanket", "A textured baby blanket with bobble stitches in alternating rows. Washable and soft.", "Blanket", 4, "intermediate", 4, 6, "Intermediate", 350, 450, ["Acrylic", "Cotton"], "sc", 6),
+    ("pattern-blanket-008", "Chevron Afghan", "A classic chevron afghan with peaks and valleys. Uses double crochet increases and decreases.", "Blanket", 4, "intermediate", 6, 10, "Intermediate", 600, 800, ["Acrylic"], "dc", 5),
+
+    # ===== NEW HAT PATTERNS =====
+    ("pattern-hat-005", "Sun Hat", "A wide-brimmed sun hat using cotton yarn. Stiff brim stays arched. Great for gardening.", "Hat", 4, "intermediate", 3, 5, "Intermediate", 200, 300, ["Cotton"], "sc", 7),
+    ("pattern-hat-006", "Bucket Hat", "A casual bucket hat worked in joined rounds with a short brim. Uses two colors.", "Hat", 4, "beginner", 1, 2, "Beginner", 100, 150, ["Cotton"], "sc", 6),
+    ("pattern-hat-007", "Slouchy Beanie", "A relaxed, slouchy beanie with a ribbed brim and a loose crown. Unisex design.", "Hat", 4, "beginner", 1, 2, "Beginner", 120, 180, ["Acrylic"], "hdc", 5),
+    ("pattern-hat-008", "Cloche Hat", "A vintage-inspired cloche hat with a fitted crown and small brim. Decorative band included.", "Hat", 4, "intermediate", 2, 4, "Intermediate", 150, 200, ["Acrylic", "Wool"], "sc", 7),
+
+    # ===== NEW SHAWL PATTERNS =====
+    ("pattern-shawl-005", "Triangle Lace Shawl", "A lightweight triangular shawl with an open lace pattern. Worked from the center top down.", "Shawl", 3, "intermediate", 4, 6, "Intermediate", 350, 500, ["Cotton", "Bamboo"], "dc-lace", 6),
+    ("pattern-shawl-006", "Pocket Shawl", "A rectangular wrap with two large pockets worked into the sides. Cozy and practical.", "Shawl", 4, "beginner", 3, 5, "Beginner", 350, 450, ["Acrylic"], "sc", 5),
+    ("pattern-shawl-007", "Color Block Wrap", "A modern color block wrap with geometric stripes. Uses self-striping yarn or planned color changes.", "Shawl", 4, "beginner", 3, 5, "Beginner", 300, 400, ["Acrylic"], "dc", 4),
+
+    # ===== NEW BABY PATTERNS =====
+    ("pattern-baby-005", "Baby Bonnet", "A sweet baby bonnet with ribbon ties. Worked flat and seamed at the top.", "Baby", 4, "beginner", 1, 2, "Beginner", 80, 120, ["Cotton"], "sc", 6),
+    ("pattern-baby-006", "Baby Mittens", "Tiny mittens for newborns with a ribbon through the cuff to prevent loss.", "Baby", 3, "beginner", 1, 1.5, "Beginner", 40, 60, ["Cotton"], "sc", 5),
+    ("pattern-baby-007", "Baby Cardigan", "A delicate baby cardigan with shell stitch edging and button closure.", "Baby", 3, "intermediate", 3, 5, "Intermediate", 200, 300, ["Cotton"], "dc", 7),
+    ("pattern-baby-008", "Baby Bunting", "A cozy baby bunting sack for newborns. Keeps baby warm from head to toe.", "Baby", 4, "intermediate", 3, 5, "Intermediate", 250, 350, ["Acrylic"], "sc", 7),
+    ("pattern-baby-009", "Baby Romper", "A one-piece baby romper with snap closure at the bottom. Short sleeves for summer.", "Baby", 3, "advanced", 4, 6, "Advanced", 200, 300, ["Cotton"], "sc", 8),
+
+    # ===== NEW TOY PATTERNS =====
+    ("pattern-toy-004", "Amigurumi Dog", "A floppy-eared amigurumi dog with a sweet face. Worked in spiral rounds.", "Toy", 4, "intermediate", 2, 3, "Intermediate", 60, 100, ["Acrylic"], "sc", 8),
+    ("pattern-toy-005", "Amigurumi Fox", "A cute fox amigurumi with orange and white coloring and a bushy tail.", "Toy", 4, "intermediate", 2, 3, "Intermediate", 60, 100, ["Acrylic"], "sc", 8),
+    ("pattern-toy-006", "Amigurumi Bear", "A classic teddy bear amigurumi with jointed limbs and a cute muzzle.", "Toy", 4, "intermediate", 2, 4, "Intermediate", 80, 120, ["Acrylic"], "sc", 8),
+    ("pattern-toy-007", "Amigurumi Penguin", "A chubby penguin amigurumi with a little beak and flippers. Great for nursery decor.", "Toy", 4, "intermediate", 1.5, 2.5, "Intermediate", 50, 80, ["Acrylic"], "sc", 8),
+    ("pattern-toy-008", "Amigurumi Dinosaur", "A friendly dinosaur amigurumi with spikes down its back. Soft and huggable.", "Toy", 4, "intermediate", 2, 3, "Intermediate", 70, 110, ["Acrylic"], "sc", 8),
+
+    # ===== NEW PONCHO PATTERNS =====
+    ("pattern-poncho-002", "Hooded Poncho", "A warm hooded poncho with fringe. Perfect for cool evenings. Uses bulky yarn.", "Poncho", 4, "intermediate", 4, 6, "Intermediate", 400, 500, ["Acrylic"], "dc", 6),
+    ("pattern-poncho-003", "Child Poncho", "A colorful poncho sized for children. Easy pullover style with no buttons.", "Poncho", 4, "beginner", 2, 3, "Beginner", 200, 300, ["Acrylic"], "dc", 5),
+    ("pattern-poncho-004", "Lace Poncho", "A lightweight lace poncho for summer evenings. Airy shell stitch pattern.", "Poncho", 3, "intermediate", 3, 5, "Intermediate", 250, 350, ["Cotton"], "dc-lace", 6),
+
+    # ===== NEW SLIPPER PATTERNS =====
+    ("pattern-slippers-002", "Ballet Slippers", "Dainty ballet-style slippers with a crossover strap. Worked in soft cotton.", "Slippers", 4, "beginner", 2, 3, "Beginner", 150, 200, ["Cotton"], "sc", 6),
+    ("pattern-slippers-003", "Moccasin Slippers", "Cozy moccasin-style slippers with a leather-look sole. Warm wool blend.", "Slippers", 5, "intermediate", 3, 4, "Intermediate", 200, 300, ["Wool", "Acrylic"], "sc", 7),
+    ("pattern-slippers-004", "Bootie Slippers", "Ankle-high bootie slippers with a ribbed cuff. Keep feet warm on cold floors.", "Slippers", 4, "intermediate", 3, 4, "Intermediate", 200, 250, ["Acrylic", "Wool"], "hdc-blo", 6),
+
+    # ===== NEW ACCESSORY PATTERNS =====
+    ("pattern-accessories-005", "Fingerless Gloves", "Classic fingerless gloves with a ribbed cuff. Keep hands warm while leaving fingers free.", "Accessories", 4, "beginner", 2, 3, "Beginner", 120, 180, ["Acrylic", "Wool"], "hdc-blo", 6),
+    ("pattern-accessories-006", "Wrist Warmers", "Short wrist warmers that cover the palm and wrist. Quick and useful for chilly offices.", "Accessories", 3, "beginner", 1, 1.5, "Beginner", 60, 80, ["Cotton", "Acrylic"], "sc", 5),
+    ("pattern-accessories-007", "Arm Warmers", "Long arm warmers reaching from wrist to elbow. Worked in the round.", "Accessories", 4, "beginner", 2, 3, "Beginner", 150, 200, ["Acrylic"], "hdc", 5),
+    ("pattern-accessories-008", "Infinity Cowl", "A seamless infinity cowl worked in the round. Alternating stitch patterns for visual interest.", "Accessories", 4, "beginner", 2, 3, "Beginner", 200, 250, ["Acrylic"], "sc-dc", 4),
+    ("pattern-accessories-009", "Neck Warmer", "A short neck warmer that sits close to the neck. Quick project using bulky yarn.", "Accessories", 5, "beginner", 1, 1.5, "Beginner", 80, 120, ["Acrylic", "Wool"], "hdc", 4),
+
+    # ===== NEW HOME DECOR PATTERNS =====
+    ("pattern-home-005", "Decorative Pillow", "A 16-inch square pillow cover with a textured stitch pattern. Hidden zipper closure.", "Home Decor", 4, "intermediate", 3, 5, "Intermediate", 300, 400, ["Cotton"], "sc-dc", 6),
+    ("pattern-home-006", "Curtain Tiebacks", "A set of two crocheted curtain tiebacks with button closures. Adds charm to any room.", "Home Decor", 4, "beginner", 1, 1.5, "Beginner", 40, 60, ["Cotton"], "sc", 4),
+    ("pattern-home-007", "Tablecloth", "An oval tablecloth with a central lace panel. Fits a standard dining table.", "Home Decor", 3, "advanced", 8, 12, "Advanced", 600, 800, ["Cotton"], "dc-lace", 7),
+    ("pattern-home-008", "Crocheted Wall Hanging", "A boho wall hanging with tassels. Worked on a wooden dowel with fringe.", "Home Decor", 4, "beginner", 2, 3, "Beginner", 150, 200, ["Cotton"], "sc", 5),
+
+    # ===== NEW DISHCLOTH PATTERNS =====
+    ("pattern-dishcloth-005", "Lace Edge Dishcloth", "A practical dishcloth with a decorative lace edge on two sides.", "Dishcloth", 4, "beginner", 1, 1.5, "Beginner", 60, 80, ["Cotton"], "sc", 5),
+    ("pattern-dishcloth-006", "Color Block Dishcloth", "A dishcloth with horizontal color blocks. Great for using up cotton scraps.", "Dishcloth", 4, "beginner", 1, 1.5, "Beginner", 50, 70, ["Cotton"], "sc", 5),
+    ("pattern-dishcloth-007", "Diagonal Dishcloth", "A dishcloth worked diagonally from corner to corner. Modern look with basic stitches.", "Dishcloth", 4, "beginner", 1, 1.5, "Beginner", 50, 70, ["Cotton"], "sc", 5),
+
+    # ===== NEW COASTER PATTERNS =====
+    ("pattern-coaster-006", "Square Coasters Set", "A set of 4 matching square coasters with a textured center and scalloped edge.", "Coaster", 4, "beginner", 0.5, 1, "Beginner", 40, 60, ["Cotton"], "sc", 5),
+    ("pattern-coaster-007", "Star Coaster", "A star-shaped coaster worked in the round. Makes a set of 4 for a unique table setting.", "Coaster", 4, "beginner", 0.5, 1, "Beginner", 30, 40, ["Cotton"], "sc", 5),
+
+    # ===== NEW MUG COZY PATTERNS =====
+    ("pattern-mugcozy-003", "Striped Mug Cozy", "A colorful striped mug cozy with a button closure. Quick scrap-buster project.", "Mug cozy", 4, "beginner", 0.5, 1, "Beginner", 30, 50, ["Cotton"], "sc", 5),
+    ("pattern-mugcozy-004", "Fair Isle Mug Cozy", "A mug cozy with a stranded colorwork pattern. Fits standard ceramic mugs.", "Mug cozy", 4, "intermediate", 0.5, 1, "Intermediate", 30, 50, ["Cotton"], "sc", 5),
+
+    # ===== NEW GRANNY SQUARE PATTERNS =====
+    ("pattern-granny-008", "Flower Granny Square", "A 3D flower granny square with raised petals around a colorful center.", "Granny square", 4, "intermediate", 0.5, 1, "Intermediate", 30, 50, ["Cotton"], "dc", 6),
+    ("pattern-granny-009", "Heart Granny Square", "A granny square with a heart motif in the center. Perfect for Valentine's projects.", "Granny square", 4, "intermediate", 0.5, 1, "Intermediate", 30, 50, ["Cotton", "Acrylic"], "dc", 6),
+
+    # ===== NEW HEADBAND PATTERNS =====
+    ("pattern-headband-003", "Ear Warmer Headband", "A wide ear warmer headband that covers the ears. Uses half-double crochet for warmth.", "Headband", 4, "beginner", 1, 1.5, "Beginner", 60, 80, ["Acrylic"], "hdc", 5),
+    ("pattern-headband-004", "Turban Headband", "A stylish twisted turban headband with a built-in knot. One-piece construction.", "Headband", 4, "beginner", 1, 2, "Beginner", 80, 120, ["Acrylic"], "sc", 5),
+
+    # ===== NEW BOOKMARK PATTERNS =====
+    ("pattern-bookmark-004", "Heart Bookmark", "A sweet bookmark with a heart motif at the top. Quick gift for book lovers.", "Bookmark", 4, "beginner", 0.5, 1, "Beginner", 15, 25, ["Cotton"], "sc", 4),
+
+    # ===== NEW KEYCHAIN PATTERNS =====
+    ("pattern-keychain-004", "Star Keychain", "A small star-shaped keychain. Quick make for gifts or market stall.", "Keychain", 4, "beginner", 0.25, 0.5, "Beginner", 5, 10, ["Acrylic", "Cotton"], "sc", 4),
+
+    # ===== NEW BABY BLANKET PATTERNS =====
+    ("pattern-baby-blanket-004", "Baby Lace Blanket", "A lightweight baby blanket with a delicate lace border. Perfect for spring babies.", "Baby blanket square", 3, "intermediate", 4, 6, "Intermediate", 350, 450, ["Cotton"], "dc-lace", 6),
+
+    # ===== NEW TOTE PATTERNS =====
+    ("pattern-tote-005", "Convertible Tote", "A tote bag that converts from a shoulder bag to a crossbody with a longer strap.", "Beginner tote", 4, "intermediate", 3, 5, "Intermediate", 250, 350, ["Cotton"], "sc", 6),
+
+    # ===== NEW PLANT HANGER PATTERNS =====
+    ("pattern-plant-hanger-004", "Macrame Pot Holder", "A knotted pot holder using chains and slip stitches. Holds standard 4-inch pots.", "Small plant hanger", 4, "beginner", 1, 1.5, "Beginner", 60, 80, ["Cotton"], "ch-sc", 5),
+
+    # ===== NEW WATER BOTTLE PATTERNS =====
+    ("pattern-water-bottle-004", "Insulated Bottle Carrier", "A carrier for a large water bottle with an insulated inner layer. Crossbody strap.", "Water bottle holder", 4, "intermediate", 2, 3, "Intermediate", 100, 150, ["Cotton"], "sc", 6),
+
+    # ===== NEW EYEGLASS CASE PATTERNS =====
+    ("pattern-eyeglass-004", "Two-Tone Glasses Case", "A stylish two-color glasses case with a flap closure and button.", "Eyeglass case", 4, "beginner", 1, 2, "Beginner", 50, 70, ["Cotton"], "sc", 5),
+
+    # ===== NEW PHONE CASE PATTERNS =====
+    ("pattern-phone-004", "Crossbody Phone Pouch", "A slim phone pouch worn crossbody. Fits most smartphones with a card slot.", "Cell phone case", 4, "beginner", 1, 2, "Beginner", 60, 80, ["Cotton"], "sc", 6),
+
+    # ===== NEW WRISTBAND PATTERNS =====
+    ("pattern-wristband-004", "Braided Wristband", "A braided-look wristband made from three crocheted cords braided together.", "Wristband", 4, "beginner", 0.5, 1, "Beginner", 15, 25, ["Cotton"], "chain", 4),
 ]
 
 # ── INSTRUCTION TEMPLATES ──
@@ -453,7 +562,11 @@ if __name__ == '__main__':
     for p in patterns:
         new_dicts.append(json.dumps(p, indent=2))
     
-    new_content = existing_content[:insert_pos] + ',\n'.join(new_dicts) + '\n' + existing_content[insert_pos:]
+    prefix = existing_content[:insert_pos].rstrip()
+    if prefix.endswith('}'):
+        new_content = existing_content[:insert_pos] + ',\n' + ',\n'.join(new_dicts) + '\n' + existing_content[insert_pos:]
+    else:
+        new_content = existing_content[:insert_pos] + ',' + ',\n'.join(new_dicts) + '\n' + existing_content[insert_pos:]
     
     with open('src/additional_patterns.py', 'w') as f:
         f.write(new_content)

@@ -6056,5 +6056,4392 @@ additional_patterns = [
     "sc",
     "crochet"
   ]
-}
+},
+{
+  "id": "pattern-bag-005",
+  "name": "Messenger Bag",
+  "shortDescription": "A crossbody messenger bag with a flap closure and adjustable strap. Features an inner pocket.",
+  "imageUrl": "/assets/patterns/pattern-bag-005.webp",
+  "category": "Bag",
+  "difficulty": {
+    "level": "advanced",
+    "score": 3,
+    "reasoning": "Uses sc stitches; bag construction."
+  },
+  "estimatedTime": {
+    "minHours": 5,
+    "maxHours": 8,
+    "unit": "hours",
+    "assumedSkill": "Advanced"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 400,
+      "suggestedYardageMax": 500,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation:** Make a magic ring.",
+    "**Round 1:** Chain 1, work 6 single crochet (sc) into ring. Join. (6 sc)",
+    "**Round 2:** Chain 1, *2 sc in each stitch.* Repeat around. Join. (12 sc)",
+    "**Round 3:** Chain 1, *sc in next, 2 sc in next.* Repeat around. Join.",
+    "**Continue increasing** until piece is desired width, then work even in sc rounds.",
+    "**Finishing:** Fasten off, weave in ends. Block to shape.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch and block it before measuring.",
+    "Read through the entire pattern before beginning.",
+    "Use lifelines in lace patterns to avoid re-doing rows after mistakes."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "bag",
+    "messenger-bag",
+    "advanced",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-bag-006",
+  "name": "Beach Bag",
+  "shortDescription": "A large open tote perfect for beach trips. Made with cotton yarn that's easy to rinse.",
+  "imageUrl": "/assets/patterns/pattern-bag-006.webp",
+  "category": "Bag",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; bag construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 350,
+      "suggestedYardageMax": 450,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation:** Make a magic ring.",
+    "**Round 1:** Chain 1, work 6 single crochet (sc) into ring. Join. (6 sc)",
+    "**Round 2:** Chain 1, *2 sc in each stitch.* Repeat around. Join. (12 sc)",
+    "**Round 3:** Chain 1, *sc in next, 2 sc in next.* Repeat around. Join.",
+    "**Continue increasing** until piece is desired width, then work even in sc rounds."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "bag",
+    "beach-bag",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-bag-007",
+  "name": "Bucket Bag",
+  "shortDescription": "A trendy bucket bag with a drawstring closure and leather base. Lined for structure.",
+  "imageUrl": "/assets/patterns/pattern-bag-007.webp",
+  "category": "Bag",
+  "difficulty": {
+    "level": "advanced",
+    "score": 3,
+    "reasoning": "Uses sc stitches; bag construction."
+  },
+  "estimatedTime": {
+    "minHours": 4,
+    "maxHours": 6,
+    "unit": "hours",
+    "assumedSkill": "Advanced"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 300,
+      "suggestedYardageMax": 400,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation:** Make a magic ring.",
+    "**Round 1:** Chain 1, work 6 single crochet (sc) into ring. Join. (6 sc)",
+    "**Round 2:** Chain 1, *2 sc in each stitch.* Repeat around. Join. (12 sc)",
+    "**Round 3:** Chain 1, *sc in next, 2 sc in next.* Repeat around. Join.",
+    "**Continue increasing** until piece is desired width, then work even in sc rounds.",
+    "**Finishing:** Fasten off, weave in ends. Block to shape.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch and block it before measuring.",
+    "Read through the entire pattern before beginning.",
+    "Use lifelines in lace patterns to avoid re-doing rows after mistakes."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "bag",
+    "bucket-bag",
+    "advanced",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-bag-008",
+  "name": "Drawstring Backpack",
+  "shortDescription": "A casual drawstring backpack with rope-style straps. Great for hiking or school.",
+  "imageUrl": "/assets/patterns/pattern-bag-008.webp",
+  "category": "Bag",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; bag construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "5 (Bulky)",
+      "weightNumber": 5,
+      "suggestedYardageMin": 300,
+      "suggestedYardageMax": 400,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 6.5,
+      "sizeUS": "K-10.5",
+      "sizeUK": "4",
+      "notes": "Standard hook for 5 (Bulky) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation:** Make a magic ring.",
+    "**Round 1:** Chain 1, work 6 single crochet (sc) into ring. Join. (6 sc)",
+    "**Round 2:** Chain 1, *2 sc in each stitch.* Repeat around. Join. (12 sc)",
+    "**Round 3:** Chain 1, *sc in next, 2 sc in next.* Repeat around. Join.",
+    "**Continue increasing** until piece is desired width, then work even in sc rounds.",
+    "**Finishing:** Fasten off, weave in ends. Block to shape."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "bag",
+    "drawstring-backpack",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-bag-009",
+  "name": "Market Tote",
+  "shortDescription": "A sturdy market tote with wide straps that won't dig into your shoulders.",
+  "imageUrl": "/assets/patterns/pattern-bag-009.webp",
+  "category": "Bag",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; bag construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 4,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "5 (Bulky)",
+      "weightNumber": 5,
+      "suggestedYardageMin": 200,
+      "suggestedYardageMax": 300,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 6.5,
+      "sizeUS": "K-10.5",
+      "sizeUK": "4",
+      "notes": "Standard hook for 5 (Bulky) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation:** Make a magic ring.",
+    "**Round 1:** Chain 1, work 6 single crochet (sc) into ring. Join. (6 sc)",
+    "**Round 2:** Chain 1, *2 sc in each stitch.* Repeat around. Join. (12 sc)",
+    "**Round 3:** Chain 1, *sc in next, 2 sc in next.* Repeat around. Join.",
+    "**Continue increasing** until piece is desired width, then work even in sc rounds."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "bag",
+    "market-tote",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-blanket-005",
+  "name": "Lap Blanket",
+  "shortDescription": "A cozy lap-sized blanket perfect for reading chairs. Uses the lemon peel stitch for texture.",
+  "imageUrl": "/assets/patterns/pattern-blanket-005.webp",
+  "category": "Blanket",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc and dc stitches; blanket construction."
+  },
+  "estimatedTime": {
+    "minHours": 4,
+    "maxHours": 6,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 400,
+      "suggestedYardageMax": 500,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc-dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Double crochet (dc) in each stitch across. Turn.",
+    "**Row 3:** Chain 1, turn. Single crochet in each stitch across. Turn.",
+    "**Repeat Rows 2-3:** Alternate until piece reaches desired length."
+  ],
+  "beginnerTips": [
+    "Alternating sc and dc rows creates a nice textured fabric.",
+    "Count your stitches every row\u2014the switch between stitch types makes it easy to drop a stitch.",
+    "Mark your starting chain with a stitch marker so you don't lose count."
+  ],
+  "commonMistakes": [
+    "Losing stitch count when switching between sc and dc.",
+    "Forgetting which row pattern you're on without a row counter."
+  ],
+  "keywords": [
+    "blanket",
+    "lap-blanket",
+    "beginner",
+    "sc-dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-blanket-006",
+  "name": "Twin Size Blanket",
+  "shortDescription": "A full twin-sized blanket made of joined granny stripes. Colorful and warm.",
+  "imageUrl": "/assets/patterns/pattern-blanket-006.webp",
+  "category": "Blanket",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses dc stitches; blanket construction."
+  },
+  "estimatedTime": {
+    "minHours": 8,
+    "maxHours": 12,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 800,
+      "suggestedYardageMax": 1000,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Double crochet (dc) in 4th chain from hook and each across. Turn.",
+    "**Row 2:** Chain 3 (counts as dc), dc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block to open the stitch pattern.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Shell = 5 double crochet worked into the same stitch or space.",
+    "Blocking helps the shells lie flat and evenly spaced.",
+    "Use a larger hook if your shells feel crowded or are curling.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Skipping the turning chain count, causing edges to narrow.",
+    "Forgetting to chain 3 at the start of each row."
+  ],
+  "keywords": [
+    "blanket",
+    "twin-size-blanket",
+    "intermediate",
+    "dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-blanket-007",
+  "name": "Baby Bobble Blanket",
+  "shortDescription": "A textured baby blanket with bobble stitches in alternating rows. Washable and soft.",
+  "imageUrl": "/assets/patterns/pattern-blanket-007.webp",
+  "category": "Blanket",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; blanket construction."
+  },
+  "estimatedTime": {
+    "minHours": 4,
+    "maxHours": 6,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 350,
+      "suggestedYardageMax": 450,
+      "fiberType": [
+        "Acrylic",
+        "Cotton"
+      ],
+      "notes": "Acrylic Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "blanket",
+    "baby-bobble-blanket",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-blanket-008",
+  "name": "Chevron Afghan",
+  "shortDescription": "A classic chevron afghan with peaks and valleys. Uses double crochet increases and decreases.",
+  "imageUrl": "/assets/patterns/pattern-blanket-008.webp",
+  "category": "Blanket",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses dc stitches; blanket construction."
+  },
+  "estimatedTime": {
+    "minHours": 6,
+    "maxHours": 10,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 600,
+      "suggestedYardageMax": 800,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Double crochet (dc) in 4th chain from hook and each across. Turn.",
+    "**Row 2:** Chain 3 (counts as dc), dc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block to open the stitch pattern."
+  ],
+  "beginnerTips": [
+    "Shell = 5 double crochet worked into the same stitch or space.",
+    "Blocking helps the shells lie flat and evenly spaced.",
+    "Use a larger hook if your shells feel crowded or are curling.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Skipping the turning chain count, causing edges to narrow.",
+    "Forgetting to chain 3 at the start of each row."
+  ],
+  "keywords": [
+    "blanket",
+    "chevron-afghan",
+    "intermediate",
+    "dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-hat-005",
+  "name": "Sun Hat",
+  "shortDescription": "A wide-brimmed sun hat using cotton yarn. Stiff brim stays arched. Great for gardening.",
+  "imageUrl": "/assets/patterns/pattern-hat-005.webp",
+  "category": "Hat",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; hat construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 200,
+      "suggestedYardageMax": 300,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation:** Make a magic ring.",
+    "**Round 1:** Chain 1, work 6 single crochet (sc) into ring. Join. (6 sc)",
+    "**Round 2:** Chain 1, *2 sc in each stitch.* Repeat around. Join. (12 sc)",
+    "**Round 3:** Chain 1, *sc in next, 2 sc in next.* Repeat around. Join.",
+    "**Continue increasing** until piece is desired width, then work even in sc rounds.",
+    "**Finishing:** Fasten off, weave in ends. Block to shape.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "hat",
+    "sun-hat",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-hat-006",
+  "name": "Bucket Hat",
+  "shortDescription": "A casual bucket hat worked in joined rounds with a short brim. Uses two colors.",
+  "imageUrl": "/assets/patterns/pattern-hat-006.webp",
+  "category": "Hat",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; hat construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 2,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 100,
+      "suggestedYardageMax": 150,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation:** Make a magic ring.",
+    "**Round 1:** Chain 1, work 6 single crochet (sc) into ring. Join. (6 sc)",
+    "**Round 2:** Chain 1, *2 sc in each stitch.* Repeat around. Join. (12 sc)",
+    "**Round 3:** Chain 1, *sc in next, 2 sc in next.* Repeat around. Join.",
+    "**Continue increasing** until piece is desired width, then work even in sc rounds.",
+    "**Finishing:** Fasten off, weave in ends. Block to shape."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "hat",
+    "bucket-hat",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-hat-007",
+  "name": "Slouchy Beanie",
+  "shortDescription": "A relaxed, slouchy beanie with a ribbed brim and a loose crown. Unisex design.",
+  "imageUrl": "/assets/patterns/pattern-hat-007.webp",
+  "category": "Hat",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses hdc stitches; hat construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 2,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 120,
+      "suggestedYardageMax": 180,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "hdc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain length needed for project width.",
+    "**Row 1:** Half double crochet (hdc) in 3rd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 2 (counts as first hdc), hdc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends."
+  ],
+  "beginnerTips": [
+    "The chain 2 at the start of each row counts as the first half-double crochet.",
+    "Half-double crochet creates a nice middle ground between sc and dc.",
+    "Count your stitches each row to keep edges straight."
+  ],
+  "commonMistakes": [
+    "Forgetting the chain-2 turning chain counts as a stitch.",
+    "Working through the wrong loop when the pattern specifies."
+  ],
+  "keywords": [
+    "hat",
+    "slouchy-beanie",
+    "beginner",
+    "hdc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-hat-008",
+  "name": "Cloche Hat",
+  "shortDescription": "A vintage-inspired cloche hat with a fitted crown and small brim. Decorative band included.",
+  "imageUrl": "/assets/patterns/pattern-hat-008.webp",
+  "category": "Hat",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; hat construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 4,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 150,
+      "suggestedYardageMax": 200,
+      "fiberType": [
+        "Acrylic",
+        "Wool"
+      ],
+      "notes": "Acrylic Wool yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation:** Make a magic ring.",
+    "**Round 1:** Chain 1, work 6 single crochet (sc) into ring. Join. (6 sc)",
+    "**Round 2:** Chain 1, *2 sc in each stitch.* Repeat around. Join. (12 sc)",
+    "**Round 3:** Chain 1, *sc in next, 2 sc in next.* Repeat around. Join.",
+    "**Continue increasing** until piece is desired width, then work even in sc rounds.",
+    "**Finishing:** Fasten off, weave in ends. Block to shape.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "hat",
+    "cloche-hat",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-shawl-005",
+  "name": "Triangle Lace Shawl",
+  "shortDescription": "A lightweight triangular shawl with an open lace pattern. Worked from the center top down.",
+  "imageUrl": "/assets/patterns/pattern-shawl-005.webp",
+  "category": "Shawl",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses dc and lace stitches; shawl construction."
+  },
+  "estimatedTime": {
+    "minHours": 4,
+    "maxHours": 6,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "3 (DK/Light)",
+      "weightNumber": 3,
+      "suggestedYardageMin": 350,
+      "suggestedYardageMax": 500,
+      "fiberType": [
+        "Cotton",
+        "Bamboo"
+      ],
+      "notes": "Cotton Bamboo yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 4.5,
+      "sizeUS": "7",
+      "sizeUK": "7",
+      "notes": "Standard hook for 3 (DK/Light) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc-lace",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Dc in 4th chain from hook, *chain 1, skip 1, dc in next.* Repeat across. Turn.",
+    "**Row 2:** Chain 3, dc in first dc. *Chain 1, dc in next dc.* Repeat across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Border:** Work single crochet evenly around edges, with a picot edge (sc, ch 3, sc) in each corner.",
+    "**Finishing:** Fasten off, weave in ends. Wet block to open the lace pattern."
+  ],
+  "beginnerTips": [
+    "The chain-1 spaces create the lace effect\u2014keep them even in size.",
+    "Blocking is essential for lace patterns; it opens up the design.",
+    "Use stitch markers every 10-20 pattern repeats to stay on track.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Losing track of the chain-1 spaces in the lace repeat.",
+    "Not blocking the finished piece to open up the lace pattern."
+  ],
+  "keywords": [
+    "shawl",
+    "triangle-lace-shawl",
+    "intermediate",
+    "dc-lace",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-shawl-006",
+  "name": "Pocket Shawl",
+  "shortDescription": "A rectangular wrap with two large pockets worked into the sides. Cozy and practical.",
+  "imageUrl": "/assets/patterns/pattern-shawl-006.webp",
+  "category": "Shawl",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; shawl construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 350,
+      "suggestedYardageMax": 450,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "shawl",
+    "pocket-shawl",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-shawl-007",
+  "name": "Color Block Wrap",
+  "shortDescription": "A modern color block wrap with geometric stripes. Uses self-striping yarn or planned color changes.",
+  "imageUrl": "/assets/patterns/pattern-shawl-007.webp",
+  "category": "Shawl",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses dc stitches; shawl construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 300,
+      "suggestedYardageMax": 400,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Double crochet (dc) in 4th chain from hook and each across. Turn.",
+    "**Row 2:** Chain 3 (counts as dc), dc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length."
+  ],
+  "beginnerTips": [
+    "Shell = 5 double crochet worked into the same stitch or space.",
+    "Blocking helps the shells lie flat and evenly spaced.",
+    "Use a larger hook if your shells feel crowded or are curling."
+  ],
+  "commonMistakes": [
+    "Skipping the turning chain count, causing edges to narrow.",
+    "Forgetting to chain 3 at the start of each row."
+  ],
+  "keywords": [
+    "shawl",
+    "color-block-wrap",
+    "beginner",
+    "dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-baby-005",
+  "name": "Baby Bonnet",
+  "shortDescription": "A sweet baby bonnet with ribbon ties. Worked flat and seamed at the top.",
+  "imageUrl": "/assets/patterns/pattern-baby-005.webp",
+  "category": "Baby",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; baby construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 2,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 80,
+      "suggestedYardageMax": 120,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "baby",
+    "baby-bonnet",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-baby-006",
+  "name": "Baby Mittens",
+  "shortDescription": "Tiny mittens for newborns with a ribbon through the cuff to prevent loss.",
+  "imageUrl": "/assets/patterns/pattern-baby-006.webp",
+  "category": "Baby",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; baby construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 1.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "3 (DK/Light)",
+      "weightNumber": 3,
+      "suggestedYardageMin": 40,
+      "suggestedYardageMax": 60,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 4.5,
+      "sizeUS": "7",
+      "sizeUK": "7",
+      "notes": "Standard hook for 3 (DK/Light) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "baby",
+    "baby-mittens",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-baby-007",
+  "name": "Baby Cardigan",
+  "shortDescription": "A delicate baby cardigan with shell stitch edging and button closure.",
+  "imageUrl": "/assets/patterns/pattern-baby-007.webp",
+  "category": "Baby",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses dc stitches; baby construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "3 (DK/Light)",
+      "weightNumber": 3,
+      "suggestedYardageMin": 200,
+      "suggestedYardageMax": 300,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 4.5,
+      "sizeUS": "7",
+      "sizeUK": "7",
+      "notes": "Standard hook for 3 (DK/Light) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Double crochet (dc) in 4th chain from hook and each across. Turn.",
+    "**Row 2:** Chain 3 (counts as dc), dc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block to open the stitch pattern.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Shell = 5 double crochet worked into the same stitch or space.",
+    "Blocking helps the shells lie flat and evenly spaced.",
+    "Use a larger hook if your shells feel crowded or are curling.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Skipping the turning chain count, causing edges to narrow.",
+    "Forgetting to chain 3 at the start of each row."
+  ],
+  "keywords": [
+    "baby",
+    "baby-cardigan",
+    "intermediate",
+    "dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-baby-008",
+  "name": "Baby Bunting",
+  "shortDescription": "A cozy baby bunting sack for newborns. Keeps baby warm from head to toe.",
+  "imageUrl": "/assets/patterns/pattern-baby-008.webp",
+  "category": "Baby",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; baby construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 250,
+      "suggestedYardageMax": 350,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "baby",
+    "baby-bunting",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-baby-009",
+  "name": "Baby Romper",
+  "shortDescription": "A one-piece baby romper with snap closure at the bottom. Short sleeves for summer.",
+  "imageUrl": "/assets/patterns/pattern-baby-009.webp",
+  "category": "Baby",
+  "difficulty": {
+    "level": "advanced",
+    "score": 3,
+    "reasoning": "Uses sc stitches; baby construction."
+  },
+  "estimatedTime": {
+    "minHours": 4,
+    "maxHours": 6,
+    "unit": "hours",
+    "assumedSkill": "Advanced"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "3 (DK/Light)",
+      "weightNumber": 3,
+      "suggestedYardageMin": 200,
+      "suggestedYardageMax": 300,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 4.5,
+      "sizeUS": "7",
+      "sizeUK": "7",
+      "notes": "Standard hook for 3 (DK/Light) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch and block it before measuring.",
+    "Read through the entire pattern before beginning.",
+    "Use lifelines in lace patterns to avoid re-doing rows after mistakes."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "baby",
+    "baby-romper",
+    "advanced",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-toy-004",
+  "name": "Amigurumi Dog",
+  "shortDescription": "A floppy-eared amigurumi dog with a sweet face. Worked in spiral rounds.",
+  "imageUrl": "/assets/patterns/pattern-toy-004.webp",
+  "category": "Toy",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; toy construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 60,
+      "suggestedYardageMax": 100,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "toy",
+    "amigurumi-dog",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-toy-005",
+  "name": "Amigurumi Fox",
+  "shortDescription": "A cute fox amigurumi with orange and white coloring and a bushy tail.",
+  "imageUrl": "/assets/patterns/pattern-toy-005.webp",
+  "category": "Toy",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; toy construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 60,
+      "suggestedYardageMax": 100,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "toy",
+    "amigurumi-fox",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-toy-006",
+  "name": "Amigurumi Bear",
+  "shortDescription": "A classic teddy bear amigurumi with jointed limbs and a cute muzzle.",
+  "imageUrl": "/assets/patterns/pattern-toy-006.webp",
+  "category": "Toy",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; toy construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 4,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 80,
+      "suggestedYardageMax": 120,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "toy",
+    "amigurumi-bear",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-toy-007",
+  "name": "Amigurumi Penguin",
+  "shortDescription": "A chubby penguin amigurumi with a little beak and flippers. Great for nursery decor.",
+  "imageUrl": "/assets/patterns/pattern-toy-007.webp",
+  "category": "Toy",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; toy construction."
+  },
+  "estimatedTime": {
+    "minHours": 1.5,
+    "maxHours": 2.5,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 50,
+      "suggestedYardageMax": 80,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "toy",
+    "amigurumi-penguin",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-toy-008",
+  "name": "Amigurumi Dinosaur",
+  "shortDescription": "A friendly dinosaur amigurumi with spikes down its back. Soft and huggable.",
+  "imageUrl": "/assets/patterns/pattern-toy-008.webp",
+  "category": "Toy",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; toy construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 70,
+      "suggestedYardageMax": 110,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "toy",
+    "amigurumi-dinosaur",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-poncho-002",
+  "name": "Hooded Poncho",
+  "shortDescription": "A warm hooded poncho with fringe. Perfect for cool evenings. Uses bulky yarn.",
+  "imageUrl": "/assets/patterns/pattern-poncho-002.webp",
+  "category": "Poncho",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses dc stitches; poncho construction."
+  },
+  "estimatedTime": {
+    "minHours": 4,
+    "maxHours": 6,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 400,
+      "suggestedYardageMax": 500,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Double crochet (dc) in 4th chain from hook and each across. Turn.",
+    "**Row 2:** Chain 3 (counts as dc), dc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block to open the stitch pattern.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Shell = 5 double crochet worked into the same stitch or space.",
+    "Blocking helps the shells lie flat and evenly spaced.",
+    "Use a larger hook if your shells feel crowded or are curling.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Skipping the turning chain count, causing edges to narrow.",
+    "Forgetting to chain 3 at the start of each row."
+  ],
+  "keywords": [
+    "poncho",
+    "hooded-poncho",
+    "intermediate",
+    "dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-poncho-003",
+  "name": "Child Poncho",
+  "shortDescription": "A colorful poncho sized for children. Easy pullover style with no buttons.",
+  "imageUrl": "/assets/patterns/pattern-poncho-003.webp",
+  "category": "Poncho",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses dc stitches; poncho construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 200,
+      "suggestedYardageMax": 300,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Double crochet (dc) in 4th chain from hook and each across. Turn.",
+    "**Row 2:** Chain 3 (counts as dc), dc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block to open the stitch pattern."
+  ],
+  "beginnerTips": [
+    "Shell = 5 double crochet worked into the same stitch or space.",
+    "Blocking helps the shells lie flat and evenly spaced.",
+    "Use a larger hook if your shells feel crowded or are curling."
+  ],
+  "commonMistakes": [
+    "Skipping the turning chain count, causing edges to narrow.",
+    "Forgetting to chain 3 at the start of each row."
+  ],
+  "keywords": [
+    "poncho",
+    "child-poncho",
+    "beginner",
+    "dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-poncho-004",
+  "name": "Lace Poncho",
+  "shortDescription": "A lightweight lace poncho for summer evenings. Airy shell stitch pattern.",
+  "imageUrl": "/assets/patterns/pattern-poncho-004.webp",
+  "category": "Poncho",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses dc and lace stitches; poncho construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "3 (DK/Light)",
+      "weightNumber": 3,
+      "suggestedYardageMin": 250,
+      "suggestedYardageMax": 350,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 4.5,
+      "sizeUS": "7",
+      "sizeUK": "7",
+      "notes": "Standard hook for 3 (DK/Light) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc-lace",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Dc in 4th chain from hook, *chain 1, skip 1, dc in next.* Repeat across. Turn.",
+    "**Row 2:** Chain 3, dc in first dc. *Chain 1, dc in next dc.* Repeat across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Border:** Work single crochet evenly around edges, with a picot edge (sc, ch 3, sc) in each corner.",
+    "**Finishing:** Fasten off, weave in ends. Wet block to open the lace pattern."
+  ],
+  "beginnerTips": [
+    "The chain-1 spaces create the lace effect\u2014keep them even in size.",
+    "Blocking is essential for lace patterns; it opens up the design.",
+    "Use stitch markers every 10-20 pattern repeats to stay on track.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Losing track of the chain-1 spaces in the lace repeat.",
+    "Not blocking the finished piece to open up the lace pattern."
+  ],
+  "keywords": [
+    "poncho",
+    "lace-poncho",
+    "intermediate",
+    "dc-lace",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-slippers-002",
+  "name": "Ballet Slippers",
+  "shortDescription": "Dainty ballet-style slippers with a crossover strap. Worked in soft cotton.",
+  "imageUrl": "/assets/patterns/pattern-slippers-002.webp",
+  "category": "Slippers",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; slippers construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 150,
+      "suggestedYardageMax": 200,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "slippers",
+    "ballet-slippers",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-slippers-003",
+  "name": "Moccasin Slippers",
+  "shortDescription": "Cozy moccasin-style slippers with a leather-look sole. Warm wool blend.",
+  "imageUrl": "/assets/patterns/pattern-slippers-003.webp",
+  "category": "Slippers",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; slippers construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 4,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "5 (Bulky)",
+      "weightNumber": 5,
+      "suggestedYardageMin": 200,
+      "suggestedYardageMax": 300,
+      "fiberType": [
+        "Wool",
+        "Acrylic"
+      ],
+      "notes": "Wool Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 6.5,
+      "sizeUS": "K-10.5",
+      "sizeUK": "4",
+      "notes": "Standard hook for 5 (Bulky) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "slippers",
+    "moccasin-slippers",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-slippers-004",
+  "name": "Bootie Slippers",
+  "shortDescription": "Ankle-high bootie slippers with a ribbed cuff. Keep feet warm on cold floors.",
+  "imageUrl": "/assets/patterns/pattern-slippers-004.webp",
+  "category": "Slippers",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses hdc and blo stitches; slippers construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 4,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 200,
+      "suggestedYardageMax": 250,
+      "fiberType": [
+        "Acrylic",
+        "Wool"
+      ],
+      "notes": "Acrylic Wool yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "hdc-blo",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Half double crochet (hdc) in 3rd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 2, turn. Hdc in back loop only of each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length. The back-loop-only creates a ribbed texture.",
+    "**Finishing:** Fasten off, weave in ends.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Back-loop-only hdc creates a ribbed texture similar to knitting.",
+    "The chain 2 at the start counts as a stitch.",
+    "This stitch pattern is very forgiving for beginners learning texture work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Working through both loops instead of back loop only.",
+    "Losing the ribbed effect when tension varies."
+  ],
+  "keywords": [
+    "slippers",
+    "bootie-slippers",
+    "intermediate",
+    "hdc-blo",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-accessories-005",
+  "name": "Fingerless Gloves",
+  "shortDescription": "Classic fingerless gloves with a ribbed cuff. Keep hands warm while leaving fingers free.",
+  "imageUrl": "/assets/patterns/pattern-accessories-005.webp",
+  "category": "Accessories",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses hdc and blo stitches; accessories construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 120,
+      "suggestedYardageMax": 180,
+      "fiberType": [
+        "Acrylic",
+        "Wool"
+      ],
+      "notes": "Acrylic Wool yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "hdc-blo",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Half double crochet (hdc) in 3rd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 2, turn. Hdc in back loop only of each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length. The back-loop-only creates a ribbed texture.",
+    "**Finishing:** Fasten off, weave in ends.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Back-loop-only hdc creates a ribbed texture similar to knitting.",
+    "The chain 2 at the start counts as a stitch.",
+    "This stitch pattern is very forgiving for beginners learning texture work."
+  ],
+  "commonMistakes": [
+    "Working through both loops instead of back loop only.",
+    "Losing the ribbed effect when tension varies."
+  ],
+  "keywords": [
+    "accessories",
+    "fingerless-gloves",
+    "beginner",
+    "hdc-blo",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-accessories-006",
+  "name": "Wrist Warmers",
+  "shortDescription": "Short wrist warmers that cover the palm and wrist. Quick and useful for chilly offices.",
+  "imageUrl": "/assets/patterns/pattern-accessories-006.webp",
+  "category": "Accessories",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; accessories construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 1.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "3 (DK/Light)",
+      "weightNumber": 3,
+      "suggestedYardageMin": 60,
+      "suggestedYardageMax": 80,
+      "fiberType": [
+        "Cotton",
+        "Acrylic"
+      ],
+      "notes": "Cotton Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 4.5,
+      "sizeUS": "7",
+      "sizeUK": "7",
+      "notes": "Standard hook for 3 (DK/Light) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "accessories",
+    "wrist-warmers",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-accessories-007",
+  "name": "Arm Warmers",
+  "shortDescription": "Long arm warmers reaching from wrist to elbow. Worked in the round.",
+  "imageUrl": "/assets/patterns/pattern-accessories-007.webp",
+  "category": "Accessories",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses hdc stitches; accessories construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 150,
+      "suggestedYardageMax": 200,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "hdc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain length needed for project width.",
+    "**Row 1:** Half double crochet (hdc) in 3rd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 2 (counts as first hdc), hdc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends."
+  ],
+  "beginnerTips": [
+    "The chain 2 at the start of each row counts as the first half-double crochet.",
+    "Half-double crochet creates a nice middle ground between sc and dc.",
+    "Count your stitches each row to keep edges straight."
+  ],
+  "commonMistakes": [
+    "Forgetting the chain-2 turning chain counts as a stitch.",
+    "Working through the wrong loop when the pattern specifies."
+  ],
+  "keywords": [
+    "accessories",
+    "arm-warmers",
+    "beginner",
+    "hdc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-accessories-008",
+  "name": "Infinity Cowl",
+  "shortDescription": "A seamless infinity cowl worked in the round. Alternating stitch patterns for visual interest.",
+  "imageUrl": "/assets/patterns/pattern-accessories-008.webp",
+  "category": "Accessories",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc and dc stitches; accessories construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 200,
+      "suggestedYardageMax": 250,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc-dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Double crochet (dc) in each stitch across. Turn.",
+    "**Row 3:** Chain 1, turn. Single crochet in each stitch across. Turn."
+  ],
+  "beginnerTips": [
+    "Alternating sc and dc rows creates a nice textured fabric.",
+    "Count your stitches every row\u2014the switch between stitch types makes it easy to drop a stitch.",
+    "Mark your starting chain with a stitch marker so you don't lose count."
+  ],
+  "commonMistakes": [
+    "Losing stitch count when switching between sc and dc.",
+    "Forgetting which row pattern you're on without a row counter."
+  ],
+  "keywords": [
+    "accessories",
+    "infinity-cowl",
+    "beginner",
+    "sc-dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-accessories-009",
+  "name": "Neck Warmer",
+  "shortDescription": "A short neck warmer that sits close to the neck. Quick project using bulky yarn.",
+  "imageUrl": "/assets/patterns/pattern-accessories-009.webp",
+  "category": "Accessories",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses hdc stitches; accessories construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 1.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "5 (Bulky)",
+      "weightNumber": 5,
+      "suggestedYardageMin": 80,
+      "suggestedYardageMax": 120,
+      "fiberType": [
+        "Acrylic",
+        "Wool"
+      ],
+      "notes": "Acrylic Wool yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 6.5,
+      "sizeUS": "K-10.5",
+      "sizeUK": "4",
+      "notes": "Standard hook for 5 (Bulky) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "hdc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain length needed for project width.",
+    "**Row 1:** Half double crochet (hdc) in 3rd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 2 (counts as first hdc), hdc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length."
+  ],
+  "beginnerTips": [
+    "The chain 2 at the start of each row counts as the first half-double crochet.",
+    "Half-double crochet creates a nice middle ground between sc and dc.",
+    "Count your stitches each row to keep edges straight."
+  ],
+  "commonMistakes": [
+    "Forgetting the chain-2 turning chain counts as a stitch.",
+    "Working through the wrong loop when the pattern specifies."
+  ],
+  "keywords": [
+    "accessories",
+    "neck-warmer",
+    "beginner",
+    "hdc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-home-005",
+  "name": "Decorative Pillow",
+  "shortDescription": "A 16-inch square pillow cover with a textured stitch pattern. Hidden zipper closure.",
+  "imageUrl": "/assets/patterns/pattern-home-005.webp",
+  "category": "Home Decor",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc and dc stitches; home decor construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 300,
+      "suggestedYardageMax": 400,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc-dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Double crochet (dc) in each stitch across. Turn.",
+    "**Row 3:** Chain 1, turn. Single crochet in each stitch across. Turn.",
+    "**Repeat Rows 2-3:** Alternate until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends."
+  ],
+  "beginnerTips": [
+    "Alternating sc and dc rows creates a nice textured fabric.",
+    "Count your stitches every row\u2014the switch between stitch types makes it easy to drop a stitch.",
+    "Mark your starting chain with a stitch marker so you don't lose count.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Losing stitch count when switching between sc and dc.",
+    "Forgetting which row pattern you're on without a row counter."
+  ],
+  "keywords": [
+    "home decor",
+    "decorative-pillow",
+    "intermediate",
+    "sc-dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-home-006",
+  "name": "Curtain Tiebacks",
+  "shortDescription": "A set of two crocheted curtain tiebacks with button closures. Adds charm to any room.",
+  "imageUrl": "/assets/patterns/pattern-home-006.webp",
+  "category": "Home Decor",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; home decor construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 1.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 40,
+      "suggestedYardageMax": 60,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "home decor",
+    "curtain-tiebacks",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-home-007",
+  "name": "Tablecloth",
+  "shortDescription": "An oval tablecloth with a central lace panel. Fits a standard dining table.",
+  "imageUrl": "/assets/patterns/pattern-home-007.webp",
+  "category": "Home Decor",
+  "difficulty": {
+    "level": "advanced",
+    "score": 3,
+    "reasoning": "Uses dc and lace stitches; home decor construction."
+  },
+  "estimatedTime": {
+    "minHours": 8,
+    "maxHours": 12,
+    "unit": "hours",
+    "assumedSkill": "Advanced"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "3 (DK/Light)",
+      "weightNumber": 3,
+      "suggestedYardageMin": 600,
+      "suggestedYardageMax": 800,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 4.5,
+      "sizeUS": "7",
+      "sizeUK": "7",
+      "notes": "Standard hook for 3 (DK/Light) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc-lace",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Dc in 4th chain from hook, *chain 1, skip 1, dc in next.* Repeat across. Turn.",
+    "**Row 2:** Chain 3, dc in first dc. *Chain 1, dc in next dc.* Repeat across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Border:** Work single crochet evenly around edges, with a picot edge (sc, ch 3, sc) in each corner.",
+    "**Finishing:** Fasten off, weave in ends. Wet block to open the lace pattern.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "The chain-1 spaces create the lace effect\u2014keep them even in size.",
+    "Blocking is essential for lace patterns; it opens up the design.",
+    "Use stitch markers every 10-20 pattern repeats to stay on track.",
+    "Always make a gauge swatch and block it before measuring.",
+    "Read through the entire pattern before beginning.",
+    "Use lifelines in lace patterns to avoid re-doing rows after mistakes."
+  ],
+  "commonMistakes": [
+    "Losing track of the chain-1 spaces in the lace repeat.",
+    "Not blocking the finished piece to open up the lace pattern."
+  ],
+  "keywords": [
+    "home decor",
+    "tablecloth",
+    "advanced",
+    "dc-lace",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-home-008",
+  "name": "Crocheted Wall Hanging",
+  "shortDescription": "A boho wall hanging with tassels. Worked on a wooden dowel with fringe.",
+  "imageUrl": "/assets/patterns/pattern-home-008.webp",
+  "category": "Home Decor",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; home decor construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 150,
+      "suggestedYardageMax": 200,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "home decor",
+    "crocheted-wall-hanging",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-dishcloth-005",
+  "name": "Lace Edge Dishcloth",
+  "shortDescription": "A practical dishcloth with a decorative lace edge on two sides.",
+  "imageUrl": "/assets/patterns/pattern-dishcloth-005.webp",
+  "category": "Dishcloth",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; dishcloth construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 1.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 60,
+      "suggestedYardageMax": 80,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "dishcloth",
+    "lace-edge-dishcloth",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-dishcloth-006",
+  "name": "Color Block Dishcloth",
+  "shortDescription": "A dishcloth with horizontal color blocks. Great for using up cotton scraps.",
+  "imageUrl": "/assets/patterns/pattern-dishcloth-006.webp",
+  "category": "Dishcloth",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; dishcloth construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 1.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 50,
+      "suggestedYardageMax": 70,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "dishcloth",
+    "color-block-dishcloth",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-dishcloth-007",
+  "name": "Diagonal Dishcloth",
+  "shortDescription": "A dishcloth worked diagonally from corner to corner. Modern look with basic stitches.",
+  "imageUrl": "/assets/patterns/pattern-dishcloth-007.webp",
+  "category": "Dishcloth",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; dishcloth construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 1.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 50,
+      "suggestedYardageMax": 70,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "dishcloth",
+    "diagonal-dishcloth",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-coaster-006",
+  "name": "Square Coasters Set",
+  "shortDescription": "A set of 4 matching square coasters with a textured center and scalloped edge.",
+  "imageUrl": "/assets/patterns/pattern-coaster-006.webp",
+  "category": "Coaster",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; coaster construction."
+  },
+  "estimatedTime": {
+    "minHours": 0.5,
+    "maxHours": 1,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 40,
+      "suggestedYardageMax": 60,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "coaster",
+    "square-coasters-set",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-coaster-007",
+  "name": "Star Coaster",
+  "shortDescription": "A star-shaped coaster worked in the round. Makes a set of 4 for a unique table setting.",
+  "imageUrl": "/assets/patterns/pattern-coaster-007.webp",
+  "category": "Coaster",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; coaster construction."
+  },
+  "estimatedTime": {
+    "minHours": 0.5,
+    "maxHours": 1,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 30,
+      "suggestedYardageMax": 40,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "coaster",
+    "star-coaster",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-mugcozy-003",
+  "name": "Striped Mug Cozy",
+  "shortDescription": "A colorful striped mug cozy with a button closure. Quick scrap-buster project.",
+  "imageUrl": "/assets/patterns/pattern-mugcozy-003.webp",
+  "category": "Mug cozy",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; mug cozy construction."
+  },
+  "estimatedTime": {
+    "minHours": 0.5,
+    "maxHours": 1,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 30,
+      "suggestedYardageMax": 50,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "mug cozy",
+    "striped-mug-cozy",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-mugcozy-004",
+  "name": "Fair Isle Mug Cozy",
+  "shortDescription": "A mug cozy with a stranded colorwork pattern. Fits standard ceramic mugs.",
+  "imageUrl": "/assets/patterns/pattern-mugcozy-004.webp",
+  "category": "Mug cozy",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; mug cozy construction."
+  },
+  "estimatedTime": {
+    "minHours": 0.5,
+    "maxHours": 1,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 30,
+      "suggestedYardageMax": 50,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "mug cozy",
+    "fair-isle-mug-cozy",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-granny-008",
+  "name": "Flower Granny Square",
+  "shortDescription": "A 3D flower granny square with raised petals around a colorful center.",
+  "imageUrl": "/assets/patterns/pattern-granny-008.webp",
+  "category": "Granny square",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses dc stitches; granny square construction."
+  },
+  "estimatedTime": {
+    "minHours": 0.5,
+    "maxHours": 1,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 30,
+      "suggestedYardageMax": 50,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Double crochet (dc) in 4th chain from hook and each across. Turn.",
+    "**Row 2:** Chain 3 (counts as dc), dc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block to open the stitch pattern.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Shell = 5 double crochet worked into the same stitch or space.",
+    "Blocking helps the shells lie flat and evenly spaced.",
+    "Use a larger hook if your shells feel crowded or are curling.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Skipping the turning chain count, causing edges to narrow.",
+    "Forgetting to chain 3 at the start of each row."
+  ],
+  "keywords": [
+    "granny square",
+    "flower-granny-square",
+    "intermediate",
+    "dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-granny-009",
+  "name": "Heart Granny Square",
+  "shortDescription": "A granny square with a heart motif in the center. Perfect for Valentine's projects.",
+  "imageUrl": "/assets/patterns/pattern-granny-009.webp",
+  "category": "Granny square",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses dc stitches; granny square construction."
+  },
+  "estimatedTime": {
+    "minHours": 0.5,
+    "maxHours": 1,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 30,
+      "suggestedYardageMax": 50,
+      "fiberType": [
+        "Cotton",
+        "Acrylic"
+      ],
+      "notes": "Cotton Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Double crochet (dc) in 4th chain from hook and each across. Turn.",
+    "**Row 2:** Chain 3 (counts as dc), dc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block to open the stitch pattern.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Shell = 5 double crochet worked into the same stitch or space.",
+    "Blocking helps the shells lie flat and evenly spaced.",
+    "Use a larger hook if your shells feel crowded or are curling.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Skipping the turning chain count, causing edges to narrow.",
+    "Forgetting to chain 3 at the start of each row."
+  ],
+  "keywords": [
+    "granny square",
+    "heart-granny-square",
+    "intermediate",
+    "dc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-headband-003",
+  "name": "Ear Warmer Headband",
+  "shortDescription": "A wide ear warmer headband that covers the ears. Uses half-double crochet for warmth.",
+  "imageUrl": "/assets/patterns/pattern-headband-003.webp",
+  "category": "Headband",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses hdc stitches; headband construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 1.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 60,
+      "suggestedYardageMax": 80,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "hdc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain length needed for project width.",
+    "**Row 1:** Half double crochet (hdc) in 3rd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 2 (counts as first hdc), hdc in each stitch across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends."
+  ],
+  "beginnerTips": [
+    "The chain 2 at the start of each row counts as the first half-double crochet.",
+    "Half-double crochet creates a nice middle ground between sc and dc.",
+    "Count your stitches each row to keep edges straight."
+  ],
+  "commonMistakes": [
+    "Forgetting the chain-2 turning chain counts as a stitch.",
+    "Working through the wrong loop when the pattern specifies."
+  ],
+  "keywords": [
+    "headband",
+    "ear-warmer-headband",
+    "beginner",
+    "hdc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-headband-004",
+  "name": "Turban Headband",
+  "shortDescription": "A stylish twisted turban headband with a built-in knot. One-piece construction.",
+  "imageUrl": "/assets/patterns/pattern-headband-004.webp",
+  "category": "Headband",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; headband construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 2,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 80,
+      "suggestedYardageMax": 120,
+      "fiberType": [
+        "Acrylic"
+      ],
+      "notes": "Acrylic yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "headband",
+    "turban-headband",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-bookmark-004",
+  "name": "Heart Bookmark",
+  "shortDescription": "A sweet bookmark with a heart motif at the top. Quick gift for book lovers.",
+  "imageUrl": "/assets/patterns/pattern-bookmark-004.webp",
+  "category": "Bookmark",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; bookmark construction."
+  },
+  "estimatedTime": {
+    "minHours": 0.5,
+    "maxHours": 1,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 15,
+      "suggestedYardageMax": 25,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "bookmark",
+    "heart-bookmark",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-keychain-004",
+  "name": "Star Keychain",
+  "shortDescription": "A small star-shaped keychain. Quick make for gifts or market stall.",
+  "imageUrl": "/assets/patterns/pattern-keychain-004.webp",
+  "category": "Keychain",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; keychain construction."
+  },
+  "estimatedTime": {
+    "minHours": 0.25,
+    "maxHours": 0.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 5,
+      "suggestedYardageMax": 10,
+      "fiberType": [
+        "Acrylic",
+        "Cotton"
+      ],
+      "notes": "Acrylic Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "keychain",
+    "star-keychain",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-baby-blanket-004",
+  "name": "Baby Lace Blanket",
+  "shortDescription": "A lightweight baby blanket with a delicate lace border. Perfect for spring babies.",
+  "imageUrl": "/assets/patterns/pattern-baby-blanket-004.webp",
+  "category": "Baby blanket square",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses dc and lace stitches; baby blanket square construction."
+  },
+  "estimatedTime": {
+    "minHours": 4,
+    "maxHours": 6,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "3 (DK/Light)",
+      "weightNumber": 3,
+      "suggestedYardageMin": 350,
+      "suggestedYardageMax": 450,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 4.5,
+      "sizeUS": "7",
+      "sizeUK": "7",
+      "notes": "Standard hook for 3 (DK/Light) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "dc-lace",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Dc in 4th chain from hook, *chain 1, skip 1, dc in next.* Repeat across. Turn.",
+    "**Row 2:** Chain 3, dc in first dc. *Chain 1, dc in next dc.* Repeat across. Turn.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Border:** Work single crochet evenly around edges, with a picot edge (sc, ch 3, sc) in each corner.",
+    "**Finishing:** Fasten off, weave in ends. Wet block to open the lace pattern."
+  ],
+  "beginnerTips": [
+    "The chain-1 spaces create the lace effect\u2014keep them even in size.",
+    "Blocking is essential for lace patterns; it opens up the design.",
+    "Use stitch markers every 10-20 pattern repeats to stay on track.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Losing track of the chain-1 spaces in the lace repeat.",
+    "Not blocking the finished piece to open up the lace pattern."
+  ],
+  "keywords": [
+    "baby blanket square",
+    "baby-lace-blanket",
+    "intermediate",
+    "dc-lace",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-tote-005",
+  "name": "Convertible Tote",
+  "shortDescription": "A tote bag that converts from a shoulder bag to a crossbody with a longer strap.",
+  "imageUrl": "/assets/patterns/pattern-tote-005.webp",
+  "category": "Beginner tote",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; beginner tote construction."
+  },
+  "estimatedTime": {
+    "minHours": 3,
+    "maxHours": 5,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 250,
+      "suggestedYardageMax": 350,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation:** Make a magic ring.",
+    "**Round 1:** Chain 1, work 6 single crochet (sc) into ring. Join. (6 sc)",
+    "**Round 2:** Chain 1, *2 sc in each stitch.* Repeat around. Join. (12 sc)",
+    "**Round 3:** Chain 1, *sc in next, 2 sc in next.* Repeat around. Join.",
+    "**Continue increasing** until piece is desired width, then work even in sc rounds.",
+    "**Finishing:** Fasten off, weave in ends. Block to shape."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "beginner tote",
+    "convertible-tote",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-plant-hanger-004",
+  "name": "Macrame Pot Holder",
+  "shortDescription": "A knotted pot holder using chains and slip stitches. Holds standard 4-inch pots.",
+  "imageUrl": "/assets/patterns/pattern-plant-hanger-004.webp",
+  "category": "Small plant hanger",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses ch and sc stitches; small plant hanger construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 1.5,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 60,
+      "suggestedYardageMax": 80,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "ch-sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "small plant hanger",
+    "macrame-pot-holder",
+    "beginner",
+    "ch-sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-water-bottle-004",
+  "name": "Insulated Bottle Carrier",
+  "shortDescription": "A carrier for a large water bottle with an insulated inner layer. Crossbody strap.",
+  "imageUrl": "/assets/patterns/pattern-water-bottle-004.webp",
+  "category": "Water bottle holder",
+  "difficulty": {
+    "level": "intermediate",
+    "score": 2,
+    "reasoning": "Uses sc stitches; water bottle holder construction."
+  },
+  "estimatedTime": {
+    "minHours": 2,
+    "maxHours": 3,
+    "unit": "hours",
+    "assumedSkill": "Intermediate"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 100,
+      "suggestedYardageMax": 150,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work.",
+    "Always make a gauge swatch before starting.",
+    "Read through the entire pattern before beginning."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "water bottle holder",
+    "insulated-bottle-carrier",
+    "intermediate",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-eyeglass-004",
+  "name": "Two-Tone Glasses Case",
+  "shortDescription": "A stylish two-color glasses case with a flap closure and button.",
+  "imageUrl": "/assets/patterns/pattern-eyeglass-004.webp",
+  "category": "Eyeglass case",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; eyeglass case construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 2,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 50,
+      "suggestedYardageMax": 70,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "eyeglass case",
+    "two-tone-glasses-case",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-phone-004",
+  "name": "Crossbody Phone Pouch",
+  "shortDescription": "A slim phone pouch worn crossbody. Fits most smartphones with a card slot.",
+  "imageUrl": "/assets/patterns/pattern-phone-004.webp",
+  "category": "Cell phone case",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses sc stitches; cell phone case construction."
+  },
+  "estimatedTime": {
+    "minHours": 1,
+    "maxHours": 2,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 60,
+      "suggestedYardageMax": 80,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "sc",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain to desired width.",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. Turn.",
+    "**Row 2:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Repeat Row 2:** Continue until piece reaches desired length.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly.",
+    "**Continue:** Repeat established pattern until piece reaches desired size."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "cell phone case",
+    "crossbody-phone-pouch",
+    "beginner",
+    "sc",
+    "crochet"
+  ]
+},
+{
+  "id": "pattern-wristband-004",
+  "name": "Braided Wristband",
+  "shortDescription": "A braided-look wristband made from three crocheted cords braided together.",
+  "imageUrl": "/assets/patterns/pattern-wristband-004.webp",
+  "category": "Wristband",
+  "difficulty": {
+    "level": "beginner",
+    "score": 1,
+    "reasoning": "Uses chain stitches; wristband construction."
+  },
+  "estimatedTime": {
+    "minHours": 0.5,
+    "maxHours": 1,
+    "unit": "hours",
+    "assumedSkill": "Beginner"
+  },
+  "materials": {
+    "yarn": {
+      "weightCategory": "4 (Medium)",
+      "weightNumber": 4,
+      "suggestedYardageMin": 15,
+      "suggestedYardageMax": 25,
+      "fiberType": [
+        "Cotton"
+      ],
+      "notes": "Cotton yarn works best for this project."
+    },
+    "hook": {
+      "sizeMM": 5.0,
+      "sizeUS": "H-8",
+      "sizeUK": "6",
+      "notes": "Standard hook for 4 (Medium) yarn."
+    },
+    "notions": [
+      "Yarn needle",
+      "Scissors"
+    ]
+  },
+  "gauge": {
+    "stitches": 14,
+    "rows": 14,
+    "unit": "4 inches",
+    "stitchPattern": "chain",
+    "notes": "Gauge is not critical for this project."
+  },
+  "instructions": [
+    "**Foundation Chain:** Chain 60 (or desired length).",
+    "**Row 1:** Single crochet (sc) in 2nd chain from hook and each chain across. Turn.",
+    "**Rows 2-4:** Chain 1, turn. Single crochet in each stitch across.",
+    "**Finishing:** Fasten off, weave in ends. Block lightly to flatten."
+  ],
+  "beginnerTips": [
+    "Count your stitches at the end of every row to keep edges straight.",
+    "Keep your tension relaxed; tight stitches make the fabric stiff.",
+    "Use a stitch marker to mark the right side of your work."
+  ],
+  "commonMistakes": [
+    "Accidentally skipping the first or last stitch of a row.",
+    "Using the wrong hook size, resulting in stiff or loose fabric."
+  ],
+  "keywords": [
+    "wristband",
+    "braided-wristband",
+    "beginner",
+    "chain",
+    "crochet"
+  ]
+},
 ];
