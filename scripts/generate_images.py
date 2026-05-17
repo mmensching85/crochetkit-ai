@@ -64,7 +64,7 @@ CATEGORY_CONTEXT = {
     "Headband":           "crocheted headband laid flat on wooden surface",
     "Granny square":      "colorful granny square crochet motif flat lay",
     "Shawl":              "lacy crocheted shawl draped over a chair",
-    "Accessories":        "handmade crocheted accessory on neutral background",
+    "Accessories":        "specific crocheted accessory item like gloves cowl or warmers displayed as main subject",
     "Home Decor":         "crocheted home decoration item in a cozy interior",
     "Bookmark":           "slim crocheted bookmark with tassel detail",
     "Keychain":           "small crocheted keychain charm",
