@@ -227,6 +227,7 @@ app.get('/api/patterns', (req, res) => {
             estimated_min_hours: p.estimatedTime.minHours,
             estimated_max_hours: p.estimatedTime.maxHours,
             printable_summary: p.shortDescription,
+            instructions: p.instructions,
         }));
         res.json(formatted);
     } catch (error) {
