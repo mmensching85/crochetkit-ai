@@ -2,6 +2,8 @@
 // Max 100 entries, each entry expires after 1 hour (TTL)
 const CACHE_MAX_SIZE = 100;
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
+const NEW_PATTERN_ID_THRESHOLD = 58; // Patterns with ID > 58 are considered 'new'
+const NEW_PATTERN_BONUS = 1.0; // Bonus points for new patterns
 
 // Map preserves insertion order; we will treat the first entry as LRU
 const _cache = new Map();
@@ -116,8 +118,8 @@ function matchPattern(userInput, patterns) {
         score += 3;
         details.criteria.push({ name: "yarnWeight", met: true, points: 3, info: `Matched ${matchingYarns.length} yarn(s) to this weight` });
       } else {
-        score += 1.5;
-        details.criteria.push({ name: "yarnWeight", met: true, points: 1.5, info: `Close weight match via ${matchingYarns.length} yarn(s)` });
+        score += 1.0;
+        details.criteria.push({ name: "yarnWeight", met: true, points: 1.0, info: `Close weight match via ${matchingYarns.length} yarn(s)` });
       }
 
       details.matchedYarns = matchingYarns.map(y => y.name || `Weight ${y.weightNumber}`);
@@ -131,8 +133,8 @@ function matchPattern(userInput, patterns) {
         score += 3;
         details.criteria.push({ name: "yarnWeight", met: true, points: 3 });
       } else if (wDiff === 1) {
-        score += 1.5;
-        details.criteria.push({ name: "yarnWeight", met: true, points: 1.5,
+        score += 1.0;
+        details.criteria.push({ name: "yarnWeight", met: true, points: 1.0,
           info: `Close match: pattern uses weight ${patternWeight}, you have ${effWeight}` });
       } else {
         details.criteria.push({ name: "yarnWeight", met: false, points: 0,
@@ -143,10 +145,20 @@ function matchPattern(userInput, patterns) {
     // Yardage scoring (uses combined yardage for multi-yarn)
     if (effYardage >= minYardage) {
       const excess = effYardage - idealYardage;
-      score += (excess >= 0 && excess <= 50) ? 2 : 1;
+      let yardagePoints = 2; // Default for sufficient but not ample
+      let yardageInfo = `Yardage sufficient (${effYardage} yds)`;
+
+      if (effYardage >= idealYardage * 1.5) {
+        yardagePoints = 2.5; // Bonus for significantly more yarn
+        yardageInfo = `Ample yardage (${effYardage} yds) for this pattern!`;
+      } else if (excess >= 0 && excess <= 50) {
+        yardagePoints = 2; // Perfect yardage match
+        yardageInfo = `Perfect yardage match!`;
+      }
+      score += yardagePoints;
       details.criteria.push({
-        name: "yardage", met: true, points: (excess >= 0 && excess <= 50) ? 2 : 1,
-        info: (excess >= 0 && excess <= 50) ? `Perfect yardage match!` : `Yardage sufficient (${effYardage} yds)`
+        name: "yardage", met: true, points: yardagePoints,
+        info: yardageInfo
       });
     } else {
       details.criteria.push({
@@ -154,6 +166,7 @@ function matchPattern(userInput, patterns) {
         info: `You have ${effYardage} yds, pattern needs at least ${minYardage} yds`
       });
     }
+
 
     // Hook scoring
     if (!userInput.hookSizeUnknown && pattern.materials?.hook && effHook !== null && effHook !== undefined) {
@@ -202,6 +215,12 @@ function matchPattern(userInput, patterns) {
       details.criteria.push({ name: "difficultyFit", met: true, points: Math.abs(pattern.difficulty.score - uDiff) <= 1 ? 1 : 0.5 });
     }
 
+    // New pattern bonus
+    if (parseInt(pattern.id) > NEW_PATTERN_ID_THRESHOLD) {
+      score += NEW_PATTERN_BONUS;
+      details.criteria.push({ name: "newPatternBonus", met: true, points: NEW_PATTERN_BONUS, info: "Bonus for new pattern!" });
+    }
+
     scoredPatterns.push({ pattern, score, details, effYardage, effHook });
   }
 
@@ -211,7 +230,7 @@ function matchPattern(userInput, patterns) {
 
   scoredPatterns.sort((a, b) => b.score - a.score);
   const bestScore = scoredPatterns[0].score;
-  const topPatterns = scoredPatterns.filter(p => p.score >= bestScore - 1).slice(0, 4);
+  const topPatterns = scoredPatterns.filter(p => p.score >= bestScore - 2).slice(0, 4);
 
   const results = topPatterns.map(({ pattern, score, details, effYardage, effHook }) => {
     const minY = pattern.materials?.yarn?.suggestedYardageMin ?? 0;
@@ -269,36 +288,51 @@ function reverseMatch(pattern, yarns) {
   }
 
   // Evaluate each yarn individually
-  const individualMatches = (yarns || []).map(yarn => {
-    const wDiff = Math.abs(patternWeight - yarn.weight);
-    const weightMatch = wDiff <= 1;
-    const yardageMatch = yarn.yardage >= minYardage;
-    return {
-      yarn: { id: yarn.id, name: yarn.name || `Weight ${yarn.weight}`, weight: yarn.weight, yardage: yarn.yardage, hook: yarn.hook, notes: yarn.notes },
-      weightMatch,
-      yardageMatch,
-      wDiff,
-      overall: weightMatch && yardageMatch
-    };
+    const patternHookSizeMM = pattern.materials?.hook?.sizeMM;
+
+    const individualMatches = (yarns || []).map(yarn => {
+      const wDiff = Math.abs(patternWeight - yarn.weight);
+      const weightMatch = wDiff <= 1;
+      const yardageMatch = yarn.yardage >= minYardage;
+
+      let hookMatch = false;
+      let hookDiff = null;
+      if (patternHookSizeMM && yarn.hook) {
+        hookDiff = Math.abs(patternHookSizeMM - yarn.hook);
+        hookMatch = hookDiff <= 1.0; // Allow 1.0mm tolerance for reverse match
+      }
+
+      return {
+        yarn: { id: yarn.id, name: yarn.name || `Weight ${yarn.weight}`, weight: yarn.weight, yardage: yarn.yardage, hook: yarn.hook, notes: yarn.notes },
+        weightMatch,
+        yardageMatch,
+        hookMatch,
+        wDiff,
+        hookDiff,
+        overall: weightMatch && yardageMatch && (!patternHookSizeMM || hookMatch)
+      };
   });
 
   // Combined: sum yardage of all matching-weight yarns
   const matchingWeight = individualMatches.filter(m => m.weightMatch);
   const totalYardage = matchingWeight.reduce((sum, m) => sum + m.yarn.yardage, 0);
   const enough = totalYardage >= minYardage;
+  const hasMatchingHook = matchingWeight.some(m => m.hookMatch); // At least one compatible hook
 
   return {
     patternWeight,
     minYardage,
     maxYardage,
+    patternHookSizeMM,
     individualMatches,
     combinedMatch: {
       matchingWeightYarns: matchingWeight.length,
       totalYardage,
       enough,
-      reason: enough
-        ? `You have ${totalYardage} yds across ${matchingWeight.length} yarn(s) — enough!`
-        : `You have ${totalYardage} yds across ${matchingWeight.length} yarn(s), need ${minYardage} yds total.`
+      hasMatchingHook,
+        reason: enough
+          ? `You have ${totalYardage} yds across ${matchingWeight.length} yarn(s)${hasMatchingHook ? ' with a compatible hook' : ''} — enough!`
+          : `You have ${totalYardage} yds across ${matchingWeight.length} yarn(s), need ${minYardage} yds total.${!hasMatchingHook && patternHookSizeMM ? ' (Also consider a ' + patternHookSizeMM + 'mm hook)' : ''}`
     }
   };
 }
