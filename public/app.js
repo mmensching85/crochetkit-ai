@@ -214,26 +214,7 @@ async function renderWhatsNew() {
 const FAVES_KEY = 'crochetkit-faves';
 const DONE_KEY = 'crochetkit-done';
 
-async function getFaves() {
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    try {
-      const response = await fetch('/api/auth/favorites', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (response.ok) {
-        const data = await response.json();
-        return data.favorites || [];
-      } else if (response.status === 401) {
-        localStorage.removeItem('authToken');
-        updateAuthUI();
-      }
-    } catch (e) {
-      console.error('Failed to load favorites from cloud:', e);
-    }
-  }
+function getFaves() {
   try { return JSON.parse(localStorage.getItem(FAVES_KEY)) || []; } catch(e) { return []; }
 }
 
@@ -333,26 +314,7 @@ async function isFaved(id) {
   return faves.includes(id); 
 }
 
-async function getDone() {
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    try {
-      const response = await fetch('/api/auth/profile', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (response.ok) {
-        const userProfile = await response.json();
-        return userProfile.donePatterns || []; // Assuming 'donePatterns' field in user profile
-      } else if (response.status === 401) {
-        localStorage.removeItem('authToken');
-        updateAuthUI();
-      }
-    } catch (e) {
-      console.error('Failed to load done patterns from cloud:', e);
-    }
-  }
+function getDone() {
   try { return JSON.parse(localStorage.getItem(DONE_KEY)) || []; } catch(e) { return []; }
 }
 
@@ -411,28 +373,7 @@ function updateWeightLabel() {
 
 const YARNS_KEY = 'crochetkit-yarns';
 
-async function getYarns() {
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    try {
-      const response = await fetch('/api/auth/profile', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (response.ok) {
-        const userProfile = await response.json();
-        return userProfile.yarnStash || [];
-      } else if (response.status === 401) {
-        // Token expired or invalid, clear it
-        localStorage.removeItem('authToken');
-        updateAuthUI();
-      }
-    } catch (e) {
-      console.error('Failed to load yarn stash from cloud:', e);
-    }
-  }
-  // Fallback to local storage if not logged in or API fails
+function getYarns() {
   try { return JSON.parse(localStorage.getItem(YARNS_KEY)) || []; }
   catch(e) { return []; }
 }
@@ -2153,12 +2094,12 @@ function updateAuthUI() {
     const userName = document.getElementById('userName');
 
     if (currentUser) {
-        accountBtn.style.display = 'none';
-        userBadge.style.display = 'flex';
-        userName.textContent = currentUser.name || currentUser.email;
+        if (accountBtn) accountBtn.style.display = 'none';
+        if (userBadge) userBadge.style.display = 'flex';
+        if (userName) userName.textContent = currentUser.name || currentUser.email;
     } else {
-        accountBtn.style.display = '';
-        userBadge.style.display = 'none';
+        if (accountBtn) accountBtn.style.display = '';
+        if (userBadge) userBadge.style.display = 'none';
     }
 }
 
