@@ -1260,7 +1260,6 @@ async function showRecommendations() {
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
-    updateAuthUI(); // Call on load
 
 
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
@@ -2120,6 +2119,7 @@ function showProjectDetail(project, index, allProjects) {
             }
         });
     }
+});
 
 // ===== User Authentication =====
 const AUTH_TOKEN_KEY = 'crochetkit-auth-token';
@@ -2310,7 +2310,6 @@ async function loadYarnStashFromCloud() {
       console.error('Failed to load stash from cloud:', e);
     }
 }
-});
 
 // Initialize auth when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
