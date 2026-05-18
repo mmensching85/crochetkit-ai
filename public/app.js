@@ -1260,13 +1260,6 @@ async function showRecommendations() {
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
-  // ... existing code ...
-
-  // Call showRecommendations after other sections
-  showRecommendations();
-});
-    }
-
     updateAuthUI(); // Call on load
 
 
@@ -2040,190 +2033,14 @@ function showProjectDetail(project, index, allProjects) {
     });
   }
 }
-        html += `</div></div>`;
-        html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${project.title}" class="detail-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
-        html += `<p>${project.description}</p>`;
-        html += `<p><strong>Estimated Time:</strong> ${project.estimated_time}</p>`;
-        html += `<p><strong>Difficulty Reason:</strong> ${convert(project.difficulty_reason)}</p>`;
-
-        html += `<h4>Materials:</h4><ul>`;
-        project.materials.forEach(mat => {
-            html += `<li>${linkifyGlossaryTerms(mat)}</li>`;
-        });
-        html += `</ul>`;
-        html += '<p class="affiliate-links"><small><a href="https://amzn.to/" target="_blank" rel="noopener noreferrer">Shop yarn and hooks on Amazon</a> — we may earn a commission.</small></p>';
-
-        if (project.missing_materials && project.missing_materials.length > 0) {
-            html += `<h4>Missing Materials:</h4><ul class="missing-materials">`;
-            project.missing_materials.forEach(mat => {
-                html += `<li>${linkifyGlossaryTerms(mat)}</li>`;
-            });
-            html += `</ul>`;
-        }
-
-        html += `<h4>Stitches Used:</h4><ul>`;
-        project.stitches_used.forEach(stitch => {
-            html += `<li>${convert(stitch)}</li>`;
-        });
-        html += `</ul>`;
-
-        html += `<h4>Steps:</h4><ol>`;
-        project.steps.forEach((step, stepIdx) => {
-            const stepNum = stepIdx + 1;
-            html += `<li><strong>${convert(step.instruction)}</strong>`;
-            if (step.tip) html += ` <span class="tip">(${step.tip})</span>`;
-            if (step.visual_description && step.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)") {
-                html += `<p class="visual-desc"><em>Visual:</em> ${step.visual_description}</p>`;
-            }
-            html += `<div class="step-image"><img src="/assets/patterns/${project.id}/step-${stepNum}.webp" alt="Step ${stepNum} illustration" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
-            html += `</li>`;
-        });
-        html += `</ol>`;
-
-        if (project.beginner_tips && project.beginner_tips.length > 0) {
-            const tipsLabel = project.tips_label || (project.skill_level === 'beginner' ? 'Beginner Tips' : 'Tips');
-            html += `<h4>${tipsLabel}:</h4><ul>`;
-            project.beginner_tips.forEach(tip => html += `<li>${tip}</li>`);
-            html += `</ul>`;
-        }
-
-        if (project.variations && project.variations.length > 0) {
-            html += `<h4>Variations:</h4><ul>`;
-            project.variations.forEach(variation => html += `<li>${variation}</li>`);
-            html += `</ul>`;
-        }
-
-        if (project.safety_notes && project.safety_notes.length > 0) {
-            html += `<h4>Safety Notes:</h4><ul>`;
-            project.safety_notes.forEach(note => html += `<li>${note}</li>`);
-            html += `</ul>`;
-        }
-
-        html += `<div class="summary-box"><p>${project.printable_summary}</p></div>`;
-
-        html += `<details class="glossary-section"><summary><h4>Glossary of Crochet Terms</h4></summary><ul>`;
-        const g = getCurrentGlossary();
-        Object.entries(g).forEach(([term, def]) => {
-            html += `<li><strong>${term}</strong> — ${def}</li>`;
-        });
-        html += `</ul></details>`;
-
-        // Reverse stash match section
-        html += `<div id="stashMatchSection" class="stash-match-section"><h4>My Stash Match</h4><div id="stashMatchContent"><span class="loading" style="font-size:13px;">Checking your yarns...</span></div></div>`;
-
-        // Feedback form
-        html += `<div class="feedback-section">`;
-        html += `<h4>Was this project helpful?</h4>`;
-        html += `<form class="feedback-form" data-project="${project.title.replace(/"/g, '&quot;')}">`;
-        html += `<div class="feedback-rating">`;
-        html += `<label>Rating:</label>`;
-        html += `<div class="star-rating">`;
-        for (let i = 1; i <= 5; i++) {
-            html += `<input type="radio" id="star${i}" name="rating" value="${i}" ${i === 5 ? 'checked' : ''}>`;
-            html += `<label for="star${i}" title="${i} star${i > 1 ? 's' : ''}">★</label>`;
-        }
-        html += `</div></div>`;
-        html += `<div class="feedback-comment">`;
-        html += `<label for="feedback-comment">Comment <span class="optional">(optional)</span></label>`;
-        html += `<textarea id="feedback-comment" rows="3" placeholder="What did you think?"></textarea>`;
-        html += `</div>`;
-        html += `<button type="submit" class="btn btn-primary btn-sm feedback-submit">Submit Feedback</button>`;
-        html += `<div class="feedback-thanks" style="display:none;">Thank you for your feedback!</div>`;
-        html += `</form></div>`;
-
-        html += `</div>`;
-
-        outputElement.innerHTML = html;
-
-        document.querySelector('.back-to-cards').addEventListener('click', function() {
-            displayProjectCards(allProjects);
-        });
-
-        const detailFavBtn = document.querySelector('.detail-header .fav-btn');
-        if (detailFavBtn) {
-            detailFavBtn.addEventListener('click', function() {
-                const id = this.dataset.id;
-                const nowFaved = toggleFave(id);
-                this.classList.toggle('faved', nowFaved);
-                this.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
-                this.textContent = nowFaved ? '♥' : '♡';
-            });
-        }
-
-        const detailPdfBtn = document.querySelector('.detail-pdf-btn');
-        if (detailPdfBtn) {
-            detailPdfBtn.addEventListener('click', function() {
-                trackPopular(project.id, 'pdf');
-                printProject(project);
-            });
-        }
-
-        document.querySelector('.feedback-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const projectTitle = this.getAttribute('data-project');
-            const rating = this.querySelector('input[name="rating"]:checked').value;
-            const comment = this.querySelector('#feedback-comment').value;
-            const submitBtn = this.querySelector('.feedback-submit');
-            const thanksMsg = this.querySelector('.feedback-thanks');
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Saving...';
-
-            try {
-                const resp = await fetch('/api/feedback', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        projectTitle,
-                        rating: parseInt(rating),
-                        comment,
-                        userInput: currentUserInput
-                    })
-                });
-                const data = await resp.json();
-                if (data.success) {
-                    this.querySelector('.feedback-rating').style.display = 'none';
-                    this.querySelector('.feedback-comment').style.display = 'none';
-                    submitBtn.style.display = 'none';
-                    thanksMsg.style.display = 'block';
-                } else {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit Feedback';
-                    alert('Error: ' + (data.error || 'Failed to save feedback.'));
-                }
-            } catch (err) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Feedback';
-                alert('Error saving feedback. Please try again.');
-            }
-        });
-
-        // Fetch stash match for this pattern
-        const stashYarns = getYarns();
-        if (stashYarns.length > 0) {
-            fetch('/api/reverse-match', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ patternId: project.id, yarns: stashYarns })
-            })
-                .then(r => r.json())
-                .then(match => renderStashMatch(match))
-                .catch(err => {
-                    console.error('Fetch error:', err);
-                    const el = document.getElementById('stashMatchContent');
-                    if (el) el.innerHTML = '<p style="color:#888;font-size:13px;">Could not check stash.</p>';
-                });
-        } else {
-            const el = document.getElementById('stashMatchContent');
-            if (el) el.innerHTML = '<p style="color:#888;font-size:13px;">Save yarns in My Yarns to see what matches this pattern.</p>';
-        }
-    }
 
     window.showProjectDetail = showProjectDetail;
     window.displayProjectCards = displayProjectCards;
 
     // Contact form handler
-    document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         const name = document.getElementById('contactName').value.trim();
         const email = document.getElementById('contactEmail').value.trim();
@@ -2259,6 +2076,7 @@ function showProjectDetail(project, index, allProjects) {
             submitBtn.textContent = 'Send Message';
         }
     });
+    }
 
     // Global feedback form handler
     const globalForm = document.getElementById('global-feedback-form');
@@ -2302,7 +2120,6 @@ function showProjectDetail(project, index, allProjects) {
             }
         });
     }
-});
 
 // ===== User Authentication =====
 const AUTH_TOKEN_KEY = 'crochetkit-auth-token';
@@ -2493,6 +2310,7 @@ async function loadYarnStashFromCloud() {
       console.error('Failed to load stash from cloud:', e);
     }
 }
+});
 
 // Initialize auth when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
