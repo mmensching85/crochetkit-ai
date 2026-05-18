@@ -309,9 +309,8 @@ async function toggleFave(id) {
   return nowFaved;
 }
 
-async function isFaved(id) { 
-  const faves = await getFaves();
-  return faves.includes(id); 
+function isFaved(id) { 
+  return getFaves().includes(id); 
 }
 
 function getDone() {
@@ -352,9 +351,8 @@ async function markAsDone(id) {
   return true;
 }
 
-async function isDone(id) {
-  const done = await getDone();
-  return done.includes(id);
+function isDone(id) {
+  return getDone().includes(id);
 }
 
 const WEIGHT_LABELS = [
