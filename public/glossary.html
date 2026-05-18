@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crochet Glossary - CrochetKit AI</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/webp" href="/assets/favicon.webp">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="/">CrochetKit AI</a></h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/stash.html">My Stash</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/privacy.html">Privacy</a>
+                <a href="/glossary.html" class="active">Glossary</a>
+                <a href="/admin.html">Admin</a>
+                <a href="/auth.html" id="authLink">Login / Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="glossaryContent" class="card">
+            <h2>Crochet Glossary</h2>
+            <p>Welcome to our comprehensive crochet glossary! Here you'll find definitions for common crochet terms.</p>
+
+            <div class="glossary-controls">
+                <label for="termSystem">Terminology System:</label>
+                <select id="termSystem">
+                    <option value="us">US Terms</option>
+                    <option value="uk">UK/AU Terms</option>
+                </select>
+            </div>
+
+            <div id="glossaryList">
+                <!-- Glossary terms will be loaded here by JavaScript -->
+                <p>Loading glossary...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 CrochetKit AI. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        let glossaryData = {};
+        let currentTermSystem = 'us'; // Default to US terms
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            const termSystemSelect = document.getElementById('termSystem');
+            const glossaryListDiv = document.getElementById('glossaryList');
+
+            // Load glossary from JSON
+            try {
+                const resp = await fetch('/glossary.json');
+                glossaryData = await resp.json();
+                renderGlossary();
+            } catch (e) {
+                console.error('Fetch error:', e);
+                glossaryData = {};
+                glossaryListDiv.innerHTML = '<p style="color:red;">Failed to load glossary. Please try again later.</p>';
+            }
+
+            termSystemSelect.addEventListener('change', function() {
+                currentTermSystem = this.value;
+                renderGlossary();
+            });
+
+            function renderGlossary() {
+                if (Object.keys(glossaryData).length === 0) {
+                    glossaryListDiv.innerHTML = '<p>No glossary terms available.</p>';
+                    return;
+                }
+
+                let html = '';
+                for (const term in glossaryData) {
+                    const definition = glossaryData[term][currentTermSystem] || glossaryData[term]['us']; // Fallback to US if UK/AU not present
+                    html += `
+                        <div class="glossary-item">
+                            <h3>${term.charAt(0).toUpperCase() + term.slice(1)}</h3>
+                            <p>${definition}</p>
+                        </div>
+                    `;
+                }
+                glossaryListDiv.innerHTML = html;
+            }
+        });
+    </script>
+</body>
+</html>

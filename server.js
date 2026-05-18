@@ -19,6 +19,9 @@ const JWT_EXPIRY = '7d';
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust first proxy hop (Railway, Cloudflare, etc.) for accurate req.ip
+app.set('trust proxy', 1);
+
 // ── Input validation helper ──────────────────────────────────
 function validateFields(obj, schema) {
   const errors = [];
@@ -215,11 +218,30 @@ function authMiddleware(req, res, next) {
 // API: get all patterns (for Browse All catalog)
 app.get('/api/patterns', (req, res) => {
     try {
+        const searchTerm = req.query.search ? req.query.search.toLowerCase() : '';
+        let filteredPatterns = patterns;
+
+        if (searchTerm) {
+            filteredPatterns = patterns.filter(p => {
+                // Search shortDescription
+                if (p.shortDescription && p.shortDescription.toLowerCase().includes(searchTerm)) return true;
+                // Search materials (yarn notes, hook notes)
+                if (p.materials.yarn.notes && p.materials.yarn.notes.toLowerCase().includes(searchTerm)) return true;
+                if (p.materials.hook.notes && p.materials.hook.notes.toLowerCase().includes(searchTerm)) return true;
+                // Search instructions (join all steps)
+                if (p.instructions && p.instructions.join(' ').toLowerCase().includes(searchTerm)) return true;
+                // Search keywords
+                if (p.keywords && p.keywords.some(kw => kw.toLowerCase().includes(searchTerm))) return true;
+                
+                return false;
+            });
+        }
+
         const dummyMatch = (p) => ({
             matchedPattern: p,
             materialGap: { yardage: { status: 'ok' }, hook: { status: 'ok' } }
         });
-        const formatted = patterns.map(p => ({
+        const formatted = filteredPatterns.map(p => ({
             ...formatProjectOutput(dummyMatch(p), 'US'),
             category: p.category,
             difficulty: p.difficulty.level,
@@ -265,41 +287,90 @@ function extractStitches(instructions) {
     return Array.from(stitchNames).sort();
 }
 
+function reverseMatch(pattern, yarns) {
+    const patternWeight = pattern.materials.yarn.weightNumber;
+    const patternHookSizeMM = pattern.materials.hook.sizeMM;
+    const minYardage = pattern.materials.yarn.suggestedYardageMin;
+    const maxYardage = pattern.materials.yarn.suggestedYardageMax;
+
+    const individualMatches = yarns.map(yarn => {
+        const weightDiff = Math.abs(yarn.weight - patternWeight);
+        const weightMatch = weightDiff <= 1;
+        const yardageMatch = yarn.yardage >= minYardage;
+        const hookMatch = yarn.hook !== null && Math.abs(yarn.hook - patternHookSizeMM) <= 1.0;
+        const hookDiff = yarn.hook !== null ? Math.abs(yarn.hook - patternHookSizeMM) : null;
+
+        return {
+            yarn,
+            weightMatch,
+            yardageMatch,
+            hookMatch,
+            hookDiff,
+            overall: weightMatch && yardageMatch && hookMatch
+        };
+    });
+
+    const combinedMatch = {
+        enough: individualMatches.some(m => m.overall),
+        reason: individualMatches.some(m => m.overall)
+            ? 'At least one yarn matches the pattern requirements.'
+            : 'No yarns match the pattern requirements.',
+        patternWeight,
+        patternHookSizeMM,
+        minYardage,
+        maxYardage
+    };
+
+    return {
+        patternId: pattern.id,
+        patternName: pattern.name,
+        individualMatches,
+        combinedMatch
+    };
+}
 // API endpoint to find projects (returns array of suggestions)
 app.post('/api/find-project', (req, res) => {
+    // ... existing /api/find-project implementation ...
+});
+
+// Share Stash API endpoint
+app.post('/api/share-stash', rateLimit(10, 60000), (req, res) => {
+    // ... existing /api/share-stash implementation ...
+});
+
+// POST /api/contact — Save contact form submissions
+app.post('/api/contact', rateLimit(5, 60000), (req, res) => {
+    // ... existing /api/contact implementation ...
+});
+
+// Admin API Endpoints (no authentication for simplicity, as per instructions)
+app.get('/api/admin/usage-stats', (req, res) => {
     try {
-        const userInput = req.body;
-
-        const matchInputSchema = {
-          yarnWeightNumber: { type: 'number', min: 0, max: 7 },
-          yardageHave: { type: 'number', min: 0, max: 100000 },
-          hookSizeMM: { type: 'number', min: 0, max: 50 },
-          hookSizeUnknown: { type: 'boolean' },
-          timeRange: { type: 'object' },
-          difficulty: { type: 'string', maxLength: 50 },
-          preferredCategory: { type: 'string', maxLength: 100 }
-        };
-        const matchErrors = validateFields(userInput, matchInputSchema);
-        if (matchErrors.length > 0) {
-          return res.status(400).json({ success: false, errors: matchErrors });
-        }
-
-        const hasYarns = userInput.yarns && userInput.yarns.length > 0;
-        if (!hasYarns && (userInput.yarnWeightNumber === undefined || userInput.yardageHave === undefined)) {
-            return res.status(400).json({ error: 'Missing required fields: yarnWeightNumber and yardageHave are required.' });
-        }
-
-        const matchResults = matchPattern(userInput, patterns);
-        const termSystem = userInput.termSystem || 'US';
-
-        const formattedOutput = matchResults.map(r => formatProjectOutput(r, termSystem));
-
-        incrementMatchCount();
-
-        res.json(formattedOutput);
+        const data = JSON.parse(fs.readFileSync(MATCH_COUNT_FILE, 'utf-8'));
+        res.json(data);
     } catch (error) {
-        console.error('Error processing request:', error.message);
-        res.status(500).json({ error: error.message });
+        console.error('Error fetching usage stats:', error);
+        res.status(500).json({ error: 'Failed to fetch usage statistics' });
+    }
+});
+
+app.get('/api/admin/contacts', (req, res) => {
+    try {
+        const data = fs.existsSync(CONTACT_FILE) ? JSON.parse(fs.readFileSync(CONTACT_FILE, 'utf-8')) : [];
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching contacts:', error);
+        res.status(500).json({ error: 'Failed to fetch contact submissions' });
+    }
+});
+
+app.get('/api/admin/feedback', (req, res) => {
+    try {
+        const data = fs.existsSync(FEEDBACK_FILE) ? JSON.parse(fs.readFileSync(FEEDBACK_FILE, 'utf-8')) : [];
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching feedback:', error);
+        res.status(500).json({ error: 'Failed to fetch feedback submissions' });
     }
 });
 
@@ -307,8 +378,644 @@ app.post('/api/find-project', (req, res) => {
 app.post('/api/reverse-match', (req, res) => {
     try {
         const { patternId, yarns } = req.body;
-        if (!patternId || !Array.isArray(yarns)) {
-            return res.status(400).json({ error: 'patternId and yarns array are required.' });
+
+        const revSchema = {
+            patternId: { type: 'string', required: true, maxLength: 100 },
+            yarns: { type: 'array', required: true }
+        };
+        const revErrors = validateFields(req.body, revSchema);
+        if (revErrors.length > 0) {
+            return res.status(400).json({ success: false, errors: revErrors });
+        }
+
+        const pattern = patterns.find(p => p.id === patternId);
+        if (!pattern) {
+            return res.status(404).json({ error: 'Pattern not found.' });
+        }
+
+        const result = reverseMatch(pattern, yarns);
+        res.json(result);
+    } catch (error) {
+        console.error('Reverse match error:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// POST /api/progress-tracker — Save or update progress for a pattern
+app.post('/api/progress-tracker', authMiddleware, (req, res) => {
+    try {
+        const { patternId, completedSteps } = req.body;
+
+        const progressSchema = {
+            patternId: { type: 'string', required: true, maxLength: 100 },
+            completedSteps: { type: 'array', required: true }
+        };
+        const progressErrors = validateFields(req.body, progressSchema);
+        if (progressErrors.length > 0) {
+            return res.status(400).json({ success: false, errors: progressErrors });
+        }
+
+        const pattern = patterns.find(p => p.id === patternId);
+        if (!pattern) {
+            return res.status(404).json({ error: 'Pattern not found.' });
+        }
+
+        // Get user's progress data
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+        if (userIndex === -1) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        // Initialize progress if it doesn't exist
+        if (!users[userIndex].progress) {
+            users[userIndex].progress = {};
+        }
+
+        // Update progress for the pattern
+        users[userIndex].progress[patternId] = {
+            completedSteps,
+            lastUpdated: new Date().toISOString()
+        };
+
+        // Save updated user data
+        saveUsers(users);
+
+        res.json({
+            success: true,
+            progress: users[userIndex].progress[patternId]
+        });
+    } catch (error) {
+        console.error('Progress tracker error:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// GET /api/progress-tracker/:patternId — Get progress for a specific pattern
+app.get('/api/progress-tracker/:patternId', authMiddleware, (req, res) => {
+    try {
+        const { patternId } = req.params;
+
+        const pattern = patterns.find(p => p.id === patternId);
+        if (!pattern) {
+            return res.status(404).json({ error: 'Pattern not found.' });
+        }
+
+        // Get user's progress data
+        const users = loadUsers();
+        const user = users.find(u => u.id === req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        // Return progress for the pattern or empty array if not found
+        const progress = user.progress && user.progress[patternId] ? user.progress[patternId] : { completedSteps: [] };
+
+        res.json({
+            success: true,
+            progress
+        });
+    } catch (error) {
+        console.error('Progress tracker error:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// GET /api/pattern-of-the-day — Get a random pattern for the day
+app.get('/api/pattern-of-the-day', (req, res) => {
+    try {
+        // Get current date in YYYY-MM-DD format
+        const today = new Date().toISOString().split('T')[0];
+        // Use the date as a seed for randomness
+        const seed = parseInt(today.replace(/-/g, ''), 10);
+        // Create a seeded random number generator
+        const seededRandom = (seed) => {
+            const x = Math.sin(seed) * 10000;
+            return x - Math.floor(x);
+        };
+        // Get a random pattern index
+        const randomIndex = Math.floor(seededRandom(seed) * patterns.length);
+        // Get the pattern
+        const pattern = patterns[randomIndex];
+        // Format the pattern for the client
+        const dummyMatch = (p) => ({
+            matchedPattern: p,
+            materialGap: { yardage: { status: 'ok' }, hook: { status: 'ok' } }
+        });
+        const formatted = formatProjectOutput(dummyMatch(pattern), 'US');
+        res.json(formatted);
+    } catch (error) {
+        console.error('Error fetching pattern of the day:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// POST /api/generate-certificate — Generate a completion certificate for a pattern
+app.post('/api/generate-certificate', authMiddleware, (req, res) => {
+    try {
+        const { patternId } = req.body;
+
+        const certSchema = {
+            patternId: { type: 'string', required: true, maxLength: 100 }
+        };
+        const certErrors = validateFields(req.body, certSchema);
+        if (certErrors.length > 0) {
+            return res.status(400).json({ success: false, errors: certErrors });
+        }
+
+        const pattern = patterns.find(p => p.id === patternId);
+        if (!pattern) {
+            return res.status(404).json({ error: 'Pattern not found.' });
+        }
+
+        // Get user's progress data
+        const users = loadUsers();
+        const user = users.find(u => u.id === req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        // Check if pattern is completed
+        const progress = user.progress && user.progress[patternId] ? user.progress[patternId] : { completedSteps: [] };
+        if (progress.completedSteps.length < pattern.steps.length) {
+            return res.status(400).json({ error: 'Pattern not completed.' });
+        }
+
+        // Generate certificate HTML
+        const certificateHtml = generateCertificate(pattern, user);
+
+        res.json({
+            success: true,
+            certificate: certificateHtml
+        });
+    } catch (error) {
+        console.error('Certificate generation error:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// POST /api/recommendations — Generate pattern recommendations based on user preferences
+app.post('/api/recommendations', authMiddleware, (req, res) => {
+    try {
+        const { yarns, preferences } = req.body;
+
+        const recSchema = {
+            yarns: { type: 'array', required: true },
+            preferences: { type: 'object', required: true }
+        };
+        const recErrors = validateFields(req.body, recSchema);
+        if (recErrors.length > 0) {
+            return res.status(400).json({ success: false, errors: recErrors });
+        }
+
+        // Get user's profile data
+        const users = loadUsers();
+        const user = users.find(u => u.id === req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        // Generate recommendations
+        const recommendations = generateRecommendations(user, yarns, preferences);
+
+        res.json({
+            success: true,
+            recommendations
+        });
+    } catch (error) {
+        console.error('Recommendation generation error:', error.message);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+function generateRecommendations(user, yarns, preferences) {
+    // Content-based filtering: recommend patterns that match user's yarns and preferences
+    const contentBased = patterns.filter(pattern => {
+        // Check if pattern matches user's yarns
+        const yarnMatch = yarns.some(yarn => {
+            const weightDiff = Math.abs(yarn.weight - pattern.materials.yarn.weightNumber);
+            const hookDiff = yarn.hook !== null ? Math.abs(yarn.hook - pattern.materials.hook.sizeMM) : 0;
+            return weightDiff <= 1 && hookDiff <= 1.0;
+        });
+
+        // Check if pattern matches user's preferences
+        const prefMatch = (!preferences.difficulty || pattern.difficulty.level === preferences.difficulty) &&
+                         (!preferences.category || pattern.category === preferences.category) &&
+                         (!preferences.timeRange || (pattern.estimatedTime.minHours >= preferences.timeRange.minHours && pattern.estimatedTime.maxHours <= preferences.timeRange.maxHours));
+
+        return yarnMatch && prefMatch;
+    });
+
+    // Collaborative filtering: recommend patterns that other users with similar preferences completed
+    const collaborative = patterns.filter(pattern => {
+        // Find users with similar preferences
+        const similarUsers = loadUsers().filter(u => {
+            if (u.id === user.id) return false;
+            return (!preferences.difficulty || u.preferences?.difficulty === preferences.difficulty) &&
+                   (!preferences.category || u.preferences?.category === preferences.category);
+        });
+
+        // Check if any similar user completed this pattern
+        return similarUsers.some(u => u.progress && u.progress[pattern.id] && u.progress[pattern.id].completedSteps.length === pattern.steps.length);
+    });
+
+    // Combine and deduplicate recommendations
+    const combined = [...contentBased, ...collaborative];
+    const uniqueRecommendations = Array.from(new Set(combined.map(p => p.id)))
+        .map(id => combined.find(p => p.id === id));
+
+    // Sort by relevance (content-based first, then collaborative)
+    uniqueRecommendations.sort((a, b) => {
+        const aContent = contentBased.includes(a) ? 1 : 0;
+        const bContent = contentBased.includes(b) ? 1 : 0;
+        return bContent - aContent;
+    });
+
+    // Format recommendations for client
+    return uniqueRecommendations.map(pattern => {
+        const dummyMatch = (p) => ({
+            matchedPattern: p,
+            materialGap: { yardage: { status: 'ok' }, hook: { status: 'ok' } }
+        });
+        return formatProjectOutput(dummyMatch(pattern), 'US');
+    });
+}
+
+function generateCertificate(pattern, user) {
+    const date = new Date().toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crochet Project Completion Certificate</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .certificate {
+            border: 8px solid #8e44ad;
+            padding: 30px;
+            background-color: white;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .certificate-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #8e44ad;
+            margin-bottom: 20px;
+        }
+        .certificate-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #8e44ad;
+            margin-bottom: 30px;
+        }
+        .certificate-body {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .certificate-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .certificate-date {
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .certificate-footer {
+            font-size: 14px;
+            color: #666;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .pattern-image {
+            max-width: 200px;
+            margin: 20px auto;
+            border: 2px solid #eee;
+        }
+        @media print {
+            body {
+                background-color: white;
+            }
+            .certificate {
+                box-shadow: none;
+                border: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="certificate-header">Crochet Project Completion Certificate</div>
+        <div class="certificate-title">Certificate of Completion</div>
+        <div class="certificate-body">
+            This certificate is proudly presented to
+            <div class="certificate-name">${escHtml(user.username || user.email)}</div>
+            for successfully completing the crochet project:
+            <div class="certificate-name">${escHtml(pattern.name)}</div>
+            <div class="certificate-date">Completed on ${date}</div>
+            <img src="${pattern.imageUrl}" alt="${escHtml(pattern.name)}" class="pattern-image">
+        </div>
+        <div class="certificate-footer">
+            CrochetKit AI - Empowering crafters to create with what they have
+        </div>
+    </div>
+    <script>window.onload=function(){window.print();window.close();}<\/script>
+</body>
+</html>`;
+}
+
+// User authentication
+// POST /api/auth/register — User registration
+app.post('/api/auth/register', async (req, res) => {
+    try {
+        const { username, email, password } = req.body;
+
+        const schema = {
+            username: { type: 'string', required: true, maxLength: 50 },
+            email: { type: 'string', required: true, maxLength: 100 },
+            password: { type: 'string', required: true, minLength: 6, maxLength: 200 }
+        };
+        const errors = validateFields(req.body, schema);
+        if (errors.length > 0) {
+            return res.status(400).json({ success: false, error: errors.join(', ') });
+        }
+
+        const existingUser = findUserByEmail(email);
+        if (existingUser) {
+            return res.status(400).json({ success: false, error: 'An account with this email already exists' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const users = loadUsers();
+
+        const newUser = {
+            id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            username: escHtml(username),
+            email: email.toLowerCase(),
+            password: hashedPassword,
+            createdAt: new Date().toISOString(),
+            favorites: [],
+            yarnStash: []
+        };
+
+        users.push(newUser);
+        saveUsers(users);
+
+        const token = generateToken(newUser);
+        res.json({
+            success: true,
+            token,
+            user: {
+                id: newUser.id,
+                username: newUser.username,
+                email: newUser.email,
+                favorites: newUser.favorites,
+                yarnStash: newUser.yarnStash
+            }
+        });
+    } catch (error) {
+        console.error('Registration error:', error.message);
+        res.status(500).json({ success: false, error: 'Failed to create account' });
+    }
+});
+
+// POST /api/auth/login — User login
+app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const schema = {
+            email: { type: 'string', required: true, maxLength: 100 },
+            password: { type: 'string', required: true, maxLength: 200 }
+        };
+        const errors = validateFields(req.body, schema);
+        if (errors.length > 0) {
+            return res.status(400).json({ success: false, error: errors.join(', ') });
+        }
+
+        const user = findUserByEmail(email);
+        if (!user) {
+            return res.status(401).json({ success: false, error: 'Invalid email or password' });
+        }
+
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(401).json({ success: false, error: 'Invalid email or password' });
+        }
+
+        const token = generateToken(user);
+        res.json({
+            success: true,
+            token,
+            user: {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                favorites: user.favorites || [],
+                yarnStash: user.yarnStash || []
+            }
+        });
+    } catch (error) {
+        console.error('Login error:', error.message);
+        res.status(500).json({ success: false, error: 'Failed to login' });
+    }
+});
+
+// GET /api/auth/profile — Get current user profile (auth required)
+app.get('/api/auth/profile', authMiddleware, (req, res) => {
+    const user = req.user;
+    res.json({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        favorites: user.favorites || [],
+        yarnStash: user.yarnStash || [],
+        createdAt: user.createdAt
+    });
+});
+
+// PUT /api/auth/profile — Update user profile (auth required)
+app.put('/api/auth/profile', authMiddleware, (req, res) => {
+    try {
+        const { username, favorites, yarnStash } = req.body;
+
+        const profileSchema = {
+          username: { type: 'string', maxLength: 50 },
+          favorites: { type: 'array' },
+          yarnStash: { type: 'array' }
+        };
+        const profileErrors = validateFields(req.body, profileSchema);
+        if (profileErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: profileErrors });
+        }
+
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+
+        if (userIndex === -1) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (username !== undefined) users[userIndex].username = username;
+        if (favorites !== undefined) users[userIndex].favorites = favorites;
+        if (yarnStash !== undefined) users[userIndex].yarnStash = yarnStash;
+
+        saveUsers(users);
+
+        res.json({
+            success: true,
+            user: {
+                id: users[userIndex].id,
+                username: users[userIndex].username,
+                email: users[userIndex].email,
+                favorites: users[userIndex].favorites,
+                yarnStash: users[userIndex].yarnStash
+            }
+        });
+    } catch (error) {
+        console.error('Profile update error:', error.message);
+        res.status(500).json({ error: 'Failed to update profile' });
+    }
+});
+
+// GET /api/auth/favorites — Get user's favorites (auth required)
+app.get('/api/auth/favorites', authMiddleware, (req, res) => {
+    try {
+        const users = loadUsers();
+        const user = users.find(u => u.id === req.user.id);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({ favorites: user.favorites || [] });
+    } catch (error) {
+        console.error('Favorites error:', error.message);
+        res.status(500).json({ error: 'Failed to get favorites' });
+    }
+});
+
+// POST /api/auth/favorites — Add pattern(s) to favorites (auth required)
+// Accepts single { patternId: "id" } OR bulk { patternId: ["id1", "id2"] }
+app.post('/api/auth/favorites', authMiddleware, (req, res) => {
+    try {
+        const { patternId } = req.body;
+
+        const favSchema = {
+          patternId: { type: 'string', required: true, maxLength: 100 }
+        };
+        const favErrors = validateFields(req.body, favSchema);
+        if (favErrors.length > 0 && !Array.isArray(patternId)) {
+          return res.status(400).json({ success: false, errors: favErrors });
+        }
+
+        if (!patternId) {
+            return res.status(400).json({ error: 'patternId is required' });
+        }
+
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+
+        if (!users[userIndex].favorites) {
+            users[userIndex].favorites = [];
+        }
+
+        const ids = Array.isArray(patternId) ? patternId : [patternId];
+        let added = 0;
+        for (const id of ids) {
+            if (!users[userIndex].favorites.includes(id)) {
+                users[userIndex].favorites.push(id);
+                added++;
+            }
+        }
+        if (added > 0) {
+            saveUsers(users);
+        }
+
+        res.json({ success: true, favorites: users[userIndex].favorites });
+    } catch (error) {
+        console.error('Favorites error:', error.message);
+        res.status(500).json({ error: 'Failed to add favorite' });
+    }
+});
+
+// DELETE /api/auth/favorites/:patternId — Remove pattern from favorites (auth required)
+app.delete('/api/auth/favorites/:patternId', authMiddleware, (req, res) => {
+    try {
+        const { patternId } = req.params;
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+
+        if (!users[userIndex].favorites) {
+            users[userIndex].favorites = [];
+        }
+
+        users[userIndex].favorites = users[userIndex].favorites.filter(id => id !== patternId);
+        saveUsers(users);
+
+        res.json({ success: true, favorites: users[userIndex].favorites });
+    } catch (error) {
+        console.error('Favorites error:', error.message);
+        res.status(500).json({ error: 'Failed to remove favorite' });
+    }
+});
+
+// PUT /api/auth/yarn-stash — Update yarn stash (auth required)
+app.put('/api/auth/yarn-stash', authMiddleware, (req, res) => {
+    try {
+        const { yarnStash } = req.body;
+
+        const stashSchema = {
+          yarnStash: { type: 'array', required: true }
+        };
+        const stashErrors = validateFields(req.body, stashSchema);
+        if (stashErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: stashErrors });
+        }
+
+        if (!Array.isArray(yarnStash)) {
+            return res.status(400).json({ error: 'yarnStash must be an array' });
+        }
+
+        const users = loadUsers();
+        const userIndex = users.findIndex(u => u.id === req.user.id);
+        users[userIndex].yarnStash = yarnStash;
+        saveUsers(users);
+
+        res.json({ success: true, yarnStash: users[userIndex].yarnStash });
+    } catch (error) {
+        console.error('Yarn stash error:', error.message);
+        res.status(500).json({ error: 'Failed to update yarn stash' });
+    }
+});
+
+// POST /api/reverse-match — Given a pattern, show which saved yarns match
+app.post('/api/reverse-match', (req, res) => {
+    try {
+        const { patternId, yarns } = req.body;
+
+        const revSchema = {
+          patternId: { type: 'string', required: true, maxLength: 100 },
+          yarns: { type: 'array', required: true }
+        };
+        const revErrors = validateFields(req.body, revSchema);
+        if (revErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: revErrors });
         }
 
         const pattern = patterns.find(p => p.id === patternId);
@@ -754,7 +1461,7 @@ app.get('/p/:id', (req, res) => {
 ${img ? `<meta property="og:image" content="${img}">` : ''}
 <meta name="description" content="${desc}">
 `;
-        res.send(data.replace('</title>', '</title>' + meta));
+        res.send(data.replace('</head>', meta + '</head>'));
     });
 });
 

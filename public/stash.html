@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Yarn Stash - CrochetKit</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/webp" href="/assets/favicon.webp">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="/">CrochetKit AI</a></h1>
+            <nav>
+                <a href="/" >Home</a>
+                <a href="/stash.html" class="active">My Stash</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/privacy.html">Privacy</a>
+                <a href="/glossary.html">Glossary</a>
+                <a href="/admin.html">Admin</a>
+                <a href="/auth.html" id="authLink">Login / Register</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="stashManagement">
+            <h2>My Full Yarn Stash</h2>
+            <div id="yarnListContainer">
+                <div id="yarnList" class="yarn-list">
+                    <!-- Yarn items will be rendered here -->
+                    <p style="color:#888;font-size:13px;">No yarns saved yet.</p>
+                </div>
+                <button class="btn btn-primary" id="addYarnBtn">Add New Yarn</button>
+                <button class="btn btn-outline" id="shareStashBtn">Share My Stash</button>
+            </div>
+
+            <div id="shareUrlContainer" class="card" style="display:none; margin-top: 20px;">
+                <h3>Share Your Stash</h3>
+                <p>Copy this link to share your current yarn stash:</p>
+                <div class="share-link-group">
+                    <input type="text" id="shareableUrlInput" readonly>
+                    <button class="btn btn-primary" id="copyShareUrlBtn">Copy</button>
+                </div>
+                <p style="font-size:0.8em; color:#888;">Note: This link includes your current stash data. Anyone with the link can view it.</p>
+            </div>
+
+            <!-- Yarn Add/Edit Form (hidden by default) -->
+            <div id="yarnFormModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h3>Add/Edit Yarn</h3>
+                    <form id="yarnEntryForm">
+                        <div class="form-group">
+                            <label for="yarnName">Yarn Name / Brand</label>
+                            <input type="text" id="yarnName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="yarnWeight">Yarn Weight (CYC 0-7)</label>
+                            <input type="number" id="yarnWeight" min="0" max="7" value="4" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="yarnYardage">Yardage</label>
+                            <input type="number" id="yarnYardage" min="1" value="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="yarnHook">Suggested Hook Size (mm, optional)</label>
+                            <input type="number" id="yarnHook" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label for="yarnNotes">Notes (e.g., color, fiber, quantity)</label>
+                            <textarea id="yarnNotes"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="yarnImage">Image URL (optional)</label>
+                            <input type="text" id="yarnImage">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Yarn</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 CrochetKit AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const yarnListDiv = document.getElementById('yarnList');
+            const addYarnBtn = document.getElementById('addYarnBtn');
+            const yarnFormModal = document.getElementById('yarnFormModal');
+            const closeButton = yarnFormModal.querySelector('.close-button');
+            const yarnEntryForm = document.getElementById('yarnEntryForm');
+
+            let editingYarnId = null; // To track if we're editing or adding
+
+            function renderStashList() {
+                const yarns = getYarns(); // getYarns is from app.js
+                if (yarns.length === 0) {
+                    yarnListDiv.innerHTML = '<p style="color:#888;font-size:13px;">No yarns saved yet.</p>';
+                    return;
+                }
+                yarnListDiv.innerHTML = yarns.map(yarn => `
+                    <div class="yarn-item card">
+                        <h3>${yarn.name}</h3>
+                        <p><strong>Weight:</strong> ${WEIGHT_LABELS[yarn.weight] || `Weight ${yarn.weight}`}</p>
+                        <p><strong>Yardage:</strong> ${yarn.yardage} yards</p>
+                        ${yarn.hook ? `<p><strong>Hook:</strong> ${yarn.hook} mm</p>` : ''}
+                        ${yarn.notes ? `<p><strong>Notes:</strong> ${yarn.notes}</p>` : ''}
+                        ${yarn.image ? `<img src="${yarn.image}" alt="${yarn.name}" class="yarn-image">` : ''}
+                        <div class="yarn-actions">
+                            <button class="btn btn-secondary btn-small edit-yarn-btn" data-id="${yarn.id}">Edit</button>
+                            <button class="btn btn-danger btn-small delete-yarn-btn" data-id="${yarn.id}">Delete</button>
+                        </div>
+                    </div>
+                `).join('');
+
+                yarnListDiv.querySelectorAll('.edit-yarn-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.dataset.id);
+                        const yarnToEdit = getYarns().find(y => y.id === id);
+                        if (yarnToEdit) {
+                            editingYarnId = id;
+                            document.getElementById('yarnName').value = yarnToEdit.name;
+                            document.getElementById('yarnWeight').value = yarnToEdit.weight;
+                            document.getElementById('yarnYardage').value = yarnToEdit.yardage;
+                            document.getElementById('yarnHook').value = yarnToEdit.hook || '';
+                            document.getElementById('yarnNotes').value = yarnToEdit.notes || '';
+                            document.getElementById('yarnImage').value = yarnToEdit.image || '';
+                            yarnFormModal.style.display = 'block';
+                        }
+                    });
+                });
+
+                yarnListDiv.querySelectorAll('.delete-yarn-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.dataset.id);
+                        if (confirm('Are you sure you want to delete this yarn from your stash?')) {
+                            deleteYarn(id); // deleteYarn is from app.js
+                            renderStashList();
+                        }
+                    });
+                });
+            }
+
+            // Event Listeners for the form
+            addYarnBtn.addEventListener('click', function() {
+                editingYarnId = null; // Reset for new yarn
+                yarnEntryForm.reset();
+                yarnFormModal.style.display = 'block';
+            });
+
+            closeButton.addEventListener('click', function() {
+                yarnFormModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target === yarnFormModal) {
+                    yarnFormModal.style.display = 'none';
+                }
+            });
+
+            yarnEntryForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const name = document.getElementById('yarnName').value;
+                const weight = document.getElementById('yarnWeight').value;
+                const yardage = document.getElementById('yarnYardage').value;
+                const hook = document.getElementById('yarnHook').value;
+                const notes = document.getElementById('yarnNotes').value;
+                const image = document.getElementById('yarnImage').value;
+
+                if (editingYarnId) {
+                    // Update existing yarn
+                    const yarns = getYarns().map(yarn => {
+                        if (yarn.id === editingYarnId) {
+                            return { ...yarn, name, weight: parseInt(weight), yardage: parseInt(yardage), hook: parseFloat(hook) || null, notes, image: image || null };
+                        }
+                        return yarn;
+                    });
+                    saveYarns(yarns); // saveYarns is from app.js
+                } else {
+                    // Add new yarn
+                    addYarn(name, weight, yardage, hook, notes, image); // addYarn is from app.js
+                }
+                
+                yarnFormModal.style.display = 'none';
+                renderStashList();
+            });
+
+            // Share Stash functionality
+            const shareStashBtn = document.getElementById('shareStashBtn');
+            const shareUrlContainer = document.getElementById('shareUrlContainer');
+            const shareableUrlInput = document.getElementById('shareableUrlInput');
+            const copyShareUrlBtn = document.getElementById('copyShareUrlBtn');
+
+            shareStashBtn.addEventListener('click', async function() {
+                const yarns = getYarns();
+                if (yarns.length === 0) {
+                    alert('Your stash is empty! Add some yarn before sharing.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch('/api/share-stash', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ yarnStash: yarns })
+                    });
+                    const data = await response.json();
+
+                    if (data.success) {
+                        shareableUrlInput.value = data.url;
+                        shareUrlContainer.style.display = 'block';
+                    } else {
+                        alert('Failed to generate shareable URL: ' + (data.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    console.error('Error sharing stash:', error);
+                    alert('An error occurred while trying to share your stash.');
+                }
+            });
+
+            copyShareUrlBtn.addEventListener('click', function() {
+                shareableUrlInput.select();
+                document.execCommand('copy');
+                alert('Shareable URL copied to clipboard!');
+            });
+
+            renderStashList(); // Initial render of the stash list
+        });
+    </script>
+</body>
+</html>
