@@ -218,93 +218,48 @@ function getFaves() {
   try { return JSON.parse(localStorage.getItem(FAVES_KEY)) || []; } catch(e) { return []; }
 }
 
-async function saveFaves(faves) {
+function saveFaves(faves) {
+  try { localStorage.setItem(FAVES_KEY, JSON.stringify(faves)); } catch(e) {}
   const token = localStorage.getItem('authToken');
   if (token) {
-    try {
-      const response = await fetch('/api/auth/favorites', {
-        method: 'POST', // Or PUT, depending on API. POST for adding, DELETE for removing.
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ patternId: faves }) // Send the entire list or individual IDs
-      });
-      if (response.ok) {
-        return; // Saved successfully to cloud
-      } else if (response.status === 401) {
-        localStorage.removeItem('authToken');
-        updateAuthUI();
-      }
-    } catch (e) {
-      console.error('Failed to save favorites to cloud:', e);
-    }
+    fetch('/api/auth/favorites', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ patternId: faves })
+    }).catch(e => console.error('Failed to save favorites to cloud:', e));
   }
-  try { localStorage.setItem(FAVES_KEY, JSON.stringify(faves)); } catch(e) {}
 }
 
-async function toggleFave(id) {
-  const token = localStorage.getItem('authToken');
-  let faves = await getFaves(); // Await here
+function toggleFave(id) {
+  const faves = getFaves();
   const idx = faves.indexOf(id);
   let nowFaved;
 
-  if (token) {
-    if (idx >= 0) {
-      // Remove from favorites via API
-      try {
-        const response = await fetch(`/api/auth/favorites/${id}`, {
-          method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (response.ok) {
-          nowFaved = false;
-          faves = faves.filter(f => f !== id); // Update local state after successful API call
-        } else if (response.status === 401) {
-            localStorage.removeItem('authToken');
-            updateAuthUI();
-            nowFaved = faves.includes(id); // Revert to local state if auth fails
-        } else {
-          console.error('API error removing favorite', response.status);
-          nowFaved = faves.includes(id); // Assume not changed if API fails
-        }
-      } catch (e) {
-        console.error('Network error removing favorite', e);
-        nowFaved = faves.includes(id);
-      }
-    } else {
-      // Add to favorites via API
-      try {
-        const response = await fetch('/api/auth/favorites', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ patternId: id })
-        });
-        if (response.ok) {
-          nowFaved = true;
-          faves.push(id); // Update local state
-        } else if (response.status === 401) {
-            localStorage.removeItem('authToken');
-            updateAuthUI();
-            nowFaved = faves.includes(id); // Revert to local state
-        } else {
-          console.error('API error adding favorite', response.status);
-          nowFaved = faves.includes(id); // Assume not changed
-        }
-      } catch (e) {
-        console.error('Network error adding favorite', e);
-        nowFaved = faves.includes(id);
-      }
-    }
+  if (idx >= 0) {
+    faves.splice(idx, 1);
+    nowFaved = false;
   } else {
-    // Local storage fallback
-    if (idx >= 0) { faves.splice(idx, 1); nowFaved = false; } else { faves.push(id); nowFaved = true; }
-    saveFaves(faves);
+    faves.push(id);
+    nowFaved = true;
+  }
+  saveFaves(faves);
+
+  const token = localStorage.getItem('authToken');
+  if (token) {
+    if (nowFaved) {
+      fetch('/api/auth/favorites', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ patternId: id })
+      }).then(r => { if (r.status === 401) { localStorage.removeItem('authToken'); updateAuthUI(); } })
+        .catch(e => console.error('Network error adding favorite', e));
+    } else {
+      fetch(`/api/auth/favorites/${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      }).then(r => { if (r.status === 401) { localStorage.removeItem('authToken'); updateAuthUI(); } })
+        .catch(e => console.error('Network error removing favorite', e));
+    }
   }
   return nowFaved;
 }
@@ -317,36 +272,23 @@ function getDone() {
   try { return JSON.parse(localStorage.getItem(DONE_KEY)) || []; } catch(e) { return []; }
 }
 
-async function saveDone(done) {
+function saveDone(done) {
+  try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch(e) {}
   const token = localStorage.getItem('authToken');
   if (token) {
-    try {
-      const response = await fetch('/api/auth/profile', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ donePatterns: done }) // Assuming API updates 'donePatterns' field
-      });
-      if (response.ok) {
-        return; // Saved successfully to cloud
-      } else if (response.status === 401) {
-        localStorage.removeItem('authToken');
-        updateAuthUI();
-      }
-    } catch (e) {
-      console.error('Failed to save done patterns to cloud:', e);
-    }
+    fetch('/api/auth/profile', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ donePatterns: done })
+    }).catch(e => console.error('Failed to save done patterns to cloud:', e));
   }
-  try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch(e) {}
 }
 
-async function markAsDone(id) {
-  let done = await getDone();
+function markAsDone(id) {
+  const done = getDone();
   if (!done.includes(id)) {
     done.push(id);
-    await saveDone(done);
+    saveDone(done);
   }
   return true;
 }
@@ -376,31 +318,16 @@ function getYarns() {
   catch(e) { return []; }
 }
 
-async function saveYarns(yarns) {
+function saveYarns(yarns) {
+  try { localStorage.setItem(YARNS_KEY, JSON.stringify(yarns)); } catch(e) {}
   const token = localStorage.getItem('authToken');
   if (token) {
-    try {
-      const response = await fetch('/api/auth/yarn-stash', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ yarnStash: yarns })
-      });
-      if (response.ok) {
-        // Stash saved successfully to cloud
-        return;
-      } else if (response.status === 401) {
-        localStorage.removeItem('authToken');
-        updateAuthUI();
-      }
-    } catch (e) {
-      console.error('Failed to save yarn stash to cloud:', e);
-    }
+    fetch('/api/auth/yarn-stash', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ yarnStash: yarns })
+    }).catch(e => console.error('Failed to save yarn stash to cloud:', e));
   }
-  // Fallback to local storage
-  try { localStorage.setItem(YARNS_KEY, JSON.stringify(yarns)); } catch(e) {}
 }
 
 function addYarn(name, weight, yardage, hook, notes, image) {
@@ -1199,7 +1126,7 @@ async function showRecommendations() {
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
-
+  try {
 
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
     updateStashStatus();
@@ -2058,6 +1985,7 @@ function showProjectDetail(project, index, allProjects) {
             }
         });
     }
+} catch(e) { console.error(e); }
 });
 
 // ===== User Authentication =====
