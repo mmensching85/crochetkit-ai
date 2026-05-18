@@ -287,60 +287,58 @@ function extractStitches(instructions) {
     return Array.from(stitchNames).sort();
 }
 
-function reverseMatch(pattern, yarns) {
-    const patternWeight = pattern.materials.yarn.weightNumber;
-    const patternHookSizeMM = pattern.materials.hook.sizeMM;
-    const minYardage = pattern.materials.yarn.suggestedYardageMin;
-    const maxYardage = pattern.materials.yarn.suggestedYardageMax;
-
-    const individualMatches = yarns.map(yarn => {
-        const weightDiff = Math.abs(yarn.weight - patternWeight);
-        const weightMatch = weightDiff <= 1;
-        const yardageMatch = yarn.yardage >= minYardage;
-        const hookMatch = yarn.hook !== null && Math.abs(yarn.hook - patternHookSizeMM) <= 1.0;
-        const hookDiff = yarn.hook !== null ? Math.abs(yarn.hook - patternHookSizeMM) : null;
-
-        return {
-            yarn,
-            weightMatch,
-            yardageMatch,
-            hookMatch,
-            hookDiff,
-            overall: weightMatch && yardageMatch && hookMatch
-        };
-    });
-
-    const combinedMatch = {
-        enough: individualMatches.some(m => m.overall),
-        reason: individualMatches.some(m => m.overall)
-            ? 'At least one yarn matches the pattern requirements.'
-            : 'No yarns match the pattern requirements.',
-        patternWeight,
-        patternHookSizeMM,
-        minYardage,
-        maxYardage
-    };
-
-    return {
-        patternId: pattern.id,
-        patternName: pattern.name,
-        individualMatches,
-        combinedMatch
-    };
-}
 // API endpoint to find projects (returns array of suggestions)
 app.post('/api/find-project', (req, res) => {
-    // ... existing /api/find-project implementation ...
+    try {
+        const userInput = req.body;
+
+        const matchInputSchema = {
+          yarnWeightNumber: { type: 'number', min: 0, max: 7 },
+          yardageHave: { type: 'number', min: 0, max: 100000 },
+          hookSizeMM: { type: 'number', min: 0, max: 50 },
+          hookSizeUnknown: { type: 'boolean' },
+          timeRange: { type: 'object' },
+          difficulty: { type: 'string', maxLength: 50 },
+          preferredCategory: { type: 'string', maxLength: 100 }
+        };
+        const matchErrors = validateFields(userInput, matchInputSchema);
+        if (matchErrors.length > 0) {
+          return res.status(400).json({ success: false, errors: matchErrors });
+        }
+
+        const hasYarns = userInput.yarns && userInput.yarns.length > 0;
+        if (!hasYarns && (userInput.yarnWeightNumber === undefined || userInput.yardageHave === undefined)) {
+            return res.status(400).json({ error: 'Missing required fields: yarnWeightNumber and yardageHave are required.' });
+        }
+
+        const matchResults = matchPattern(userInput, patterns);
+        const termSystem = userInput.termSystem || 'US';
+
+        const formattedOutput = matchResults.map(r => formatProjectOutput(r, termSystem));
+
+        incrementMatchCount();
+
+        res.json(formattedOutput);
+    } catch (error) {
+        console.error('Error processing request:', error.message);
+        res.status(500).json({ error: error.message });
+    }
 });
 
 // Share Stash API endpoint
 app.post('/api/share-stash', rateLimit(10, 60000), (req, res) => {
-    // ... existing /api/share-stash implementation ...
-});
-
-// POST /api/contact — Save contact form submissions
-app.post('/api/contact', rateLimit(5, 60000), (req, res) => {
-    // ... existing /api/contact implementation ...
+    try {
+        const { yarnStash } = req.body;
+        if (!Array.isArray(yarnStash)) {
+            return res.status(400).json({ success: false, error: 'yarnStash array is required.' });
+        }
+        const encoded = Buffer.from(JSON.stringify(yarnStash)).toString('base64');
+        const url = `${req.protocol}://${req.get('host')}/stash.html?stash=${encodeURIComponent(encoded)}`;
+        res.json({ success: true, url });
+    } catch (error) {
+        console.error('Share stash error:', error.message);
+        res.status(500).json({ success: false, error: 'Failed to generate shareable URL' });
+    }
 });
 
 // Admin API Endpoints (no authentication for simplicity, as per instructions)
@@ -1004,32 +1002,7 @@ app.put('/api/auth/yarn-stash', authMiddleware, (req, res) => {
     }
 });
 
-// POST /api/reverse-match — Given a pattern, show which saved yarns match
-app.post('/api/reverse-match', (req, res) => {
-    try {
-        const { patternId, yarns } = req.body;
 
-        const revSchema = {
-          patternId: { type: 'string', required: true, maxLength: 100 },
-          yarns: { type: 'array', required: true }
-        };
-        const revErrors = validateFields(req.body, revSchema);
-        if (revErrors.length > 0) {
-          return res.status(400).json({ success: false, errors: revErrors });
-        }
-
-        const pattern = patterns.find(p => p.id === patternId);
-        if (!pattern) {
-            return res.status(404).json({ error: 'Pattern not found.' });
-        }
-
-        const result = reverseMatch(pattern, yarns);
-        res.json(result);
-    } catch (error) {
-        console.error('Reverse match error:', error.message);
-        res.status(500).json({ error: error.message });
-    }
-});
 
 // POST /api/feedback — Save user feedback
 app.post('/api/feedback', (req, res) => {
@@ -1218,217 +1191,7 @@ app.post('/api/auth/signup', async (req, res) => {
     }
 });
 
-// POST /api/auth/login — User login
-app.post('/api/auth/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
 
-        const authSchema = {
-          username: { type: 'string', required: true, maxLength: 50 },
-          password: { type: 'string', required: true, maxLength: 200 }
-        };
-        const authErrors = validateFields({ username: email, password }, authSchema);
-        if (authErrors.length > 0) {
-          return res.status(400).json({ success: false, errors: authErrors });
-        }
-
-        if (!email || !password) {
-            return res.status(400).json({ error: 'Email and password are required' });
-        }
-
-        const user = findUserByEmail(email);
-        if (!user) {
-            return res.status(401).json({ error: 'Invalid email or password' });
-        }
-
-        const validPassword = await bcrypt.compare(password, user.password);
-        if (!validPassword) {
-            return res.status(401).json({ error: 'Invalid email or password' });
-        }
-
-        const token = generateToken(user);
-        res.json({
-            success: true,
-            token,
-            user: {
-                id: user.id,
-                email: user.email,
-                name: user.name,
-                favorites: user.favorites || [],
-                yarnStash: user.yarnStash || []
-            }
-        });
-    } catch (error) {
-        console.error('Login error:', error.message);
-        res.status(500).json({ error: 'Failed to login' });
-    }
-});
-
-// GET /api/auth/profile — Get current user profile (auth required)
-app.get('/api/auth/profile', authMiddleware, (req, res) => {
-    const user = req.user;
-    res.json({
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        favorites: user.favorites || [],
-        yarnStash: user.yarnStash || [],
-        createdAt: user.createdAt
-    });
-});
-
-// PUT /api/auth/profile — Update user profile (auth required)
-app.put('/api/auth/profile', authMiddleware, (req, res) => {
-    try {
-        const { name, favorites, yarnStash } = req.body;
-
-        const profileSchema = {
-          name: { type: 'string', maxLength: 100 },
-          favorites: { type: 'array' },
-          yarnStash: { type: 'array' }
-        };
-        const profileErrors = validateFields(req.body, profileSchema);
-        if (profileErrors.length > 0) {
-          return res.status(400).json({ success: false, errors: profileErrors });
-        }
-
-        const users = loadUsers();
-        const userIndex = users.findIndex(u => u.id === req.user.id);
-
-        if (userIndex === -1) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        if (name !== undefined) users[userIndex].name = name;
-        if (favorites !== undefined) users[userIndex].favorites = favorites;
-        if (yarnStash !== undefined) users[userIndex].yarnStash = yarnStash;
-
-        saveUsers(users);
-
-        res.json({
-            success: true,
-            user: {
-                id: users[userIndex].id,
-                email: users[userIndex].email,
-                name: users[userIndex].name,
-                favorites: users[userIndex].favorites,
-                yarnStash: users[userIndex].yarnStash
-            }
-        });
-    } catch (error) {
-        console.error('Profile update error:', error.message);
-        res.status(500).json({ error: 'Failed to update profile' });
-    }
-});
-
-// GET /api/auth/favorites — Get user's favorites (auth required)
-app.get('/api/auth/favorites', authMiddleware, (req, res) => {
-    try {
-        const users = loadUsers();
-        const user = users.find(u => u.id === req.user.id);
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-        res.json({ favorites: user.favorites || [] });
-    } catch (error) {
-        console.error('Favorites error:', error.message);
-        res.status(500).json({ error: 'Failed to get favorites' });
-    }
-});
-
-// POST /api/auth/favorites — Add pattern(s) to favorites (auth required)
-// Accepts single { patternId: "id" } OR bulk { patternId: ["id1", "id2"] }
-app.post('/api/auth/favorites', authMiddleware, (req, res) => {
-    try {
-        const { patternId } = req.body;
-
-        const favSchema = {
-          patternId: { type: 'string', required: true, maxLength: 100 }
-        };
-        const favErrors = validateFields(req.body, favSchema);
-        if (favErrors.length > 0 && !Array.isArray(patternId)) {
-          return res.status(400).json({ success: false, errors: favErrors });
-        }
-
-        if (!patternId) {
-            return res.status(400).json({ error: 'patternId is required' });
-        }
-
-        const users = loadUsers();
-        const userIndex = users.findIndex(u => u.id === req.user.id);
-
-        if (!users[userIndex].favorites) {
-            users[userIndex].favorites = [];
-        }
-
-        const ids = Array.isArray(patternId) ? patternId : [patternId];
-        let added = 0;
-        for (const id of ids) {
-            if (!users[userIndex].favorites.includes(id)) {
-                users[userIndex].favorites.push(id);
-                added++;
-            }
-        }
-        if (added > 0) {
-            saveUsers(users);
-        }
-
-        res.json({ success: true, favorites: users[userIndex].favorites });
-    } catch (error) {
-        console.error('Favorites error:', error.message);
-        res.status(500).json({ error: 'Failed to add favorite' });
-    }
-});
-
-// DELETE /api/auth/favorites/:patternId — Remove pattern from favorites (auth required)
-app.delete('/api/auth/favorites/:patternId', authMiddleware, (req, res) => {
-    try {
-        const { patternId } = req.params;
-        const users = loadUsers();
-        const userIndex = users.findIndex(u => u.id === req.user.id);
-
-        if (!users[userIndex].favorites) {
-            users[userIndex].favorites = [];
-        }
-
-        users[userIndex].favorites = users[userIndex].favorites.filter(id => id !== patternId);
-        saveUsers(users);
-
-        res.json({ success: true, favorites: users[userIndex].favorites });
-    } catch (error) {
-        console.error('Favorites error:', error.message);
-        res.status(500).json({ error: 'Failed to remove favorite' });
-    }
-});
-
-// PUT /api/auth/yarn-stash — Update yarn stash (auth required)
-app.put('/api/auth/yarn-stash', authMiddleware, (req, res) => {
-    try {
-        const { yarnStash } = req.body;
-
-        const stashSchema = {
-          yarnStash: { type: 'array', required: true }
-        };
-        const stashErrors = validateFields(req.body, stashSchema);
-        if (stashErrors.length > 0) {
-          return res.status(400).json({ success: false, errors: stashErrors });
-        }
-
-        if (!Array.isArray(yarnStash)) {
-            return res.status(400).json({ error: 'yarnStash must be an array' });
-        }
-
-        const users = loadUsers();
-        const userIndex = users.findIndex(u => u.id === req.user.id);
-        users[userIndex].yarnStash = yarnStash;
-        saveUsers(users);
-
-        res.json({ success: true, yarnStash: users[userIndex].yarnStash });
-    } catch (error) {
-        console.error('Yarn stash error:', error.message);
-        res.status(500).json({ error: 'Failed to update yarn stash' });
-    }
-});
 
 // GET /api/pattern-image/:id — Generate SVG pattern image
 app.get('/api/pattern-image/:id', (req, res) => {
