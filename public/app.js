@@ -52,7 +52,6 @@ function convertStitchName(name, system) {
 
 const STASH_KEY = 'crochetkit-stash';
 const FILTER_KEY = 'crochetkit-filters';
-const NEW_PATTERN_ID_THRESHOLD = 58; // Patterns with numeric ID greater than this are considered "new"
 
 function saveFilters() {
   const data = {
@@ -116,26 +115,6 @@ function loadFilters() {
   } catch(e) {}
 }
 
-function clearStash() {
-  try { localStorage.removeItem(STASH_KEY); } catch(e) {}
-  updateStashStatus();
-}
-
-function updateStashStatus() {
-  const el = document.getElementById('stashStatus');
-  if (!el) return;
-  try {
-    const raw = localStorage.getItem(STASH_KEY);
-    if (raw) {
-      el.innerHTML = '<span class="stash-saved">&#10003; Stash saved</span><span class="clear-stash" id="clearStashBtn">clear</span>';
-    } else {
-      el.innerHTML = '';
-    }
-  } catch(e) {
-    el.innerHTML = '';
-  }
-}
-
 function renderQuickStashSummary() {
   const summaryCard = document.getElementById('quickStashSummary');
   const summaryText = document.getElementById('stashSummaryText');
@@ -155,12 +134,6 @@ function renderQuickStashSummary() {
   summaryText.innerHTML = `You have <strong>${yarns.length}</strong> yarn(s) in your stash, totaling <strong>${totalYards} yards</strong> across weights: <strong>${weightNames}</strong>.`;
 }
 
-function getNumericId(idStr) {
-  if (typeof idStr !== 'string') return 0;
-  const match = idStr.match(/\d+$/);
-  return match ? parseInt(match[0]) : 0;
-}
-
 async function renderWhatsNew() {
   const container = document.getElementById('whatsNewPatterns');
   if (!container) return;
@@ -168,12 +141,9 @@ async function renderWhatsNew() {
   try {
     const response = await fetch('/api/patterns');
     const allPatterns = await response.json();
-    
-    // Sort by numeric ID descending to get newest first
-    const newPatterns = allPatterns
-      .filter(p => getNumericId(p.id) > NEW_PATTERN_ID_THRESHOLD)
-      .sort((a, b) => getNumericId(b.id) - getNumericId(a.id))
-      .slice(0, 3); // Show top 3 newest
+
+    // Show the last 3 patterns in the list (most recently added)
+    const newPatterns = allPatterns.slice(-3).reverse();
 
     if (newPatterns.length === 0) {
       document.getElementById('whatsNewSection').style.display = 'none';
@@ -183,13 +153,13 @@ async function renderWhatsNew() {
     container.innerHTML = newPatterns.map(p => `
       <div class="pattern-card">
         <div class="pattern-image-container">
-          <img src="${p.imageUrl}" alt="${p.name}" loading="lazy">
+          <img src="${p.imageUrl || ''}" alt="${escHtml(p.title || p.name || '')}" loading="lazy">
         </div>
         <div class="pattern-info">
-          <h3>${p.name}</h3>
-          <p class="category">${p.category}</p>
-          <p class="difficulty">${p.difficulty.level.toUpperCase()}</p>
-          <button class="btn btn-outline btn-small view-pattern-btn" data-id="${p.id}">View Pattern</button>
+          <h3>${escHtml(p.title || p.name || '')}</h3>
+          <p class="category">${escHtml(p.category || '')}</p>
+          <p class="difficulty">${escHtml((p.skill_level || '').toUpperCase())}</p>
+          <button class="btn btn-outline btn-small view-pattern-btn" data-id="${escHtml(p.id)}">View Pattern</button>
         </div>
       </div>
     `).join('');
@@ -197,10 +167,9 @@ async function renderWhatsNew() {
     // Attach event listeners to buttons
     container.querySelectorAll('.view-pattern-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        // Find the pattern in allPatterns to get full data
         const pattern = allPatterns.find(pat => pat.id === btn.dataset.id);
         if (pattern) {
-          showProjectDetails(pattern);
+          showProjectDetail(pattern, null, allPatterns);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       });
@@ -415,7 +384,6 @@ function matchYarns() {
   currentTermSystem = termSys;
   selectedProjectIndex = null;
   saveStash();
-  updateStashStatus();
 
   const output = document.getElementById('project-output');
   output.innerHTML = '<div class="loading">Matching all your yarns...</div>';
@@ -622,30 +590,38 @@ function showCatalog() {
     .then(patterns => {
       let catalogPage = 1;
 
+      // Build the filter UI once — reused across re-renders
+      function buildFilterHtml() {
+        let h = '<div class="catalog-filters">';
+        h += `<select id="catFilterCat"><option value="">All categories</option>${[...new Set(patterns.map(p => p.category))].sort().map(c => `<option value="${escHtml(c)}">${escHtml(c)}</option>`).join('')}</select>`;
+        h += `<select id="catFilterDiff"><option value="">All levels</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select>`;
+        h += `<select id="catFilterWeight"><option value="">Any weight</option>${[...new Set(patterns.map(p => p.yarnWeightNumber).filter(w => w !== null).sort((a,b) => a-b))].map(w => `<option value="${w}">${w} — ${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][w] || ''}</option>`).join('')}</select>`;
+        h += `<input type="number" id="catFilterTime" placeholder="Max hours" min="0" step="0.5">`;
+        h += `<input type="text" id="catFilterSearch" placeholder="Search by name...">`;
+        h += `<button class="btn btn-sm btn-outline" id="catFilterFaves">♥ Favorites</button>`;
+        h += `<button class="btn btn-sm btn-outline" id="catFilterDone">✓ Done</button>`;
+        h += `<button class="btn btn-sm btn-outline" id="catFilterTrending" style="display:none;">🔥 Trending</button>`;
+        h += `</div>`;
+        return h;
+      }
+
       function render(pats, showDoneWarning = false) {
         const perPage = 12;
         const pageCount = Math.ceil(pats.length / perPage);
         if (catalogPage > pageCount) catalogPage = Math.max(1, pageCount);
         const start = (catalogPage - 1) * perPage;
+        // Only process the current page slice — avoids freezing on 207 patterns
         const pagePats = pats.slice(start, start + perPage);
 
         if (pagePats.length === 0 && !showDoneWarning) {
           output.innerHTML = '<div class="error">No patterns available. Please try again later.</div>';
           return;
         }
+
         let html = `<div class="catalog-count">Showing ${pagePats.length} of ${pats.length} patterns`;
         if (pageCount > 1) html += ` &middot; Page ${catalogPage} of ${pageCount}`;
         html += `</div>`;
-        html += '<div class="catalog-filters">';
-        html += `<select id="catFilterCat"><option value="">All categories</option>${[...new Set(patterns.map(p => p.category))].sort().map(c => `<option value="${c}">${c}</option>`).join('')}</select>`;
-        html += `<select id="catFilterDiff"><option value="">All levels</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select>`;
-        html += `<select id="catFilterWeight"><option value="">Any weight</option>${[...new Set(patterns.map(p => p.yarnWeightNumber).filter(w => w !== null).sort((a,b) => a-b))].map(w => `<option value="${w}">${w} — ${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][w] || ''}</option>`).join('')}</select>`;
-        html += `<input type="number" id="catFilterTime" placeholder="Max hours" min="0" step="0.5">`;
-        html += `<input type="text" id="catFilterSearch" placeholder="Search by name...">`;
-        html += `<button class="btn btn-sm btn-outline" id="catFilterFaves">♥ Favorites</button>`;
-        html += `<button class="btn btn-sm btn-outline" id="catFilterDone">✓ Done</button>`;
-        html += `<button class="btn btn-sm btn-outline" id="catFilterTrending" style="display:none;">🔥 Trending</button>`;
-        html += `</div>`;
+        html += buildFilterHtml();
         html += '<div class="project-cards">';
 
         if (showDoneWarning && pats.length === 0) {
@@ -653,17 +629,18 @@ function showCatalog() {
         }
 
         pagePats.forEach((p, i) => {
-          const title = linkifyGlossaryTerms(p.title);
+          // Skip glossary linkification in the catalog list — it's expensive and not needed here
+          const title = escHtml(p.title);
           const fvd = isFaved(p.id) ? 'faved' : '';
           const doneSt = isDone(p.id) ? 'done-st' : '';
           html += `<div class="project-card ${doneSt}" data-catalog-idx="${i}">`;
-          html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${p.title}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+          html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.title)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
           html += `<h3>${title}</h3>`;
           if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
-          html += `<p class="card-desc">${p.description}</p>`;
-          html += `<p><strong>Category:</strong> ${p.category} &middot; <strong>Level:</strong> ${p.skill_level}</p>`;
-          html += `<p><strong>Time:</strong> ${p.estimated_time}${p.yarnWeightNumber !== null ? ` &middot; <strong>Weight:</strong> ${p.yarnWeightNumber} (${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][p.yarnWeightNumber] || ''})` : ''}</p>`;
-          html += `<p><strong>Stitches:</strong> ${p.stitches_used.join(', ')}</p>`;
+          html += `<p class="card-desc">${escHtml(p.description)}</p>`;
+          html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.skill_level)}</p>`;
+          html += `<p><strong>Time:</strong> ${escHtml(p.estimated_time)}${p.yarnWeightNumber !== null ? ` &middot; <strong>Weight:</strong> ${p.yarnWeightNumber} (${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][p.yarnWeightNumber] || ''})` : ''}</p>`;
+          html += `<p><strong>Stitches:</strong> ${p.stitches_used.map(s => escHtml(s)).join(', ')}</p>`;
           html += `<div class="card-actions">`;
           html += `<button class="btn btn-outline btn-sm catalog-select" data-idx="${i}">Select</button>`;
           html += `<button class="btn btn-success btn-sm catalog-pdf" data-idx="${i}">PDF</button>`;
@@ -817,7 +794,7 @@ function showMyFaves() {
       html += '<div class="project-cards">';
 
       faves.forEach((p, i) => {
-        const title = linkifyGlossaryTerms(p.title);
+        const title = escHtml(p.title);
         const fvd = isFaved(p.id) ? 'faved' : '';
         const doneSt = isDone(p.id) ? 'done-st' : '';
         html += `<div class="project-card ${doneSt}" data-index="${i}">`;
@@ -894,7 +871,7 @@ function showMyDone() {
       html += '<div class="project-cards">';
 
       done.forEach((p, i) => {
-        const title = linkifyGlossaryTerms(p.title);
+        const title = escHtml(p.title);
         html += `<div class="project-card done-st" data-index="${i}">`;
         html += `<h3>${title}</h3>`;
         html += `<span class="done-badge">✓ Done</span>`;
@@ -1045,95 +1022,11 @@ function printProject(project) {
     }
 }
 
-async function showRecommendations() {
-  const container = document.getElementById('recommendationsPatterns');
-  if (!container) return;
-
-  const token = localStorage.getItem('authToken');
-  if (!token) {
-    document.getElementById('recommendationsSection').style.display = 'none';
-    return;
-  }
-
-  try {
-    // Get current user preferences from the form for content-based filtering
-    const yarns = await getYarns();
-    const preferences = {
-      difficulty: document.getElementById('difficulty').value,
-      category: document.getElementById('preferredCategory').value || null,
-      timeRange: {
-        minHours: parseFloat(document.getElementById('minHours').value),
-        maxHours: parseFloat(document.getElementById('maxHours').value)
-      }
-    };
-
-    const response = await fetch('/api/recommendations', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ yarns, preferences })
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch recommendations');
-    }
-
-    const data = await response.json();
-    const recommendations = data.recommendations;
-
-    if (recommendations.length === 0) {
-      document.getElementById('recommendationsSection').style.display = 'none';
-      return;
-    }
-
-    container.innerHTML = recommendations.map(p => `
-      <div class="pattern-card">
-        <div class="pattern-image-container">
-          <img src="${p.imageUrl}" alt="${p.name}" loading="lazy">
-        </div>
-        <div class="pattern-info">
-          <h3>${p.name}</h3>
-          <p class="category">${p.category}</p>
-          <p class="difficulty">${p.difficulty.level.toUpperCase()}</p>
-          <button class="btn btn-outline btn-small view-pattern-btn" data-id="${p.id}">View Pattern</button>
-        </div>
-      </div>
-    `).join('');
-
-    // Attach event listeners to buttons
-    container.querySelectorAll('.view-pattern-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Find the pattern in allPatterns to get full data
-        // (Assuming you can fetch a single pattern by ID or have them preloaded)
-        fetch('/api/patterns') // Fetch all patterns again or implement single pattern API
-          .then(r => r.json())
-          .then(allPatterns => {
-            const pattern = allPatterns.find(pat => pat.id === btn.dataset.id);
-            if (pattern) {
-              showProjectDetail(pattern);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-          });
-      });
-    });
-    document.getElementById('recommendationsSection').style.display = 'block';
-  } catch (err) {
-    console.error('Error rendering recommendations:', err);
-    document.getElementById('recommendationsSection').style.display = 'none';
-  }
-}
-
 document.addEventListener('DOMContentLoaded', async function() {
   try {
 
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
-    updateStashStatus();
     loadFilters(); // Load filters on initial page load
-    document.getElementById('stashStatus').addEventListener('click', function(e) {
-      if (e.target.id === 'clearStashBtn') clearStash();
-    });
     renderYarnList();
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
     document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
@@ -1365,7 +1258,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         currentTermSystem = termSys;
         selectedProjectIndex = null;
         saveStash();
-        updateStashStatus();
 
         try {
             outputElement.innerHTML = '<div class="loading">Finding your perfect project...</div>';
@@ -1527,7 +1419,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
 async function showReverseMatch(patternId) {
-  const yarns = await getYarns();
+  const yarns = getYarns();
   if (!yarns || yarns.length === 0) {
     document.getElementById('stashMatchContent').innerHTML = '<p style="color:#888;font-size:13px;">No yarns in your stash to check.</p>';
     return;

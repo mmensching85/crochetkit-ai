@@ -13,7 +13,12 @@ const CONTACT_FILE = path.join(__dirname, 'data', 'contacts.json');
 const POPULAR_FILE = path.join(__dirname, 'data', 'popular.json');
 const USERS_FILE = path.join(__dirname, 'data', 'users.json');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'crochetkit-secret-key-change-in-production';
+// IMPORTANT: Set JWT_SECRET as an environment variable in Railway (or your hosting provider).
+// A strong random string of 32+ characters is recommended (e.g. use: openssl rand -hex 32).
+// The fallback below is only for local development — never rely on it in production.
+const JWT_SECRET = process.env.JWT_SECRET || (process.env.NODE_ENV === 'production'
+    ? (() => { throw new Error('JWT_SECRET environment variable must be set in production!'); })()
+    : 'crochetkit-dev-secret-DO-NOT-USE-IN-PRODUCTION');
 const JWT_EXPIRY = '7d';
 
 const app = express();
@@ -223,16 +228,20 @@ app.get('/api/patterns', (req, res) => {
 
         if (searchTerm) {
             filteredPatterns = patterns.filter(p => {
+                // Search name
+                if (p.name && p.name.toLowerCase().includes(searchTerm)) return true;
                 // Search shortDescription
                 if (p.shortDescription && p.shortDescription.toLowerCase().includes(searchTerm)) return true;
+                // Search category
+                if (p.category && p.category.toLowerCase().includes(searchTerm)) return true;
                 // Search materials (yarn notes, hook notes)
-                if (p.materials.yarn.notes && p.materials.yarn.notes.toLowerCase().includes(searchTerm)) return true;
-                if (p.materials.hook.notes && p.materials.hook.notes.toLowerCase().includes(searchTerm)) return true;
+                if (p.materials && p.materials.yarn && p.materials.yarn.notes && p.materials.yarn.notes.toLowerCase().includes(searchTerm)) return true;
+                if (p.materials && p.materials.hook && p.materials.hook.notes && p.materials.hook.notes.toLowerCase().includes(searchTerm)) return true;
                 // Search instructions (join all steps)
                 if (p.instructions && p.instructions.join(' ').toLowerCase().includes(searchTerm)) return true;
                 // Search keywords
                 if (p.keywords && p.keywords.some(kw => kw.toLowerCase().includes(searchTerm))) return true;
-                
+
                 return false;
             });
         }
@@ -341,8 +350,23 @@ app.post('/api/share-stash', rateLimit(10, 60000), (req, res) => {
     }
 });
 
-// Admin API Endpoints (no authentication for simplicity, as per instructions)
-app.get('/api/admin/usage-stats', (req, res) => {
+// Admin API Endpoints — protected by ADMIN_SECRET
+// Set the ADMIN_SECRET environment variable in Railway (or your hosting provider).
+// Never use the default fallback value in production.
+const ADMIN_SECRET = process.env.ADMIN_SECRET;
+
+function adminAuth(req, res, next) {
+    const secret = req.headers['x-admin-secret'] || req.query.secret;
+    if (!ADMIN_SECRET) {
+        return res.status(503).json({ error: 'Admin access is not configured (ADMIN_SECRET env var not set).' });
+    }
+    if (!secret || secret !== ADMIN_SECRET) {
+        return res.status(403).json({ error: 'Forbidden: invalid or missing admin secret.' });
+    }
+    next();
+}
+
+app.get('/api/admin/usage-stats', adminAuth, (req, res) => {
     try {
         const data = JSON.parse(fs.readFileSync(MATCH_COUNT_FILE, 'utf-8'));
         res.json(data);
@@ -352,7 +376,7 @@ app.get('/api/admin/usage-stats', (req, res) => {
     }
 });
 
-app.get('/api/admin/contacts', (req, res) => {
+app.get('/api/admin/contacts', adminAuth, (req, res) => {
     try {
         const data = fs.existsSync(CONTACT_FILE) ? JSON.parse(fs.readFileSync(CONTACT_FILE, 'utf-8')) : [];
         res.json(data);
@@ -362,7 +386,7 @@ app.get('/api/admin/contacts', (req, res) => {
     }
 });
 
-app.get('/api/admin/feedback', (req, res) => {
+app.get('/api/admin/feedback', adminAuth, (req, res) => {
     try {
         const data = fs.existsSync(FEEDBACK_FILE) ? JSON.parse(fs.readFileSync(FEEDBACK_FILE, 'utf-8')) : [];
         res.json(data);
@@ -534,8 +558,10 @@ app.post('/api/generate-certificate', authMiddleware, (req, res) => {
         }
 
         // Check if pattern is completed
+        // patterns use 'instructions' (array of strings), not 'steps'
+        const patternStepCount = (pattern.instructions || pattern.steps || []).length;
         const progress = user.progress && user.progress[patternId] ? user.progress[patternId] : { completedSteps: [] };
-        if (progress.completedSteps.length < pattern.steps.length) {
+        if (progress.completedSteps.length < patternStepCount) {
             return res.status(400).json({ error: 'Pattern not completed.' });
         }
 
@@ -552,92 +578,6 @@ app.post('/api/generate-certificate', authMiddleware, (req, res) => {
     }
 });
 
-// POST /api/recommendations — Generate pattern recommendations based on user preferences
-app.post('/api/recommendations', authMiddleware, (req, res) => {
-    try {
-        const { yarns, preferences } = req.body;
-
-        const recSchema = {
-            yarns: { type: 'array', required: true },
-            preferences: { type: 'object', required: true }
-        };
-        const recErrors = validateFields(req.body, recSchema);
-        if (recErrors.length > 0) {
-            return res.status(400).json({ success: false, errors: recErrors });
-        }
-
-        // Get user's profile data
-        const users = loadUsers();
-        const user = users.find(u => u.id === req.user.id);
-        if (!user) {
-            return res.status(404).json({ error: 'User not found.' });
-        }
-
-        // Generate recommendations
-        const recommendations = generateRecommendations(user, yarns, preferences);
-
-        res.json({
-            success: true,
-            recommendations
-        });
-    } catch (error) {
-        console.error('Recommendation generation error:', error.message);
-        res.status(500).json({ error: error.message });
-    }
-});
-
-function generateRecommendations(user, yarns, preferences) {
-    // Content-based filtering: recommend patterns that match user's yarns and preferences
-    const contentBased = patterns.filter(pattern => {
-        // Check if pattern matches user's yarns
-        const yarnMatch = yarns.some(yarn => {
-            const weightDiff = Math.abs(yarn.weight - pattern.materials.yarn.weightNumber);
-            const hookDiff = yarn.hook !== null ? Math.abs(yarn.hook - pattern.materials.hook.sizeMM) : 0;
-            return weightDiff <= 1 && hookDiff <= 1.0;
-        });
-
-        // Check if pattern matches user's preferences
-        const prefMatch = (!preferences.difficulty || pattern.difficulty.level === preferences.difficulty) &&
-                         (!preferences.category || pattern.category === preferences.category) &&
-                         (!preferences.timeRange || (pattern.estimatedTime.minHours >= preferences.timeRange.minHours && pattern.estimatedTime.maxHours <= preferences.timeRange.maxHours));
-
-        return yarnMatch && prefMatch;
-    });
-
-    // Collaborative filtering: recommend patterns that other users with similar preferences completed
-    const collaborative = patterns.filter(pattern => {
-        // Find users with similar preferences
-        const similarUsers = loadUsers().filter(u => {
-            if (u.id === user.id) return false;
-            return (!preferences.difficulty || u.preferences?.difficulty === preferences.difficulty) &&
-                   (!preferences.category || u.preferences?.category === preferences.category);
-        });
-
-        // Check if any similar user completed this pattern
-        return similarUsers.some(u => u.progress && u.progress[pattern.id] && u.progress[pattern.id].completedSteps.length === pattern.steps.length);
-    });
-
-    // Combine and deduplicate recommendations
-    const combined = [...contentBased, ...collaborative];
-    const uniqueRecommendations = Array.from(new Set(combined.map(p => p.id)))
-        .map(id => combined.find(p => p.id === id));
-
-    // Sort by relevance (content-based first, then collaborative)
-    uniqueRecommendations.sort((a, b) => {
-        const aContent = contentBased.includes(a) ? 1 : 0;
-        const bContent = contentBased.includes(b) ? 1 : 0;
-        return bContent - aContent;
-    });
-
-    // Format recommendations for client
-    return uniqueRecommendations.map(pattern => {
-        const dummyMatch = (p) => ({
-            matchedPattern: p,
-            materialGap: { yardage: { status: 'ok' }, hook: { status: 'ok' } }
-        });
-        return formatProjectOutput(dummyMatch(pattern), 'US');
-    });
-}
 
 function generateCertificate(pattern, user) {
     const date = new Date().toLocaleDateString('en-US', {
@@ -1046,21 +986,13 @@ app.post('/api/feedback', (req, res) => {
     }
 });
 
-app.post('/api/cache/invalidate', (req, res) => {
-    const { secret } = req.body;
-    if (secret !== process.env.ADMIN_SECRET && secret !== 'crochetkit-admin-dev') {
-        return res.status(403).json({ success: false, error: 'Unauthorized' });
-    }
+app.post('/api/cache/invalidate', adminAuth, (req, res) => {
     invalidateCache();
     res.json({ success: true, message: 'Cache cleared.' });
 });
 
-// GET /api/feedback — Retrieve all feedback (for admin view)
-app.get('/api/feedback', (req, res) => {
-    const secret = req.query.secret;
-    if (secret !== process.env.ADMIN_SECRET && secret !== 'crochetkit-admin-dev') {
-        return res.status(403).json({ success: false, error: 'Unauthorized' });
-    }
+// GET /api/feedback — Retrieve all feedback (admin only)
+app.get('/api/feedback', adminAuth, (req, res) => {
     try {
         res.json(readJSON(FEEDBACK_FILE) || []);
     } catch {
@@ -1130,31 +1062,24 @@ app.post('/api/track-popular', (req, res) => {
     }
 });
 
-// POST /api/auth/signup — User registration
+// POST /api/auth/signup — Alias for /api/auth/register (frontend calls signup)
 app.post('/api/auth/signup', async (req, res) => {
     try {
         const { email, password, name } = req.body;
 
-        const authSchema = {
-          username: { type: 'string', required: true, maxLength: 50 },
-          password: { type: 'string', required: true, maxLength: 200 }
+        const schema = {
+            email: { type: 'string', required: true, maxLength: 100 },
+            password: { type: 'string', required: true, minLength: 6, maxLength: 200 },
+            name: { type: 'string', maxLength: 50 }
         };
-        const authErrors = validateFields({ username: email, password }, authSchema);
-        if (authErrors.length > 0) {
-          return res.status(400).json({ success: false, errors: authErrors });
-        }
-
-        if (!email || !password) {
-            return res.status(400).json({ error: 'Email and password are required' });
-        }
-
-        if (password.length < 6) {
-            return res.status(400).json({ error: 'Password must be at least 6 characters' });
+        const errors = validateFields(req.body, schema);
+        if (errors.length > 0) {
+            return res.status(400).json({ success: false, error: errors.join(', ') });
         }
 
         const existingUser = findUserByEmail(email);
         if (existingUser) {
-            return res.status(400).json({ error: 'An account with this email already exists' });
+            return res.status(400).json({ success: false, error: 'An account with this email already exists' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -1162,8 +1087,8 @@ app.post('/api/auth/signup', async (req, res) => {
 
         const newUser = {
             id: `user-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            username: escHtml(name || email.split('@')[0]),
             email: email.toLowerCase(),
-            name: name || '',
             password: hashedPassword,
             createdAt: new Date().toISOString(),
             favorites: [],
@@ -1179,19 +1104,17 @@ app.post('/api/auth/signup', async (req, res) => {
             token,
             user: {
                 id: newUser.id,
+                username: newUser.username,
                 email: newUser.email,
-                name: newUser.name,
                 favorites: newUser.favorites,
                 yarnStash: newUser.yarnStash
             }
         });
     } catch (error) {
         console.error('Signup error:', error.message);
-        res.status(500).json({ error: 'Failed to create account' });
+        res.status(500).json({ success: false, error: 'Failed to create account' });
     }
 });
-
-
 
 // GET /api/pattern-image/:id — Generate SVG pattern image
 app.get('/api/pattern-image/:id', (req, res) => {
