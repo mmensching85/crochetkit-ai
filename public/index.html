@@ -41,11 +41,6 @@
                     <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
                     <button class="btn btn-outline btn-sm" id="myFavesBtn" title="View your hearted patterns">♥ Favorites</button>
                     <button class="btn btn-outline btn-sm" id="myDoneBtn" title="View completed patterns">✓ Done</button>
-                    <a href="/auth.html" class="btn btn-outline btn-sm" id="accountLink" title="Sign in to save favorites and yarn stash">Login</a>
-                    <div id="userBadge" class="user-badge" style="display:none;">
-                        <span id="userName"></span>
-                        <button class="btn-link" id="logoutBtn">Logout</button>
-                    </div>
                     <button class="header-nav-toggle" id="headerNavToggle" aria-label="Toggle navigation">☰</button>
                 </div>
                 </div>
@@ -315,7 +310,8 @@
 
         <div class="card" id="global-feedback">
             <h2>Feedback</h2>
-            <form id="global-feedback-form">
+            <form id="global-feedback-form" netlify data-netlify="true">
+                <input type="hidden" name="form-name" value="global-feedback">
                 <div class="feedback-rating">
                     <label>Rating:</label>
                     <div class="star-rating">
@@ -344,7 +340,8 @@
         <div class="card" id="contact-card">
             <h2>Contact</h2>
             <p>Have a question, suggestion, or found a bug? Drop us a message.</p>
-            <form id="contact-form">
+            <form id="contact-form" netlify data-netlify="true">
+                <input type="hidden" name="form-name" value="contact">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="contactName">Name <span class="optional">(optional)</span></label>
@@ -376,34 +373,7 @@
         </div>
     </div>
 
-        <div id="authModal" class="modal" style="display:none;">
-            <div class="modal-content">
-                <span class="modal-close" id="authModalClose">&times;</span>
-                <h2 id="authModalTitle">Sign In</h2>
-                <div id="authError" class="error-message" style="display:none;"></div>
-                <form id="authForm">
-                    <div class="form-group">
-                        <label for="authEmail">Email</label>
-                        <input type="email" id="authEmail" required placeholder="you@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="authPassword">Password</label>
-                        <input type="password" id="authPassword" required placeholder="Your password" minlength="6">
-                    </div>
-                    <div class="form-group" id="authNameGroup" style="display:none;">
-                        <label for="authName">Name <span class="optional">(optional)</span></label>
-                        <input type="text" id="authName" placeholder="Your name">
-                    </div>
-                    <button type="submit" class="btn btn-primary" id="authSubmitBtn">Sign In</button>
-                </form>
-                <div class="auth-switch">
-                    <span id="authSwitchText">Don't have an account?</span>
-                    <button class="btn-link" id="authSwitchBtn">Sign up</button>
-                </div>
-                <div class="auth-loading" id="authLoading" style="display:none;">Signing in...</div>
-            </div>
-        </div>
-    </div>
+    <script src="js/matcher.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

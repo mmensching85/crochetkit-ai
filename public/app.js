@@ -120,7 +120,7 @@ async function renderWhatsNew() {
   if (!container) return;
 
   try {
-    const response = await fetch('/api/patterns');
+    const response = await fetch('/data/patterns.json');
     const allPatterns = await response.json();
 
     // Show the last 3 patterns in the list (most recently added)
@@ -170,14 +170,6 @@ function getFaves() {
 
 function saveFaves(faves) {
   try { localStorage.setItem(FAVES_KEY, JSON.stringify(faves)); } catch(e) {}
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    fetch('/api/auth/favorites', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-      body: JSON.stringify({ patternId: faves })
-    }).catch(e => console.error('Failed to save favorites to cloud:', e));
-  }
 }
 
 function toggleFave(id) {
@@ -193,24 +185,6 @@ function toggleFave(id) {
     nowFaved = true;
   }
   saveFaves(faves);
-
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    if (nowFaved) {
-      fetch('/api/auth/favorites', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ patternId: id })
-      }).then(r => { if (r.status === 401) { localStorage.removeItem('authToken'); updateAuthUI(); } })
-        .catch(e => console.error('Network error adding favorite', e));
-    } else {
-      fetch(`/api/auth/favorites/${id}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${token}` }
-      }).then(r => { if (r.status === 401) { localStorage.removeItem('authToken'); updateAuthUI(); } })
-        .catch(e => console.error('Network error removing favorite', e));
-    }
-  }
   return nowFaved;
 }
 
@@ -224,14 +198,6 @@ function getDone() {
 
 function saveDone(done) {
   try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch(e) {}
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    fetch('/api/auth/profile', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-      body: JSON.stringify({ donePatterns: done })
-    }).catch(e => console.error('Failed to save done patterns to cloud:', e));
-  }
 }
 
 function markAsDone(id) {
@@ -270,14 +236,6 @@ function getYarns() {
 
 function saveYarns(yarns) {
   try { localStorage.setItem(YARNS_KEY, JSON.stringify(yarns)); } catch(e) {}
-  const token = localStorage.getItem('authToken');
-  if (token) {
-    fetch('/api/auth/yarn-stash', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-      body: JSON.stringify({ yarnStash: yarns })
-    }).catch(e => console.error('Failed to save yarn stash to cloud:', e));
-  }
 }
 
 function addYarn(name, weight, yardage, hook, notes, image) {
@@ -378,18 +336,10 @@ function matchYarns() {
   output.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
   document.getElementById('output').style.display = 'block';
 
-  fetch('/api/find-project', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(userInput)
-  })
-    .then(r => { if (!r.ok) throw new Error('Server error: ' + r.status); return r.json(); })
-    .then(projects => {
-      // Attach matched yarn info to each result for display
+  doMatch(userInput).then(projects => {
       displayProjectCards(projects);
-    })
-    .catch(err => {
-      console.error('Fetch error:', err);
+    }).catch(err => {
+      console.error('Match error:', err);
       output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
     });
 }
@@ -399,6 +349,13 @@ function escHtml(s) {
   const d = document.createElement('div');
   d.textContent = s;
   return d.innerHTML;
+}
+
+async function doMatch(userInput) {
+  const resp = await fetch('/data/patterns.json');
+  const allPatterns = await resp.json();
+  const matchResults = matchPattern(userInput, allPatterns);
+  return matchResults.map(r => formatProjectOutput(r, userInput.termSystem || 'US'));
 }
 
 function renderStashMatch(match) {
@@ -616,7 +573,7 @@ function showCatalog() {
 
   output.innerHTML = '<div class="skeleton-grid">' + Array(6).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
-  fetch('/api/patterns')
+  fetch('/data/patterns.json')
     .then(r => r.json())
     .then(patterns => {
       let catalogPage = 1;
@@ -793,8 +750,6 @@ function showCatalog() {
         }
       }).catch(err => {
         console.error('Fetch error:', err);
-        const catalogEl = document.getElementById('catalogOutput') || document.getElementById('project-output');
-        if (catalogEl) catalogEl.innerHTML = '<div class="error-message">Could not load trending patterns.</div>';
       });
     })
     .catch(err => {
@@ -817,7 +772,7 @@ function showMyFaves() {
 
   output.innerHTML = '<div class="skeleton-grid">' + Array(3).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
-  fetch('/api/patterns')
+  fetch('/data/patterns.json')
     .then(r => r.json())
     .then(patterns => {
       const faves = patterns.filter(p => faveIds.includes(p.id));
@@ -895,7 +850,7 @@ function showMyDone() {
 
   output.innerHTML = '<div class="skeleton-grid">' + Array(3).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
-  fetch('/api/patterns')
+  fetch('/data/patterns.json')
     .then(r => r.json())
     .then(patterns => {
       const done = patterns.filter(p => doneIds.includes(p.id));
@@ -1306,15 +1261,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             outputElement.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
             document.getElementById('output').style.display = 'block';
 
-            const response = await fetch('/api/find-project', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(currentUserInput)
-            });
-
-            if (!response.ok) throw new Error(`Server error: ${response.status}`);
-
-            const projects = await response.json();
+            const projects = await doMatch(currentUserInput);
             displayProjectCards(projects);
 
         } catch (error) {
@@ -1362,15 +1309,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             outputElement.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
             document.getElementById('output').style.display = 'block';
 
-            const response = await fetch('/api/find-project', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(currentUserInput)
-            });
-
-            if (!response.ok) throw new Error(`Server error: ${response.status}`);
-
-            let projects = await response.json();
+            const projects = await doMatch(currentUserInput);
             // Filter out done patterns
             const doneIds = getDone();
             const undone = projects.filter(p => !doneIds.includes(p.id));
@@ -1495,19 +1434,11 @@ async function showReverseMatch(patternId) {
   }
 
   try {
-    const response = await fetch('/api/reverse-match', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ patternId, yarns })
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch reverse match');
-    }
-
-    const data = await response.json();
+    const resp = await fetch('/data/patterns.json');
+    const allPatterns = await resp.json();
+    const pattern = allPatterns.find(p => String(p.id) === String(patternId));
+    if (!pattern) throw new Error('Pattern not found');
+    const data = reverseMatch(pattern, yarns);
     renderStashMatch(data);
   } catch (error) {
     console.error('Error fetching reverse match:', error);
@@ -1746,6 +1677,8 @@ function showProjectDetail(project, index, allProjects) {
   html += `<div class="feedback-section">`;
   html += `<h4>Was this project helpful?</h4>`;
   html += `<form class="feedback-form" data-project="${project.title.replace(/\"/g, '&quot;')}">`;
+  html += `<input type="hidden" name="form-name" value="project-feedback">`;
+  html += `<input type="hidden" name="project-title" value="${escHtml(project.title)}">`;
   html += `<div class="feedback-rating">`;
   html += `<label>Rating:</label>`;
   html += `<div class="star-rating">`;
@@ -1822,27 +1755,25 @@ function showProjectDetail(project, index, allProjects) {
     const form = e.target;
     const rating = form.querySelector('input[name="rating"]:checked').value;
     const comment = form.querySelector('.feedback-comment-input').value;
-    const projectTitle = form.dataset.project;
 
     try {
-      const response = await fetch('/api/feedback', {
+      const fd = new FormData(form);
+      fd.set('form-name', 'project-feedback');
+      fd.set('project-title', form.dataset.project || '');
+      fd.set('comment', comment);
+      fd.set('rating', rating);
+      const response = await fetch('/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          projectTitle,
-          rating: parseInt(rating),
-          comment,
-          userInput: currentUserInput
-        })
+        headers: { 'Accept': 'application/json' },
+        body: fd
       });
 
       const feedbackErr = form.querySelector('.feedback-error');
-      if (response.ok) {
+      if (response.ok || response.redirected) {
         form.querySelector('.feedback-thanks').style.display = 'block';
-        form.reset();
-        form.querySelector('input[name="rating"][value="5"]').checked = true;
+        form.querySelector('.feedback-rating').style.display = 'none';
+        form.querySelector('.feedback-comment').style.display = 'none';
+        form.querySelector('button[type="submit"]').style.display = 'none';
         if (feedbackErr) feedbackErr.style.display = 'none';
       } else {
         if (feedbackErr) { feedbackErr.textContent = 'Failed to submit feedback. Please try again.'; feedbackErr.style.display = 'block'; }
@@ -1850,7 +1781,7 @@ function showProjectDetail(project, index, allProjects) {
     } catch (error) {
       console.error('Error submitting feedback:', error);
       const feedbackErr = form.querySelector('.feedback-error');
-      if (feedbackErr) { feedbackErr.textContent = 'Error submitting feedback. Please try again.'; feedbackErr.style.display = 'block'; }
+      if (feedbackErr) { feedbackErr.textContent = 'Network error. Please try again.'; feedbackErr.style.display = 'block'; }
     }
   });
 
@@ -1888,21 +1819,21 @@ function showProjectDetail(project, index, allProjects) {
         submitBtn.textContent = 'Sending...';
 
         try {
-            const resp = await fetch('/api/contact', {
+            const fd = new FormData(contactForm);
+            fd.set('form-name', 'contact');
+            const resp = await fetch('/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, message })
+                headers: { 'Accept': 'application/json' },
+                body: fd
             });
-            const data = await resp.json();
             const cerr = contactForm.querySelector('.contact-error');
-            if (data.success) {
+            if (resp.ok || resp.redirected) {
                 if (cerr) cerr.style.display = 'none';
-                contactForm.querySelector('.form-row').style.display = 'none';
-                contactForm.querySelectorAll('.form-group').forEach(el => { if (!el.querySelector('.contact-thanks')) el.style.display = 'none'; });
+                contactForm.querySelectorAll('.form-row, .form-group, .btn').forEach(el => { if (!el.closest('.contact-thanks') && el !== submitBtn) el.style.display = 'none'; });
                 submitBtn.style.display = 'none';
                 thanks.style.display = 'block';
             } else {
-                if (cerr) { cerr.textContent = 'Error: ' + (data.error || 'Failed to send.'); cerr.style.display = 'block'; }
+                if (cerr) { cerr.textContent = 'Failed to send. Please try again.'; cerr.style.display = 'block'; }
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
             }
@@ -1920,8 +1851,6 @@ function showProjectDetail(project, index, allProjects) {
     if (globalForm) {
         globalForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const rating = this.querySelector('input[name="rating"]:checked').value;
-            const comment = document.getElementById('global-comment').value;
             const submitBtn = this.querySelector('button[type="submit"]');
             const thanksMsg = this.querySelector('.feedback-thanks');
 
@@ -1929,19 +1858,15 @@ function showProjectDetail(project, index, allProjects) {
             submitBtn.textContent = 'Saving...';
 
             try {
-                const resp = await fetch('/api/feedback', {
+                const fd = new FormData(globalForm);
+                fd.set('form-name', 'global-feedback');
+                const resp = await fetch('/', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        projectTitle: 'General Site Feedback',
-                        rating: parseInt(rating),
-                        comment,
-                        userInput: null
-                    })
+                    headers: { 'Accept': 'application/json' },
+                    body: fd
                 });
-                const data = await resp.json();
                 const gfErr = globalForm.querySelector('.gf-error');
-                if (data.success) {
+                if (resp.ok || resp.redirected) {
                     globalForm.querySelector('.feedback-rating').style.display = 'none';
                     globalForm.querySelector('.feedback-comment').style.display = 'none';
                     submitBtn.style.display = 'none';
@@ -1950,231 +1875,18 @@ function showProjectDetail(project, index, allProjects) {
                 } else {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Submit Feedback';
-                    if (gfErr) { gfErr.textContent = 'Error: ' + (data.error || 'Failed to save feedback.'); gfErr.style.display = 'block'; }
+                    if (gfErr) { gfErr.textContent = 'Failed to save feedback.'; gfErr.style.display = 'block'; }
                 }
             } catch (err) {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit Feedback';
                 const gfErr = globalForm.querySelector('.gf-error');
-                if (gfErr) { gfErr.textContent = 'Error saving feedback. Please try again.'; gfErr.style.display = 'block'; }
+                if (gfErr) { gfErr.textContent = 'Network error. Please try again.'; gfErr.style.display = 'block'; }
             }
         });
     }
 } catch(e) { console.error(e); }
 });
 
-// ===== User Authentication =====
-const AUTH_TOKEN_KEY = 'crochetkit-auth-token';
-const AUTH_USER_KEY = 'crochetkit-auth-user';
-
-let currentUser = null;
-let authToken = null;
-
-function loadAuth() {
-    try { authToken = localStorage.getItem(AUTH_TOKEN_KEY); } catch(e) { authToken = null; }
-    try { currentUser = JSON.parse(localStorage.getItem(AUTH_USER_KEY) || 'null'); } catch(e) { currentUser = null; }
-}
-
-function saveAuth(token, user) {
-    authToken = token;
-    currentUser = user;
-    try { localStorage.setItem(AUTH_TOKEN_KEY, token); } catch(e) {}
-    try { localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user)); } catch(e) {}
-}
-
-function clearAuth() {
-    authToken = null;
-    currentUser = null;
-    try { localStorage.removeItem(AUTH_TOKEN_KEY); } catch(e) {}
-    try { localStorage.removeItem(AUTH_USER_KEY); } catch(e) {}
-}
-
-function updateAuthUI() {
-    const accountLink = document.getElementById('accountLink');
-    const userBadge = document.getElementById('userBadge');
-    const userName = document.getElementById('userName');
-
-    if (currentUser) {
-        if (accountLink) accountLink.style.display = 'none';
-        if (userBadge) userBadge.style.display = 'flex';
-        if (userName) userName.textContent = currentUser.name || currentUser.email;
-    } else {
-        if (accountLink) accountLink.style.display = '';
-        if (userBadge) userBadge.style.display = 'none';
-    }
-}
-
-function showAuthModal(isSignup = false) {
-    const modal = document.getElementById('authModal');
-    const title = document.getElementById('authModalTitle');
-    const nameGroup = document.getElementById('authNameGroup');
-    const switchText = document.getElementById('authSwitchText');
-    const switchBtn = document.getElementById('authSwitchBtn');
-    const error = document.getElementById('authError');
-    const submitBtn = document.getElementById('authSubmitBtn');
-    const loading = document.getElementById('authLoading');
-
-    error.style.display = 'none';
-    loading.style.display = 'none';
-    document.getElementById('authForm').style.display = '';
-    document.getElementById('authEmail').value = '';
-    document.getElementById('authPassword').value = '';
-    document.getElementById('authName').value = '';
-
-    if (isSignup) {
-        title.textContent = 'Create Account';
-        nameGroup.style.display = '';
-        switchText.textContent = 'Already have an account?';
-        switchBtn.textContent = 'Sign in';
-    } else {
-        title.textContent = 'Sign In';
-        nameGroup.style.display = 'none';
-        switchText.textContent = "Don't have an account?";
-        switchBtn.textContent = 'Sign up';
-    }
-
-    modal.style.display = 'flex';
-}
-
-function hideAuthModal() {
-    document.getElementById('authModal').style.display = 'none';
-}
-
-async function handleAuthSubmit(e) {
-    e.preventDefault();
-    const isSignup = document.getElementById('authModalTitle').textContent === 'Create Account';
-    const email = document.getElementById('authEmail').value.trim();
-    const password = document.getElementById('authPassword').value;
-    const name = document.getElementById('authName').value.trim();
-    const error = document.getElementById('authError');
-    const loading = document.getElementById('authLoading');
-    const form = document.getElementById('authForm');
-
-    error.style.display = 'none';
-    loading.style.display = 'block';
-    form.style.display = 'none';
-
-    try {
-        const resp = await fetch('/api/auth/' + (isSignup ? 'signup' : 'login'), {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, name })
-        });
-
-        const data = await resp.json();
-
-        if (data.success) {
-            saveAuth(data.token, data.user);
-            syncFavoritesToCloud();
-            syncYarnStashToCloud();
-            hideAuthModal();
-            updateAuthUI();
-        } else {
-            throw new Error(data.error || 'Authentication failed');
-        }
-    } catch (err) {
-        error.textContent = err.message;
-        error.style.display = 'block';
-        loading.style.display = 'none';
-        form.style.display = '';
-    }
-}
-
-function handleLogout() {
-    clearAuth();
-    updateAuthUI();
-}
-
-async function syncFavoritesToCloud() {
-    if (!authToken) return;
-    const faves = getFaves();
-    try {
-        await fetch('/api/auth/favorites', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + authToken
-            },
-            body: JSON.stringify({ patternId: faves })
-        });
-    } catch (e) {
-      console.error('Failed to sync favorites:', e);
-    }
-}
-
-async function syncYarnStashToCloud() {
-    if (!authToken) return;
-    const yarns = getYarns();
-    try {
-        await fetch('/api/auth/yarn-stash', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + authToken
-            },
-            body: JSON.stringify({ yarnStash: yarns })
-        });
-    } catch (e) {
-      console.error('Failed to sync stash:', e);
-    }
-}
-
-async function loadFavoritesFromCloud() {
-    if (!authToken) return;
-    try {
-        const resp = await fetch('/api/auth/profile', {
-            headers: { 'Authorization': 'Bearer ' + authToken }
-        });
-        if (resp.ok) {
-            const profile = await resp.json();
-            if (profile.favorites && profile.favorites.length > 0) {
-                saveFaves(profile.favorites);
-            }
-        }
-    } catch (e) {
-      console.error('Failed to load favorites from cloud:', e);
-    }
-}
-
-async function loadYarnStashFromCloud() {
-    if (!authToken) return;
-    try {
-        const resp = await fetch('/api/auth/profile', {
-            headers: { 'Authorization': 'Bearer ' + authToken }
-        });
-        if (resp.ok) {
-            const profile = await resp.json();
-            if (profile.yarnStash && profile.yarnStash.length > 0) {
-                saveYarns(profile.yarnStash);
-            }
-        }
-    } catch (e) {
-      console.error('Failed to load stash from cloud:', e);
-    }
-}
-
-// Initialize auth when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    loadAuth();
-    updateAuthUI();
-
-    if (authToken) {
-        loadFavoritesFromCloud();
-        loadYarnStashFromCloud();
-    }
-
-
-    document.getElementById('myFavesBtn').addEventListener('click', showMyFaves);
-    document.getElementById('myDoneBtn').addEventListener('click', showMyDone);
-    document.getElementById('authModalClose').addEventListener('click', hideAuthModal);
-    document.getElementById('authForm').addEventListener('submit', handleAuthSubmit);
-    document.getElementById('authSwitchBtn').addEventListener('click', function() {
-        const isSignup = document.getElementById('authModalTitle').textContent === 'Create Account';
-        showAuthModal(!isSignup);
-    });
-    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-
-    document.getElementById('authModal').addEventListener('click', function(e) {
-        if (e.target === this) hideAuthModal();
-    });
-});
+document.getElementById('myFavesBtn').addEventListener('click', showMyFaves);
+document.getElementById('myDoneBtn').addEventListener('click', showMyDone);
