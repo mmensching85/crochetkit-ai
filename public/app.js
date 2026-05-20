@@ -1020,8 +1020,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     loadGlossaryData();
     initMobileNav();
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
-    const browseAllBtn = document.getElementById('browseAllBtn');
-    if (browseAllBtn) browseAllBtn.addEventListener('click', showCatalog);
+    document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
     const accountLink = document.getElementById('accountLink');
     if (accountLink) {
       accountLink.addEventListener('click', function(e) {
