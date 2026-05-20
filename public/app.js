@@ -583,12 +583,12 @@ function showCatalog() {
         let h = '<div class="catalog-filters">';
         h += `<select id="catFilterCat"><option value="">All categories</option>${[...new Set(patterns.map(p => p.category))].sort().map(c => `<option value="${escHtml(c)}">${escHtml(c)}</option>`).join('')}</select>`;
         h += `<select id="catFilterDiff"><option value="">All levels</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select>`;
-        h += `<select id="catFilterWeight"><option value="">Any weight</option>${[...new Set(patterns.map(p => p.yarnWeightNumber).filter(w => w !== null).sort((a,b) => a-b))].map(w => `<option value="${w}">${w} — ${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][w] || ''}</option>`).join('')}</select>`;
+        h += `<select id="catFilterWeight"><option value="">Any weight</option>${[...new Set(patterns.map(p => p.materials?.yarn?.weightNumber).filter(w => w != null).sort((a,b) => a-b))].map(w => `<option value="${w}">${w} — ${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][w] || ''}</option>`).join('')}</select>`;
         h += `<input type="number" id="catFilterTime" placeholder="Max hours" min="0" step="0.5">`;
         h += `<input type="text" id="catFilterSearch" placeholder="Search by name...">`;
         h += `<button class="btn btn-sm btn-outline" id="catFilterFaves">♥ Favorites</button>`;
         h += `<button class="btn btn-sm btn-outline" id="catFilterDone">✓ Done</button>`;
-        h += `<button class="btn btn-sm btn-outline" id="catFilterTrending" style="display:none;">🔥 Trending</button>`;
+        h += `<!-- Trending filter removed: requires backend -->`;
         h += `</div>`;
         return h;
       }
@@ -617,23 +617,24 @@ function showCatalog() {
         }
 
         pagePats.forEach((p, i) => {
-          // Skip glossary linkification in the catalog list — it's expensive and not needed here
-          const title = escHtml(p.title);
+          const title = escHtml(p.name);
           const fvd = isFaved(p.id) ? 'faved' : '';
           const doneSt = isDone(p.id) ? 'done-st' : '';
+          const wNum = p.materials?.yarn?.weightNumber;
+          const wLabel = wNum != null ? `${wNum} (${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][wNum] || ''})` : '';
+          const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
           html += `<div class="project-card ${doneSt}" data-catalog-idx="${i}">`;
-          html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.title)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+          html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
           html += `<h3>${title}</h3>`;
           if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
-          html += `<p class="card-desc">${escHtml(p.description)}</p>`;
-          html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.skill_level)}</p>`;
-          html += `<p><strong>Time:</strong> ${escHtml(p.estimated_time)}${p.yarnWeightNumber !== null ? ` &middot; <strong>Weight:</strong> ${p.yarnWeightNumber} (${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][p.yarnWeightNumber] || ''})` : ''}</p>`;
-          html += `<p><strong>Stitches:</strong> ${p.stitches_used.map(s => escHtml(s)).join(', ')}</p>`;
+          html += `<p class="card-desc">${escHtml(p.shortDescription)}</p>`;
+          html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.difficulty?.level || '')}</p>`;
+          html += `<p><strong>Time:</strong> ${escHtml(estTime)}${wLabel ? ` &middot; <strong>Weight:</strong> ${wLabel}` : ''}</p>`;
           html += `<div class="card-actions">`;
           html += `<button class="btn btn-outline btn-sm catalog-select" data-idx="${i}">Select</button>`;
           html += `<button class="btn btn-success btn-sm catalog-pdf" data-idx="${i}">PDF</button>`;
           html += `<button class="fav-btn ${fvd}" data-id="${p.id}" title="${isFaved(p.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(p.id) ? '♥' : '♡'}</button>`;
-          html += `${renderShareBtns(p.id, p.title)}`;
+          html += `${renderShareBtns(p.id, p.name)}`;
           html += `</div></div>`;
         });
 
@@ -658,7 +659,9 @@ function showCatalog() {
           btn.addEventListener('click', function() {
             const idx = parseInt(this.dataset.idx);
             trackPopular(pats[idx].id, 'select');
-            showProjectDetail(pats[idx], idx, pats);
+            // Format raw pattern into the shape showProjectDetail expects
+            const formatted = formatProjectOutput({ matchedPattern: pats[idx], materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem);
+            showProjectDetail(formatted, idx, pats.map(p => formatProjectOutput({ matchedPattern: p, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem)));
           });
         });
 
@@ -666,7 +669,8 @@ function showCatalog() {
           btn.addEventListener('click', function() {
             const idx = parseInt(this.dataset.idx);
             trackPopular(pats[idx].id, 'pdf');
-            printProject(pats[idx]);
+            const formatted = formatProjectOutput({ matchedPattern: pats[idx], materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem);
+            printProject(formatted);
           });
         });
 
@@ -720,42 +724,52 @@ function showCatalog() {
           const doneIds = getDone();
           const filtered = patterns.filter(p => {
             if (cat && p.category !== cat) return false;
-            if (diff && p.skill_level !== diff) return false;
-            if (weight && p.yarnWeightNumber !== null && p.yarnWeightNumber !== parseInt(weight)) return false;
-            if (maxTime && p.estimated_min_hours > maxTime) return false;
-            if (search && !p.title.toLowerCase().includes(search) && !p.description.toLowerCase().includes(search)) return false;
+            if (diff && p.difficulty?.level !== diff) return false;
+            if (weight && p.materials?.yarn?.weightNumber !== parseInt(weight)) return false;
+            if (maxTime && p.estimatedTime?.minHours > maxTime) return false;
+            if (search && !(p.name || '').toLowerCase().includes(search) && !(p.shortDescription || '').toLowerCase().includes(search)) return false;
             if (favesOnly && !faveIds.includes(p.id)) return false;
             if (doneOnly && !doneIds.includes(p.id)) return false;
             return true;
           });
-          if (trendingOnly) {
-            fetch('/api/popular').then(r => r.json()).then(pop => {
-              const trendingIds = new Set(pop.map(p => p.id));
-              render(filtered.filter(p => trendingIds.has(p.id)), true);
-            }).catch(err => {
-              console.error('Fetch error:', err);
-              render(filtered, true);
-            });
-          } else {
-            render(filtered, true);
-          }
+          render(filtered, true);
         }
       }
       render(patterns);
-      // Load trending button
-      fetch('/api/popular').then(r => r.json()).then(pop => {
-        if (pop.length > 0) {
-          const btn = document.getElementById('catFilterTrending');
-          if (btn) { btn.style.display = ''; btn.textContent = '🔥 Trending (' + pop.length + ')'; }
-        }
-      }).catch(err => {
-        console.error('Fetch error:', err);
-      });
     })
     .catch(err => {
       console.error('Fetch error:', err);
       output.innerHTML = `<div class="error">Error loading patterns: ${err.message}</div>`;
     });
+}
+
+function showFullCatalog() {
+  showCatalog();
+  const catFilterCat = document.getElementById('catFilterCat');
+  const catFilterDiff = document.getElementById('catFilterDiff');
+  const catFilterWeight = document.getElementById('catFilterWeight');
+  const catFilterTime = document.getElementById('catFilterTime');
+  const catFilterSearch = document.getElementById('catFilterSearch');
+  const catFilterFaves = document.getElementById('catFilterFaves');
+  const catFilterDone = document.getElementById('catFilterDone');
+  const catFilterTrending = document.getElementById('catFilterTrending');
+
+  if (catFilterCat) catFilterCat.value = '';
+  if (catFilterDiff) catFilterDiff.value = '';
+  if (catFilterWeight) catFilterWeight.value = '';
+  if (catFilterTime) catFilterTime.value = '';
+  if (catFilterSearch) catFilterSearch.value = '';
+  if (catFilterFaves) catFilterFaves.classList.remove('active');
+  if (catFilterDone) catFilterDone.classList.remove('active');
+  if (catFilterTrending) catFilterTrending.classList.remove('active');
+  if (catFilterTrending) catFilterTrending.style.display = 'none';
+
+  const catFilterCatSelect = document.getElementById('catFilterCat');
+  const catFilterWeightSelect = document.getElementById('catFilterWeight');
+
+  if (catFilterCatSelect) {
+    catFilterCatSelect.dispatchEvent(new Event('change'));
+  }
 }
 
 function showMyFaves() {
@@ -779,43 +793,43 @@ function showMyFaves() {
       let html = `<div class="catalog-count">${faves.length} favorited pattern${faves.length !== 1 ? 's' : ''}</div>`;
       html += '<div class="project-cards">';
 
+      const favesFormatted = faves.map(p => formatProjectOutput({ matchedPattern: p, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem));
+
       faves.forEach((p, i) => {
-        const title = escHtml(p.title);
+        const f = favesFormatted[i];
         const fvd = isFaved(p.id) ? 'faved' : '';
         const doneSt = isDone(p.id) ? 'done-st' : '';
+        const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
         html += `<div class="project-card ${doneSt}" data-index="${i}">`;
-        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.title)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
-        html += `<h3>${title}</h3>`;
+        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+        html += `<h3>${escHtml(p.name)}</h3>`;
         if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
-        html += `<p class="card-desc">${escHtml(p.description)}</p>`;
-        html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.skill_level)}</p>`;
-        html += `<p><strong>Time:</strong> ${escHtml(p.estimated_time)}</p>`;
+        html += `<p class="card-desc">${escHtml(p.shortDescription)}</p>`;
+        html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.difficulty?.level || '')}</p>`;
+        html += `<p><strong>Time:</strong> ${escHtml(estTime)}</p>`;
         html += `<div class="card-actions">`;
         html += `<button class="btn btn-outline btn-sm select-project" data-index="${i}">Select</button>`;
         html += `<button class="btn btn-success btn-sm download-pdf-card" data-index="${i}">PDF</button>`;
         html += `<button class="fav-btn ${fvd}" data-id="${p.id}">♥</button>`;
-        html += `${renderShareBtns(p.id, p.title)}`;
+        html += `${renderShareBtns(p.id, p.name)}`;
         html += `</div></div>`;
       });
 
       html += '</div>';
       output.innerHTML = html;
 
-      // Store faves for detail view
-      window._currentFaves = faves;
-
       document.querySelectorAll('.select-project').forEach(btn => {
         btn.addEventListener('click', function() {
           const idx = parseInt(this.dataset.index);
           trackPopular(faves[idx].id, 'select');
-          showProjectDetail(faves[idx], idx, faves);
+          showProjectDetail(favesFormatted[idx], idx, favesFormatted);
         });
       });
 
       document.querySelectorAll('.download-pdf-card').forEach(btn => {
         btn.addEventListener('click', function() {
           const idx = parseInt(this.dataset.index);
-          printProject(faves[idx]);
+          printProject(favesFormatted[idx]);
         });
       });
 
@@ -857,31 +871,31 @@ function showMyDone() {
       let html = `<div class="catalog-count">${done.length} completed project${done.length !== 1 ? 's' : ''}</div>`;
       html += '<div class="project-cards">';
 
+      const doneFormatted = done.map(p => formatProjectOutput({ matchedPattern: p, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem));
+
       done.forEach((p, i) => {
-        const title = escHtml(p.title);
+        const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
         html += `<div class="project-card done-st" data-index="${i}">`;
-        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.title)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
-        html += `<h3>${title}</h3>`;
+        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+        html += `<h3>${escHtml(p.name)}</h3>`;
         html += `<span class="done-badge">✓ Done</span>`;
-        html += `<p class="card-desc">${escHtml(p.description)}</p>`;
-        html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.skill_level)}</p>`;
-        html += `<p><strong>Time:</strong> ${escHtml(p.estimated_time)}</p>`;
+        html += `<p class="card-desc">${escHtml(p.shortDescription)}</p>`;
+        html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.difficulty?.level || '')}</p>`;
+        html += `<p><strong>Time:</strong> ${escHtml(estTime)}</p>`;
         html += `<div class="card-actions">`;
         html += `<button class="btn btn-outline btn-sm select-project" data-index="${i}">View</button>`;
         html += `<button class="btn btn-secondary btn-sm undo-done-btn" data-id="${p.id}">↩ Undo</button>`;
-        html += `${renderShareBtns(p.id, p.title)}`;
+        html += `${renderShareBtns(p.id, p.name)}`;
         html += `</div></div>`;
       });
 
       html += '</div>';
       output.innerHTML = html;
 
-      window._currentDone = done;
-
       document.querySelectorAll('.select-project').forEach(btn => {
         btn.addEventListener('click', function() {
           const idx = parseInt(this.dataset.index);
-          showProjectDetail(done[idx], idx, done);
+          showProjectDetail(doneFormatted[idx], idx, doneFormatted);
         });
       });
 
@@ -1021,6 +1035,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     initMobileNav();
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
     document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
+    document.getElementById('fullCatalogBtn').addEventListener('click', showFullCatalog);
     const accountLink = document.getElementById('accountLink');
     if (accountLink) {
       accountLink.addEventListener('click', function(e) {
@@ -1030,6 +1045,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
     document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);
+
+    // Surprise me button
+
     document.getElementById('saveYarnBtn').addEventListener('click', function() {
       const name = document.getElementById('yarnName').value.trim();
       const errEl = document.getElementById('yarnFormError');
@@ -1308,17 +1326,30 @@ document.addEventListener('DOMContentLoaded', async function() {
         };
 
         try {
-            outputElement.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
+            outputElement.innerHTML = '<div class="loading">Finding a surprise project...</div>';
             document.getElementById('output').style.display = 'block';
 
-            const projects = await doMatch(currentUserInput);
+            let projects = await doMatch(currentUserInput);
             // Filter out done patterns
             const doneIds = getDone();
             const undone = projects.filter(p => !doneIds.includes(p.id));
             if (undone.length > 0) {
                 projects = undone;
             }
+            if (projects.length === 0) {
+                outputElement.innerHTML = '<div class="error">No matching projects found. Try different filter criteria.</div>';
+                return;
+            }
             const pick = projects[Math.floor(Math.random() * projects.length)];
+            const idx = projects.indexOf(pick);
+            displayProjectCards(projects);
+            showProjectDetail(pick, idx, projects);
+
+        } catch (error) {
+            console.error('Error:', error);
+            outputElement.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+        }
+    });
             const idx = projects.indexOf(pick);
             displayProjectCards(projects);
             showProjectDetail(pick, idx, projects);
@@ -1797,11 +1828,13 @@ function showProjectDetail(project, index, allProjects) {
   }
 }
 
-    window.showProjectDetail = showProjectDetail;
-    window.displayProjectCards = displayProjectCards;
+window.showProjectDetail = showProjectDetail;
+window.displayProjectCards = displayProjectCards;
 
-    // Contact form handler
-    const contactForm = document.getElementById('contact-form');
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+  // Contact form handler
+  const contactForm = document.getElementById('contact-form');
     if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -1887,8 +1920,10 @@ function showProjectDetail(project, index, allProjects) {
             }
         });
     }
-} catch(e) { console.error(e); }
+  } catch(e) { console.error(e); }
 });
 
-document.getElementById('myFavesBtn').addEventListener('click', showMyFaves);
-document.getElementById('myDoneBtn').addEventListener('click', showMyDone);
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('myFavesBtn').addEventListener('click', showMyFaves);
+  document.getElementById('myDoneBtn').addEventListener('click', showMyDone);
+});

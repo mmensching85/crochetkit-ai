@@ -259,7 +259,6 @@ function formatProjectOutput(matchResult, termSystem) {
 // ── matchPattern.js ───────────────────────────────────────────────
 const CACHE_MAX_SIZE = 100;
 const CACHE_TTL_MS = 60 * 60 * 1000;
-const NEW_PATTERN_ID_THRESHOLD = 58;
 const NEW_PATTERN_BONUS = 1.0;
 
 const _cache = new Map();
@@ -309,10 +308,13 @@ function matchPattern(userInput, patterns) {
   const cached = getFromCache(cacheKey);
   if (cached) return cached;
 
-  const userDifficulty = userInput.difficulty || 'beginner';
+  const userDifficulty = userInput.difficulty || '';
   const isMultiYarn = userInput.yarns && userInput.yarns.length > 1;
 
-  const filteredPatterns = patterns.filter(p => p.difficulty.level === userDifficulty);
+  // If no difficulty selected, match across all levels; otherwise filter to chosen level
+  const filteredPatterns = userDifficulty
+    ? patterns.filter(p => p.difficulty.level === userDifficulty)
+    : patterns;
   if (filteredPatterns.length === 0) {
     throw new Error(`No ${userDifficulty} patterns found matching your materials. Try adjusting your inputs or selecting a different difficulty.`);
   }
@@ -443,7 +445,9 @@ function matchPattern(userInput, patterns) {
       details.criteria.push({ name: "difficultyFit", met: true, points: Math.abs(pattern.difficulty.score - uDiff) <= 1 ? 1 : 0.5 });
     }
 
-    if (parseInt(pattern.id) > NEW_PATTERN_ID_THRESHOLD) {
+    // New pattern bonus: reward the last 10 patterns in the list (most recently added)
+    const patternIndex = patterns.indexOf(pattern);
+    if (patternIndex >= patterns.length - 10) {
       score += NEW_PATTERN_BONUS;
       details.criteria.push({ name: "newPatternBonus", met: true, points: NEW_PATTERN_BONUS, info: "Bonus for new pattern!" });
     }
