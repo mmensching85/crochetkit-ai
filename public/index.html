@@ -37,134 +37,18 @@
                     <h1>Crochet Project Planner</h1>
                     <p>Tell us what yarn you have, we'll find the perfect project</p>
                 </div>
-                <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
-                <a href="/auth.html" class="btn btn-outline btn-sm" id="accountLink" title="Sign in to save favorites and yarn stash">Login / Register</a>
-                <button class="btn btn-outline btn-sm" id="myFavesBtn" title="View your hearted patterns">♥ My Favorites</button>
-                <button class="btn btn-outline btn-sm" id="myDoneBtn" title="View completed patterns">✓ Done</button>
-                <div id="userBadge" class="user-badge" style="display:none;">
-                    <span id="userName"></span>
-                    <button class="btn-link" id="logoutBtn">Logout</button>
-                </div>
-            </div>
-            <div class="stats-bar" id="statsBar"></div>
-        </header>
-
-        <div class="btn-group catalog-btn-group">
-            <button type="button" class="btn btn-outline" id="browseAllBtn">Browse All Patterns</button>
-        </div>
-
-        <div id="quickStashSummary" class="card" style="display:none;">
-            <h2>Your Stash Summary</h2>
-            <p id="stashSummaryText"></p>
-            <button class="btn btn-primary" id="viewStashGalleryBtn">View Full Stash</button>
-        </div>
-
-        <div id="whatsNewSection" class="card">
-            <h2>What's New!</h2>
-            <div id="whatsNewPatterns" class="pattern-grid"></div>
-            <button class="btn btn-outline" id="viewAllNewPatternsBtn" style="display:none;">View All New Patterns</button>
-        </div>
-
-        <div id="recommendationsSection" class="card">
-            <h2>Recommended For You</h2>
-            <div id="recommendationsPatterns" class="pattern-grid"></div>
-            <p style="font-size:0.8em; color:#888; text-align:center; margin-top:20px;">Recommendations are based on your saved yarns and preferences.</p>
-        </div>
-
-        <div class="card">
-            <h2 id="form-title">Your Materials</h2>
-            <form id="project-form" aria-labelledby="form-title">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="yarnWeightNumber">
-                            Yarn Weight <span class="optional">(CYC 0-7)</span>
-                            <span class="weight-help-btn" id="weightHelpBtn" tabindex="0" role="button" aria-label="Yarn weight reference">?</span>
-                        </label>
-                        <div class="weight-input-row">
-                            <input type="number" id="yarnWeightNumber" min="0" max="7" value="4" required aria-required="true" aria-describedby="yarnWeightHelp">
-                            <span id="weightLabel" class="weight-label-display">Medium (worsted)</span>
-                        </div>
-                        <div id="yarnWeightHelp" class="sr-only">Enter yarn weight number from 0 (lace) to 7 (jumbo)</div>
-                        <div id="weightPopup" class="weight-popup" role="tooltip">
-                            <table>
-                                <tr><th>#</th><th>Name</th><th>Also called</th></tr>
-                                <tr><td>0</td><td>Lace</td><td>fingering 10-count</td></tr>
-                                <tr><td>1</td><td>Super Fine</td><td>fingering, sock</td></tr>
-                                <tr><td>2</td><td>Fine</td><td>sport, baby</td></tr>
-                                <tr><td>3</td><td>Light</td><td>DK, light worsted</td></tr>
-                                <tr><td>4</td><td>Medium</td><td>worsted, aran</td></tr>
-                                <tr><td>5</td><td>Bulky</td><td>chunky</td></tr>
-                                <tr><td>6</td><td>Super Bulky</td><td>super chunky</td></tr>
-                                <tr><td>7</td><td>Jumbo</td><td>roving</td></tr>
-                            </table>
-                        </div>
+                <div class="header-extra-nav" id="headerExtraNav">
+                    <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
+                    <button class="btn btn-outline btn-sm" id="myFavesBtn" title="View your hearted patterns">♥ Favorites</button>
+                    <button class="btn btn-outline btn-sm" id="myDoneBtn" title="View completed patterns">✓ Done</button>
+                    <a href="/auth.html" class="btn btn-outline btn-sm" id="accountLink" title="Sign in to save favorites and yarn stash">Login</a>
+                    <div id="userBadge" class="user-badge" style="display:none;">
+                        <span id="userName"></span>
+                        <button class="btn-link" id="logoutBtn">Logout</button>
                     </div>
-                    <div class="form-group">
-                        <label for="yardageHave">Yardage Available <span class="optional">(yards)</span></label>
-                        <input type="number" id="yardageHave" min="0" value="100" required aria-required="true" aria-describedby="yardageHelp">
-                        <div id="yardageHelp" class="sr-only">Enter how many yards of yarn you have available</div>
-                    </div>
+                    <button class="header-nav-toggle" id="headerNavToggle" aria-label="Toggle navigation">☰</button>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="hookSizeMM">Hook Size <span class="optional">(mm, e.g. 5.0)</span></label>
-                        <input type="number" id="hookSizeMM" step="0.1" value="5.0" aria-describedby="hookSizeHelp">
-                        <div id="hookSizeHelp" class="sr-only">Enter hook size in millimeters, or check I don't know my hook size</div>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="hookSizeUnknown" aria-describedby="hookUnknownHelp">
-                        <label for="hookSizeUnknown">I don't know my hook size</label>
-                        <div id="hookUnknownHelp" class="sr-only">Check if you don't know your hook size</div>
-                    </div>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="minHours">Min Time <span class="optional">(hours)</span></label>
-                        <input type="number" id="minHours" min="0" step="0.5" value="1" required aria-required="true" aria-describedby="minHoursHelp">
-                        <div id="minHoursHelp" class="sr-only">Minimum time you want to spend on the project in hours</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="maxHours">Max Time <span class="optional">(hours)</span></label>
-                        <input type="number" id="maxHours" min="0" step="0.5" value="3" required aria-required="true" aria-describedby="maxHoursHelp">
-                        <div id="maxHoursHelp" class="sr-only">Maximum time you want to spend on the project in hours</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="difficulty">Skill Level <span class="optional">(optional)</span></label>
-                    <select id="difficulty" aria-describedby="difficultyHelp">
-                        <option value="">Any Level</option>
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced">Advanced</option>
-                    </select>
-                    <div id="difficultyHelp" class="sr-only">Select your crochet skill level</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="preferredCategory">Preferred Project Type <span class="optional">(optional)</span></label>
-                    <input type="text" id="preferredCategory" list="categoryList" placeholder="Type or pick a category..." value="" aria-describedby="categoryHelp">
-                    <datalist id="categoryList">
-                        <option value="" disabled hidden>
-                    </datalist>
-                    <div id="categoryHelp" class="sr-only">Type or select a preferred project category</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="termSystem">Term System</label>
-                    <select id="termSystem">
-                        <option value="US">US Terms</option>
-                        <option value="UK">UK/AU Terms</option>
-                    </select>
-                </div>
-
-                <div class="btn-group form-btn-group">
-                    <button type="submit" class="btn btn-primary" id="findProjectsBtn">Find Projects</button>
-                    <button type="button" class="btn btn-outline" id="surpriseBtn">Surprise Me</button>
-                </div>
-                <div id="stashStatus" class="stash-status"></div>
             </form>
         </div>
 
@@ -174,8 +58,9 @@
         </div>
 
         <div class="card" id="gauge-calculator">
-            <h2>Gauge Calculator</h2>
-            <p>Measure your gauge or calculate how many stitches you need for a project.</p>
+            <details class="gauge-collapsible">
+            <summary><strong>Gauge Calculator</strong> <span style="font-weight:400;opacity:0.6;">— measure gauge or calculate stitches</span></summary>
+            <p style="margin-top:12px;">Measure your gauge or calculate how many stitches you need for a project.</p>
             <div class="gauge-tabs">
                 <button class="btn btn-sm btn-outline gauge-tab active" data-mode="measure">Measure Gauge</button>
                 <button class="btn btn-sm btn-outline gauge-tab" data-mode="calc">Calc Stitches</button>
@@ -229,6 +114,7 @@
                 <button class="btn btn-primary btn-sm" id="calc-stitches-btn">Calculate Stitches</button>
             </div>
             <div id="gauge-result" class="gauge-result" style="display:none;"></div>
+            </details>
         </div>
 
             <div class="card" id="yarns-card">
@@ -394,8 +280,8 @@
             <h2>Support the Project</h2>
             <p>CrochetKit AI is free to use. If you find it helpful, consider supporting development:</p>
             <div class="btn-group" style="margin-top:12px;">
-                <a href="https://ko-fi.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm support-link">Buy me a coffee</a>
-                <a href="https://amzn.to/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm support-link">Shop yarn on Amazon</a>
+                <a href="https://ko-fi.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm support-link" title="Coming soon — replace with your Ko-fi link">Buy me a coffee</a>
+                <a href="https://amzn.to/" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm support-link" title="Coming soon — replace with your Amazon affiliate link">Shop yarn on Amazon</a>
             </div>
             <p class="support-note"><em>Premium advanced patterns coming soon!</em></p>
         </div>

@@ -689,6 +689,216 @@ body {
     padding: 12px 0;
 }
 
+/* ===== Welcome Banner ===== */
+.welcome-banner {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border: 2px solid #81c784;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+}
+
+.welcome-content {
+    flex: 1;
+}
+
+.welcome-content h2 {
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    color: #2e7d32;
+    border: none;
+    padding: 0;
+}
+
+.welcome-content p {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #388e3c;
+    line-height: 1.5;
+}
+
+.welcome-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #66bb6a;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.welcome-close:hover {
+    color: #2e7d32;
+}
+
+[data-theme="dark"] .welcome-banner {
+    background: linear-gradient(135deg, #1b3a1b 0%, #2e5a2e 100%);
+    border-color: #4caf50;
+}
+
+[data-theme="dark"] .welcome-content h2 {
+    color: #81c784;
+}
+
+[data-theme="dark"] .welcome-content p {
+    color: #a5d6a7;
+}
+
+[data-theme="dark"] .welcome-close {
+    color: #66bb6a;
+}
+
+/* ===== Find Projects Primary Button ===== */
+.find-projects-primary {
+    font-size: 20px !important;
+    padding: 16px 24px !important;
+    letter-spacing: 0.3px;
+}
+
+.surprise-me-secondary {
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+    opacity: 0.8;
+}
+
+/* ===== Empty State ===== */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.empty-state h3 {
+    color: #2c3e50;
+    margin: 0 0 12px 0;
+    font-size: 20px;
+}
+
+.empty-state p {
+    color: #888;
+    margin: 0 0 20px 0;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+[data-theme="dark"] .empty-state h3 {
+    color: #e0d8f0;
+}
+
+/* ===== Loading Skeleton ===== */
+.skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.skeleton-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 20px;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-card .skeleton-img {
+    width: 100%;
+    height: 120px;
+    background: #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.skeleton-card .skeleton-line {
+    height: 14px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.skeleton-card .skeleton-line:last-child {
+    width: 60%;
+}
+
+@keyframes skeleton-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+[data-theme="dark"] .skeleton-card {
+    background: #2a2a3e;
+    border-color: #3a3a5e;
+}
+
+[data-theme="dark"] .skeleton-card .skeleton-img,
+[data-theme="dark"] .skeleton-card .skeleton-line {
+    background: #3a3a5e;
+}
+
+/* ===== Mobile Header Toggle ===== */
+.header-nav-toggle {
+    display: none;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.4);
+    color: #fff;
+    font-size: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+}
+
+@media (max-width: 600px) {
+    .header-nav-toggle {
+        display: inline-flex;
+    }
+}
+
+.header-extra-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-extra-nav .btn {
+    white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+    .header-extra-nav .btn:not(#darkToggle):not(.header-nav-toggle) {
+        display: none;
+    }
+    .header-extra-nav.mobile-open .btn:not(#darkToggle):not(.header-nav-toggle) {
+        display: inline-flex;
+    }
+}
+
+/* Gauge Calculator collapsible */
+.gauge-collapsible {
+    margin-top: 0;
+}
+
+.gauge-collapsible summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color: #2c3e50;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+[data-theme="dark"] .gauge-collapsible summary {
+    color: #e0d8f0;
+    border-bottom-color: #3a3a5e;
+}
+
 /* ===== Catalog Trending ===== */
 #catFilterTrending.active {
     background: #e67e22;

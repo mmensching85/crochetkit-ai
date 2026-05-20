@@ -115,25 +115,6 @@ function loadFilters() {
   } catch(e) {}
 }
 
-function renderQuickStashSummary() {
-  const summaryCard = document.getElementById('quickStashSummary');
-  const summaryText = document.getElementById('stashSummaryText');
-  if (!summaryCard || !summaryText) return;
-
-  const yarns = getYarns();
-  if (yarns.length === 0) {
-    summaryCard.style.display = 'none';
-    return;
-  }
-
-  summaryCard.style.display = 'block';
-  const totalYards = yarns.reduce((sum, y) => sum + y.yardage, 0);
-  const uniqueWeights = new Set(yarns.map(y => y.weight));
-  const weightNames = Array.from(uniqueWeights).map(w => WEIGHT_LABELS[w] || `Weight ${w}`).join(', ');
-
-  summaryText.innerHTML = `You have <strong>${yarns.length}</strong> yarn(s) in your stash, totaling <strong>${totalYards} yards</strong> across weights: <strong>${weightNames}</strong>.`;
-}
-
 async function renderWhatsNew() {
   const container = document.getElementById('whatsNewPatterns');
   if (!container) return;
@@ -304,13 +285,11 @@ function addYarn(name, weight, yardage, hook, notes, image) {
   yarns.push({ id: Date.now(), name, weight: parseInt(weight), yardage: parseInt(yardage), hook: parseFloat(hook) || null, notes, image: image || null });
   saveYarns(yarns);
   renderYarnList();
-  renderQuickStashSummary(); // Update summary after adding yarn
 }
 
 function deleteYarn(id) {
   saveYarns(getYarns().filter(y => y.id !== id));
   renderYarnList();
-  renderQuickStashSummary(); // Update summary after deleting yarn
 }
 
 function renderYarnList() {
@@ -319,7 +298,6 @@ function renderYarnList() {
   const yarns = getYarns();
   if (!yarns.length) {
     el.innerHTML = '<p style="color:#888;font-size:13px;">No yarns saved yet.</p>';
-    renderQuickStashSummary(); // Update summary when list changes
     return;
   }
   el.innerHTML = yarns.map(y =>
@@ -386,7 +364,7 @@ function matchYarns() {
   saveStash();
 
   const output = document.getElementById('project-output');
-  output.innerHTML = '<div class="loading">Matching all your yarns...</div>';
+  output.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
   document.getElementById('output').style.display = 'block';
 
   fetch('/api/find-project', {
@@ -576,6 +554,48 @@ function toggleDark() {
     html.setAttribute('data-theme', 'dark');
     try { localStorage.setItem('crochetkit-dark', 'true'); } catch(e) {}
   }
+  const btn = document.getElementById('darkToggle');
+  if (btn) btn.innerHTML = '&#9790;';
+}
+
+function initWelcomeBanner() {
+  const banner = document.getElementById('welcomeBanner');
+  if (!banner) return;
+  try {
+    if (localStorage.getItem('crochetkit-welcome-dismissed')) {
+      banner.style.display = 'none';
+      return;
+    }
+  } catch(e) {}
+  document.getElementById('dismissWelcome').addEventListener('click', dismissWelcome);
+  document.getElementById('dismissWelcomeX').addEventListener('click', dismissWelcome);
+  function dismissWelcome() {
+    banner.style.display = 'none';
+    try { localStorage.setItem('crochetkit-welcome-dismissed', 'true'); } catch(e) {}
+  }
+}
+
+function loadGlossaryData() {
+  fetch('/glossary.json')
+    .then(r => r.json())
+    .then(data => { glossaryData = data; })
+    .catch(() => {});
+}
+
+function initMobileNav() {
+  const toggle = document.getElementById('headerNavToggle');
+  const nav = document.getElementById('headerExtraNav');
+  if (!toggle || !nav) return;
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    nav.classList.toggle('mobile-open');
+  });
+  document.addEventListener('click', function() {
+    nav.classList.remove('mobile-open');
+  });
+  nav.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
 }
 
 function showCatalog() {
@@ -583,7 +603,7 @@ function showCatalog() {
   const outputCard = document.getElementById('output');
   outputCard.style.display = 'block';
 
-  output.innerHTML = '<div class="loading">Loading all patterns...</div>';
+  output.innerHTML = '<div class="skeleton-grid">' + Array(6).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
   fetch('/api/patterns')
     .then(r => r.json())
@@ -784,7 +804,7 @@ function showMyFaves() {
     return;
   }
 
-  output.innerHTML = '<div class="loading">Loading your favorites...</div>';
+  output.innerHTML = '<div class="skeleton-grid">' + Array(3).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
   fetch('/api/patterns')
     .then(r => r.json())
@@ -861,7 +881,7 @@ function showMyDone() {
     return;
   }
 
-  output.innerHTML = '<div class="loading">Loading completed projects...</div>';
+  output.innerHTML = '<div class="skeleton-grid">' + Array(3).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
   fetch('/api/patterns')
     .then(r => r.json())
@@ -1028,12 +1048,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
     loadFilters(); // Load filters on initial page load
     renderYarnList();
+    initWelcomeBanner();
+    loadGlossaryData();
+    initMobileNav();
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
     document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
-
-    document.getElementById('viewStashGalleryBtn')?.addEventListener('click', function() {
-        window.location.href = '/stash.html';
+    document.getElementById('accountLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      showAuthModal();
     });
+
     document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
     document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);
     document.getElementById('saveYarnBtn').addEventListener('click', function() {
@@ -1260,7 +1284,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         saveStash();
 
         try {
-            outputElement.innerHTML = '<div class="loading">Finding your perfect project...</div>';
+            outputElement.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
             document.getElementById('output').style.display = 'block';
 
             const response = await fetch('/api/find-project', {
@@ -1316,7 +1340,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         };
 
         try {
-            outputElement.innerHTML = '<div class="loading">Finding a surprise project...</div>';
+            outputElement.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
             document.getElementById('output').style.display = 'block';
 
             const response = await fetch('/api/find-project', {
@@ -1345,78 +1369,103 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     });
 
-    function displayProjectCards(projects) {
-        const doneIds = getDone();
-        const hasDone = projects.some(p => doneIds.includes(p.id));
+// displayProjectCards is intentionally in global scope so matchYarns() and other
+// top-level callers can reach it. Do NOT move it back inside DOMContentLoaded.
+function displayProjectCards(projects) {
+    const doneIds = getDone();
+    const hasDone = projects.some(p => doneIds.includes(p.id));
 
-        const existingCheck = document.getElementById('hideDoneResults');
-        const hideDone = existingCheck ? existingCheck.checked : true;
+    const existingCheck = document.getElementById('hideDoneResults');
+    const hideDone = existingCheck ? existingCheck.checked : true;
 
-        let html = '';
-        if (hasDone) {
-            html += `<div style="text-align:center;margin-bottom:12px;"><label style="font-size:14px;color:#888;cursor:pointer;"><input type="checkbox" id="hideDoneResults" ${hideDone ? 'checked' : ''}> Hide completed projects</label></div>`;
-        }
-        html += '<div class="project-cards">';
-        const filteredProjects = (hasDone && hideDone) ? projects.filter(p => !doneIds.includes(p.id)) : projects;
-        filteredProjects.forEach((project, index) => {
-            const title = linkifyGlossaryTerms(project.title);
-            const stitches = project.stitches_used.map(s => convertStitchName(s, currentTermSystem)).join(', ');
-            const fvd = isFaved(project.id) ? 'faved' : '';
-            html += `<div class="project-card" data-index="${index}">`;
-            html += `<h3>${title}</h3>`;
-            html += `<p class="card-desc">${project.description}</p>`;
-            html += `<p><strong>Time:</strong> ${project.estimated_time}</p>`;
-            if (project.matchedYarns && project.matchedYarns.length > 0) {
-              html += `<p><strong>Matched yarns:</strong> ${project.matchedYarns.join(', ')}</p>`;
-            }
-            html += `<p><strong>Stitches:</strong> ${stitches}</p>`;
-            html += `<div class="card-actions">`;
-            html += `<button class="btn btn-outline btn-sm select-project" data-index="${index}">Select</button>`;
-            html += `<button class="btn btn-success btn-sm download-pdf-card" data-index="${index}">PDF</button>`;
-            html += `<button class="fav-btn ${fvd}" data-id="${project.id}" title="${isFaved(project.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(project.id) ? '♥' : '♡'}</button>`;
-            html += `${renderShareBtns(project.id, project.title)}`;
-            html += `</div></div>`;
-        });
-        html += '</div>';
-
-        outputElement.innerHTML = html;
-
-        document.querySelectorAll('.select-project').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const idx = parseInt(this.getAttribute('data-index'));
-                selectedProjectIndex = idx;
-                trackPopular(filteredProjects[idx].id, 'select');
-                showProjectDetail(filteredProjects[idx], idx, filteredProjects);
-            });
-        });
-
-        document.querySelectorAll('.download-pdf-card').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const idx = parseInt(this.getAttribute('data-index'));
-                trackPopular(filteredProjects[idx].id, 'pdf');
-                printProject(filteredProjects[idx]);
-            });
-        });
-
-        document.querySelectorAll('.fav-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const id = this.dataset.id;
-                const nowFaved = toggleFave(id);
-                this.classList.toggle('faved', nowFaved);
-                this.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
-                this.textContent = nowFaved ? '♥' : '♡';
-            });
-        });
-
-        // Hide completed toggle
-        const hideCheck = document.getElementById('hideDoneResults');
-        if (hideCheck) {
-            hideCheck.addEventListener('change', function() {
-                displayProjectCards(projects);
-            });
-        }
+    let html = '';
+    if (hasDone) {
+        html += `<div style="text-align:center;margin-bottom:12px;"><label style="font-size:14px;color:#888;cursor:pointer;"><input type="checkbox" id="hideDoneResults" ${hideDone ? 'checked' : ''}> Hide completed projects</label></div>`;
     }
+    const filteredProjects = (hasDone && hideDone) ? projects.filter(p => !doneIds.includes(p.id)) : projects;
+
+    if (filteredProjects.length === 0) {
+      if (outputElement) {
+        outputElement.innerHTML = `<div class="empty-state">
+          <h3>No matching projects found</h3>
+          <p>Try relaxing your filters &mdash; loosen your yardage, expand the time range, or try a different category.</p>
+          <button class="btn btn-primary" id="resetFiltersBtn">Reset Filters</button>
+        </div>`;
+        document.getElementById('resetFiltersBtn')?.addEventListener('click', function() {
+          document.getElementById('difficulty').value = '';
+          document.getElementById('preferredCategory').value = '';
+          document.getElementById('minHours').value = '1';
+          document.getElementById('maxHours').value = '3';
+          document.getElementById('output').style.display = 'none';
+        });
+      }
+      return;
+    }
+
+    html += '<div class="project-cards">';
+    filteredProjects.forEach((project, index) => {
+        const title = escHtml(project.title);
+        const stitches = project.stitches_used.map(s => convertStitchName(s, currentTermSystem)).join(', ');
+        const fvd = isFaved(project.id) ? 'faved' : '';
+        html += `<div class="project-card" data-index="${index}">`;
+        html += `<div class="card-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+        html += `<h3>${title}</h3>`;
+        html += `<p class="card-desc">${project.description}</p>`;
+        html += `<p><strong>Time:</strong> ${project.estimated_time}</p>`;
+        if (project.matchedYarns && project.matchedYarns.length > 0) {
+          html += `<p><strong>Matched yarns:</strong> ${project.matchedYarns.join(', ')}</p>`;
+        }
+        html += `<p><strong>Stitches:</strong> ${stitches}</p>`;
+        html += `<div class="card-actions">`;
+        html += `<button class="btn btn-outline btn-sm select-project" data-index="${index}">Select</button>`;
+        html += `<button class="btn btn-success btn-sm download-pdf-card" data-index="${index}">PDF</button>`;
+        html += `<button class="fav-btn ${fvd}" data-id="${project.id}" title="${isFaved(project.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(project.id) ? '♥' : '♡'}</button>`;
+        html += `${renderShareBtns(project.id, project.title)}`;
+        html += `</div></div>`;
+    });
+    html += '</div>';
+
+    if (outputElement) {
+        outputElement.innerHTML = html;
+        setTimeout(() => outputElement.closest('.card')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+
+    document.querySelectorAll('.select-project').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const idx = parseInt(this.getAttribute('data-index'));
+            selectedProjectIndex = idx;
+            trackPopular(filteredProjects[idx].id, 'select');
+            showProjectDetail(filteredProjects[idx], idx, filteredProjects);
+        });
+    });
+
+    document.querySelectorAll('.download-pdf-card').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const idx = parseInt(this.getAttribute('data-index'));
+            trackPopular(filteredProjects[idx].id, 'pdf');
+            printProject(filteredProjects[idx]);
+        });
+    });
+
+    document.querySelectorAll('.fav-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const id = this.dataset.id;
+            const nowFaved = toggleFave(id);
+            this.classList.toggle('faved', nowFaved);
+            this.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
+            this.textContent = nowFaved ? '♥' : '♡';
+        });
+    });
+
+    // Hide completed toggle
+    const hideCheck = document.getElementById('hideDoneResults');
+    if (hideCheck) {
+        hideCheck.addEventListener('change', function() {
+            displayProjectCards(projects);
+        });
+    }
+}
 
 async function showReverseMatch(patternId) {
   const yarns = getYarns();
