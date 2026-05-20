@@ -439,10 +439,12 @@ function matchPattern(userInput, patterns) {
       details.criteria.push({ name: "category", met: null, points: 0 });
     }
 
-    if (pattern.difficulty?.score !== undefined) {
+    if (userDifficulty && pattern.difficulty?.score !== undefined) {
       const uDiff = userDifficulty === 'beginner' ? 2 : 5;
       score += Math.abs(pattern.difficulty.score - uDiff) <= 1 ? 1 : 0.5;
       details.criteria.push({ name: "difficultyFit", met: true, points: Math.abs(pattern.difficulty.score - uDiff) <= 1 ? 1 : 0.5 });
+    } else if (!userDifficulty) {
+      details.criteria.push({ name: "difficultyFit", met: null, points: 0, info: "No difficulty selected — matching across all levels." });
     }
 
     // New pattern bonus: reward the last 10 patterns in the list (most recently added)
