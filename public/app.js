@@ -337,7 +337,8 @@ function selectYarn(yarn) {
 function matchYarns() {
   const yarns = getYarns();
   if (!yarns.length) {
-    alert('Add some yarns first!');
+    const err = document.getElementById('matchError');
+    if (err) { err.textContent = 'Add some yarns to your stash first.'; err.style.display = 'inline'; }
     return;
   }
 
@@ -345,10 +346,17 @@ function matchYarns() {
   const minH = parseFloat(document.getElementById('minHours').value);
   const maxH = parseFloat(document.getElementById('maxHours').value);
 
+  const hookCounts = {};
+  yarns.forEach(y => {
+    const h = y.hook;
+    if (h != null && h !== '') hookCounts[h] = (hookCounts[h] || 0) + 1;
+  });
+  const mostCommonHook = Object.keys(hookCounts).reduce((a, b) => hookCounts[a] > hookCounts[b] ? a : b, null);
+
   const userInput = {
     yarns: yarns.map(y => ({ weightNumber: y.weight, yardage: y.yardage, hookSizeMM: y.hook, name: y.name })),
     yardageHave: yarns.reduce((s, y) => s + y.yardage, 0),
-    hookSizeMM: (yarns[0].hook != null && yarns[0].hook !== '') ? yarns[0].hook : null,
+    hookSizeMM: mostCommonHook,
     hookSizeUnknown: false,
     timeRange: {
       minHours: isNaN(minH) ? null : minH,
@@ -362,6 +370,9 @@ function matchYarns() {
   currentTermSystem = termSys;
   selectedProjectIndex = null;
   saveStash();
+
+  const err = document.getElementById('matchError');
+  if (err) { err.textContent = ''; err.style.display = 'none'; }
 
   const output = document.getElementById('project-output');
   output.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
@@ -818,11 +829,12 @@ function showMyFaves() {
         const fvd = isFaved(p.id) ? 'faved' : '';
         const doneSt = isDone(p.id) ? 'done-st' : '';
         html += `<div class="project-card ${doneSt}" data-index="${i}">`;
+        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.title)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
         html += `<h3>${title}</h3>`;
         if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
-        html += `<p class="card-desc">${p.description}</p>`;
-        html += `<p><strong>Category:</strong> ${p.category} &middot; <strong>Level:</strong> ${p.skill_level}</p>`;
-        html += `<p><strong>Time:</strong> ${p.estimated_time}</p>`;
+        html += `<p class="card-desc">${escHtml(p.description)}</p>`;
+        html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.skill_level)}</p>`;
+        html += `<p><strong>Time:</strong> ${escHtml(p.estimated_time)}</p>`;
         html += `<div class="card-actions">`;
         html += `<button class="btn btn-outline btn-sm select-project" data-index="${i}">Select</button>`;
         html += `<button class="btn btn-success btn-sm download-pdf-card" data-index="${i}">PDF</button>`;
@@ -893,11 +905,12 @@ function showMyDone() {
       done.forEach((p, i) => {
         const title = escHtml(p.title);
         html += `<div class="project-card done-st" data-index="${i}">`;
+        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.title)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
         html += `<h3>${title}</h3>`;
         html += `<span class="done-badge">✓ Done</span>`;
-        html += `<p class="card-desc">${p.description}</p>`;
-        html += `<p><strong>Category:</strong> ${p.category} &middot; <strong>Level:</strong> ${p.skill_level}</p>`;
-        html += `<p><strong>Time:</strong> ${p.estimated_time}</p>`;
+        html += `<p class="card-desc">${escHtml(p.description)}</p>`;
+        html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.skill_level)}</p>`;
+        html += `<p><strong>Time:</strong> ${escHtml(p.estimated_time)}</p>`;
         html += `<div class="card-actions">`;
         html += `<button class="btn btn-outline btn-sm select-project" data-index="${i}">View</button>`;
         html += `<button class="btn btn-secondary btn-sm undo-done-btn" data-id="${p.id}">↩ Undo</button>`;
@@ -1427,7 +1440,8 @@ function displayProjectCards(projects) {
 
     if (outputElement) {
         outputElement.innerHTML = html;
-        setTimeout(() => outputElement.closest('.card')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+        const outputCard = document.getElementById('output');
+        if (outputCard) setTimeout(() => outputCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
     }
 
     document.querySelectorAll('.select-project').forEach(btn => {
