@@ -1018,7 +1018,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     renderYarnList();
     initWelcomeBanner();
     loadGlossaryData();
-    await loadPatterns(); // Load patterns after glossary
     initMobileNav();
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
     document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
