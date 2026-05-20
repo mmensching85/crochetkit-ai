@@ -241,6 +241,7 @@
                         </div>
                     </div>
                     <button class="btn btn-primary btn-sm" id="saveYarnBtn">Save Yarn</button>
+                    <span id="yarnFormError" class="form-error"></span>
                 </div>
             </details>
             <button class="btn btn-sm btn-outline" id="scanLabelBtn" title="Take or upload a photo of your yarn label">📷 Label</button>
@@ -295,6 +296,7 @@
                         </div>
                         <div class="quick-add-actions">
                             <button class="btn btn-primary btn-sm" id="qaSaveBtn">Save Yarn</button>
+                            <span id="qaFormError" class="form-error"></span>
                             <button class="btn btn-sm btn-outline" id="qaCancelBtn">Cancel</button>
                         </div>
                         <div class="qa-label-guide">
@@ -337,6 +339,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm">Submit Feedback</button>
                 <div class="feedback-thanks" style="display:none;">Thank you for your feedback!</div>
+                <div class="gf-error" style="display:none;color:#d32;font-size:13px;margin-top:8px;"></div>
             </form>
         </div>
 
@@ -360,6 +363,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm" id="contactSubmitBtn">Send Message</button>
                 <div class="contact-thanks" style="display:none;">Message sent! We'll get back to you.</div>
+                <div class="contact-error" style="display:none;color:#d32;font-size:13px;margin-top:8px;"></div>
             </form>
         </div>
 

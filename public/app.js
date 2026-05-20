@@ -1075,7 +1075,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);
     document.getElementById('saveYarnBtn').addEventListener('click', function() {
       const name = document.getElementById('yarnName').value.trim();
-      if (!name) { alert('Please enter a yarn name.'); return; }
+      const errEl = document.getElementById('yarnFormError');
+      if (!name) { if (errEl) errEl.textContent = 'Please enter a yarn name.'; return; }
+      if (errEl) errEl.textContent = '';
       addYarn(
         name,
         document.getElementById('yarnWeight').value,
@@ -1123,9 +1125,11 @@ document.addEventListener('DOMContentLoaded', async function() {
       const name = document.getElementById('qaName').value.trim();
       const weight = document.getElementById('qaWeight').value;
       const yardage = document.getElementById('qaYardage').value;
-      if (!name) { alert('Please enter a yarn name.'); return; }
-      if (!weight) { alert('Please select a yarn weight.'); return; }
-      if (!yardage) { alert('Please enter yardage or use a preset.'); return; }
+      const qaErr = document.getElementById('qaFormError');
+      if (!name) { if (qaErr) qaErr.textContent = 'Please enter a yarn name.'; return; }
+      if (!weight) { if (qaErr) qaErr.textContent = 'Please select a yarn weight.'; return; }
+      if (!yardage) { if (qaErr) qaErr.textContent = 'Please enter yardage or use a preset.'; return; }
+      if (qaErr) qaErr.textContent = '';
       const imgSrc = document.getElementById('labelPreview').src || null;
       addYarn(name, weight, yardage, document.getElementById('qaHook').value || '', document.getElementById('qaNotes').value.trim(), imgSrc);
       // Reset quick-add
@@ -1140,8 +1144,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
 
     // Quick-add cancel
-    document.getElementById('qaCancelBtn').addEventListener('click', function() {
+      document.getElementById('qaCancelBtn').addEventListener('click', function() {
       document.getElementById('quickAddPanel').style.display = 'none';
+      const qaErr = document.getElementById('qaFormError');
+      if (qaErr) qaErr.textContent = '';
       document.getElementById('labelPhotoInput').value = '';
       document.getElementById('labelPreview').src = '';
     });
@@ -1666,9 +1672,9 @@ function showProjectDetail(project, index, allProjects) {
     html += `<span class="done-badge done-badge-lg done-badge-toggle" style="cursor:pointer;" title="Click to undo">✓ Done</span>`;
   }
   html += `</div></div>`;
-  html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${project.title}" class="detail-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
-  html += `<p>${project.description}</p>`;
-  html += `<p><strong>Estimated Time:</strong> ${project.estimated_time}</p>`;
+  html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="detail-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+  html += `<p>${escHtml(project.description)}</p>`;
+  html += `<p><strong>Estimated Time:</strong> ${escHtml(project.estimated_time)}</p>`;
   html += `<p><strong>Difficulty Reason:</strong> ${convert(project.difficulty_reason)}</p>`;
 
   html += `<h4>Materials:</h4><ul>`;
@@ -1696,9 +1702,9 @@ function showProjectDetail(project, index, allProjects) {
   project.steps.forEach((step, stepIdx) => {
     const stepNum = stepIdx + 1;
     html += `<li><strong>${convert(step.instruction)}</strong>`;
-    if (step.tip) html += ` <span class="tip">(${step.tip})</span>`;
+    if (step.tip) html += ` <span class="tip">(${escHtml(step.tip)})</span>`;
     if (step.visual_description && step.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)") {
-      html += `<p class="visual-desc"><em>Visual:</em> ${step.visual_description}</p>`;
+      html += `<p class="visual-desc"><em>Visual:</em> ${escHtml(step.visual_description)}</p>`;
     }
     html += `<div class="step-image"><img src="/assets/patterns/${project.id}/step-${stepNum}.webp" alt="Step ${stepNum} illustration" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
     html += `</li>`;
@@ -1706,25 +1712,25 @@ function showProjectDetail(project, index, allProjects) {
   html += `</ol>`;
 
   if (project.beginner_tips && project.beginner_tips.length > 0) {
-    const tipsLabel = project.tips_label || (project.skill_level === 'beginner' ? 'Beginner Tips' : 'Tips');
+    const tipsLabel = escHtml(project.tips_label || (project.skill_level === 'beginner' ? 'Beginner Tips' : 'Tips'));
     html += `<h4>${tipsLabel}:</h4><ul>`;
-    project.beginner_tips.forEach(tip => html += `<li>${tip}</li>`);
+    project.beginner_tips.forEach(tip => html += `<li>${escHtml(tip)}</li>`);
     html += `</ul>`;
   }
 
   if (project.variations && project.variations.length > 0) {
     html += `<h4>Variations:</h4><ul>`;
-    project.variations.forEach(variation => html += `<li>${variation}</li>`);
+    project.variations.forEach(variation => html += `<li>${escHtml(variation)}</li>`);
     html += `</ul>`;
   }
 
   if (project.safety_notes && project.safety_notes.length > 0) {
     html += `<h4>Safety Notes:</h4><ul>`;
-    project.safety_notes.forEach(note => html += `<li>${note}</li>`);
+    project.safety_notes.forEach(note => html += `<li>${escHtml(note)}</li>`);
     html += `</ul>`;
   }
 
-  html += `<div class="summary-box"><p>${project.printable_summary}</p></div>`;
+  html += `<div class="summary-box"><p>${escHtml(project.printable_summary)}</p></div>`;
 
   html += `<details class="glossary-section"><summary><h4>Glossary of Crochet Terms</h4></summary><ul>`;
   const g = getCurrentGlossary();
@@ -1749,11 +1755,12 @@ function showProjectDetail(project, index, allProjects) {
   }
   html += `</div></div>`;
   html += `<div class="feedback-comment">`;
-  html += `<label for="comment">Comment <span class="optional">(optional)</span></label>`;
-  html += `<textarea id="comment" rows="3" placeholder="Your feedback..."></textarea>`;
+  html += `<label>Comment <span class="optional">(optional)</span></label>`;
+  html += `<textarea class="feedback-comment-input" rows="3" placeholder="Your feedback..."></textarea>`;
   html += `</div>`;
   html += `<button type="submit" class="btn btn-primary btn-sm">Submit Feedback</button>`;
   html += `<div class="feedback-thanks" style="display:none;">Thank you for your feedback!</div>`;
+  html += `<div class="feedback-error" style="display:none;color:#d32;font-size:13px;"></div>`;
   html += `</form></div>`;
 
   // Certificate button
@@ -1814,7 +1821,7 @@ function showProjectDetail(project, index, allProjects) {
     e.preventDefault();
     const form = e.target;
     const rating = form.querySelector('input[name="rating"]:checked').value;
-    const comment = form.querySelector('#comment').value;
+    const comment = form.querySelector('.feedback-comment-input').value;
     const projectTitle = form.dataset.project;
 
     try {
@@ -1831,16 +1838,19 @@ function showProjectDetail(project, index, allProjects) {
         })
       });
 
+      const feedbackErr = form.querySelector('.feedback-error');
       if (response.ok) {
         form.querySelector('.feedback-thanks').style.display = 'block';
         form.reset();
         form.querySelector('input[name="rating"][value="5"]').checked = true;
+        if (feedbackErr) feedbackErr.style.display = 'none';
       } else {
-        alert('Failed to submit feedback. Please try again.');
+        if (feedbackErr) { feedbackErr.textContent = 'Failed to submit feedback. Please try again.'; feedbackErr.style.display = 'block'; }
       }
     } catch (error) {
       console.error('Error submitting feedback:', error);
-      alert('Error submitting feedback. Please try again.');
+      const feedbackErr = form.querySelector('.feedback-error');
+      if (feedbackErr) { feedbackErr.textContent = 'Error submitting feedback. Please try again.'; feedbackErr.style.display = 'block'; }
     }
   });
 
@@ -1868,7 +1878,11 @@ function showProjectDetail(project, index, allProjects) {
         const submitBtn = document.getElementById('contactSubmitBtn');
         const thanks = this.querySelector('.contact-thanks');
 
-        if (!email || !message) { alert('Please fill in email and message.'); return; }
+        if (!email || !message) {
+            const cerr = this.querySelector('.contact-error');
+            if (cerr) { cerr.textContent = 'Please fill in email and message.'; cerr.style.display = 'block'; }
+            return;
+        }
 
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
@@ -1880,18 +1894,21 @@ function showProjectDetail(project, index, allProjects) {
                 body: JSON.stringify({ name, email, message })
             });
             const data = await resp.json();
+            const cerr = contactForm.querySelector('.contact-error');
             if (data.success) {
-                this.querySelector('.form-row').style.display = 'none';
-                this.querySelectorAll('.form-group').forEach(el => { if (!el.querySelector('.contact-thanks')) el.style.display = 'none'; });
+                if (cerr) cerr.style.display = 'none';
+                contactForm.querySelector('.form-row').style.display = 'none';
+                contactForm.querySelectorAll('.form-group').forEach(el => { if (!el.querySelector('.contact-thanks')) el.style.display = 'none'; });
                 submitBtn.style.display = 'none';
                 thanks.style.display = 'block';
             } else {
-                alert('Error: ' + (data.error || 'Failed to send.'));
+                if (cerr) { cerr.textContent = 'Error: ' + (data.error || 'Failed to send.'); cerr.style.display = 'block'; }
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
             }
         } catch (err) {
-            alert('Network error. Please try again.');
+            const cerr = contactForm.querySelector('.contact-error');
+            if (cerr) { cerr.textContent = 'Network error. Please try again.'; cerr.style.display = 'block'; }
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Message';
         }
@@ -1923,20 +1940,23 @@ function showProjectDetail(project, index, allProjects) {
                     })
                 });
                 const data = await resp.json();
+                const gfErr = globalForm.querySelector('.gf-error');
                 if (data.success) {
-                    document.getElementById('global-feedback').querySelector('.feedback-rating').style.display = 'none';
-                    document.getElementById('global-feedback').querySelector('.feedback-comment').style.display = 'none';
+                    globalForm.querySelector('.feedback-rating').style.display = 'none';
+                    globalForm.querySelector('.feedback-comment').style.display = 'none';
                     submitBtn.style.display = 'none';
                     thanksMsg.style.display = 'block';
+                    if (gfErr) gfErr.style.display = 'none';
                 } else {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Submit Feedback';
-                    alert('Error: ' + (data.error || 'Failed to save feedback.'));
+                    if (gfErr) { gfErr.textContent = 'Error: ' + (data.error || 'Failed to save feedback.'); gfErr.style.display = 'block'; }
                 }
             } catch (err) {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit Feedback';
-                alert('Error saving feedback. Please try again.');
+                const gfErr = globalForm.querySelector('.gf-error');
+                if (gfErr) { gfErr.textContent = 'Error saving feedback. Please try again.'; gfErr.style.display = 'block'; }
             }
         });
     }
@@ -1970,16 +1990,16 @@ function clearAuth() {
 }
 
 function updateAuthUI() {
-    const accountBtn = document.getElementById('accountBtn');
+    const accountLink = document.getElementById('accountLink');
     const userBadge = document.getElementById('userBadge');
     const userName = document.getElementById('userName');
 
     if (currentUser) {
-        if (accountBtn) accountBtn.style.display = 'none';
+        if (accountLink) accountLink.style.display = 'none';
         if (userBadge) userBadge.style.display = 'flex';
         if (userName) userName.textContent = currentUser.name || currentUser.email;
     } else {
-        if (accountBtn) accountBtn.style.display = '';
+        if (accountLink) accountLink.style.display = '';
         if (userBadge) userBadge.style.display = 'none';
     }
 }
