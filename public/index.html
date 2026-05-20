@@ -131,7 +131,65 @@
                     </select>
                 </div>
 
-                <div class="btn-group form-btn-group">
+                <details class="gauge-collapsible" style="margin-top:16px;">
+                <summary><strong>Gauge Calculator</strong> <span style="font-weight:400;opacity:0.6;">— measure gauge or calculate stitches</span></summary>
+                <p style="margin-top:12px;">Measure your gauge or calculate how many stitches you need for a project.</p>
+                <div class="gauge-tabs">
+                    <button class="btn btn-sm btn-outline gauge-tab active" data-mode="measure">Measure Gauge</button>
+                    <button class="btn btn-sm btn-outline gauge-tab" data-mode="calc">Calc Stitches</button>
+                </div>
+                <div id="gauge-panel-measure" class="gauge-panel active">
+                    <p>Enter your swatch measurements to find your gauge per 4 inches:</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gStitches">Stitches in swatch</label>
+                            <input type="number" id="gStitches" min="1" value="20">
+                        </div>
+                        <div class="form-group">
+                            <label for="gRows">Rows in swatch</label>
+                            <input type="number" id="gRows" min="1" value="16">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gWidth">Swatch width <span class="optional">(inches)</span></label>
+                            <input type="number" id="gWidth" step="0.25" min="0.5" value="4">
+                        </div>
+                        <div class="form-group">
+                            <label for="gHeight">Swatch height <span class="optional">(inches)</span></label>
+                            <input type="number" id="gHeight" step="0.25" min="0.5" value="4">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm" id="calc-gauge-btn">Calculate Gauge</button>
+                </div>
+                <div id="gauge-panel-calc" class="gauge-panel">
+                    <p>Enter the pattern gauge and your desired size to find how many stitches/rows you need:</p>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gPatternSts">Pattern gauge <span class="optional">(sts per 4 in)</span></label>
+                            <input type="number" id="gPatternSts" min="1" value="14">
+                        </div>
+                        <div class="form-group">
+                            <label for="gPatternRows">Row gauge <span class="optional">(rows per 4 in)</span></label>
+                            <input type="number" id="gPatternRows" min="1" value="16">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gDesiredWidth">Desired width <span class="optional">(inches)</span></label>
+                            <input type="number" id="gDesiredWidth" step="0.25" min="0.5" value="12">
+                        </div>
+                        <div class="form-group">
+                            <label for="gDesiredHeight">Desired height <span class="optional">(inches)</span></label>
+                            <input type="number" id="gDesiredHeight" step="0.25" min="0.5" value="60">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-sm" id="calc-stitches-btn">Calculate Stitches</button>
+                </div>
+                <div id="gauge-result" class="gauge-result" style="display:none;"></div>
+                </details>
+
+                <div class="btn-group form-btn-group" style="margin-top:16px;">
                     <button type="submit" class="btn btn-primary find-projects-primary" id="findProjectsBtn">Find Projects</button>
                     <button type="button" class="btn btn-outline surprise-me-secondary" id="surpriseBtn">Surprise Me</button>
                 </div>
@@ -141,66 +199,6 @@
         <div id="output" class="card" style="display:none;">
             <h2 id="output-header">Suggested Projects</h2>
             <div id="project-output"></div>
-        </div>
-
-        <div class="card" id="gauge-calculator">
-            <details class="gauge-collapsible">
-            <summary><strong>Gauge Calculator</strong> <span style="font-weight:400;opacity:0.6;">— measure gauge or calculate stitches</span></summary>
-            <p style="margin-top:12px;">Measure your gauge or calculate how many stitches you need for a project.</p>
-            <div class="gauge-tabs">
-                <button class="btn btn-sm btn-outline gauge-tab active" data-mode="measure">Measure Gauge</button>
-                <button class="btn btn-sm btn-outline gauge-tab" data-mode="calc">Calc Stitches</button>
-            </div>
-            <div id="gauge-panel-measure" class="gauge-panel active">
-                <p>Enter your swatch measurements to find your gauge per 4 inches:</p>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="gStitches">Stitches in swatch</label>
-                        <input type="number" id="gStitches" min="1" value="20">
-                    </div>
-                    <div class="form-group">
-                        <label for="gRows">Rows in swatch</label>
-                        <input type="number" id="gRows" min="1" value="16">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="gWidth">Swatch width <span class="optional">(inches)</span></label>
-                        <input type="number" id="gWidth" step="0.25" min="0.5" value="4">
-                    </div>
-                    <div class="form-group">
-                        <label for="gHeight">Swatch height <span class="optional">(inches)</span></label>
-                        <input type="number" id="gHeight" step="0.25" min="0.5" value="4">
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-sm" id="calc-gauge-btn">Calculate Gauge</button>
-            </div>
-            <div id="gauge-panel-calc" class="gauge-panel">
-                <p>Enter the pattern gauge and your desired size to find how many stitches/rows you need:</p>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="gPatternSts">Pattern gauge <span class="optional">(sts per 4 in)</span></label>
-                        <input type="number" id="gPatternSts" min="1" value="14">
-                    </div>
-                    <div class="form-group">
-                        <label for="gPatternRows">Row gauge <span class="optional">(rows per 4 in)</span></label>
-                        <input type="number" id="gPatternRows" min="1" value="16">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="gDesiredWidth">Desired width <span class="optional">(inches)</span></label>
-                        <input type="number" id="gDesiredWidth" step="0.25" min="0.5" value="12">
-                    </div>
-                    <div class="form-group">
-                        <label for="gDesiredHeight">Desired height <span class="optional">(inches)</span></label>
-                        <input type="number" id="gDesiredHeight" step="0.25" min="0.5" value="60">
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-sm" id="calc-stitches-btn">Calculate Stitches</button>
-            </div>
-            <div id="gauge-result" class="gauge-result" style="display:none;"></div>
-            </details>
         </div>
 
             <div class="card" id="yarns-card">
