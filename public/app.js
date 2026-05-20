@@ -1020,11 +1020,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     loadGlossaryData();
     initMobileNav();
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
-    document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
-    document.getElementById('accountLink').addEventListener('click', function(e) {
-      e.preventDefault();
-      showAuthModal();
-    });
+    const browseAllBtn = document.getElementById('browseAllBtn');
+    if (browseAllBtn) browseAllBtn.addEventListener('click', showCatalog);
+    const accountLink = document.getElementById('accountLink');
+    if (accountLink) {
+      accountLink.addEventListener('click', function(e) {
+        e.preventDefault();
+      });
+    }
 
     document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
     document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);
