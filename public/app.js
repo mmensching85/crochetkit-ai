@@ -1074,6 +1074,7 @@ function printProject(project) {
 
 document.addEventListener('DOMContentLoaded', async function() {
   outputElement = document.getElementById('project-output');
+  outputElement.innerHTML = '';
   try {
 
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
@@ -1392,6 +1393,11 @@ document.addEventListener('DOMContentLoaded', async function() {
 // displayProjectCards is intentionally in global scope so matchYarns() and other
 // top-level callers can reach it. Do NOT move it back inside DOMContentLoaded.
 function displayProjectCards(projects) {
+    if (!projects || !projects.length) {
+      document.getElementById('project-output').innerHTML = '<div class="empty-state"><h3>No matching projects</h3><p>Try different materials or filters.</p></div>';
+      document.getElementById('output').style.display = 'block';
+      return;
+    }
     const doneIds = getDone();
     const hasDone = projects.some(p => doneIds.includes(p.id));
 
