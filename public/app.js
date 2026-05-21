@@ -1097,13 +1097,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
     document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);
 
-    // Track who writes to output
+    // Track who writes to output (debug)
     const _outputEl = outputElement;
+    window.__outputSets = window.__outputSets || [];
     const _origDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML') || Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'innerHTML');
     if (_origDescriptor) {
       Object.defineProperty(_outputEl, 'innerHTML', {
         set(v) {
-          console.trace('outputElement.innerHTML set to:', v.substring(0,80));
+          window.__outputSets.push({ value: v.substring(0,100), stack: new Error().stack });
           return _origDescriptor.set.call(this, v);
         },
         get() { return _origDescriptor.get.call(this); },
