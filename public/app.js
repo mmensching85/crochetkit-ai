@@ -1635,7 +1635,7 @@ function renderDetailHTML(project, index) {
   if (!doneSt) {
     html += `<button class="btn btn-secondary btn-sm mark-done-btn" data-id="${project.id}">✓ Mark as Done</button>`;
   } else {
-    html += `<span class="done-badge done-badge-lg done-badge-toggle" style="cursor:pointer;" title="Click to undo">✓ Done</span>`;
+    html += `<span class="done-badge done-badge-lg done-badge-toggle" data-id="${project.id}" style="cursor:pointer;" title="Click to undo">✓ Done</span>`;
   }
   html += `</div></div>`;
   html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="detail-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
@@ -1757,7 +1757,7 @@ function setupDetailListeners(project, allProjects) {
       e.stopPropagation();
       const id = this.dataset.id;
       markAsDone(id);
-      this.outerHTML = '<span class="done-badge done-badge-lg done-badge-toggle" style="cursor:pointer;" title="Click to undo">✓ Done</span>';
+      this.outerHTML = '<span class="done-badge done-badge-lg done-badge-toggle" data-id="' + id + '" style="cursor:pointer;" title="Click to undo">✓ Done</span>';
       showToast('Marked as completed!', 'success');
     });
   }
