@@ -1623,15 +1623,9 @@ async function showCertificate(patternId) {
   }
 }
 
-function showProjectDetail(project, index, allProjects) {
-  const outputCard = document.getElementById('output');
-  if (outputCard) outputCard.style.display = 'block';
-  
-  window._currentDetailProjects = allProjects;
+function renderDetailHTML(project, index) {
   const ts = currentTermSystem;
   const convert = (text) => convertStitchName(linkifyGlossaryTerms(text), ts);
-
-  trackPopular(project.id, 'select');
 
   let html = `<div class="project-detail" data-index="${index}">`;
   html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back</button><button class="btn btn-success btn-sm detail-pdf-btn">PDF</button>${renderShareBtns(project.id, project.title)}</div>`;
@@ -1714,10 +1708,8 @@ function showProjectDetail(project, index, allProjects) {
   });
   html += `</ul></details>`;
 
-  // Reverse stash match section
   html += `<div id="stashMatchSection" class="stash-match-section"><h4>My Stash Match</h4><div id="stashMatchContent"><span class="loading" style="font-size:13px;">Checking your yarns...</span></div></div>`;
 
-  // Feedback form
   html += `<div class="feedback-section">`;
   html += `<h4>Was this project helpful?</h4>`;
   html += `<form class="feedback-form" data-project="${project.title.replace(/\"/g, '&quot;')}">`;
@@ -1740,31 +1732,19 @@ function showProjectDetail(project, index, allProjects) {
   html += `<div class="feedback-error" style="display:none;color:#d32;font-size:13px;"></div>`;
   html += `</form></div>`;
 
-  // Certificate button
   html += `<div class="certificate-section">`;
   html += `<button class="btn btn-primary btn-sm certificate-btn" data-id="${project.id}">Get Completion Certificate</button>`;
   html += `</div>`;
 
   html += `</div>`;
+  return html;
+}
 
-  outputElement.innerHTML = html;
+function setupDetailListeners(project, allProjects) {
+  document.querySelector('.back-to-cards')?.addEventListener('click', () => displayProjectCards(allProjects));
+  document.querySelector('.detail-pdf-btn')?.addEventListener('click', () => printProject(project));
 
-  // Call reverse match after rendering
-  showReverseMatch(project.id);
-
-  // Call progress tracker after rendering
-  showProgressTracker(project.id);
-
-  // Event listeners
-  document.querySelector('.back-to-cards').addEventListener('click', function() {
-    displayProjectCards(allProjects);
-  });
-
-  document.querySelector('.detail-pdf-btn').addEventListener('click', function() {
-    printProject(project);
-  });
-
-  document.querySelector('.fav-btn').addEventListener('click', function(e) {
+  document.querySelector('.fav-btn')?.addEventListener('click', function(e) {
     e.stopPropagation();
     const id = this.dataset.id;
     const nowFaved = toggleFave(id);
@@ -1794,7 +1774,7 @@ function showProjectDetail(project, index, allProjects) {
     });
   }
 
-  document.querySelector('.feedback-form').addEventListener('submit', async function(e) {
+  document.querySelector('.feedback-form')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     const form = e.target;
     const rating = form.querySelector('input[name="rating"]:checked').value;
@@ -1818,25 +1798,33 @@ function showProjectDetail(project, index, allProjects) {
         form.querySelector('.feedback-rating').style.display = 'none';
         form.querySelector('.feedback-comment').style.display = 'none';
         form.querySelector('button[type="submit"]').style.display = 'none';
-        if (feedbackErr) feedbackErr.style.display = 'none';
+        feedbackErr && (feedbackErr.style.display = 'none');
       } else {
-        if (feedbackErr) { feedbackErr.textContent = 'Failed to submit feedback. Please try again.'; feedbackErr.style.display = 'block'; }
+        feedbackErr && (feedbackErr.textContent = 'Failed to submit feedback. Please try again.', feedbackErr.style.display = 'block');
       }
     } catch (error) {
       console.error('Error submitting feedback:', error);
       const feedbackErr = form.querySelector('.feedback-error');
-      if (feedbackErr) { feedbackErr.textContent = 'Network error. Please try again.'; feedbackErr.style.display = 'block'; }
+      feedbackErr && (feedbackErr.textContent = 'Network error. Please try again.', feedbackErr.style.display = 'block');
     }
   });
 
-  // Certificate button event listener
-  const certBtn = document.querySelector('.certificate-btn');
-  if (certBtn) {
-    certBtn.addEventListener('click', function() {
-      const id = this.dataset.id;
-      showCertificate(id);
-    });
-  }
+  document.querySelector('.certificate-btn')?.addEventListener('click', function() {
+    showCertificate(this.dataset.id);
+  });
+}
+
+function showProjectDetail(project, index, allProjects) {
+  const outputCard = document.getElementById('output');
+  if (outputCard) outputCard.style.display = 'block';
+  window._currentDetailProjects = allProjects;
+  trackPopular(project.id, 'select');
+
+  outputElement.innerHTML = renderDetailHTML(project, index);
+
+  showReverseMatch(project.id);
+  showProgressTracker(project.id);
+  setupDetailListeners(project, allProjects);
 }
 
 window.showProjectDetail = showProjectDetail;
