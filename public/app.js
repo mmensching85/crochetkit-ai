@@ -2,7 +2,6 @@
 let glossaryData = {};
 let currentTermSystem = 'US';
 let outputElement, selectedProjectIndex;
-let _outputWriter = null;
 
 function showToast(message, type) {
   const existing = document.querySelector('.toast');
@@ -1075,7 +1074,6 @@ function printProject(project) {
 
 document.addEventListener('DOMContentLoaded', async function() {
   outputElement = document.getElementById('project-output');
-  outputElement.innerHTML = '';
   try {
 
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
@@ -1096,21 +1094,6 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
     document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);
-
-    // Track who writes to output (debug)
-    const _outputEl = outputElement;
-    window.__outputSets = window.__outputSets || [];
-    const _origDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML') || Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'innerHTML');
-    if (_origDescriptor) {
-      Object.defineProperty(_outputEl, 'innerHTML', {
-        set(v) {
-          window.__outputSets.push({ value: v.substring(0,100), stack: new Error().stack });
-          return _origDescriptor.set.call(this, v);
-        },
-        get() { return _origDescriptor.get.call(this); },
-        configurable: true
-      });
-    }
 
     // Surprise me button
 
@@ -1394,15 +1377,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             console.error('Error:', error);
             const output = document.getElementById('project-output');
             if (output) output.innerHTML = `<div class="error">Error: ${error.message}</div>`;
-        }
-    });
-            const idx = projects.indexOf(pick);
-            displayProjectCards(projects);
-            showProjectDetail(pick, idx, projects);
-
-        } catch (error) {
-            console.error('Error:', error);
-            outputElement.innerHTML = `<div class="error">Error: ${error.message}</div>`;
         }
     });
 
