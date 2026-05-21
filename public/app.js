@@ -510,8 +510,41 @@ function shareUrl(id, title) {
   return {
     facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url),
     pinterest: 'https://pinterest.com/pin/create/button/?url=' + encodeURIComponent(url) + '&description=' + encodeURIComponent(title),
-    email: 'mailto:?subject=' + encodeURIComponent(title + ' — Crochet Pattern') + '&body=' + encodeURIComponent('Check out this crochet pattern: ' + url)
+    email: 'mailto:?subject=' + encodeURIComponent(title + ' — Crochet Pattern') + '&body=' + encodeURIComponent('Check out this crochet pattern: ' + url),
+    url: url,
+    title: title
   };
+}
+
+function copyShareLink(id) {
+  const url = SHARE_BASE + '/p/' + id;
+  if (navigator.share) {
+    navigator.share({ title: 'Crochet Pattern', url: url }).catch(() => {});
+    return;
+  }
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => showToast('Link copied!', 'success')).catch(() => {});
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = url;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Link copied!', 'success');
+  }
+}
+
+function renderShareBtns(id, title) {
+  const links = shareUrl(id, title);
+  return `<div class="share-btns">
+    <a href="${links.facebook}" target="_blank" rel="noopener noreferrer" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="${links.pinterest}" target="_blank" rel="noopener noreferrer" class="share-btn share-pin" title="Pin on Pinterest">P</a>
+    <a href="${links.email}" class="share-btn share-email" title="Share via email">@</a>
+    <button class="share-btn share-copy" title="Copy link" onclick="copyShareLink('${id}')">🔗</button>
+  </div>`;
 }
 
 function trackPopular(patternId, action) {
@@ -627,7 +660,7 @@ function showCatalog() {
         const pagePats = pats.slice(start, start + perPage);
 
         if (pagePats.length === 0 && !showDoneWarning) {
-          output.innerHTML = '<div class="error">No patterns available. Please try again later.</div>';
+          output.innerHTML = '<div class="error">🧶 No patterns yet. Start by adding some patterns to the database.</div>';
           return;
         }
 
@@ -638,7 +671,7 @@ function showCatalog() {
         html += '<div class="project-cards">';
 
         if (showDoneWarning && pats.length === 0) {
-          html += '<div class="error" style="grid-column: 1/-1;">No patterns match your filters. Try adjusting or clearing filters.</div>';
+          html += '<div class="empty-state"><h3>No patterns match your filters</h3><p>Try adjusting the filters above — change category, difficulty, or search term.</p></div>';
         }
 
         pagePats.forEach((p, i) => {
@@ -806,7 +839,7 @@ function showMyFaves() {
   const faveIds = getFaves();
 
   if (faveIds.length === 0) {
-    output.innerHTML = '<div class="card"><h2>My Favorites</h2><p style="text-align:center;color:#888;padding:40px;">You haven\'t hearted any patterns yet.</p><p style="text-align:center;color:#888;">Browse patterns and click the ♡ button to save your favorites here.</p><button class="btn btn-outline" onclick="showCatalog()" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
+    output.innerHTML = '<div class="empty-state"><h3>No favorites yet</h3><p>Browse patterns and click the ♡ button to save your favorites here.</p><button class="btn btn-primary" onclick="showCatalog()" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
     return;
   }
 
@@ -884,7 +917,7 @@ function showMyDone() {
   const doneIds = getDone();
 
   if (doneIds.length === 0) {
-    output.innerHTML = '<div class="card"><h2>Completed Projects</h2><p style="text-align:center;color:#888;padding:40px;">You haven\'t marked any projects as done yet.</p><p style="text-align:center;color:#888;">When you complete a project, click the "Mark as Done" button to track it here.</p><button class="btn btn-outline" onclick="showCatalog()" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
+    output.innerHTML = '<div class="empty-state"><h3>No completed projects yet</h3><p>When you finish a project, click "Mark as Done" to track it here.</p><button class="btn btn-primary" onclick="showCatalog()" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
     return;
   }
 
@@ -1382,18 +1415,24 @@ function displayProjectCards(projects) {
 
     if (filteredProjects.length === 0) {
       if (outputElement) {
-        outputElement.innerHTML = `<div class="empty-state">
+        const isHideDone = hasDone && hideDone && projects.filter(p => !doneIds.includes(p.id)).length === 0 && projects.length > 0;
+        outputElement.innerHTML = isHideDone ? `<div class="empty-state">
+          <h3>All projects completed!</h3>
+          <p>You've marked all matching projects as done. Uncheck "Hide completed" above to see them again, or find new projects with different materials.</p>
+        </div>` : `<div class="empty-state">
           <h3>No matching projects found</h3>
-          <p>Try relaxing your filters &mdash; loosen your yardage, expand the time range, or try a different category.</p>
+          <p>Try relaxing your filters — loosen your yardage, expand the time range, or try a different category.</p>
           <button class="btn btn-primary" id="resetFiltersBtn">Reset Filters</button>
         </div>`;
-        document.getElementById('resetFiltersBtn')?.addEventListener('click', function() {
-          document.getElementById('difficulty').value = '';
-          document.getElementById('preferredCategory').value = '';
-          document.getElementById('minHours').value = '1';
-          document.getElementById('maxHours').value = '3';
-          document.getElementById('output').style.display = 'none';
-        });
+        if (!isHideDone) {
+          document.getElementById('resetFiltersBtn')?.addEventListener('click', function() {
+            document.getElementById('difficulty').value = '';
+            document.getElementById('preferredCategory').value = '';
+            document.getElementById('minHours').value = '1';
+            document.getElementById('maxHours').value = '3';
+            document.getElementById('output').style.display = 'none';
+          });
+        }
       }
       return;
     }
@@ -1585,7 +1624,7 @@ async function showProgressTracker(patternId) {
 async function showCertificate(patternId) {
   const token = localStorage.getItem('authToken');
   if (!token) {
-    // Skip certificate generation for non-authenticated users
+    showToast('Sign in to get a completion certificate', 'info');
     return;
   }
 
