@@ -1873,5 +1873,15 @@ patterns_data = [
 # Merge additional patterns
 patterns_data.extend(additional_patterns)
 
+# Normalize difficulty scores to match their level
+# beginner → 1-3, intermediate → 4-6, advanced → 7-10
+LEVEL_RANGES = {'beginner': (1, 3), 'intermediate': (4, 6), 'advanced': (7, 10)}
+for p in patterns_data:
+    d = p.get('difficulty')
+    if d and d.get('level') in LEVEL_RANGES:
+        lo, hi = LEVEL_RANGES[d['level']]
+        if d['score'] < lo or d['score'] > hi:
+            d['score'] = (lo + hi) // 2
+
 with open(os.path.join('data', 'patterns.json'), 'w') as f:
     json.dump(patterns_data, f, indent=2)
