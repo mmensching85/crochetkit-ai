@@ -1380,6 +1380,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     });
 
+        } catch (error) {
+            console.error('Error:', error);
+            outputElement.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+        }
+    });
+
 // displayProjectCards is intentionally in global scope so matchYarns() and other
 // top-level callers can reach it. Do NOT move it back inside DOMContentLoaded.
 function displayProjectCards(projects) {
