@@ -640,6 +640,19 @@ body {
 .share-pin:hover { background: #b8001b; }
 .share-email { background: #666; }
 .share-email:hover { background: #444; }
+.share-copy {
+    background: #555;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 0;
+    line-height: 1;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.share-copy:hover { background: #333; }
 
 .card-actions .share-btns {
     margin-left: auto;
@@ -1945,6 +1958,8 @@ body {
 [data-theme="dark"] .share-pin:hover { background: #b8001b; }
 [data-theme="dark"] .share-email { background: #6a6a8a; }
 [data-theme="dark"] .share-email:hover { background: #4a4a6a; }
+[data-theme="dark"] .share-copy { background: #4a4a6a; }
+[data-theme="dark"] .share-copy:hover { background: #3a3a5a; }
 
 [data-theme="dark"] #contact-card textarea {
     background: #222240;

@@ -553,15 +553,6 @@ function trackPopular(patternId, action) {
   } catch(e) {}
 }
 
-function renderShareBtns(id, title) {
-  const links = shareUrl(id, title);
-  return `<div class="share-btns">
-    <a href="${links.facebook}" target="_blank" rel="noopener noreferrer" class="share-btn share-fb" title="Share on Facebook">f</a>
-    <a href="${links.pinterest}" target="_blank" rel="noopener noreferrer" class="share-btn share-pin" title="Pin on Pinterest">P</a>
-    <a href="${links.email}" class="share-btn share-email" title="Share via email">@</a>
-  </div>`;
-}
-
 function initDarkMode() {
   let saved;
   try { saved = localStorage.getItem('crochetkit-dark'); } catch(e) {}
