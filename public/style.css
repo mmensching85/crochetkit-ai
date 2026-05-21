@@ -2187,6 +2187,44 @@ body {
         margin-left: 0;
         justify-content: center;
     }
+
+    .step-image {
+        max-width: 100%;
+    }
+
+    .detail-hero {
+        max-height: 200px;
+    }
+
+    .stash-gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .catalog-filters select,
+    .catalog-filters input {
+        min-width: 100%;
+    }
+
+    .pagination {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .modal-content {
+        padding: 24px 20px;
+    }
+
+    .btn, button, select, input, textarea {
+        min-height: 44px;
+    }
+    .btn-sm {
+        min-height: 36px;
+    }
+
+    [data-theme="dark"] .weight-popup {
+        background: #1e1e38;
+        border-color: #764ba2;
+    }
 }
 
 @media (min-width: 601px) and (max-width: 900px) {
