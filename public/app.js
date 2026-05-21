@@ -3,6 +3,20 @@ let glossaryData = {};
 let currentTermSystem = 'US';
 let outputElement, selectedProjectIndex;
 
+function showToast(message, type) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('toast-visible'));
+  setTimeout(() => {
+    toast.classList.remove('toast-visible');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
 function getCurrentGlossary() {
   const g = {};
   for (const [term, defs] of Object.entries(glossaryData)) {
@@ -693,6 +707,7 @@ function showCatalog() {
             this.classList.toggle('faved', nowFaved);
             this.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
             this.textContent = nowFaved ? '♥' : '♡';
+            showToast(nowFaved ? 'Added to favorites' : 'Removed from favorites', nowFaved ? 'success' : 'info');
           });
         });
 
@@ -846,7 +861,9 @@ function showMyFaves() {
         btn.addEventListener('click', function(e) {
           e.stopPropagation();
           const id = this.dataset.id;
+          const wasFaved = getFaves().includes(id);
           toggleFave(id);
+          showToast(wasFaved ? 'Removed from favorites' : 'Added to favorites', wasFaved ? 'info' : 'success');
           if (!getFaves().includes(id)) {
             showMyFaves();
           }
@@ -1170,6 +1187,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         target.classList.toggle('faved', nowFaved);
         target.textContent = nowFaved ? '♥' : '♡';
         target.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
+        showToast(nowFaved ? 'Added to favorites' : 'Removed from favorites', nowFaved ? 'success' : 'info');
       }
     });
 
@@ -1346,8 +1364,10 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
             if (projects.length === 0) {
                 outputElement.innerHTML = '<div class="error">No matching projects found. Try different filter criteria.</div>';
+                showToast('No matches — try adjusting your filters', 'info');
                 return;
             }
+            showToast(`Found ${projects.length} matching project${projects.length !== 1 ? 's' : ''}!`, 'success');
             const pick = projects[Math.floor(Math.random() * projects.length)];
             const idx = projects.indexOf(pick);
             displayProjectCards(projects);
@@ -1456,6 +1476,7 @@ function displayProjectCards(projects) {
             this.classList.toggle('faved', nowFaved);
             this.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
             this.textContent = nowFaved ? '♥' : '♡';
+            showToast(nowFaved ? 'Added to favorites' : 'Removed from favorites', nowFaved ? 'success' : 'info');
         });
     });
 
@@ -1751,6 +1772,7 @@ function setupDetailListeners(project, allProjects) {
     this.classList.toggle('faved', nowFaved);
     this.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
     this.textContent = nowFaved ? '♥' : '♡';
+    showToast(nowFaved ? 'Added to favorites' : 'Removed from favorites', nowFaved ? 'success' : 'info');
   });
 
   const doneBtn = document.querySelector('.mark-done-btn');
@@ -1760,6 +1782,7 @@ function setupDetailListeners(project, allProjects) {
       const id = this.dataset.id;
       markAsDone(id);
       this.outerHTML = '<span class="done-badge done-badge-lg done-badge-toggle" style="cursor:pointer;" title="Click to undo">✓ Done</span>';
+      showToast('Marked as completed!', 'success');
     });
   }
 
@@ -1771,6 +1794,7 @@ function setupDetailListeners(project, allProjects) {
       const done = getDone().filter(d => d !== id);
       saveDone(done);
       this.outerHTML = '<button class="btn btn-secondary btn-sm mark-done-btn" data-id="' + id + '">✓ Mark as Done</button>';
+      showToast('Unmarked as completed', 'info');
     });
   }
 
@@ -1799,13 +1823,16 @@ function setupDetailListeners(project, allProjects) {
         form.querySelector('.feedback-comment').style.display = 'none';
         form.querySelector('button[type="submit"]').style.display = 'none';
         feedbackErr && (feedbackErr.style.display = 'none');
+        showToast('Feedback submitted — thank you!', 'success');
       } else {
         feedbackErr && (feedbackErr.textContent = 'Failed to submit feedback. Please try again.', feedbackErr.style.display = 'block');
+        showToast('Failed to submit feedback', 'error');
       }
     } catch (error) {
       console.error('Error submitting feedback:', error);
       const feedbackErr = form.querySelector('.feedback-error');
       feedbackErr && (feedbackErr.textContent = 'Network error. Please try again.', feedbackErr.style.display = 'block');
+      showToast('Network error submitting feedback', 'error');
     }
   });
 

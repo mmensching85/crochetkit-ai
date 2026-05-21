@@ -2437,3 +2437,52 @@ body {
 [data-theme="dark"] .pagination-info {
     color: #6a6a8a;
 }
+
+/* ===== Toast Notifications ===== */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.toast-visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast-success {
+    background: #27ae60;
+    color: #fff;
+}
+
+.toast-error {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.toast-info {
+    background: #3498db;
+    color: #fff;
+}
+
+[data-theme="dark"] .toast-success {
+    background: #1e8449;
+}
+
+[data-theme="dark"] .toast-error {
+    background: #c0392b;
+}
+
+[data-theme="dark"] .toast-info {
+    background: #2980b9;
+}
