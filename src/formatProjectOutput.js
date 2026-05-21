@@ -186,11 +186,12 @@ function formatProjectOutput(matchResult, termSystem) {
   const estTime = pattern.estimatedTime || {};
   const estStr = estTime.minHours != null && estTime.maxHours ? `${estTime.minHours}-${estTime.maxHours} ${estTime.unit || 'hours'}` : 'Varies';
   const instructions = Array.isArray(pattern.instructions) ? pattern.instructions : [];
+  const stitches = extractStitches(instructions);
   const printableSummary = [
     `${pattern.name || 'Project'} –`,
     `${estStr} –`,
     `Materials: ${materialsList.slice(0, 2).join(', ')}.`,
-    `Stitches: ${extractStitches(instructions).map(s => s.split(' ')[0]).join(', ')}.`,
+    `Stitches: ${stitches.map(s => s.split(' ')[0]).join(', ')}.`,
     `Steps: ${instructions.map(inst => inst.split(':')[0].replace(/\*\*/g, '')).join(', ')}.`,
     "Tips: count stitches, consistent tension."
   ].join(' ');
@@ -208,7 +209,7 @@ function formatProjectOutput(matchResult, termSystem) {
     difficulty_reason: pattern.difficulty?.reasoning || '',
     materials: materialsList,
     missing_materials: missingMaterialsList,
-    stitches_used: extractStitches(instructions),
+    stitches_used: stitches,
     steps: formattedSteps,
     beginner_tips: pattern.beginnerTips || [],
     tips_label: tipsLabel,

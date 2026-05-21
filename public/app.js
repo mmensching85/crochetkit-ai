@@ -120,8 +120,7 @@ async function renderWhatsNew() {
   if (!container) return;
 
   try {
-    const response = await fetch('/data/patterns.json');
-    const allPatterns = await response.json();
+    const allPatterns = await getPatterns();
 
     // Show the last 3 patterns in the list (most recently added)
     const newPatterns = allPatterns.slice(-3).reverse();
@@ -353,9 +352,21 @@ function escHtml(s) {
   return d.innerHTML;
 }
 
-async function doMatch(userInput) {
+let _patternCache = null;
+
+async function getPatterns() {
+  if (_patternCache) return _patternCache;
   const resp = await fetch('/data/patterns.json');
-  const allPatterns = await resp.json();
+  _patternCache = await resp.json();
+  return _patternCache;
+}
+
+function clearPatternCache() {
+  _patternCache = null;
+}
+
+async function doMatch(userInput) {
+  const allPatterns = await getPatterns();
   const matchResults = matchPattern(userInput, allPatterns);
   return matchResults.map(r => formatProjectOutput(r, userInput.termSystem || 'US'));
 }
@@ -575,9 +586,7 @@ function showCatalog() {
 
   output.innerHTML = '<div class="skeleton-grid">' + Array(6).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
-  fetch('/data/patterns.json')
-    .then(r => r.json())
-    .then(patterns => {
+  getPatterns().then(patterns => {
       let catalogPage = 1;
 
       // Build the filter UI once — reused across re-renders
@@ -788,9 +797,7 @@ function showMyFaves() {
 
   output.innerHTML = '<div class="skeleton-grid">' + Array(3).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
-  fetch('/data/patterns.json')
-    .then(r => r.json())
-    .then(patterns => {
+  getPatterns().then(patterns => {
       const faves = patterns.filter(p => faveIds.includes(p.id));
       let html = `<div class="catalog-count">${faves.length} favorited pattern${faves.length !== 1 ? 's' : ''}</div>`;
       html += '<div class="project-cards">';
@@ -866,9 +873,7 @@ function showMyDone() {
 
   output.innerHTML = '<div class="skeleton-grid">' + Array(3).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
-  fetch('/data/patterns.json')
-    .then(r => r.json())
-    .then(patterns => {
+  getPatterns().then(patterns => {
       const done = patterns.filter(p => doneIds.includes(p.id));
       let html = `<div class="catalog-count">${done.length} completed project${done.length !== 1 ? 's' : ''}</div>`;
       html += '<div class="project-cards">';
@@ -1471,8 +1476,7 @@ async function showReverseMatch(patternId) {
   }
 
   try {
-    const resp = await fetch('/data/patterns.json');
-    const allPatterns = await resp.json();
+    const allPatterns = await getPatterns();
     const pattern = allPatterns.find(p => String(p.id) === String(patternId));
     if (!pattern) throw new Error('Pattern not found');
     const data = reverseMatch(pattern, yarns);
