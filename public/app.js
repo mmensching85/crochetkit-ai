@@ -1627,16 +1627,13 @@ function renderDetailHTML(project, index) {
   let html = `<div class="project-detail" data-index="${index}">`;
   html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back</button><button class="btn btn-success btn-sm detail-pdf-btn">PDF</button>${renderShareBtns(project.id, project.title)}</div>`;
 
-  const fvd = isFaved(project.id) ? 'faved' : '';
+    const fvd = isFaved(project.id) ? 'faved' : '';
   const doneSt = isDone(project.id);
   html += `<div class="detail-header"><h2>${convert(project.title)} (${project.skill_level})</h2>`;
   html += `<div class="detail-actions">`;
   html += `<button class="fav-btn fav-btn-lg ${fvd}" data-id="${project.id}" title="${isFaved(project.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(project.id) ? '♥' : '♡'}</button>`;
-  if (!doneSt) {
-    html += `<button class="btn btn-secondary btn-sm mark-done-btn" data-id="${project.id}">✓ Mark as Done</button>`;
-  } else {
-    html += `<span class="done-badge done-badge-lg done-badge-toggle" data-id="${project.id}" style="cursor:pointer;" title="Click to undo">✓ Done</span>`;
-  }
+  html += `<button class="btn btn-secondary btn-sm mark-done-btn" data-id="${project.id}" style="display:${doneSt ? 'none' : 'inline-block'}">✓ Mark as Done</button>`;
+  html += `<span class="done-badge done-badge-lg done-badge-toggle" data-id="${project.id}" style="cursor:pointer;display:${doneSt ? 'inline' : 'none'}" title="Click to undo">✓ Done</span>`;
   html += `</div></div>`;
   html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="detail-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
   html += `<p>${escHtml(project.description)}</p>`;
@@ -1749,14 +1746,21 @@ function setupDetailListeners(project, allProjects) {
     if (!target) return;
     const id = target.dataset.id;
 
+    const actionsDiv = target.closest('.detail-actions');
     if (target.classList.contains('done-badge-toggle')) {
       const done = getDone().filter(d => d !== id);
       saveDone(done);
-      target.outerHTML = '<button class="btn btn-secondary btn-sm mark-done-btn" data-id="' + id + '">✓ Mark as Done</button>';
+      if (actionsDiv) {
+        actionsDiv.querySelector('.mark-done-btn').style.display = 'inline-block';
+        target.style.display = 'none';
+      }
       showToast('Unmarked as completed', 'info');
     } else if (target.classList.contains('mark-done-btn')) {
       markAsDone(id);
-      target.outerHTML = '<span class="done-badge done-badge-lg done-badge-toggle" data-id="' + id + '" style="cursor:pointer;" title="Click to undo">✓ Done</span>';
+      if (actionsDiv) {
+        target.style.display = 'none';
+        actionsDiv.querySelector('.done-badge-toggle').style.display = 'inline';
+      }
       showToast('Marked as completed!', 'success');
     } else if (target.classList.contains('fav-btn')) {
       e.stopPropagation();
