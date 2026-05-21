@@ -33,7 +33,18 @@ export async function onRequest(context) {
     ip: request.headers.get('cf-connecting-ip') || ''
   };
 
-  const key = `contact:${Date.now()}:${crypto.randomUUID().slice(0, 8)}`;
+  const key = `contact:${Date.now()}:${Math.random().toString(36).slice(2, 10)}`;
+
+  if (!env.CROCHETKIT_CONTACTS) {
+    return new Response(JSON.stringify({
+      error: 'KV binding not configured',
+      hint: 'Add CROCHETKIT_CONTACTS binding in Pages dashboard → Settings → Functions → KV namespace bindings'
+    }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
   await env.CROCHETKIT_CONTACTS.put(key, JSON.stringify(record));
 
   return new Response(JSON.stringify({ success: true }), {
