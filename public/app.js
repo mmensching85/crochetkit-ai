@@ -2,6 +2,7 @@
 let glossaryData = {};
 let currentTermSystem = 'US';
 let outputElement, selectedProjectIndex;
+let _outputWriter = null;
 
 function showToast(message, type) {
   const existing = document.querySelector('.toast');
@@ -1095,6 +1096,18 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
     document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);
+
+    // Track who writes to output
+    const _outputEl = outputElement;
+    const _origDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'innerHTML');
+    Object.defineProperty(_outputEl, 'innerHTML', {
+      set(v) {
+        console.trace('outputElement.innerHTML set to:', v.substring(0,80));
+        return _origDescriptor.set.call(this, v);
+      },
+      get() { return _origDescriptor.get.call(this); },
+      configurable: true
+    });
 
     // Surprise me button
 
