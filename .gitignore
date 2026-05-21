@@ -6,5 +6,6 @@ data/popular.json
 data/contacts.json
 *.log
 .sisyphus/
+.wrangler/
 __pycache__/
 *.pyc
