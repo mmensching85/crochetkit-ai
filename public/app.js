@@ -1099,15 +1099,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Track who writes to output
     const _outputEl = outputElement;
-    const _origDescriptor = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'innerHTML');
-    Object.defineProperty(_outputEl, 'innerHTML', {
-      set(v) {
-        console.trace('outputElement.innerHTML set to:', v.substring(0,80));
-        return _origDescriptor.set.call(this, v);
-      },
-      get() { return _origDescriptor.get.call(this); },
-      configurable: true
-    });
+    const _origDescriptor = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML') || Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'innerHTML');
+    if (_origDescriptor) {
+      Object.defineProperty(_outputEl, 'innerHTML', {
+        set(v) {
+          console.trace('outputElement.innerHTML set to:', v.substring(0,80));
+          return _origDescriptor.set.call(this, v);
+        },
+        get() { return _origDescriptor.get.call(this); },
+        configurable: true
+      });
+    }
 
     // Surprise me button
 
