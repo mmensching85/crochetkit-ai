@@ -1738,43 +1738,37 @@ function renderDetailHTML(project, index) {
 }
 
 function setupDetailListeners(project, allProjects) {
-  document.querySelector('.back-to-cards')?.addEventListener('click', () => displayProjectCards(allProjects));
-  document.querySelector('.detail-pdf-btn')?.addEventListener('click', () => printProject(project));
+  const container = document.querySelector('.project-detail');
+  if (!container) return;
 
-  document.querySelector('.fav-btn')?.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const id = this.dataset.id;
-    const nowFaved = toggleFave(id);
-    this.classList.toggle('faved', nowFaved);
-    this.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
-    this.textContent = nowFaved ? '♥' : '♡';
-    showToast(nowFaved ? 'Added to favorites' : 'Removed from favorites', nowFaved ? 'success' : 'info');
-  });
+  container.querySelector('.back-to-cards')?.addEventListener('click', () => displayProjectCards(allProjects));
+  container.querySelector('.detail-pdf-btn')?.addEventListener('click', () => printProject(project));
 
-  const doneBtn = document.querySelector('.mark-done-btn');
-  if (doneBtn) {
-    doneBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const id = this.dataset.id;
-      markAsDone(id);
-      this.outerHTML = '<span class="done-badge done-badge-lg done-badge-toggle" data-id="' + id + '" style="cursor:pointer;" title="Click to undo">✓ Done</span>';
-      showToast('Marked as completed!', 'success');
-    });
-  }
+  container.addEventListener('click', function(e) {
+    const target = e.target.closest('[data-id]');
+    if (!target) return;
+    const id = target.dataset.id;
 
-  const doneBadge = document.querySelector('.done-badge-toggle');
-  if (doneBadge) {
-    doneBadge.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const id = this.dataset.id;
+    if (target.classList.contains('done-badge-toggle')) {
       const done = getDone().filter(d => d !== id);
       saveDone(done);
-      this.outerHTML = '<button class="btn btn-secondary btn-sm mark-done-btn" data-id="' + id + '">✓ Mark as Done</button>';
+      target.outerHTML = '<button class="btn btn-secondary btn-sm mark-done-btn" data-id="' + id + '">✓ Mark as Done</button>';
       showToast('Unmarked as completed', 'info');
-    });
-  }
+    } else if (target.classList.contains('mark-done-btn')) {
+      markAsDone(id);
+      target.outerHTML = '<span class="done-badge done-badge-lg done-badge-toggle" data-id="' + id + '" style="cursor:pointer;" title="Click to undo">✓ Done</span>';
+      showToast('Marked as completed!', 'success');
+    } else if (target.classList.contains('fav-btn')) {
+      e.stopPropagation();
+      const nowFaved = toggleFave(id);
+      target.classList.toggle('faved', nowFaved);
+      target.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
+      target.textContent = nowFaved ? '♥' : '♡';
+      showToast(nowFaved ? 'Added to favorites' : 'Removed from favorites', nowFaved ? 'success' : 'info');
+    }
+  });
 
-  document.querySelector('.feedback-form')?.addEventListener('submit', async function(e) {
+  container.querySelector('.feedback-form')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     const form = e.target;
     const rating = form.querySelector('input[name="rating"]:checked').value;
@@ -1812,7 +1806,7 @@ function setupDetailListeners(project, allProjects) {
     }
   });
 
-  document.querySelector('.certificate-btn')?.addEventListener('click', function() {
+  container.querySelector('.certificate-btn')?.addEventListener('click', function() {
     showCertificate(this.dataset.id);
   });
 }
