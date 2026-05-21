@@ -1739,8 +1739,6 @@ function renderDetailHTML(project, index) {
   html += `<div class="feedback-section">`;
   html += `<h4>Was this project helpful?</h4>`;
   html += `<form class="feedback-form" data-project="${project.title.replace(/\"/g, '&quot;')}">`;
-  html += `<input type="hidden" name="form-name" value="project-feedback">`;
-  html += `<input type="hidden" name="project-title" value="${escHtml(project.title)}">`;
   html += `<div class="feedback-rating">`;
   html += `<label>Rating:</label>`;
   html += `<div class="star-rating">`;
@@ -1811,15 +1809,15 @@ function setupDetailListeners(project, allProjects) {
     const comment = form.querySelector('.feedback-comment-input').value;
 
     try {
-      const fd = new FormData(form);
-      fd.set('form-name', 'project-feedback');
-      fd.set('project-title', form.dataset.project || '');
-      fd.set('comment', comment);
-      fd.set('rating', rating);
-      const response = await fetch('/', {
+      const response = await fetch('/api/feedback', {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: fd
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          projectTitle: form.dataset.project || '',
+          rating,
+          comment,
+          page: 'project-detail'
+        })
       });
 
       const feedbackErr = form.querySelector('.feedback-error');
@@ -1886,12 +1884,14 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.textContent = 'Sending...';
 
         try {
-            const fd = new FormData(contactForm);
-            fd.set('form-name', 'contact');
-            const resp = await fetch('/', {
+            const resp = await fetch('/api/contact', {
                 method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: fd
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: document.getElementById('contactName').value.trim(),
+                    email: document.getElementById('contactEmail').value.trim(),
+                    message: document.getElementById('contactMessage').value.trim()
+                })
             });
             const cerr = contactForm.querySelector('.contact-error');
             if (resp.ok || resp.redirected) {
@@ -1925,12 +1925,15 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.textContent = 'Saving...';
 
             try {
-                const fd = new FormData(globalForm);
-                fd.set('form-name', 'global-feedback');
-                const resp = await fetch('/', {
+                const rating = globalForm.querySelector('input[name="rating"]:checked');
+                const resp = await fetch('/api/feedback', {
                     method: 'POST',
-                    headers: { 'Accept': 'application/json' },
-                    body: fd
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        rating: rating ? rating.value : 0,
+                        comment: document.getElementById('global-comment').value.trim(),
+                        page: 'global-feedback'
+                    })
                 });
                 const gfErr = globalForm.querySelector('.gf-error');
                 if (resp.ok || resp.redirected) {
