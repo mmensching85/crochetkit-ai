@@ -1167,30 +1167,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     let currentUserInput = null;
     selectedProjectIndex = null;
 
-    // One-time delegated click handler for detail view actions
-    outputElement.addEventListener('click', function(e) {
-      const target = e.target.closest('[data-id]');
-      if (!target) return;
-      const id = target.dataset.id;
-      const actionsDiv = document.querySelector('.detail-actions');
-      if (!actionsDiv) return;
-
-      if (target.classList.contains('done-badge-toggle')) {
-        const done = getDone().filter(d => d !== id);
-        saveDone(done);
-        actionsDiv.innerHTML = `<button class="fav-btn fav-btn-lg ${isFaved(id) ? 'faved' : ''}" data-id="${id}">${isFaved(id) ? '♥' : '♡'}</button><button class="btn btn-secondary btn-sm mark-done-btn" data-id="${id}">✓ Mark as Done</button>`;
-      } else if (target.classList.contains('mark-done-btn')) {
-        markAsDone(id);
-        actionsDiv.innerHTML = `<button class="fav-btn fav-btn-lg ${isFaved(id) ? 'faved' : ''}" data-id="${id}">${isFaved(id) ? '♥' : '♡'}</button><span class="done-badge done-badge-lg done-badge-toggle" style="cursor:pointer;" title="Click to undo">✓ Done</span>`;
-      } else if (target.classList.contains('fav-btn')) {
-        const nowFaved = toggleFave(id);
-        target.classList.toggle('faved', nowFaved);
-        target.textContent = nowFaved ? '♥' : '♡';
-        target.title = nowFaved ? 'Remove from favorites' : 'Add to favorites';
-        showToast(nowFaved ? 'Added to favorites' : 'Removed from favorites', nowFaved ? 'success' : 'info');
-      }
-    });
-
     // Term system toggle
     document.getElementById('termSystem').addEventListener('change', function() {
       currentTermSystem = this.value;
