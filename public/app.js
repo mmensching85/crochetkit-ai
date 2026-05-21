@@ -1027,6 +1027,7 @@ function printProject(project) {
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
+  outputElement = document.getElementById('project-output');
   try {
 
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
@@ -1349,7 +1350,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         } catch (error) {
             console.error('Error:', error);
-            outputElement.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            const output = document.getElementById('project-output');
+            if (output) output.innerHTML = `<div class="error">Error: ${error.message}</div>`;
         }
     });
             const idx = projects.indexOf(pick);
@@ -1618,6 +1620,9 @@ async function showCertificate(patternId) {
 }
 
 function showProjectDetail(project, index, allProjects) {
+  const outputCard = document.getElementById('output');
+  if (outputCard) outputCard.style.display = 'block';
+  
   window._currentDetailProjects = allProjects;
   const ts = currentTermSystem;
   const convert = (text) => convertStitchName(linkifyGlossaryTerms(text), ts);
