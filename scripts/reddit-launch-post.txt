@@ -1,0 +1,29 @@
+Title: I built a tool that tells you what to crochet with the yarn you
+already have — no more stash guilt
+
+Body:
+
+I had six half-skeins of worsted weight taking up space in my closet. I
+kept searching "patterns for 100 yards of yarn" and getting either baby
+hats or nothing. I knew there had to be a better way, so I built it.
+
+It's called CrochetKit AI (link below). You type in what yarn you have
+— weight, yardage, hook size — and it shows you patterns you can
+actually make with those exact materials. No "just buy more yarn."
+
+What it does:
+
+• Enter your yarn specs → get matched to patterns
+• Save your stash and match all yarns at once
+• "Surprise Me" when you just want to use up something
+• Gauge calculator so you can figure out how many stitches you need
+• Filter by time (1-hour projects? 10-hour projects?)
+• Works completely in your browser — no account, no data collection
+
+I've been using it for the stash I already had and it's genuinely nice
+to see "you can make THIS with that random skein."
+
+Totally free, no ads, no strings attached. Would love to know what you
+think or what patterns you'd want added.
+
+https://01773f62.crochetkit-ai.pages.dev

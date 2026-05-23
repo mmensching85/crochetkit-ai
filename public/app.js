@@ -129,6 +129,65 @@ function loadFilters() {
   } catch(e) {}
 }
 
+function dailySeed(dateStr) {
+  let hash = 0;
+  for (let i = 0; i < dateStr.length; i++) {
+    hash = ((hash << 5) - hash) + dateStr.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+async function renderDailyPattern() {
+  const container = document.getElementById('daily-pattern');
+  const content = document.getElementById('daily-pattern-content');
+  const dateEl = document.getElementById('daily-date');
+  if (!container || !content) return;
+  try {
+    const patterns = await getPatterns();
+    if (!patterns.length) return;
+    const today = new Date().toISOString().slice(0, 10);
+    const idx = dailySeed(today) % patterns.length;
+    const pat = patterns[idx];
+    if (dateEl) dateEl.textContent = today;
+    const wNum = pat.materials?.yarn?.weightNumber;
+    const wLabel = wNum != null ? ['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][wNum] || '' : '';
+    const estTime = pat.estimatedTime ? `${pat.estimatedTime.minHours}-${pat.estimatedTime.maxHours} ${pat.estimatedTime.unit || 'hours'}` : '';
+    const shareLinks = renderShareBtns(pat.id, pat.name);
+    content.innerHTML = `
+      <div class="daily-pattern-body">
+        <div class="daily-pattern-img">
+          <img src="/assets/patterns/${pat.id}.webp" alt="${escHtml(pat.name)}" loading="lazy" onerror="this.parentElement.style.display='none'">
+        </div>
+        <div class="daily-pattern-info">
+          <h3>${escHtml(pat.name)}</h3>
+          <p>${escHtml(pat.shortDescription || '')}</p>
+          <p class="daily-meta">${escHtml(pat.category || '')} · ${escHtml(pat.difficulty?.level || '')} · ${estTime}${wLabel ? ` · ${wLabel}` : ''}</p>
+          <div class="btn-group" style="margin-top:8px;">
+            <button class="btn btn-outline btn-sm" id="dailyViewBtn">View Pattern</button>
+            <button class="btn btn-outline btn-sm" id="dailyMatchBtn">Find Similar</button>
+          </div>
+          <div class="share-btns" style="margin-top:8px;">${shareLinks}</div>
+        </div>
+      </div>
+    `;
+    container.style.display = 'block';
+    document.getElementById('dailyViewBtn')?.addEventListener('click', () => {
+      const formatted = formatProjectOutput({ matchedPattern: pat, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem);
+      const allFormatted = patterns.map(p => formatProjectOutput({ matchedPattern: p, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem));
+      showProjectDetail(formatted, null, allFormatted);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    document.getElementById('dailyMatchBtn')?.addEventListener('click', () => {
+      document.getElementById('yarnWeightNumber').value = pat.materials?.yarn?.weightNumber ?? 4;
+      updateWeightLabel();
+      document.getElementById('findProjectsBtn').click();
+    });
+  } catch (err) {
+    console.error('Daily pattern error:', err);
+  }
+}
+
 async function renderWhatsNew() {
   const container = document.getElementById('whatsNewPatterns');
   if (!container) return;
@@ -178,6 +237,15 @@ async function renderWhatsNew() {
 
 const FAVES_KEY = 'crochetkit-faves';
 const DONE_KEY = 'crochetkit-done';
+const USED_KEY = 'crochetkit-used';
+
+function getUsedYardage() {
+  try { return JSON.parse(localStorage.getItem(USED_KEY)) || {}; } catch(e) { return {}; }
+}
+
+function saveUsedYardage(used) {
+  try { localStorage.setItem(USED_KEY, JSON.stringify(used)); } catch(e) {}
+}
 
 function getFaves() {
   try { return JSON.parse(localStorage.getItem(FAVES_KEY)) || []; } catch(e) { return []; }
@@ -220,6 +288,14 @@ function markAsDone(id) {
   if (!done.includes(id)) {
     done.push(id);
     saveDone(done);
+  }
+  const used = getUsedYardage();
+  if (!used[id]) {
+    const yds = prompt('How many yards did this project use? (optional)', '');
+    if (yds !== null && yds !== '' && !isNaN(parseInt(yds))) {
+      used[id] = parseInt(yds);
+      saveUsedYardage(used);
+    }
   }
   return true;
 }
@@ -1094,12 +1170,28 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
     document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
     document.getElementById('fullCatalogBtn').addEventListener('click', showFullCatalog);
-    const accountLink = document.getElementById('accountLink');
-    if (accountLink) {
-      accountLink.addEventListener('click', function(e) {
-        e.preventDefault();
-      });
-    }
+    renderDailyPattern();
+
+    // Email signup
+    document.getElementById('emailSignupForm')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('signupEmail').value.trim();
+      const msg = document.getElementById('signupMessage');
+      if (!email) return;
+      try {
+        const subs = JSON.parse(localStorage.getItem('crochetkit-subscribers') || '[]');
+        if (subs.includes(email)) {
+          msg.innerHTML = '<span style="color:green;">Already subscribed!</span>';
+        } else {
+          subs.push(email);
+          localStorage.setItem('crochetkit-subscribers', JSON.stringify(subs));
+          msg.innerHTML = '<span style="color:green;">You\'re on the list! We\'ll send weekly project ideas.</span>';
+          document.getElementById('signupEmail').value = '';
+        }
+      } catch(e) {
+        msg.innerHTML = '<span style="color:#d32;">Something went wrong. Try again.</span>';
+      }
+    });
 
     document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
     document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);

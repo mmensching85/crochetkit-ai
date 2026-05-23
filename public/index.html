@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Crochet Project Planner - Find beginner crochet projects based on your available yarn">
-    <meta property="og:title" content="Crochet Project Planner">
-    <meta property="og:description" content="Find crochet projects based on the yarn you already have. Enter your materials, get matched to patterns.">
+    <meta name="description" content="Use up your yarn stash! Tell us what yarn you already own and get matched to beginner-friendly crochet patterns. Find projects for worsted weight, DK, bulky, and every yarn in your stash.">
+    <meta property="og:title" content="What Can I Make With This Yarn? — Crochet Project Planner">
+    <meta property="og:description" content="Stop buying yarn for patterns. Find patterns for the yarn you already have. Enter your weight, yardage, and hook size — we'll match you to projects.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://01773f62.crochetkit-ai.pages.dev">
+    <meta property="og:image" content="https://01773f62.crochetkit-ai.pages.dev/assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <title>Crochet Project Planner</title>
+    <meta name="twitter:image" content="https://01773f62.crochetkit-ai.pages.dev/assets/og-image.jpg">
+    <title>Crochet Project Planner — Use Up Your Yarn Stash | What Can I Make With This Yarn?</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
@@ -17,8 +21,8 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Crochet Project Planner",
-      "description": "Find crochet projects based on the yarn you already have. Enter your materials, get matched to patterns.",
+      "name": "Crochet Project Planner — Use Up Your Yarn Stash",
+      "description": "Find crochet projects for the yarn you already own. Enter your materials, get matched to patterns you can make today.",
       "applicationCategory": "LifestyleApplication",
       "operatingSystem": "Web",
       "offers": {
@@ -47,6 +51,14 @@
                 </div>
             </div>
         </header>
+
+        <div id="daily-pattern" class="card" style="display:none;">
+            <div class="daily-pattern-header">
+                <h2>Today's Project</h2>
+                <span id="daily-date" class="daily-date"></span>
+            </div>
+            <div id="daily-pattern-content"></div>
+        </div>
 
         <div class="card">
             <h2 id="form-title">Your Materials</h2>
@@ -365,7 +377,15 @@
         <div class="card support-section">
             <h2>Support the Project</h2>
             <p>CrochetKit AI is free to use. All your data stays in your browser — no account needed.</p>
-            <p class="support-note"><em>Premium advanced patterns coming soon!</em></p>
+            <div class="email-signup" style="margin-top:12px;">
+                <p style="margin-bottom:8px;"><strong>Get weekly project ideas</strong> — patterns matched to what's in your stash:</p>
+                <form id="emailSignupForm" style="display:flex;gap:8px;flex-wrap:wrap;">
+                    <input type="email" id="signupEmail" placeholder="your@email.com" required style="flex:1;min-width:200px;padding:8px;border:1px solid var(--border);border-radius:6px;font-size:14px;">
+                    <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                </form>
+                <div id="signupMessage" style="margin-top:8px;font-size:13px;"></div>
+            </div>
+            <p class="support-note" style="margin-top:12px;"><em>Premium advanced patterns coming soon!</em></p>
         </div>
     </div>
 

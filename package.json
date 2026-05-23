@@ -8,7 +8,9 @@
     "generate": "python3 src/generate_patterns_json.py",
     "generate-heroes": "python3 scripts/generate_images.py --hero-only",
     "generate-steps": "python3 scripts/generate_images.py --steps-only",
-    "test": "node src/test_matcher.js"
+    "test": "node src/test_matcher.js && node src/test_frontend.js",
+    "test:matcher": "node src/test_matcher.js",
+    "test:frontend": "node src/test_frontend.js"
   },
   "keywords": [],
   "author": "",
