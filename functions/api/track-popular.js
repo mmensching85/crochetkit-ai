@@ -6,7 +6,6 @@ export async function onRequest(context) {
   }
 
   const contentType = request.headers.get('content-type') || '';
-
   let data;
   if (contentType.includes('application/json')) {
     data = await request.json();
@@ -18,38 +17,38 @@ export async function onRequest(context) {
     }
   }
 
-  if (!data.email || !data.message) {
-    return new Response(JSON.stringify({ error: 'Email and message are required' }), {
+  const { patternId, action } = data;
+
+  if (!patternId || !['view', 'select', 'pdf'].includes(action)) {
+    return new Response(JSON.stringify({ error: 'patternId and action (view/select/pdf) required.' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
-  if (!env.CROCHETKIT_CONTACTS) {
+  if (!env.CROCHETKIT_FEEDBACK) {
     return new Response(JSON.stringify({ error: 'D1 binding not configured' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
-  await env.CROCHETKIT_CONTACTS.prepare(`
-    CREATE TABLE IF NOT EXISTS contacts (
+  await env.CROCHETKIT_FEEDBACK.prepare(`
+    CREATE TABLE IF NOT EXISTS popular_tracking (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT,
-      email TEXT NOT NULL,
-      message TEXT NOT NULL,
+      pattern_id TEXT NOT NULL,
+      action TEXT NOT NULL,
       ip TEXT,
       timestamp TEXT NOT NULL
     )
   `).run();
 
-  await env.CROCHETKIT_CONTACTS.prepare(`
-    INSERT INTO contacts (name, email, message, ip, timestamp)
-    VALUES (?, ?, ?, ?, ?)
+  await env.CROCHETKIT_FEEDBACK.prepare(`
+    INSERT INTO popular_tracking (pattern_id, action, ip, timestamp)
+    VALUES (?, ?, ?, ?)
   `).bind(
-    data.name || '',
-    data.email,
-    data.message,
+    patternId,
+    action,
     request.headers.get('cf-connecting-ip') || '',
     new Date().toISOString()
   ).run();

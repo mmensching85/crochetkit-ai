@@ -878,6 +878,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-shrink: 0;
 }
 
 .header-extra-nav .btn {
@@ -1708,10 +1709,12 @@ body {
     gap: 12px;
 }
 
-.header-row > div {
+.header-row > div:first-child {
     flex: 1;
+    min-width: 0;
     text-align: left;
 }
+
 
 .stats-bar {
     margin-top: 12px;

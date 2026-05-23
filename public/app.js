@@ -428,10 +428,16 @@ function renderStashMatch(match) {
   el.innerHTML = html;
 }
 
+function setOutputHeader(text) {
+  const h = document.getElementById('output-header');
+  if (h) h.textContent = text;
+}
+
 function showStashGallery() {
   const output = document.getElementById('project-output');
   const outputCard = document.getElementById('output');
   outputCard.style.display = 'block';
+  setOutputHeader('My Stash Gallery');
 
   const yarns = getYarns();
   if (!yarns.length) {
@@ -621,6 +627,7 @@ function showCatalog() {
   const output = document.getElementById('project-output');
   const outputCard = document.getElementById('output');
   outputCard.style.display = 'block';
+  setOutputHeader('Pattern Catalog');
 
   output.innerHTML = '<div class="skeleton-grid">' + Array(6).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
 
@@ -826,6 +833,7 @@ function showMyFaves() {
   const output = document.getElementById('project-output');
   const outputCard = document.getElementById('output');
   outputCard.style.display = 'block';
+  setOutputHeader('My Favorites');
 
   const faveIds = getFaves();
 
@@ -904,6 +912,7 @@ function showMyDone() {
   const output = document.getElementById('project-output');
   const outputCard = document.getElementById('output');
   outputCard.style.display = 'block';
+  setOutputHeader('Completed Projects');
 
   const doneIds = getDone();
 
@@ -1305,7 +1314,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         try {
             outputElement.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
-            document.getElementById('output').style.display = 'block';
+            const outputCard = document.getElementById('output');
+            outputCard.style.display = 'block';
+            setTimeout(() => outputCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
 
             const projects = await doMatch(currentUserInput);
             displayProjectCards(projects);
@@ -1353,7 +1364,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         try {
             outputElement.innerHTML = '<div class="loading">Finding a surprise project...</div>';
-            document.getElementById('output').style.display = 'block';
+            const surpriseOutputCard = document.getElementById('output');
+            surpriseOutputCard.style.display = 'block';
+            setTimeout(() => surpriseOutputCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
 
             let projects = await doMatch(currentUserInput);
             // Filter out done patterns
@@ -1389,6 +1402,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 // displayProjectCards is intentionally in global scope so matchYarns() and other
 // top-level callers can reach it. Do NOT move it back inside DOMContentLoaded.
 function displayProjectCards(projects) {
+    setOutputHeader('Suggested Projects');
     if (!projects || !projects.length) {
       document.getElementById('project-output').innerHTML = '<div class="empty-state"><h3>No matching projects</h3><p>Try different materials or filters.</p></div>';
       document.getElementById('output').style.display = 'block';
@@ -1677,7 +1691,7 @@ function renderDetailHTML(project, index) {
     html += `<li>${linkifyGlossaryTerms(mat)}</li>`;
   });
   html += `</ul>`;
-  html += '<p class="affiliate-links"><small><a href="https://amzn.to/" target="_blank" rel="noopener noreferrer">Shop yarn and hooks on Amazon</a> — we may earn a commission.</small></p>';
+  html += '<p class="affiliate-links"><small><a href="https://www.amazon.com/s?k=crochet+yarn+hooks" target="_blank" rel="noopener noreferrer">Shop yarn and hooks on Amazon</a></small></p>';
 
   if (project.missing_materials && project.missing_materials.length > 0) {
     html += `<h4>Missing Materials:</h4><ul class="missing-materials">`;
@@ -1848,6 +1862,7 @@ function setupDetailListeners(project, allProjects) {
 function showProjectDetail(project, index, allProjects) {
   const outputCard = document.getElementById('output');
   if (outputCard) outputCard.style.display = 'block';
+  setOutputHeader(project.title || 'Project Detail');
   window._currentDetailProjects = allProjects;
   trackPopular(project.id, 'select');
 
@@ -1898,6 +1913,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (cerr) cerr.style.display = 'none';
                 contactForm.querySelectorAll('.form-row, .form-group, .btn').forEach(el => { if (!el.closest('.contact-thanks') && el !== submitBtn) el.style.display = 'none'; });
                 submitBtn.style.display = 'none';
+                submitBtn.textContent = 'Send Message';
                 thanks.style.display = 'block';
             } else {
                 if (cerr) { cerr.textContent = 'Failed to send. Please try again.'; cerr.style.display = 'block'; }
@@ -1930,9 +1946,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        rating: rating ? rating.value : 0,
+                        rating: rating ? parseInt(rating.value) : 0,
                         comment: document.getElementById('global-comment').value.trim(),
-                        page: 'global-feedback'
+                        page: 'global-feedback',
+                        projectTitle: 'Site Feedback'
                     })
                 });
                 const gfErr = globalForm.querySelector('.gf-error');

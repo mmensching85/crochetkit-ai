@@ -18,28 +18,36 @@ export async function onRequest(context) {
     }
   }
 
-  const record = {
-    comment: data.comment || '',
-    rating: data.rating || 0,
-    page: data.page || '',
-    projectTitle: data.projectTitle || '',
-    timestamp: new Date().toISOString(),
-    ip: request.headers.get('cf-connecting-ip') || ''
-  };
-
-  const key = `feedback:${Date.now()}:${Math.random().toString(36).slice(2, 10)}`;
-
   if (!env.CROCHETKIT_FEEDBACK) {
-    return new Response(JSON.stringify({
-      error: 'KV binding not configured',
-      hint: 'Add CROCHETKIT_FEEDBACK binding in Pages dashboard → Settings → Functions → KV namespace bindings'
-    }), {
+    return new Response(JSON.stringify({ error: 'D1 binding not configured' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
   }
 
-  await env.CROCHETKIT_FEEDBACK.put(key, JSON.stringify(record));
+  await env.CROCHETKIT_FEEDBACK.prepare(`
+    CREATE TABLE IF NOT EXISTS feedback (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      comment TEXT,
+      rating INTEGER,
+      page TEXT,
+      project_title TEXT,
+      ip TEXT,
+      timestamp TEXT NOT NULL
+    )
+  `).run();
+
+  await env.CROCHETKIT_FEEDBACK.prepare(`
+    INSERT INTO feedback (comment, rating, page, project_title, ip, timestamp)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `).bind(
+    data.comment || '',
+    data.rating || 0,
+    data.page || '',
+    data.projectTitle || '',
+    request.headers.get('cf-connecting-ip') || '',
+    new Date().toISOString()
+  ).run();
 
   return new Response(JSON.stringify({ success: true }), {
     status: 200,

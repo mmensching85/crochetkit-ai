@@ -1,15 +1,13 @@
 name = "crochetkit-ai"
 pages_build_output_dir = "public"
+compatibility_date = "2026-05-21"
 
-# KV namespaces for Pages Functions
-# For local dev: uncomment and fill in IDs after creating namespaces
-# [[kv_namespaces]]
-# binding = "CROCHETKIT_CONTACTS"
-# id = "<namespace-id>"
-#
-# [[kv_namespaces]]
-# binding = "CROCHETKIT_FEEDBACK"
-# id = "<namespace-id>"
+[[d1_databases]]
+binding = "CROCHETKIT_CONTACTS"
+database_name = "crochetkit-contacts"
+database_id = "14e4a012-f360-4121-aba0-7997918294bf"
 
-# For production, configure these bindings at:
-# Cloudflare Dashboard → Pages → crochetkit-ai → Settings → Functions → KV namespace bindings
+[[d1_databases]]
+binding = "CROCHETKIT_FEEDBACK"
+database_name = "crochetkit-feedback"
+database_id = "0a44109c-a11e-43d9-9861-0d96cdd62aea"

@@ -19,7 +19,7 @@
                 <a href="/privacy.html" class="active">Privacy</a>
                 <a href="/glossary.html">Glossary</a>
                 <a href="/admin.html">Admin</a>
-                <a href="/auth.html" id="authLink">Login / Register</a>
+
             </nav>
         </div>
     </header>
@@ -33,7 +33,7 @@
 
             <h3>1. Information We Collect</h3>
             <ul>
-                <li><strong>Yarn Stash Data:</strong> When you add yarn to your stash, this information (yarn weight, yardage, hook size, notes, image URL) is stored locally in your browser's <code>localStorage</code>. If you use our "Share My Stash" feature, this data is temporarily sent to our server to generate a shareable URL and then encoded into that URL. We do not permanently store your stash data on our servers unless you choose to create an account and explicitly save it.</li>
+                <li><strong>Yarn Stash Data:</strong> When you add yarn to your stash, this information (yarn weight, yardage, hook size, notes, image URL) is stored locally in your browser's <code>localStorage</code>. If you use our "Share My Stash" feature, this data is temporarily sent to our server to generate a shareable URL and then encoded into that URL. We do not store your stash data on our servers.</li>
                 <li><strong>Contact Form Submissions:</strong> If you use our contact form, we collect your name, email address, and message. This information is stored on our server in <code>data/contacts.json</code> to allow us to respond to your inquiries.</li>
                 <li><strong>Feedback:</strong> If you submit feedback on pattern matches, we collect the project title, your rating, comments, and the input you provided for the match. This is stored on our server in <code>data/feedback.json</code> to help us improve our matching algorithm.</li>
                 <li><strong>Usage Data:</strong> We collect anonymous usage data such as the number of pattern matches requested. This data helps us understand how our service is used and is stored in <code>data/match-count.json</code>.</li>
@@ -69,7 +69,66 @@
             <h3>8. Contact Us</h3>
             <p>If you have any questions about this Privacy Policy, please contact us via our <a href="/contact.html">Contact Page</a>.</p>
         </section>
+
+        <section class="card" id="data-section">
+            <h2>Your Data</h2>
+            <p>Everything you save (yarn stash, favorites, completed projects, dark mode preference) is stored in your browser's <code>localStorage</code>. No account needed — nothing is sent to our servers unless you submit a contact form or feedback.</p>
+            <p>You can download all your data as a JSON file or restore it from a previous backup. This is useful for clearing your browser or switching devices.</p>
+            <div class="btn-group" style="margin-top:12px;">
+                <button class="btn btn-primary btn-sm" id="exportDataBtn">Export My Data</button>
+                <button class="btn btn-outline btn-sm" id="importDataBtn">Import Data</button>
+                <input type="file" id="importFileInput" accept=".json" style="display:none;">
+            </div>
+            <div id="dataMessage" style="margin-top:12px;"></div>
+        </section>
     </main>
+
+    <script>
+        document.getElementById('exportDataBtn').addEventListener('click', function() {
+            const data = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('crochetkit-')) {
+                    try { data[key] = JSON.parse(localStorage.getItem(key)); } catch { data[key] = localStorage.getItem(key); }
+                }
+            }
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'crochetkit-data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            document.getElementById('dataMessage').innerHTML = '<p class="success" style="color:green;">Data exported! Check your downloads.</p>';
+        });
+
+        document.getElementById('importDataBtn').addEventListener('click', function() {
+            document.getElementById('importFileInput').click();
+        });
+
+        document.getElementById('importFileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                try {
+                    const data = JSON.parse(ev.target.result);
+                    let count = 0;
+                    for (const [key, val] of Object.entries(data)) {
+                        if (key.startsWith('crochetkit-')) {
+                            localStorage.setItem(key, JSON.stringify(val));
+                            count++;
+                        }
+                    }
+                    document.getElementById('dataMessage').innerHTML = '<p class="success" style="color:green;">Imported ' + count + ' items. Reload the site to see your data.</p>';
+                } catch (err) {
+                    document.getElementById('dataMessage').innerHTML = '<p class="error" style="color:#d32;">Invalid file format. Please upload a JSON file exported from this site.</p>';
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
+        });
+    </script>
 
     <footer>
         <div class="container">
