@@ -131,14 +131,16 @@ testScenario("Scenario 6: UK Term System, Scarf, beginner", {
   assertIn(stitches, 'Chain (ch)', 'Should include Chain (ch) in UK mode');
 });
 
-testScenario("Scenario 7: No match — extreme yarn weight (lace, weight 0)", {
+testScenario("Scenario 7: Direct match — lace weight (weight 0), 50 yds", {
   yarnWeightNumber: 0, yardageHave: 50, hookSizeMM: 2.25,
   hookSizeUnknown: false, timeRange: { minHours: 1, maxHours: 3 },
   difficulty: "beginner", preferredCategory: null
 }, (formatted) => {
-  // Weight 0 has no direct matches, should return weight-1/weight-2 patterns with lower scores
-  assert(formatted.length > 0, 'Should still return some patterns');
-  assert(formatted.some(f => f.missing_materials.length > 0), 'Should have missing materials or hook suggestions');
+  // Lace patterns now exist — should match directly
+  assert(formatted.length > 0, 'Should return lace patterns');
+  const exact = formatted.filter(f => f.yarnWeightNumber === 0);
+  assert(exact.length > 0, 'Should include weight-0 lace patterns');
+  assert(formatted.every(f => f.missing_materials.length === 0), '50 yds should be enough for lace bookmark');
 });
 
 testScenario("Scenario 8: Insufficient yardage (5yd for worsted)", {
