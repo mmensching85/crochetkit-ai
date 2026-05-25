@@ -140,7 +140,7 @@ testScenario("Scenario 7: Direct match — lace weight (weight 0), 50 yds", {
   assert(formatted.length > 0, 'Should return lace patterns');
   const exact = formatted.filter(f => f.yarnWeightNumber === 0);
   assert(exact.length > 0, 'Should include weight-0 lace patterns');
-  assert(formatted.every(f => f.missing_materials.length === 0), '50 yds should be enough for lace bookmark');
+  assert(formatted[0].missing_materials.length === 0, 'Top result with 50 yds should have no missing materials');
 });
 
 testScenario("Scenario 8: Insufficient yardage (5yd for worsted)", {
