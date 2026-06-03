@@ -1356,6 +1356,15 @@ document.addEventListener('DOMContentLoaded', async function() {
   const token = getAuthToken();
   if (token) { fetchWithTimeout('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: 'verify', password: 'verify' }) }).catch(() => {}); }
 
+  // Share site button
+  document.getElementById('shareSiteBtn')?.addEventListener('click', function() {
+    const url = window.location.origin;
+    const text = '🧶 CrochetKit — free crochet project planner! Find patterns for the yarn you already own. No account needed.';
+    if (navigator.share) { navigator.share({ title: 'CrochetKit AI', text, url }).catch(() => {}); return; }
+    if (navigator.clipboard) { navigator.clipboard.writeText(url).then(() => showToast('Link copied! Share it with your crochet friends 🧶', 'success')).catch(() => {}); return; }
+    const ta = document.createElement('textarea'); ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showToast('Link copied!', 'success');
+  });
+
   const authBtn = document.getElementById('authBtn');
   if (authBtn) authBtn.addEventListener('click', function() { document.getElementById('authModal').style.display = 'block'; });
   document.getElementById('authModalClose')?.addEventListener('click', function() { document.getElementById('authModal').style.display = 'none'; });
@@ -1924,6 +1933,22 @@ globalForm.addEventListener('submit', async function(e) {
 // top-level callers can reach it. Do NOT move it back inside DOMContentLoaded.
 function displayProjectCards(projects) {
     setOutputHeader('Suggested Projects');
+    // After-match share prompt
+    var shareMsg = document.getElementById('shareMatchResults');
+    if (!shareMsg) {
+      var shareDiv = document.createElement('div');
+      shareDiv.id = 'shareMatchResults';
+      shareDiv.className = 'share-match-results';
+      shareDiv.innerHTML = '<span style="font-size:13px;color:#888;">🧶 Found ' + projects.length + ' pattern' + (projects.length !== 1 ? 's' : '') + ' — <a href="#" id="shareMatchLink" style="color:#667eea;">share your results</a></span>';
+      var output = document.getElementById('project-output');
+      if (output) output.parentNode.insertBefore(shareDiv, output);
+      document.getElementById('shareMatchLink')?.addEventListener('click', function(e) {
+        e.preventDefault();
+        var msg = '🧶 I found ' + projects.length + ' pattern' + (projects.length !== 1 ? 's' : '') + ' I can make with my yarn stash! Try CrochetKit — it\'s free: ' + window.location.origin;
+        if (navigator.share) { navigator.share({ text: msg }).catch(function(){}); }
+        else if (navigator.clipboard) { navigator.clipboard.writeText(msg).then(function(){ showToast('Copied! Share it with your crochet friends 🧶', 'success'); }).catch(function(){}); }
+      });
+    } else { shareMsg.querySelector('span').textContent = '🧶 Found ' + projects.length + ' pattern' + (projects.length !== 1 ? 's' : '') + ' — share your results'; }
     if (!projects || !projects.length) {
       document.getElementById('project-output').innerHTML = '<div class="empty-state"><h3>No matching projects</h3><p>Try different materials or filters.</p></div>';
       document.getElementById('output').style.display = 'block';
@@ -2315,6 +2340,32 @@ function renderDetailHTML(project, index) {
   html += `<div class="certificate-section">`;
   html += `<button class="btn btn-primary btn-sm certificate-btn" data-id="${project.id}">Get Completion Certificate</button>`;
   html += `</div>`;
+
+  // JSON-LD structured data for Google rich results
+  const stepsLd = project.steps.map((s, i) => ({
+    '@type': 'HowToStep',
+    position: i + 1,
+    name: s.instruction.replace(/\*\*/g, '').slice(0, 60),
+    text: s.instruction.replace(/\*\*/g, ''),
+    ...(s.visual_description && s.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)" ? { url: `${window.location.origin}/assets/patterns/${project.id}/step-${i + 1}.webp` } : {})
+  }));
+  const tools = [];
+  if (pattern.materials?.hook?.sizeMM) tools.push({ '@type': 'HowToTool', name: `${pattern.materials.hook.sizeMM}mm crochet hook` });
+  const supplies = [];
+  if (pattern.materials?.yarn?.weightCategory) supplies.push({ '@type': 'HowToSupply', name: pattern.materials.yarn.weightCategory + ' yarn' });
+  const totalTime = pattern.estimatedTime ? `PT${pattern.estimatedTime.minHours}H` : '';
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: project.title,
+    description: project.description || '',
+    ...(project.imageUrl ? { image: project.imageUrl } : {}),
+    ...(totalTime ? { totalTime } : {}),
+    tool: tools,
+    supply: supplies,
+    step: stepsLd
+  };
+  html += `<script type="application/ld+json">${JSON.stringify(ld)}<\/script>`;
 
   html += `</div>`;
   return html;

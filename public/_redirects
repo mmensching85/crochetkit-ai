@@ -1,2 +1,5 @@
+# Pattern detail pages — serve SPA for Googlebot
+/p/*  /index.html  200
+
 # API routes are handled by Pages Functions
 /api/*  /api/:splat  200
