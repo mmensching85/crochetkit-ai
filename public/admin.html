@@ -100,6 +100,19 @@
                 </div>
             </div>
 
+            <div class="admin-section">
+                <h3>Create Crochet-Along</h3>
+                <form id="calForm" style="display:grid;gap:8px;grid-template-columns:1fr 1fr 1fr 1fr;">
+                    <input type="text" id="calTitle" placeholder="CAL Title" required style="padding:6px;border:1px solid #ddd;border-radius:4px;">
+                    <input type="text" id="calPatternId" placeholder="Pattern ID" required style="padding:6px;border:1px solid #ddd;border-radius:4px;">
+                    <input type="date" id="calStartDate" required style="padding:6px;border:1px solid #ddd;border-radius:4px;">
+                    <input type="number" id="calSteps" placeholder="Total steps" min="3" max="60" required style="padding:6px;border:1px solid #ddd;border-radius:4px;">
+                    <input type="text" id="calDesc" placeholder="Description (optional)" style="padding:6px;border:1px solid #ddd;border-radius:4px;grid-column:span 3;">
+                    <button type="submit" class="btn btn-primary btn-sm" id="createCalBtn">Create CAL</button>
+                </form>
+                <div id="calResult" style="font-size:13px;margin-top:8px;"></div>
+            </div>
+
             <div id="patternSubmissions" class="admin-section">
                 <h3>Pattern Submissions <span id="patSubCount" style="font-weight:400;font-size:13px;color:#888;"></span></h3>
                 <ul id="patternSubList" class="data-list">
@@ -266,6 +279,31 @@
                     </li>
                 `).join('');
             }
+
+            // CAL creation
+            document.getElementById('calForm')?.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const btn = document.getElementById('createCalBtn');
+                btn.disabled = true; btn.textContent = 'Creating...';
+                const resultEl = document.getElementById('calResult');
+                try {
+                    const resp = await fetch('/api/admin/cal-admin', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-secret': adminSecret },
+                        body: JSON.stringify({
+                            title: document.getElementById('calTitle').value.trim(),
+                            patternId: document.getElementById('calPatternId').value.trim(),
+                            startDate: document.getElementById('calStartDate').value,
+                            totalSteps: parseInt(document.getElementById('calSteps').value),
+                            description: document.getElementById('calDesc').value.trim()
+                        })
+                    });
+                    const result = await resp.json();
+                    if (result.success) {
+                        resultEl.innerHTML = '<span style="color:#27ae60;">CAL created! ID: ' + result.calId + '</span>';
+                        this.reset();
+                    } else { resultEl.innerHTML = '<span style="color:#e74c3c;">Error: ' + (result.error || '') + '</span>'; }
+                } catch(e) { resultEl.innerHTML = '<span style="color:#e74c3c;">Network error</span>'; }
+                btn.disabled = false; btn.textContent = 'Create CAL';
+            });
 
             promptSecret();
         });

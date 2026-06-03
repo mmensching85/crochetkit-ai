@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crochet-Alongs — CrochetKit AI</title><meta name="description" content="Join community crochet-alongs. Make together with daily step unlocks.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+<header class="app-header"><div class="header-row"><div><h1>🧶 Crochet-Alongs</h1><p>Make together with the community</p></div>
+<div class="header-extra-nav"><a href="/" class="btn btn-outline btn-sm">← Back to App</a></div></div></header>
+
+<div id="calList"></div>
+</div>
+<script src="js/matcher.js"></script>
+<script src="app.js?v=2"></script>
+<script>
+let allCals = [];
+let authToken = '';
+
+function getToken() { try { return localStorage.getItem('crochetkit-auth-token') || ''; } catch(e) { return ''; } }
+
+async function loadCals() {
+  const el = document.getElementById('calList');
+  el.innerHTML = '<p style="text-align:center;padding:40px;color:#888;">Loading crochet-alongs...</p>';
+  try {
+    const resp = await fetch('/api/cal');
+    allCals = await resp.json();
+    renderCals();
+  } catch(e) {
+    el.innerHTML = '<div class="card"><p style="color:#e74c3c;">Failed to load crochet-alongs.</p></div>';
+  }
+}
+
+function renderCals() {
+  const el = document.getElementById('calList');
+  const active = allCals.filter(c => c.isActive);
+  const upcoming = allCals.filter(c => c.isUpcoming);
+  const completed = allCals.filter(c => c.isCompleted);
+  const now = new Date();
+
+  let html = '';
+
+  if (active.length > 0) {
+    html += `<h2>🔥 Active Now</h2>`;
+    active.forEach(c => html += renderCalCard(c, 'active'));
+  }
+  if (upcoming.length > 0) {
+    html += `<h2 style="margin-top:24px;">📅 Upcoming</h2>`;
+    upcoming.forEach(c => html += renderCalCard(c, 'upcoming'));
+  }
+  if (completed.length > 0) {
+    html += `<h2 style="margin-top:24px;">✅ Past CALs</h2>`;
+    completed.slice(-3).reverse().forEach(c => html += renderCalCard(c, 'completed'));
+  }
+  if (!active.length && !upcoming.length && !completed.length) {
+    html = '<div class="card"><h3>No crochet-alongs yet</h3><p style="color:#888;">Check back soon for community events!</p></div>';
+  }
+
+  el.innerHTML = html;
+
+  document.querySelectorAll('.cal-join-btn').forEach(btn => {
+    btn.addEventListener('click', async function() {
+      const token = getToken();
+      if (!token) { alert('Sign in to join CALs.'); return; }
+      this.textContent = 'Joining...'; this.disabled = true;
+      const resp = await fetch('/api/cal', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ calId: this.dataset.calId, action: 'join' }) });
+      const result = await resp.json();
+      if (result.success) { this.textContent = '✓ Joined!'; loadCals(); } else { alert(result.error || 'Failed to join'); this.textContent = 'Join CAL'; this.disabled = false; }
+    });
+  });
+}
+
+function renderCalCard(cal, status) {
+  const startDate = new Date(cal.start_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const daysUntil = Math.ceil((new Date(cal.start_date) - new Date()) / (1000 * 60 * 60 * 24));
+  let badge = '';
+  if (status === 'active') badge = '<span style="background:#27ae60;color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;">LIVE</span>';
+  else if (status === 'upcoming' && daysUntil <= 7) badge = '<span style="background:#ff9800;color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;">Soon</span>';
+
+  const stepDots = Array.from({ length: cal.total_steps }, (_, i) => {
+    const stepNum = i + 1;
+    const count = cal.stepDistribution ? (cal.stepDistribution[stepNum] || 0) : 0;
+    const pct = cal.totalParticipants > 0 ? Math.round(count / cal.totalParticipants * 100) : 0;
+    const unlocked = stepNum <= cal.stepsUnlocked;
+    return `<div style="flex:1;text-align:center;font-size:11px;color:${unlocked ? '#667eea' : '#ccc'};">
+      <div style="width:100%;height:4px;background:#e0e0e0;border-radius:2px;margin-bottom:2px;">
+        <div style="width:${pct}%;height:4px;background:#667eea;border-radius:2px;"></div>
+      </div>
+      Step ${stepNum}${count > 0 ? ` (${count})` : ''}
+    </div>`;
+  }).join('');
+
+  return `<div class="card" style="margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div><h3 style="margin:0;display:inline;">${escHtml(cal.title)}</h3> ${badge}</div>
+      <div style="font-size:13px;color:#888;">${startDate} · ${cal.total_steps} steps</div>
+    </div>
+    ${cal.description ? `<p style="color:#555;font-size:14px;margin-top:8px;">${escHtml(cal.description)}</p>` : ''}
+    <div style="margin:12px 0;font-size:13px;color:#888;">
+      ${cal.totalParticipants || 0} participants · ${cal.startedCount || 0} started
+      ${status === 'active' ? ` · ${cal.stepsUnlocked}/${cal.total_steps} steps unlocked` : ''}
+      ${status === 'upcoming' ? (daysUntil > 0 ? ` · Starts in ${daysUntil} day${daysUntil !== 1 ? 's' : ''}` : ' · Starting today!') : ''}
+    </div>
+    <div style="display:flex;gap:2px;margin:8px 0;">${stepDots}</div>
+    ${status === 'active' || status === 'upcoming' ? `<button class="btn btn-primary cal-join-btn" data-cal-id="${cal.id}">${status === 'active' ? 'Join & Start' : 'Get Reminder'}</button>` : ''}
+  </div>`;
+}
+
+function escHtml(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;'); }
+loadCals();
+</script>
+</body>
+</html>
