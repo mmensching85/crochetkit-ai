@@ -314,6 +314,19 @@ function saveProgress(prog) {
   try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(prog)); } catch(e) {}
 }
 
+const JOURNAL_KEY = 'crochetkit-journal';
+function getJournal() {
+  try { return JSON.parse(localStorage.getItem(JOURNAL_KEY)) || []; } catch(e) { return []; }
+}
+function saveJournal(entries) {
+  try { localStorage.setItem(JOURNAL_KEY, JSON.stringify(entries)); } catch(e) {}
+}
+function addJournalEntry(project, notes, photo) {
+  const entries = getJournal();
+  entries.unshift({ id: project.id, title: project.title, notes: notes || '', photo: photo || '', date: new Date().toISOString().slice(0, 10) });
+  saveJournal(entries);
+}
+
 const WEIGHT_LABELS = [
   'Lace', 'Super Fine (fingering)', 'Fine (sport)', 'Light (DK)',
   'Medium (worsted)', 'Bulky (chunky)', 'Super Bulky', 'Jumbo'
@@ -1079,6 +1092,32 @@ function showMyFaves() {
     });
 }
 
+function showJournal() {
+  const output = document.getElementById('project-output');
+  const outputCard = document.getElementById('output');
+  outputCard.style.display = 'block';
+  setOutputHeader('My Project Journal');
+
+  const entries = getJournal();
+  if (entries.length === 0) {
+    output.innerHTML = '<div class="empty-state"><h3>No journal entries yet</h3><p>When you complete a project, add a journal entry with photos and notes to remember your journey.</p></div>';
+    return;
+  }
+
+  let html = `<div class="journal-timeline">`;
+  entries.forEach(entry => {
+    html += `<div class="journal-entry">`;
+    html += `<div class="journal-date">${escHtml(entry.date)}</div>`;
+    html += `<div class="journal-body">`;
+    html += `<h3>${escHtml(entry.title)}</h3>`;
+    if (entry.photo) html += `<img src="${escHtml(entry.photo)}" alt="${escHtml(entry.title)}" class="journal-photo" loading="lazy">`;
+    if (entry.notes) html += `<p class="journal-notes">${escHtml(entry.notes)}</p>`;
+    html += `</div></div>`;
+  });
+  html += `</div>`;
+  output.innerHTML = html;
+}
+
 function showMyDone() {
   const output = document.getElementById('project-output');
   const outputCard = document.getElementById('output');
@@ -1255,6 +1294,8 @@ document.addEventListener('DOMContentLoaded', async function() {
   const doneBtn = document.getElementById('myDoneBtn');
   if (favesBtn) favesBtn.addEventListener('click', showMyFaves);
   if (doneBtn) doneBtn.addEventListener('click', showMyDone);
+  const journalBtn = document.getElementById('journalBtn');
+  if (journalBtn) journalBtn.addEventListener('click', showJournal);
   try {
 
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
