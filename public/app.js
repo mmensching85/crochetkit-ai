@@ -1296,6 +1296,88 @@ document.addEventListener('DOMContentLoaded', async function() {
   if (doneBtn) doneBtn.addEventListener('click', showMyDone);
   const journalBtn = document.getElementById('journalBtn');
   if (journalBtn) journalBtn.addEventListener('click', showJournal);
+
+  // Auth state
+  let authUser = null;
+  function getAuthToken() { try { return localStorage.getItem('crochetkit-auth-token'); } catch(e) { return null; } }
+  function setAuthUser(user, token) { authUser = user; localStorage.setItem('crochetkit-auth-token', token || ''); updateAuthUI(); }
+  function clearAuth() { authUser = null; localStorage.removeItem('crochetkit-auth-token'); updateAuthUI(); }
+  function updateAuthUI() {
+    const btn = document.getElementById('authBtn');
+    if (btn) btn.textContent = authUser ? `👤 ${authUser.email.split('@')[0]}` : '👤 Sign In';
+  }
+  async function syncToServer() {
+    if (!authUser) return;
+    try {
+      await fetchWithTimeout('/api/sync', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getAuthToken() },
+        body: JSON.stringify({ stash: getYarns(), faves: getFaves(), progress: getProgress() })
+      });
+    } catch(e) { /* silent — sync is optional */ }
+  }
+  async function syncFromServer() {
+    if (!authUser) return;
+    try {
+      const resp = await fetchWithTimeout('/api/sync', { headers: { 'Authorization': 'Bearer ' + getAuthToken() } });
+      if (!resp.ok) return;
+      const data = await resp.json();
+      if (data.stash && data.stash.length) { saveYarns(data.stash); renderYarnList(); }
+      if (data.faves && data.faves.length) saveFaves(data.faves);
+      if (data.progress && Object.keys(data.progress).length) saveProgress(data.progress);
+    } catch(e) { /* silent */ }
+  }
+
+  const token = getAuthToken();
+  if (token) { fetchWithTimeout('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: 'verify', password: 'verify' }) }).catch(() => {}); }
+
+  const authBtn = document.getElementById('authBtn');
+  if (authBtn) authBtn.addEventListener('click', function() { document.getElementById('authModal').style.display = 'block'; });
+  document.getElementById('authModalClose')?.addEventListener('click', function() { document.getElementById('authModal').style.display = 'none'; });
+  window.addEventListener('click', function(e) { const m = document.getElementById('authModal'); if (e.target === m) m.style.display = 'none'; });
+
+  let isSignup = false;
+  document.getElementById('authToggleLink')?.addEventListener('click', function(e) {
+    e.preventDefault(); isSignup = !isSignup;
+    document.getElementById('authModalTitle').textContent = isSignup ? 'Sign Up' : 'Sign In';
+    document.getElementById('authSubmitBtn').textContent = isSignup ? 'Sign Up' : 'Sign In';
+    this.textContent = isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign up";
+  });
+
+  document.getElementById('authForm')?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('authEmail').value.trim();
+    const password = document.getElementById('authPassword').value;
+    const errEl = document.getElementById('authError');
+    const submitBtn = document.getElementById('authSubmitBtn');
+    submitBtn.disabled = true; submitBtn.textContent = 'Please wait...';
+    try {
+      const endpoint = isSignup ? '/api/auth/register' : '/api/auth/login';
+      const resp = await fetchWithTimeout(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+      const data = await resp.json();
+      if (data.success) {
+        setAuthUser(data.user, data.token);
+        document.getElementById('authModal').style.display = 'none';
+        document.getElementById('authEmail').value = '';
+        document.getElementById('authPassword').value = '';
+        showToast('Signed in! Syncing your data...', 'success');
+        syncFromServer().then(() => syncToServer());
+      } else {
+        errEl.textContent = data.error || 'Authentication failed';
+        errEl.style.display = 'block';
+      }
+    } catch(err) {
+      errEl.textContent = 'Network error. Try again.';
+      errEl.style.display = 'block';
+    }
+    submitBtn.disabled = false; submitBtn.textContent = isSignup ? 'Sign Up' : 'Sign In';
+  });
+
+  // Wire sync to stash/faves/progress changes
+  const origAddYarn = addYarn; addYarn = function() { origAddYarn.apply(this, arguments); syncToServer(); };
+  const origDeleteYarn = deleteYarn; deleteYarn = function() { origDeleteYarn.apply(this, arguments); syncToServer(); };
+  const origToggleFave = toggleFave; toggleFave = function(id) { const r = origToggleFave(id); syncToServer(); return r; };
+  const origMarkAsDone = markAsDone; markAsDone = function(id) { origMarkAsDone(id); syncToServer(); };
+
   try {
 
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);

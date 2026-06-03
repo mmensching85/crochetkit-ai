@@ -59,6 +59,7 @@
                     <button class="btn btn-outline btn-sm" id="journalBtn" title="View project journal">📖 Journal</button>
                     <a href="#trust-section" class="btn btn-outline btn-sm" id="trustLink">🔒 Why Trust Our Patterns?</a>
                     <button class="btn btn-outline btn-sm" id="installAppBtn" style="display:none;" title="Install app for offline use">📲 Install</button>
+                    <button class="btn btn-outline btn-sm" id="authBtn" title="Sign in to sync across devices">👤 Sign In</button>
                     <button class="header-nav-toggle" id="headerNavToggle" aria-label="Toggle navigation">☰</button>
                 </div>
             </div>
@@ -289,10 +290,34 @@
             </form>
         </div>
 
-        <div id="output" class="card" style="display:none;">
-            <h2 id="output-header">Suggested Projects</h2>
-            <div id="project-output"></div>
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal" style="display:none;">
+        <div class="modal-content auth-modal-content">
+            <span id="authModalClose" class="close-button">&times;</span>
+            <h2 id="authModalTitle">Sign In</h2>
+            <form id="authForm">
+                <div class="form-group">
+                    <label for="authEmail">Email</label>
+                    <input type="email" id="authEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="authPassword">Password</label>
+                    <input type="password" id="authPassword" required minlength="6">
+                </div>
+                <div id="authError" class="form-error" style="display:none;"></div>
+                <button type="submit" class="btn btn-primary" id="authSubmitBtn">Sign In</button>
+                <p style="margin-top:12px;font-size:13px;text-align:center;">
+                    <a href="#" id="authToggleLink">Don't have an account? Sign up</a>
+                </p>
+            </form>
+            <p id="authSyncStatus" style="display:none;font-size:13px;margin-top:8px;"></p>
         </div>
+    </div>
+
+    <div id="output" class="card" style="display:none;">
+        <h2 id="output-header">Suggested Projects</h2>
+        <div id="project-output"></div>
+    </div>
 
             <div class="card" id="yarns-card">
             <h2>My Yarns</h2>

@@ -11,3 +11,6 @@ database_id = "14e4a012-f360-4121-aba0-7997918294bf"
 binding = "CROCHETKIT_FEEDBACK"
 database_name = "crochetkit-feedback"
 database_id = "0a44109c-a11e-43d9-9861-0d96cdd62aea"
+
+[vars]
+JWT_SECRET = "change-me-in-cloudflare-dashboard"
