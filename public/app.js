@@ -479,9 +479,18 @@ function clearPatternCache() {
   _patternCache = null;
 }
 
+function computePreferences() {
+  const faveIds = getFaves();
+  const doneIds = getDone();
+  const interacted = [...new Set([...faveIds, ...doneIds])];
+  if (interacted.length < 3) return null;
+  return { interactedIds: interacted };
+}
+
 async function doMatch(userInput) {
   const allPatterns = await getPatterns();
-  const matchResults = matchPattern(userInput, allPatterns);
+  const prefs = computePreferences();
+  const matchResults = matchPattern(userInput, allPatterns, prefs);
   return matchResults.map(r => formatProjectOutput(r, userInput.termSystem || 'US'));
 }
 

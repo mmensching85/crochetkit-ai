@@ -304,10 +304,30 @@ function invalidateCache() {
   _cache.clear();
 }
 
-function matchPattern(userInput, patterns) {
+function matchPattern(userInput, patterns, preferences) {
   const cacheKey = stableStringify(userInput);
   const cached = getFromCache(cacheKey);
   if (cached) return cached;
+
+  // Compute preference profile from interacted pattern IDs
+  let prefCategories = null;
+  let prefWeights = null;
+  if (preferences && preferences.interactedIds && preferences.interactedIds.length >= 3) {
+    const interacted = patterns.filter(p => preferences.interactedIds.includes(p.id));
+    if (interacted.length >= 2) {
+      const catCounts = {};
+      const weightCounts = {};
+      interacted.forEach(p => {
+        if (p.category) catCounts[p.category] = (catCounts[p.category] || 0) + 1;
+        const wn = p.materials?.yarn?.weightNumber;
+        if (wn != null) weightCounts[wn] = (weightCounts[wn] || 0) + 1;
+      });
+      const maxCat = Math.max(...Object.values(catCounts), 0);
+      const maxWt = Math.max(...Object.values(weightCounts), 0);
+      if (maxCat > 0) prefCategories = new Set(Object.keys(catCounts).filter(c => catCounts[c] === maxCat));
+      if (maxWt > 0) prefWeights = new Set(Object.keys(weightCounts).filter(w => weightCounts[w] === maxWt).map(Number));
+    }
+  }
 
   const userDifficulty = userInput.difficulty || '';
   const isMultiYarn = userInput.yarns && userInput.yarns.length > 1;
@@ -451,6 +471,16 @@ function matchPattern(userInput, patterns) {
     if (patternIndex >= patterns.length - 10) {
       score += NEW_PATTERN_BONUS;
       details.criteria.push({ name: "newPatternBonus", met: true, points: NEW_PATTERN_BONUS, info: "Bonus for new pattern!" });
+    }
+
+    // Preference bias: boost patterns matching user's favorite categories or weights
+    if (prefCategories && pattern.category && prefCategories.has(pattern.category)) {
+      score += 1.0;
+      details.criteria.push({ name: "preferenceCategory", met: true, points: 1.0, info: `You often make ${pattern.category} patterns` });
+    }
+    if (prefWeights && pattern.materials?.yarn?.weightNumber != null && prefWeights.has(pattern.materials.yarn.weightNumber)) {
+      score += 0.5;
+      details.criteria.push({ name: "preferenceWeight", met: true, points: 0.5, info: `You often use weight ${pattern.materials.yarn.weightNumber} yarn` });
     }
 
     scoredPatterns.push({ pattern, score, details, effYardage, effHook });
