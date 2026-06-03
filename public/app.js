@@ -2226,6 +2226,7 @@ function renderDetailHTML(project, index) {
   html += `<button class="fav-btn fav-btn-lg ${fvd}" data-id="${project.id}" title="${isFaved(project.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(project.id) ? '♥' : '♡'}</button>`;
   html += `<button class="btn btn-secondary btn-sm mark-done-btn" data-id="${project.id}" style="display:${doneSt ? 'none' : 'inline-block'}">✓ Mark as Done</button>`;
   html += `<span class="done-badge done-badge-lg done-badge-toggle" data-id="${project.id}" style="cursor:pointer;display:${doneSt ? 'inline' : 'none'}" title="Click to undo">✓ Done</span>`;
+  html += `<button class="btn btn-sm btn-outline share-gallery-btn" data-id="${project.id}" data-title="${escHtml(project.title)}" style="margin-left:8px;">📸 Share</button>`;
   html += `</div></div>`;
   html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="detail-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
 
@@ -2472,6 +2473,24 @@ function showProjectDetail(project, index, allProjects) {
       showFocusMode(project, index, allProjects);
     });
   }
+
+  // Share to gallery button
+  detailEl?.querySelectorAll('.share-gallery-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var title = this.dataset.title;
+      var pid = this.dataset.id;
+      var notes = prompt('Add a note about your project (optional):', '');
+      if (notes === null) return;
+      var photo = prompt('Photo URL (optional — paste an image link):', '') || '';
+      var username = prompt('Your name (optional):', '') || 'Anonymous';
+      fetchWithTimeout('/api/share-project', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ patternId: pid, patternName: title, notes: notes || '', photoUrl: photo, username: username }) })
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.success) { showToast('Shared to gallery! 🎉', 'success'); }
+          else { showToast(d.error || 'Failed to share', 'error'); }
+        }).catch(function() { showToast('Network error', 'error'); });
+    });
+  });
 
   // Step-progress checkbox listeners
   const container = detailEl;

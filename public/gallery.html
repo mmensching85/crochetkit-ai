@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Gallery — CrochetKit AI</title><meta name="description" content="See what others have made with CrochetKit pattern matches. Share your own projects too.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+<header class="app-header"><div class="header-row"><div><h1>📸 Project Gallery</h1><p>See what others made with CrochetKit</p></div>
+<div class="header-extra-nav"><a href="/" class="btn btn-outline btn-sm">← Back to App</a></div></div></header>
+<div id="galleryContent"><p style="text-align:center;padding:40px;color:#888;">Loading gallery...</p></div>
+</div>
+<script>
+function escHtml(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;'); }
+async function loadGallery() {
+  const el = document.getElementById('galleryContent');
+  try {
+    const resp = await fetch('/api/share-project');
+    const projects = await resp.json();
+    if (!projects || projects.length === 0) {
+      el.innerHTML = '<div class="card" style="text-align:center;padding:40px;"><h3>No projects shared yet</h3><p style="color:#888;">Be the first! Complete a pattern and share it to the gallery.</p><a href="/" class="btn btn-primary" style="margin-top:12px;">Find a Project</a></div>';
+      return;
+    }
+    var html = '<div class="project-cards">';
+    projects.forEach(function(p) {
+      html += '<div class="project-card">';
+      html += '<div class="card-hero">' + (p.photo_url ? '<img src="' + escHtml(p.photo_url) + '" alt="' + escHtml(p.pattern_name) + '" class="card-hero-img" loading="lazy">' : '<div style="height:120px;background:#e8d8ff;display:flex;align-items:center;justify-content:center;font-size:32px;">🧶</div>') + '</div>';
+      html += '<h3>' + escHtml(p.pattern_name) + '</h3>';
+      if (p.notes) html += '<p class="card-desc">' + escHtml(p.notes) + '</p>';
+      html += '<p style="font-size:12px;color:#888;">by ' + escHtml(p.username || 'Anonymous') + ' · ' + new Date(p.created_at).toLocaleDateString() + '</p>';
+      html += '</div>';
+    });
+    html += '</div>';
+    el.innerHTML = html;
+  } catch(e) {
+    el.innerHTML = '<div class="card"><p style="color:#e74c3c;">Failed to load gallery.</p></div>';
+  }
+}
+loadGallery();
+</script>
+</body>
+</html>
