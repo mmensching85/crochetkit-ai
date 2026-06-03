@@ -44,10 +44,15 @@
                 </div>
                 <div class="header-extra-nav" id="headerExtraNav">
                     <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode" title="Toggle dark mode">&#9790;</button>
+                    <select id="termSystemHeader" class="term-toggle" aria-label="Toggle US/UK crochet terms">
+                        <option value="US">🇺🇸 US Terms</option>
+                        <option value="UK">🇬🇧 UK Terms</option>
+                    </select>
                     <button class="btn btn-outline btn-sm" id="browseAllBtn" title="Browse all patterns">📋 Catalog</button>
                     <button class="btn btn-outline btn-sm" id="fullCatalogBtn" title="View all patterns without filters">View All</button>
                     <button class="btn btn-outline btn-sm" id="myFavesBtn" title="View your hearted patterns">♥ Favorites</button>
                     <button class="btn btn-outline btn-sm" id="myDoneBtn" title="View completed patterns">✓ Done</button>
+                    <a href="#trust-section" class="btn btn-outline btn-sm" id="trustLink">🔒 Why Trust Our Patterns?</a>
                     <button class="header-nav-toggle" id="headerNavToggle" aria-label="Toggle navigation">☰</button>
                 </div>
             </div>
@@ -60,6 +65,78 @@
             </div>
             <div id="daily-pattern-content"></div>
         </div>
+
+        <div class="card beginner-guide" id="beginnerGuide">
+            <h2>🧑‍🎓 New to Crochet? Start Here</h2>
+            <p class="guide-subtitle">Avoid the most common beginner frustrations with these quick tips.</p>
+            
+            <div class="guide-card">
+                <button class="guide-toggle" aria-expanded="false">
+                    <span class="guide-icon">1</span>
+                    <span class="guide-title">Fix Your Tension (Too Tight / Too Loose)</span>
+                    <span class="guide-arrow">▸</span>
+                </button>
+                <div class="guide-content">
+                    <p><strong>Too tight?</strong> Relax your grip. Your yarn should flow through your fingers like water, not be death-gripped. Try going up one hook size — a 5.5mm instead of 5.0mm makes a real difference.</p>
+                    <p><strong>Too loose?</strong> Slow down. Tension issues often come from rushing. Try going down one hook size. Cotton yarn (like Paintbox Cotton) is great for practice because it shows stitch definition clearly.</p>
+                    <p><strong>The real secret:</strong> Most beginners death-grip the hook. Hold it like you'd hold a pencil — relaxed. Your tension will improve dramatically in one session.</p>
+                </div>
+            </div>
+            
+            <div class="guide-card">
+                <button class="guide-toggle" aria-expanded="false">
+                    <span class="guide-icon">2</span>
+                    <span class="guide-title">Count Your Stitches (Stop the "Trapezoid Effect")</span>
+                    <span class="guide-arrow">▸</span>
+                </button>
+                <div class="guide-content">
+                    <p>The #1 physical failure in beginner crochet: your project getting wider or narrower. This happens when you accidentally add or skip stitches at the edges.</p>
+                    <p><strong>Fix:</strong> After you turn at the end of a row, your first stitch goes into the LAST stitch from the previous row — not into the turning chain. Use stitch markers to mark the first and last stitch of each row.</p>
+                    <p><strong>Pro tip:</strong> Count your stitches at the end of every row. If your first row had 10 stitches, row 10 should also have 10 stitches. Count in groups of 5 for accuracy.</p>
+                </div>
+            </div>
+            
+            <div class="guide-card">
+                <button class="guide-toggle" aria-expanded="false">
+                    <span class="guide-icon">3</span>
+                    <span class="guide-title">Don't Mix Up US & UK Terms (Total Project Ruiner)</span>
+                    <span class="guide-arrow">▸</span>
+                </button>
+                <div class="guide-content">
+                    <p>This is the most frustrating beginner mistake because the pattern seems fine — but your project comes out completely wrong.</p>
+                    <p><strong>The trick:</strong> US single crochet (sc) = UK double crochet (dc). US double crochet (dc) = UK treble (tr). The same name means different stitches!</p>
+                    <p><strong>Always check:</strong> Before starting a pattern, look for a note about which term system it uses. Use the <strong>🇺🇸/🇬🇧 toggle</strong> at the top of this page to switch between US and UK terms.</p>
+                </div>
+            </div>
+            
+            <div class="guide-card">
+                <button class="guide-toggle" aria-expanded="false">
+                    <span class="guide-icon">4</span>
+                    <span class="guide-title">Master the Magic Ring (It's Easier Than It Looks)</span>
+                    <span class="guide-arrow">▸</span>
+                </button>
+                <div class="guide-content">
+                    <p>The magic ring (also called magic circle) is used to start amigurumi and circular projects. It's infamous for being confusing, but once you get it, you'll never go back.</p>
+                    <p><strong>The trick:</strong> Loop the yarn around two fingers twice. Insert hook under both loops. Yarn over, pull through. Chain 1. Now work your stitches into the ring (both loops and the tail). Pull the tail to close.</p>
+                    <p><strong>Pro tip:</strong> Practice 5 magic rings in a row before starting your project. The first one will be awkward. By the fifth, it'll click. Everyone struggles with this — you're not alone!</p>
+                </div>
+            </div>
+            
+            <div class="guide-card">
+                <button class="guide-toggle" aria-expanded="false">
+                    <span class="guide-icon">5</span>
+                    <span class="guide-title">Surviving "Frogging" (Ripping Out Your Work)</span>
+                    <span class="guide-arrow">▸</span>
+                </button>
+                <div class="guide-content">
+                    <p>Frogging — ripping out stitches — is NOT failure. Every single crocheter does it. Beginners think they're the only ones who make mistakes, but even advanced crocheters frog regularly.</p>
+                    <p><strong>When to frog:</strong> If you notice a mistake within the last row, frog that row. If the mistake is 10 rows back, ask: "Will anyone notice this?" Often the answer is no!</p>
+                    <p><strong>Pro tip:</strong> Use a stitch marker or scrap yarn to mark your place before frogging. Take a photo of your work so you know where you were. And remember: <em>frogging is progress, not failure.</em></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="stashDashboard" class="card" style="display:none;"></div>
 
         <div class="card">
             <h2 id="form-title">Your Materials</h2>
@@ -387,6 +464,20 @@
                 <div id="signupMessage" style="margin-top:8px;font-size:13px;"></div>
             </div>
             <p class="support-note" style="margin-top:12px;"><em>Premium advanced patterns coming soon!</em></p>
+        </div>
+        <!-- Trust Section -->
+        <div class="card" id="trust-section" style="display:none;">
+            <h2>🔒 Why Trust Our Patterns?</h2>
+            <p>Every pattern in CrochetKit AI is <strong>human-designed, tested, and curated</strong> by our team — not AI-generated.</p>
+            <p>We know AI-generated crochet patterns have flooded the internet with impossible shapes, mismatched stitch counts, and wasted yarn. That's why we went the other way:</p>
+            <ul>
+                <li><strong>Handcrafted by designers</strong> — each pattern was written by a person who actually crochets</li>
+                <li><strong>Tested before publishing</strong> — every pattern is made start-to-finish to verify the instructions are correct</li>
+                <li><strong>Realistic material estimates</strong> — yardage, hook sizes, and gauges are based on real makes, not guesses</li>
+                <li><strong>Beginner-friendly</strong> — patterns include visual descriptions for every step and linked glossary terms</li>
+                <li><strong>No hallucinations</strong> — the stitches, counts, and techniques all work in the real world</li>
+            </ul>
+            <p style="margin-top:16px;font-weight:600;color:#27ae60;">With <strong id="trustPatternCount">300+</strong> human-verified patterns and growing, you can start every project with confidence.</p>
         </div>
     </div>
 

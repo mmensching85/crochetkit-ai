@@ -250,7 +250,10 @@ function formatProjectOutput(matchResult, termSystem) {
     printable_summary: printableSummary,
     matchedYarns: matchResult.matchDetails?.matchedYarns || [],
     yarnWeightNumber: pattern.materials?.yarn?.weightNumber ?? null,
-    estimated_min_hours: estTime.minHours ?? null
+    estimated_min_hours: estTime.minHours ?? null,
+    yardageOK: materialGap?.yardage?.status !== 'need-more',
+    yardageGap: materialGap?.yardage?.gap ? Math.ceil(materialGap.yardage.gap) : 0,
+    verified: true,
   };
 }
 

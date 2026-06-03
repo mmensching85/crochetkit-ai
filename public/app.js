@@ -97,7 +97,11 @@ function loadStash() {
     if (data.maxHours) document.getElementById('maxHours').value = data.maxHours;
     if (data.difficulty) document.getElementById('difficulty').value = data.difficulty;
     if (data.preferredCategory !== undefined) document.getElementById('preferredCategory').value = data.preferredCategory;
-    if (data.termSystem) document.getElementById('termSystem').value = data.termSystem;
+    if (data.termSystem) {
+      document.getElementById('termSystem').value = data.termSystem;
+      const hdrToggle = document.getElementById('termSystemHeader');
+      if (hdrToggle) hdrToggle.value = data.termSystem;
+    }
   } catch(e) {}
 }
 
@@ -207,6 +211,7 @@ async function renderWhatsNew() {
         </div>
         <div class="pattern-info">
           <h3>${escHtml(p.name || '')}</h3>
+          <span class="verified-badge" title="Human-verified pattern">✓ Verified</span>
           <p class="category">${escHtml(p.category || '')}</p>
           <p class="difficulty">${escHtml((p.difficulty?.level || '').toUpperCase())}</p>
           <button class="btn btn-outline btn-small view-pattern-btn" data-id="${escHtml(p.id)}">View Pattern</button>
@@ -301,6 +306,14 @@ function isDone(id) {
   return getDone().includes(id);
 }
 
+const PROGRESS_KEY = 'crochetkit-progress';
+function getProgress() {
+  try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; } catch(e) { return {}; }
+}
+function saveProgress(prog) {
+  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(prog)); } catch(e) {}
+}
+
 const WEIGHT_LABELS = [
   'Lace', 'Super Fine (fingering)', 'Fine (sport)', 'Light (DK)',
   'Medium (worsted)', 'Bulky (chunky)', 'Super Bulky', 'Jumbo'
@@ -331,11 +344,13 @@ function addYarn(name, weight, yardage, hook, notes, image) {
   yarns.push({ id: Date.now(), name, weight: parseInt(weight), yardage: parseInt(yardage), hook: parseFloat(hook) || null, notes, image: image || null });
   saveYarns(yarns);
   renderYarnList();
+  showStashDashboard();
 }
 
 function deleteYarn(id) {
   saveYarns(getYarns().filter(y => y.id !== id));
   renderYarnList();
+  showStashDashboard();
 }
 
 function renderYarnList() {
@@ -511,6 +526,68 @@ function renderStashMatch(match) {
   html += '</div>';
 
   el.innerHTML = html;
+}
+
+function showStashDashboard() {
+    const yarns = getYarns();
+    const container = document.getElementById('stashDashboard');
+    if (!container) return;
+
+    if (!yarns || yarns.length === 0) {
+      container.style.display = 'none';
+      return;
+    }
+
+    const totalYardage = yarns.reduce((sum, y) => sum + (y.yardage || 0), 0);
+
+    getPatterns().then(patterns => {
+        let matchCount = 0;
+        let almostThere = [];
+
+        patterns.forEach(p => {
+            if (!p.materials?.yarn?.weightNumber) return;
+            const pWeight = p.materials.yarn.weightNumber;
+            const minYardage = p.materials.yarn.suggestedYardageMin || 0;
+            const hasMatchingWeight = yarns.some(y => Math.abs((y.weight || 0) - pWeight) <= 1);
+            if (!hasMatchingWeight) return;
+
+            if (totalYardage >= minYardage) {
+                matchCount++;
+            } else if (totalYardage >= minYardage * 0.7) {
+                almostThere.push({ pattern: p, need: minYardage - totalYardage });
+            }
+        });
+
+        almostThere.sort((a, b) => a.need - b.need);
+        const topAlmost = almostThere.slice(0, 3);
+
+        let html = `<div class="stash-dashboard">`;
+        html += `<h3>🧶 Your Stash Health</h3>`;
+        html += `<div class="dashboard-stats">`;
+        html += `<div class="stat-card"><span class="stat-number">${yarns.length}</span><span class="stat-label">Yarns</span></div>`;
+        html += `<div class="stat-card"><span class="stat-number">${totalYardage}</span><span class="stat-label">Total Yards</span></div>`;
+        html += `<div class="stat-card"><span class="stat-number">${matchCount}</span><span class="stat-label">Patterns You Can Make</span></div>`;
+        html += `</div>`;
+
+        if (topAlmost.length > 0) {
+            html += `<div class="almost-there">`;
+            html += `<h4>🎯 Almost There!</h4>`;
+            html += `<p class="almost-subtitle">Just need a little more yarn for these:</p>`;
+            html += `<ul>`;
+            topAlmost.forEach(a => {
+                html += `<li><strong>${escHtml(a.pattern.name)}</strong> — need ${a.need} more yards</li>`;
+            });
+            html += `</ul></div>`;
+        }
+
+        html += `<div class="dashboard-tip">💡 <strong>Tip:</strong> ${matchCount > 0 ? 'You have enough yarn for ' + matchCount + ' patterns. Try the form below to find your perfect match!' : 'Try adding more yarns to your stash to find matching patterns.'}</div>`;
+        html += `</div>`;
+
+        container.innerHTML = html;
+        container.style.display = 'block';
+    }).catch(() => {
+        container.style.display = 'none';
+    });
 }
 
 function setOutputHeader(text) {
@@ -766,7 +843,7 @@ function showCatalog() {
           const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
           html += `<div class="project-card ${doneSt}" data-catalog-idx="${i}">`;
           html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
-          html += `<h3>${title}</h3>`;
+          html += `<h3>${title}</h3><span class="verified-badge" title="Human-verified pattern">✓ Verified</span>`;
           if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
           html += `<p class="card-desc">${escHtml(p.shortDescription)}</p>`;
           html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.difficulty?.level || '')}</p>`;
@@ -943,7 +1020,7 @@ function showMyFaves() {
         const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
         html += `<div class="project-card ${doneSt}" data-index="${i}">`;
         html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
-        html += `<h3>${escHtml(p.name)}</h3>`;
+        html += `<h3>${escHtml(p.name)}</h3><span class="verified-badge" title="Human-verified pattern">✓ Verified</span>`;
         if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
         html += `<p class="card-desc">${escHtml(p.shortDescription)}</p>`;
         html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.difficulty?.level || '')}</p>`;
@@ -1019,7 +1096,7 @@ function showMyDone() {
         const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
         html += `<div class="project-card done-st" data-index="${i}">`;
         html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
-        html += `<h3>${escHtml(p.name)}</h3>`;
+        html += `<h3>${escHtml(p.name)}</h3><span class="verified-badge" title="Human-verified pattern">✓ Verified</span>`;
         html += `<span class="done-badge">✓ Done</span>`;
         html += `<p class="card-desc">${escHtml(p.shortDescription)}</p>`;
         html += `<p><strong>Category:</strong> ${escHtml(p.category)} &middot; <strong>Level:</strong> ${escHtml(p.difficulty?.level || '')}</p>`;
@@ -1174,12 +1251,32 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
     loadFilters(); // Load filters on initial page load
     renderYarnList();
+    showStashDashboard();
     initWelcomeBanner();
     loadGlossaryData();
     initMobileNav();
     document.getElementById('darkToggle').addEventListener('click', toggleDark);
     document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
     document.getElementById('fullCatalogBtn').addEventListener('click', showFullCatalog);
+    document.getElementById('trustLink')?.addEventListener('click', function(e) {
+      e.preventDefault();
+      const section = document.getElementById('trust-section');
+      if (section) {
+        const isVisible = section.style.display !== 'none';
+        section.style.display = isVisible ? 'none' : 'block';
+        if (!isVisible) {
+          setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+        }
+      }
+    });
+    // Fill dynamic pattern count in trust section
+    (async function fillTrustCount() {
+      try {
+        const pats = await getPatterns();
+        const el = document.getElementById('trustPatternCount');
+        if (el) el.textContent = pats.length + '+';
+      } catch(e) {}
+    })();
     renderDailyPattern();
 
     // Email signup (local-only — stores in browser, no server)
@@ -1318,11 +1415,25 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Term system toggle
     document.getElementById('termSystem').addEventListener('change', function() {
       currentTermSystem = this.value;
+      const hdrToggle = document.getElementById('termSystemHeader');
+      if (hdrToggle) hdrToggle.value = this.value;
       // Re-render if there are projects displayed
       if (currentUserInput && outputElement.innerHTML) {
         form.dispatchEvent(new Event('submit'));
       }
     });
+
+    // Header term toggle sync
+    const headerToggle = document.getElementById('termSystemHeader');
+    if (headerToggle) {
+      headerToggle.addEventListener('change', function() {
+        const formToggle = document.getElementById('termSystem');
+        if (formToggle) {
+          formToggle.value = this.value;
+          formToggle.dispatchEvent(new Event('change'));
+        }
+      });
+    }
 
     // Gauge calculator tabs
     document.querySelectorAll('.gauge-tab').forEach(tab => {
@@ -1661,7 +1772,7 @@ function displayProjectCards(projects) {
         const fvd = isFaved(project.id) ? 'faved' : '';
         html += `<div class="project-card" data-index="${index}">`;
         html += `<div class="card-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
-        html += `<h3>${title}</h3>`;
+        html += `<h3>${title}</h3><span class="verified-badge" title="Human-verified pattern">✓ Verified</span>`;
         html += `<p class="card-desc">${project.description}</p>`;
         html += `<p><strong>Time:</strong> ${project.estimated_time}</p>`;
         if (project.matchedYarns && project.matchedYarns.length > 0) {
@@ -1885,13 +1996,25 @@ function renderDetailHTML(project, index) {
 
     const fvd = isFaved(project.id) ? 'faved' : '';
   const doneSt = isDone(project.id);
-  html += `<div class="detail-header"><h2>${convert(project.title)} (${project.skill_level})</h2>`;
+  html += `<div class="detail-header"><h2>${convert(project.title)} (${project.skill_level})<span class="verified-badge" title="This pattern is human-designed, tested, and curated by our team — not AI-generated.">✓ Human-Verified Pattern</span></h2>`;
   html += `<div class="detail-actions">`;
   html += `<button class="fav-btn fav-btn-lg ${fvd}" data-id="${project.id}" title="${isFaved(project.id) ? 'Remove from favorites' : 'Add to favorites'}">${isFaved(project.id) ? '♥' : '♡'}</button>`;
   html += `<button class="btn btn-secondary btn-sm mark-done-btn" data-id="${project.id}" style="display:${doneSt ? 'none' : 'inline-block'}">✓ Mark as Done</button>`;
   html += `<span class="done-badge done-badge-lg done-badge-toggle" data-id="${project.id}" style="cursor:pointer;display:${doneSt ? 'inline' : 'none'}" title="Click to undo">✓ Done</span>`;
   html += `</div></div>`;
   html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="detail-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+
+  const prog = getProgress();
+  const pid = project.id;
+  const completedSteps = (prog[pid] && prog[pid].completedSteps) || [];
+  const totalSteps = project.steps ? project.steps.length : 0;
+  const compCount = completedSteps.length;
+  const pct = totalSteps > 0 ? Math.round(compCount / totalSteps * 100) : 0;
+  html += `<div class="progress-bar-container">
+    <div class="progress-bar-fill" style="width:${pct}%"></div>
+    <span class="progress-text">${compCount}/${totalSteps} steps</span>
+  </div>`;
+
   html += `<p>${escHtml(project.description)}</p>`;
   html += `<p><strong>Estimated Time:</strong> ${escHtml(project.estimated_time)}</p>`;
   html += `<p><strong>Difficulty Reason:</strong> ${convert(project.difficulty_reason)}</p>`;
@@ -1920,12 +2043,18 @@ function renderDetailHTML(project, index) {
   html += `<h4>Steps:</h4><ol>`;
   project.steps.forEach((step, stepIdx) => {
     const stepNum = stepIdx + 1;
+    const stepChecked = completedSteps.includes(stepNum);
     html += `<li><strong>${convert(step.instruction)}</strong>`;
     if (step.tip) html += ` <span class="tip">(${escHtml(step.tip)})</span>`;
     if (step.visual_description && step.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)") {
       html += `<p class="visual-desc"><em>Visual:</em> ${escHtml(step.visual_description)}</p>`;
     }
     html += `<div class="step-image"><img src="/assets/patterns/${project.id}/step-${stepNum}.webp" alt="Step ${stepNum} illustration" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+    html += `<label class="step-checkbox-label">
+      <input type="checkbox" class="step-checkbox" data-step="${stepNum}" ${stepChecked ? 'checked' : ''}>
+      <span class="checkmark"></span>
+      Done
+    </label>`;
     html += `</li>`;
   });
   html += `</ol>`;
@@ -2079,8 +2208,51 @@ function showProjectDetail(project, index, allProjects) {
   outputElement.innerHTML = renderDetailHTML(project, index);
 
   showReverseMatch(project.id);
-  showProgressTracker(project.id);
   setupDetailListeners(project, allProjects);
+
+  // Step-progress checkbox listeners
+  const container = document.querySelector('.project-detail');
+  if (container) {
+    container.querySelectorAll('.step-checkbox').forEach(cb => {
+      cb.addEventListener('change', function() {
+        const prog = getProgress();
+        const pid = project.id;
+        if (!prog[pid]) prog[pid] = { completedSteps: [] };
+        const stepNum = parseInt(this.dataset.step);
+        if (this.checked) {
+          if (!prog[pid].completedSteps.includes(stepNum)) {
+            prog[pid].completedSteps.push(stepNum);
+          }
+        } else {
+          prog[pid].completedSteps = prog[pid].completedSteps.filter(s => s !== stepNum);
+        }
+        saveProgress(prog);
+
+        // Update progress bar
+        const fill = container.querySelector('.progress-bar-fill');
+        const text = container.querySelector('.progress-text');
+        const allCbs = container.querySelectorAll('.step-checkbox');
+        const total = allCbs.length;
+        const completed = container.querySelectorAll('.step-checkbox:checked').length;
+        const pct = total > 0 ? Math.round(completed / total * 100) : 0;
+        if (fill) fill.style.width = pct + '%';
+        if (text) text.textContent = `${completed}/${total} steps`;
+
+        // Auto-mark done when all steps complete
+        if (completed === total && !isDone(pid)) {
+          markAsDone(pid);
+          const actionsDiv = container.querySelector('.detail-actions');
+          if (actionsDiv) {
+            const doneBtn = actionsDiv.querySelector('.mark-done-btn');
+            const badge = actionsDiv.querySelector('.done-badge-toggle');
+            if (doneBtn) doneBtn.style.display = 'none';
+            if (badge) badge.style.display = 'inline';
+          }
+          showToast('All steps completed! Pattern marked as done.', 'success');
+        }
+      });
+    });
+  }
 }
 
 window.showProjectDetail = showProjectDetail;

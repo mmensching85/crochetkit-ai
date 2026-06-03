@@ -237,6 +237,13 @@ body {
     flex: 1;
 }
 
+.project-card .yardage-warning {
+    color: #e67e22;
+    font-size: 13px;
+    padding: 4px 0;
+    margin: 4px 0;
+}
+
 .project-card .card-meta {
     font-size: 13px;
     color: #888;
@@ -335,6 +342,50 @@ body {
 .project-detail ol li .visual-desc em {
     color: #667eea;
     font-weight: 600;
+}
+
+/* ===== Step Progress ===== */
+.progress-bar-container {
+    background: #e0e0e0;
+    border-radius: 10px;
+    height: 24px;
+    position: relative;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+.progress-bar-fill {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.step-checkbox {
+    margin-right: 8px;
+}
+.step-checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    color: #888;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+[data-theme="dark"] .progress-bar-container {
+    background: #2a2a4a;
+}
+[data-theme="dark"] .step-checkbox-label {
+    color: #9a9ab0;
 }
 
 /* ===== Summary Box ===== */
@@ -1092,6 +1143,25 @@ body {
     color: #888;
 }
 
+/* ===== Verified Badge ===== */
+.verified-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: 8px;
+    cursor: help;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+[data-theme="dark"] .verified-badge {
+    background: linear-gradient(135deg, #1e8449, #27ae60);
+}
+
 [data-theme="dark"] .done-badge {
     background: #50c878;
 }
@@ -1192,6 +1262,167 @@ body {
 
 .stash-status .clear-stash:hover {
     color: #e74c3c;
+}
+
+/* ===== Stash Dashboard ===== */
+.stash-dashboard {
+    padding: 0;
+}
+
+.stash-dashboard h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    color: #2c3e50;
+    border: none;
+    padding: 0;
+}
+
+.stash-dashboard h4 {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    color: #2c3e50;
+    border: none;
+    padding: 0;
+}
+
+.dashboard-stats {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.stat-card {
+    flex: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    padding: 16px 12px;
+    text-align: center;
+    color: #fff;
+    min-width: 0;
+}
+
+.stat-number {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.stat-label {
+    display: block;
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.almost-there {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+}
+
+.almost-there h4 {
+    color: #e65100;
+}
+
+.almost-subtitle {
+    font-size: 13px;
+    color: #bf8c00;
+    margin: 4px 0 8px 0;
+}
+
+.almost-there ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.almost-there li {
+    font-size: 13px;
+    color: #555;
+    padding: 3px 0;
+    border-bottom: 1px solid #fff0c0;
+}
+
+.almost-there li:last-child {
+    border-bottom: none;
+}
+
+.almost-there li strong {
+    color: #e65100;
+}
+
+.dashboard-tip {
+    font-size: 13px;
+    color: #666;
+    background: #f0f4ff;
+    border-radius: 6px;
+    padding: 10px 14px;
+    line-height: 1.4;
+}
+
+.dashboard-tip strong {
+    color: #2c3e50;
+}
+
+[data-theme="dark"] .stash-dashboard h3 {
+    color: #c8b8e8;
+}
+
+[data-theme="dark"] .stash-dashboard h4 {
+    color: #c8b8e8;
+}
+
+[data-theme="dark"] .stat-card {
+    background: linear-gradient(135deg, #3a2a6a 0%, #5a2a8a 100%);
+}
+
+[data-theme="dark"] .almost-there {
+    background: #2a2a1a;
+    border-color: #6a5a1a;
+}
+
+[data-theme="dark"] .almost-there h4 {
+    color: #ffa726;
+}
+
+[data-theme="dark"] .almost-subtitle {
+    color: #bf8c00;
+}
+
+[data-theme="dark"] .almost-there li {
+    color: #9a9ab0;
+    border-bottom-color: #3a3a2a;
+}
+
+[data-theme="dark"] .almost-there li strong {
+    color: #ffa726;
+}
+
+[data-theme="dark"] .dashboard-tip {
+    background: #1e1e3a;
+    color: #9a9ab0;
+}
+
+[data-theme="dark"] .dashboard-tip strong {
+    color: #c8b8e8;
+}
+
+@media (max-width: 600px) {
+    .dashboard-stats {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .stat-card {
+        padding: 12px;
+    }
+    .stat-number {
+        font-size: 22px;
+    }
 }
 
 /* ===== Stash Match (Reverse Matching) ===== */
@@ -1621,6 +1852,19 @@ body {
     font-style: italic;
 }
 
+.stash-card-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.stash-card-actions .stash-card-match {
+    flex: 1;
+    font-size: 12px;
+    padding: 4px 8px;
+}
+
 .stash-card-delete {
     position: absolute;
     top: 6px;
@@ -1762,6 +2006,33 @@ body {
 .dark-toggle:hover {
     background: rgba(255,255,255,0.3);
     transform: rotate(15deg);
+}
+
+/* ===== Term System Toggle (Header) ===== */
+.term-toggle {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0 4px;
+    flex-shrink: 0;
+}
+.term-toggle option {
+    color: #333;
+    background: #fff;
+}
+
+[data-theme="dark"] .term-toggle {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.3);
+    color: #fff;
+}
+[data-theme="dark"] .term-toggle option {
+    color: #d0d0d8;
+    background: #1a1a30;
 }
 
 /* ===== Dark Mode ===== */
