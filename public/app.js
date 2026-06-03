@@ -1269,6 +1269,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
       }
     });
+    // Beginner guide toggle
+    document.querySelectorAll('.guide-toggle').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const isOpen = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !isOpen);
+        if (content) content.style.display = isOpen ? 'none' : 'block';
+        const arrow = this.querySelector('.guide-arrow');
+        if (arrow) arrow.textContent = isOpen ? '▸' : '▾';
+      });
+    });
     // Fill dynamic pattern count in trust section
     (async function fillTrustCount() {
       try {
