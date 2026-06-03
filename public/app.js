@@ -693,6 +693,32 @@ function showStashGallery() {
   renderGallery(yarns, '', '');
 }
 
+// Affiliate configuration — set your IDs here once approved
+const AFFILIATE = {
+  amazon: { tag: 'crochetkit-20', enabled: false },    // Amazon Associates
+  crochetcom: { id: '', enabled: false },                // Crochet.com (10%)
+  lovecrafts: { id: '', enabled: false },                // LoveCrafts (15%)
+};
+
+function affiliateLink(query, label) {
+  if (AFFILIATE.amazon.enabled && AFFILIATE.amazon.tag) {
+    return `<a href="https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=${AFFILIATE.amazon.tag}" target="_blank" rel="noopener noreferrer sponsored">${label}</a>`;
+  }
+  return `<a href="https://www.amazon.com/s?k=${encodeURIComponent(query)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+}
+
+function materialAffiliateLinks(materials) {
+  const links = [];
+  if (materials?.hook?.sizeMM) {
+    links.push(affiliateLink(`${materials.hook.sizeMM}mm crochet hook`, `${materials.hook.sizeMM}mm hook`));
+  }
+  if (materials?.yarn?.weightCategory) {
+    const wt = materials.yarn.weightCategory;
+    links.push(affiliateLink(`${wt} yarn`, `${wt} yarn`));
+  }
+  return links.length ? links.join(' · ') : affiliateLink('crochet yarn hooks', 'crochet supplies');
+}
+
 const SHARE_BASE = window.location.origin;
 
 function shareUrl(id, title) {
@@ -2199,7 +2225,9 @@ function renderDetailHTML(project, index) {
     html += `<li>${linkifyGlossaryTerms(mat)}</li>`;
   });
   html += `</ul>`;
-  html += '<p class="affiliate-links"><small><a href="https://www.amazon.com/s?k=crochet+yarn+hooks" target="_blank" rel="noopener noreferrer">Shop yarn and hooks on Amazon</a></small></p>';
+  const matLinks = materialAffiliateLinks(pattern.materials);
+  html += `<p class="affiliate-links"><small>🛒 ${matLinks}</small></p>`;
+  html += AFFILIATE.amazon.enabled ? '' : '<p class="affiliate-links" style="margin-top:4px;"><small style="color:#999;">Affiliate program pending — links are non-affiliate for now.</small></p>';
 
   if (project.missing_materials && project.missing_materials.length > 0) {
     html += `<h4>Missing Materials:</h4><ul class="missing-materials">`;
