@@ -1399,9 +1399,40 @@ document.addEventListener('DOMContentLoaded', async function() {
       if (!file) return;
       const reader = new FileReader();
       reader.onload = function(ev) {
-        document.getElementById('labelPreview').src = ev.target.result;
+        const dataUrl = ev.target.result;
+        document.getElementById('labelPreview').src = dataUrl;
         document.getElementById('quickAddPanel').style.display = 'block';
+        document.getElementById('qaScanStatus').textContent = '🔍 Analyzing label...';
+        document.getElementById('qaScanStatus').style.display = 'block';
         document.getElementById('qaName').focus();
+        // Send to scan API for suggestions
+        fetchWithTimeout('/api/scan-label', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageUrl: dataUrl })
+        }).then(r => r.json()).then(result => {
+          if (result.suggestions && result.suggestions.weight !== null) {
+            const s = result.suggestions;
+            document.getElementById('qaWeight').value = s.weight;
+            document.getElementById('qaHook').value = s.suggestedHook || '';
+            const presetBtns = document.querySelectorAll('.qa-preset-btn');
+            let matchedPreset = false;
+            presetBtns.forEach(btn => {
+              if (parseInt(btn.dataset.yds) === s.estimatedYardage) {
+                btn.click();
+                matchedPreset = true;
+              }
+            });
+            if (!matchedPreset && s.commonYardages) {
+              document.getElementById('qaYardage').value = s.estimatedYardage || '';
+            }
+            document.getElementById('qaScanStatus').innerHTML = `✅ Detected: <strong>Weight ${s.weight} (${s.weightLabel})</strong> — suggested hook ${s.suggestedHook}mm. Confirm below.`;
+          } else {
+            document.getElementById('qaScanStatus').innerHTML = '📷 Photo taken! Select the details below.';
+          }
+        }).catch(() => {
+          document.getElementById('qaScanStatus').innerHTML = '📷 Photo taken! Select the details below.';
+        });
       };
       reader.readAsDataURL(file);
     });

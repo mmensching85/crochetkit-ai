@@ -2933,6 +2933,10 @@ body {
     }
 }
 
+/* ===== Label Scanner ===== */
+.qa-scan-status { font-size: 13px; color: #555; padding: 8px 12px; background: #f0f4ff; border-radius: 6px; border-left: 3px solid #667eea; }
+[data-theme="dark"] .qa-scan-status { background: #1a1a2a; color: #9a9ab0; border-left-color: #8a6aea; }
+
 /* ===== Project Journal ===== */
 .journal-timeline { max-width: 600px; margin: 0 auto; }
 .journal-entry { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 16px; overflow: hidden; display: flex; gap: 16px; }
