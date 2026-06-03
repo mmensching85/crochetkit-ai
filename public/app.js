@@ -2034,6 +2034,7 @@ function renderDetailHTML(project, index) {
     <div class="progress-bar-fill" style="width:${pct}%"></div>
     <span class="progress-text">${compCount}/${totalSteps} steps</span>
   </div>`;
+  html += `<div style="text-align:center;margin-bottom:16px;"><button class="btn btn-primary btn-sm focus-mode-btn" data-pid="${escHtml(project.id)}" data-idx="${index}">🔍 Focus Mode — One Step at a Time</button></div>`;
 
   html += `<p>${escHtml(project.description)}</p>`;
   html += `<p><strong>Estimated Time:</strong> ${escHtml(project.estimated_time)}</p>`;
@@ -2230,8 +2231,17 @@ function showProjectDetail(project, index, allProjects) {
   showReverseMatch(project.id);
   setupDetailListeners(project, allProjects);
 
+  // Focus mode button
+  const detailEl = document.querySelector('.project-detail');
+  const focusBtn = detailEl ? detailEl.querySelector('.focus-mode-btn') : null;
+  if (focusBtn) {
+    focusBtn.addEventListener('click', function() {
+      showFocusMode(project, index, allProjects);
+    });
+  }
+
   // Step-progress checkbox listeners
-  const container = document.querySelector('.project-detail');
+  const container = detailEl;
   if (container) {
     container.querySelectorAll('.step-checkbox').forEach(cb => {
       cb.addEventListener('change', function() {
@@ -2273,6 +2283,71 @@ function showProjectDetail(project, index, allProjects) {
       });
     });
   }
+}
+
+function showFocusMode(project, index, allProjects) {
+  const total = project.steps ? project.steps.length : 0;
+  if (total === 0) return;
+  const prog = getProgress();
+  const pid = project.id;
+  let completedSteps = (prog[pid] && prog[pid].completedSteps) || [];
+  let currentStep = 1;
+
+  function updateStepDisplay() {
+    const step = project.steps[currentStep - 1];
+    if (!step) return;
+    const stepChecked = completedSteps.includes(currentStep);
+    const pct = total > 0 ? Math.round(completedSteps.length / total * 100) : 0;
+
+    let html = `<div class="focus-mode">`;
+    html += `<div class="focus-top-bar"><button class="btn btn-secondary btn-sm focus-back">← Back to Detail</button></div>`;
+    html += `<div class="focus-progress-bar"><div class="focus-progress-fill" style="width:${pct}%"></div><span class="focus-progress-text">Step ${currentStep} of ${total}</span></div>`;
+    html += `<div class="focus-step-content">`;
+    html += `<div class="focus-step-number">Step ${currentStep}</div>`;
+    html += `<div class="focus-instruction">${convertStitchName(linkifyGlossaryTerms(step.instruction), currentTermSystem)}</div>`;
+    if (step.tip) html += `<div class="focus-tip">💡 ${escHtml(step.tip)}</div>`;
+    if (step.visual_description && step.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)") {
+      html += `<div class="focus-visual">${escHtml(step.visual_description)}</div>`;
+    }
+    html += `<div class="focus-image"><img src="/assets/patterns/${project.id}/step-${currentStep}.webp" alt="Step ${currentStep}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+    html += `</div>`;
+
+    html += `<div class="focus-nav">`;
+    html += `<button class="btn btn-outline focus-prev" ${currentStep <= 1 ? 'disabled' : ''}>← Previous</button>`;
+    html += `<button class="btn btn-primary focus-done" data-step="${currentStep}">${stepChecked ? '✓ Done' : 'Mark Done'}</button>`;
+    html += `<button class="btn btn-outline focus-next" ${currentStep >= total ? 'disabled' : ''}>Next →</button>`;
+    html += `</div></div>`;
+
+    const output = document.getElementById('project-output');
+    if (output) output.innerHTML = html;
+
+    // Wire buttons
+    output.querySelector('.focus-back')?.addEventListener('click', () => showProjectDetail(project, index, allProjects));
+    output.querySelector('.focus-prev')?.addEventListener('click', () => { if (currentStep > 1) { currentStep--; updateStepDisplay(); } });
+    output.querySelector('.focus-next')?.addEventListener('click', () => { if (currentStep < total) { currentStep++; updateStepDisplay(); } });
+    output.querySelector('.focus-done')?.addEventListener('click', function() {
+      const stepNum = parseInt(this.dataset.step);
+      const wasChecked = completedSteps.includes(stepNum);
+      if (wasChecked) {
+        completedSteps = completedSteps.filter(s => s !== stepNum);
+      } else {
+        if (!completedSteps.includes(stepNum)) completedSteps.push(stepNum);
+      }
+      const prog2 = getProgress();
+      if (!prog2[pid]) prog2[pid] = { completedSteps: [] };
+      prog2[pid].completedSteps = completedSteps;
+      saveProgress(prog2);
+      if (completedSteps.length >= total && !isDone(pid)) {
+        markAsDone(pid);
+        showToast('Pattern completed! 🎉', 'success');
+      }
+      if (currentStep < total) {
+        currentStep++;
+      }
+      updateStepDisplay();
+    });
+  }
+  updateStepDisplay();
 }
 
 window.showProjectDetail = showProjectDetail;
