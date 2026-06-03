@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Feed — CrochetKit AI</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+<header class="app-header"><div class="header-row"><div><h1>📋 My Feed</h1><p>Recent projects from makers you follow</p></div>
+<div class="header-extra-nav"><a href="/gallery.html" class="btn btn-outline btn-sm">← Gallery</a></div></div></header>
+<div id="feedContent"><p style="text-align:center;padding:40px;color:#888;">Loading feed...</p></div>
+</div>
+<script>
+function escHtml(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;'); }
+async function loadFeed() {
+  var el = document.getElementById('feedContent');
+  var token = '';
+  try { token = localStorage.getItem('crochetkit-auth-token') || ''; } catch(e) {}
+  if (!token) { el.innerHTML = '<div class="card" style="text-align:center;padding:40px;"><h3>Sign in to see your feed</h3><p style="color:#888;">Follow makers from the gallery to see their new projects here.</p><a href="/" class="btn btn-primary" style="margin-top:12px;">Sign In</a></div>'; return; }
+  try {
+    var resp = await fetch('/api/feed', { headers: { 'Authorization': 'Bearer ' + token } });
+    var data = await resp.json();
+    var feed = data.feed || [];
+    if (feed.length === 0) {
+      el.innerHTML = '<div class="card" style="text-align:center;padding:40px;"><h3>Your feed is empty</h3><p style="color:#888;">' + (data.message || 'Follow makers from the gallery to see their projects here.') + '</p><a href="/gallery.html" class="btn btn-primary" style="margin-top:12px;">Browse Gallery</a></div>';
+      return;
+    }
+    var html = '<div class="project-cards">';
+    feed.forEach(function(p) {
+      html += '<div class="project-card">';
+      html += '<div class="card-hero">' + (p.photo_url ? '<img src="' + escHtml(p.photo_url) + '" alt="' + escHtml(p.pattern_name) + '" class="card-hero-img" loading="lazy">' : '<div style="height:120px;background:#e8d8ff;display:flex;align-items:center;justify-content:center;font-size:32px;">🧶</div>') + '</div>';
+      html += '<h3>' + escHtml(p.pattern_name) + '</h3>';
+      if (p.notes) html += '<p class="card-desc">' + escHtml(p.notes) + '</p>';
+      html += '<p style="font-size:12px;color:#888;">by <a href="/profile.html?user=' + encodeURIComponent(p.username || 'Anonymous') + '" style="color:#667eea;">' + escHtml(p.username || 'Anonymous') + '</a> · ' + new Date(p.created_at).toLocaleDateString() + '</p>';
+      html += '</div>';
+    });
+    html += '</div>';
+    el.innerHTML = html;
+  } catch(e) {
+    el.innerHTML = '<div class="card"><p style="color:#e74c3c;">Failed to load feed.</p></div>';
+  }
+}
+loadFeed();
+</script>
+</body>
+</html>

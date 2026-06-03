@@ -1,40 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Project Gallery — CrochetKit AI</title><meta name="description" content="See what others have made with CrochetKit pattern matches. Share your own projects too.">
+<title>Project Gallery — CrochetKit AI</title><meta name="description" content="See what others have made with CrochetKit. Follow makers, comment on projects.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="container">
-<header class="app-header"><div class="header-row"><div><h1>📸 Project Gallery</h1><p>See what others made with CrochetKit</p></div>
-<div class="header-extra-nav"><a href="/" class="btn btn-outline btn-sm">← Back to App</a></div></div></header>
+<header class="app-header"><div class="header-row"><div><h1>📸 Project Gallery</h1><p>See what others made — follow makers, share your own</p></div>
+<div class="header-extra-nav"><a href="/feed.html" class="btn btn-outline btn-sm" id="feedBtn" style="display:none;">📋 Feed</a><a href="/" class="btn btn-outline btn-sm">← Back</a></div></div></header>
 <div id="galleryContent"><p style="text-align:center;padding:40px;color:#888;">Loading gallery...</p></div>
 </div>
 <script>
 function escHtml(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;'); }
+function getToken() { try { return localStorage.getItem('crochetkit-auth-token') || ''; } catch(e) { return ''; } }
+function getUserName() { try { var u = JSON.parse(localStorage.getItem('crochetkit-auth-user') || 'null'); return u ? u.email.split('@')[0] : null; } catch(e) { return null; } }
+
+var authToken = getToken();
+var currentUser = getUserName();
+if (authToken) document.getElementById('feedBtn').style.display = 'inline-block';
+
 async function loadGallery() {
-  const el = document.getElementById('galleryContent');
+  var el = document.getElementById('galleryContent');
   try {
-    const resp = await fetch('/api/share-project');
-    const projects = await resp.json();
+    var resp = await fetch('/api/share-project');
+    var projects = await resp.json();
     if (!projects || projects.length === 0) {
-      el.innerHTML = '<div class="card" style="text-align:center;padding:40px;"><h3>No projects shared yet</h3><p style="color:#888;">Be the first! Complete a pattern and share it to the gallery.</p><a href="/" class="btn btn-primary" style="margin-top:12px;">Find a Project</a></div>';
+      el.innerHTML = '<div class="card" style="text-align:center;padding:40px;"><h3>No projects shared yet</h3><p style="color:#888;">Be the first! Complete a pattern and share it.</p><a href="/" class="btn btn-primary" style="margin-top:12px;">Find a Project</a></div>';
       return;
     }
+
     var html = '<div class="project-cards">';
-    projects.forEach(function(p) {
-      html += '<div class="project-card">';
+    for (var i = 0; i < projects.length; i++) {
+      var p = projects[i];
+      var puser = p.username || 'Anonymous';
+      var comments = [];
+      try { var cr = await fetch('/api/comments?projectId=' + encodeURIComponent(p.id)); comments = await cr.json(); } catch(e) {}
+
+      html += '<div class="project-card" style="margin-bottom:20px;">';
       html += '<div class="card-hero">' + (p.photo_url ? '<img src="' + escHtml(p.photo_url) + '" alt="' + escHtml(p.pattern_name) + '" class="card-hero-img" loading="lazy">' : '<div style="height:120px;background:#e8d8ff;display:flex;align-items:center;justify-content:center;font-size:32px;">🧶</div>') + '</div>';
       html += '<h3>' + escHtml(p.pattern_name) + '</h3>';
       if (p.notes) html += '<p class="card-desc">' + escHtml(p.notes) + '</p>';
-      html += '<p style="font-size:12px;color:#888;">by ' + escHtml(p.username || 'Anonymous') + ' · ' + new Date(p.created_at).toLocaleDateString() + '</p>';
+      html += '<p style="font-size:12px;color:#888;">by <a href="/profile.html?user=' + encodeURIComponent(puser) + '" style="color:#667eea;">' + escHtml(puser) + '</a> · ' + new Date(p.created_at).toLocaleDateString() + '</p>';
+      html += '<div style="margin-top:8px;display:flex;gap:8px;align-items:center;">';
+      if (authToken && currentUser && currentUser !== puser) {
+        html += '<button class="btn btn-sm btn-outline follow-btn" data-user="' + escHtml(puser) + '" style="font-size:12px;">+ Follow</button>';
+      }
+      html += '<button class="btn btn-sm btn-outline comment-toggle-btn" data-id="' + p.id + '" style="font-size:12px;">💬 Comment (' + (Array.isArray(comments) ? comments.length : 0) + ')</button>';
       html += '</div>';
-    });
+
+      html += '<div class="comment-section" id="comments-' + p.id + '" style="display:none;margin-top:8px;border-top:1px solid #e0e0e0;padding-top:8px;">';
+      if (Array.isArray(comments) && comments.length > 0) {
+        comments.forEach(function(c) { html += '<div style="font-size:13px;margin-bottom:4px;"><strong>' + escHtml(c.author_name) + ':</strong> ' + escHtml(c.comment_text) + '</div>'; });
+      }
+      html += '<div style="display:flex;gap:4px;margin-top:4px;"><input type="text" class="comment-input" data-id="' + p.id + '" placeholder="Add a comment..." style="flex:1;padding:4px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px;"><button class="btn btn-sm btn-primary comment-submit-btn" data-id="' + p.id + '" style="font-size:12px;">Post</button></div>';
+      html += '</div></div>';
+    }
     html += '</div>';
     el.innerHTML = html;
+
+    el.querySelectorAll('.comment-toggle-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var section = document.getElementById('comments-' + this.dataset.id);
+        if (section) section.style.display = section.style.display === 'none' ? 'block' : 'none';
+      });
+    });
+
+    el.querySelectorAll('.comment-submit-btn').forEach(function(btn) {
+      btn.addEventListener('click', async function() {
+        var pid = this.dataset.id;
+        var input = this.parentNode.querySelector('.comment-input');
+        var text = input ? input.value.trim() : '';
+        if (!text) return;
+        try {
+          var resp = await fetch('/api/comments', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ projectId: pid, authorName: currentUser || 'Anonymous', commentText: text }) });
+          if ((await resp.json()).success) {
+            if (input) input.value = '';
+            showToast('Comment added!', 'success');
+            loadGallery();
+          }
+        } catch(e) { showToast('Error posting comment', 'error'); }
+      });
+    });
   } catch(e) {
     el.innerHTML = '<div class="card"><p style="color:#e74c3c;">Failed to load gallery.</p></div>';
   }
+}
+
+function showToast(msg, type) {
+  var t = document.createElement('div');
+  t.className = 'toast toast-' + (type || 'info'); t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(function() { t.classList.add('toast-visible'); });
+  setTimeout(function() { t.classList.remove('toast-visible'); setTimeout(function() { t.remove(); }, 300); }, 3000);
 }
 loadGallery();
 </script>
