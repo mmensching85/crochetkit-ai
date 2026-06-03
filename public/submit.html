@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit a Pattern — CrochetKit AI</title>
+<meta name="description" content="Submit your crochet pattern for review. Get the CrochetKit Verified badge.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+<header class="app-header"><div class="header-row"><div><h1>Submit a Pattern</h1><p>Share your design with the crochet community</p></div>
+<div class="header-extra-nav"><a href="/" class="btn btn-outline btn-sm">← Back to App</a></div></div></header>
+
+<div class="card">
+<h2>Pattern Details</h2>
+<p>All fields are required unless marked optional. Submitted patterns are reviewed by our team before publication.</p>
+<form id="submitForm">
+<div class="form-group"><label for="patName">Pattern Name</label><input type="text" id="patName" required maxlength="100"></div>
+<div class="form-group"><label for="patDesc">Short Description</label><textarea id="patDesc" required maxlength="300" rows="2"></textarea></div>
+<div class="form-row">
+<div class="form-group"><label for="patCategory">Category</label>
+<select id="patCategory" required>
+<option value="">— Select —</option>
+<option>Scarf</option><option>Hat</option><option>Headband</option><option>Dishcloth</option><option>Coaster</option>
+<option>Bag</option><option>Blanket</option><option>Baby</option><option>Toy</option><option>Shawl</option>
+<option>Sweater</option><option>Socks</option><option>Mittens</option><option>Granny square</option><option>Other</option>
+</select></div>
+<div class="form-group"><label for="patDiffLevel">Difficulty</label>
+<select id="patDiffLevel" required><option value="">—</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="patDiffScore">Difficulty Score (1-10)</label><input type="number" id="patDiffScore" min="1" max="10" value="3" required></div>
+<div class="form-group"><label for="patMinH">Min Hours</label><input type="number" id="patMinH" min="0.25" step="0.25" value="1" required></div>
+<div class="form-group"><label for="patMaxH">Max Hours</label><input type="number" id="patMaxH" min="0.25" step="0.25" value="3" required></div>
+</div>
+
+<h3 style="margin-top:20px;">Materials</h3>
+<div class="form-row">
+<div class="form-group"><label for="patWeightName">Yarn Weight Name</label>
+<select id="patWeightName" required><option value="">—</option>
+<option>0 (Lace)</option><option>1 (Super Fine)</option><option>2 (Fine)</option><option>3 (Light)</option>
+<option>4 (Medium)</option><option>5 (Bulky)</option><option>6 (Super Bulky)</option><option>7 (Jumbo)</option>
+</select></div>
+<div class="form-group"><label for="patWeightNum">Weight Number</label><input type="number" id="patWeightNum" min="0" max="7" value="4" required></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="patYardMin">Min Yardage</label><input type="number" id="patYardMin" min="1" value="100" required></div>
+<div class="form-group"><label for="patYardMax">Max Yardage</label><input type="number" id="patYardMax" min="1" value="200" required></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label for="patHookMM">Hook Size (mm)</label><input type="number" id="patHookMM" step="0.5" value="5.0"></div>
+<div class="form-group"><label for="patHookUS">Hook Size (US)</label><input type="text" id="patHookUS" placeholder="e.g. H-8"></div>
+</div>
+
+<h3 style="margin-top:20px;">Instructions</h3>
+<p>Enter one step per line. Each step will be displayed in order.</p>
+<div class="form-group"><textarea id="patInstructions" rows="8" required placeholder="Round 1: Make a magic ring, ch 1, 6 sc into ring (6 sts)&#10;Round 2: 2 sc in each st around (12 sts)&#10;..."></textarea></div>
+
+<h3 style="margin-top:20px;">Designer Info (optional)</h3>
+<div class="form-row">
+<div class="form-group"><label for="patDesigner">Designer Name</label><input type="text" id="patDesigner" placeholder="Your name or brand" maxlength="100"></div>
+<div class="form-group"><label for="patEmail">Email <span class="optional">(for notifications)</span></label><input type="email" id="patEmail" placeholder="you@example.com"></div>
+</div>
+
+<button type="submit" class="btn btn-primary" id="submitPatBtn">Submit for Review</button>
+<span id="submitPatError" class="form-error"></span>
+<div id="submitPatSuccess" style="display:none;margin-top:16px;padding:16px;background:#e8f5e9;border-radius:8px;text-align:center;">
+<h3 style="color:#2e7d32;">✅ Pattern Submitted!</h3>
+<p style="color:#555;">Thank you for contributing! Our team will review your pattern and publish it with a CrochetKit Verified badge.</p>
+<a href="/" class="btn btn-primary" style="margin-top:12px;">Back to App</a>
+</div>
+</form>
+</div>
+</div>
+<script>
+document.getElementById('patWeightName').addEventListener('change', function() {
+  document.getElementById('patWeightNum').value = this.value.charAt(0);
+});
+document.getElementById('submitForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitPatBtn');
+  const err = document.getElementById('submitPatError');
+  const instructions = document.getElementById('patInstructions').value.trim().split('\n').filter(s => s.trim());
+  if (instructions.length < 3) { err.textContent = 'At least 3 instruction steps required.'; return; }
+  btn.disabled = true; btn.textContent = 'Submitting...'; err.textContent = '';
+  try {
+    const body = {
+      name: document.getElementById('patName').value.trim(),
+      shortDescription: document.getElementById('patDesc').value.trim(),
+      category: document.getElementById('patCategory').value,
+      difficulty: { level: document.getElementById('patDiffLevel').value, score: parseInt(document.getElementById('patDiffScore').value) },
+      estimatedTime: { minHours: parseFloat(document.getElementById('patMinH').value), maxHours: parseFloat(document.getElementById('patMaxH').value), unit: 'hours' },
+      materials: {
+        yarn: { weightCategory: document.getElementById('patWeightName').value, weightNumber: parseInt(document.getElementById('patWeightNum').value),
+          suggestedYardageMin: parseInt(document.getElementById('patYardMin').value), suggestedYardageMax: parseInt(document.getElementById('patYardMax').value) },
+        hook: { sizeMM: parseFloat(document.getElementById('patHookMM').value) || null, sizeUS: document.getElementById('patHookUS').value.trim() || null }
+      },
+      instructions: instructions,
+      designerName: document.getElementById('patDesigner').value.trim() || '',
+      designerEmail: document.getElementById('patEmail').value.trim() || ''
+    };
+    const resp = await fetch('/api/submit-pattern', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    const data = await resp.json();
+    if (data.success) {
+      document.getElementById('submitForm').style.display = 'none';
+      document.getElementById('submitPatSuccess').style.display = 'block';
+    } else { err.textContent = data.error || 'Submission failed'; }
+  } catch(e) { err.textContent = 'Network error. Try again.'; }
+  btn.disabled = false; btn.textContent = 'Submit for Review';
+});
+</script>
+</body>
+</html>

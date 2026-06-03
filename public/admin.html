@@ -100,6 +100,13 @@
                 </div>
             </div>
 
+            <div id="patternSubmissions" class="admin-section">
+                <h3>Pattern Submissions <span id="patSubCount" style="font-weight:400;font-size:13px;color:#888;"></span></h3>
+                <ul id="patternSubList" class="data-list">
+                    <li>Loading...</li>
+                </ul>
+            </div>
+
             <div id="contactSubmissions" class="admin-section">
                 <h3>Contact Submissions</h3>
                 <ul id="contactList" class="data-list">
@@ -158,6 +165,7 @@
 
             function fetchAllData() {
                 fetchData('/api/admin/usage-stats', 'usageStats', renderUsageStats);
+                fetchData('/api/admin/submissions', 'patternSubList', renderSubmissions);
                 fetchData('/api/admin/contacts', 'contactList', renderContacts);
                 fetchData('/api/admin/feedback', 'feedbackList', renderFeedback);
             }
@@ -169,6 +177,61 @@
                 } else {
                     document.getElementById('matchCount').textContent = 'N/A';
                 }
+            }
+
+            // Render Pattern Submissions
+            function renderSubmissions(data, element) {
+                const countEl = document.getElementById('patSubCount');
+                if (!data || data.length === 0) {
+                    element.innerHTML = '<li>No pattern submissions yet.</li>';
+                    if (countEl) countEl.textContent = '';
+                    return;
+                }
+                const pending = data.filter(s => s.status === 'pending');
+                if (countEl) countEl.textContent = `(${pending.length} pending)`;
+                element.innerHTML = data.map(item => {
+                    const p = item.data;
+                    const isPending = item.status === 'pending';
+                    return `<li class="data-list-item" style="${isPending ? 'border-left:3px solid #ff9800;' : ''}">
+                        <h4>${escHtml(p.name)} <span style="font-weight:400;font-size:12px;color:#888;">${escHtml(p.category)} · ${escHtml(p.difficulty?.level || '')}</span>
+                        ${isPending ? '<span style="float:right;color:#ff9800;font-size:12px;">PENDING</span>' : `<span style="float:right;color:${item.status === 'approved' ? '#4caf50' : '#e74c3c'};font-size:12px;">${item.status.toUpperCase()}</span>`}</h4>
+                        <p style="font-size:13px;color:#555;">${escHtml(p.shortDescription || '').slice(0, 200)}</p>
+                        <p style="font-size:12px;color:#888;">Weight ${p.materials?.yarn?.weightNumber || '?'} · ${p.materials?.yarn?.suggestedYardageMin || '?'}-${p.materials?.yarn?.suggestedYardageMax || '?'} yds · ${p.instructions ? p.instructions.length + ' steps' : '?'}</p>
+                        ${p.designerName ? `<p style="font-size:12px;color:#888;">By: ${escHtml(p.designerName)}</p>` : ''}
+                        ${isPending ? `<div style="margin-top:8px;">
+                            <button class="btn btn-success btn-sm approve-sub" data-id="${item.id}" style="margin-right:8px;">✓ Approve</button>
+                            <button class="btn btn-danger btn-sm reject-sub" data-id="${item.id}">✗ Reject</button>
+                        </div>` : `<p style="font-size:11px;color:#888;">Reviewed: ${new Date(item.reviewed_at).toLocaleDateString()}</p>`}
+                    </li>`;
+                }).join('');
+                element.querySelectorAll('.approve-sub').forEach(btn => {
+                    btn.addEventListener('click', async function() {
+                        if (!confirm('Approve this pattern? It will be published immediately.')) return;
+                        this.textContent = 'Approving...'; this.disabled = true;
+                        const resp = await fetch('/api/admin/submissions', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-secret': adminSecret }, body: JSON.stringify({ submissionId: this.dataset.id, action: 'approve' }) });
+                        const result = await resp.json();
+                        showToast(result.success ? 'Pattern published!' : 'Error: ' + (result.error || ''), result.success ? 'success' : 'error');
+                        fetchAllData();
+                    });
+                });
+                element.querySelectorAll('.reject-sub').forEach(btn => {
+                    btn.addEventListener('click', async function() {
+                        if (!confirm('Reject this pattern?')) return;
+                        const resp = await fetch('/api/admin/submissions', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-secret': adminSecret }, body: JSON.stringify({ submissionId: this.dataset.id, action: 'reject' }) });
+                        const result = await resp.json();
+                        showToast(result.success ? 'Rejected' : 'Error', result.success ? 'info' : 'error');
+                        fetchAllData();
+                    });
+                });
+            }
+
+            function showToast(msg, type) {
+                const t = document.createElement('div');
+                t.className = 'toast toast-' + (type || 'info');
+                t.textContent = msg;
+                document.body.appendChild(t);
+                requestAnimationFrame(() => t.classList.add('toast-visible'));
+                setTimeout(() => { t.classList.remove('toast-visible'); setTimeout(() => t.remove(), 300); }, 3000);
             }
 
             // Render Contact Submissions
