@@ -1,6 +1,7 @@
 node_modules/
 .env
 data/feedback.json
+data/users.json
 data/match-count.json
 data/popular.json
 data/contacts.json
@@ -9,3 +10,6 @@ data/contacts.json
 .wrangler/
 __pycache__/
 *.pyc
+.agent/
+.omo/
+.playwright-mcp/

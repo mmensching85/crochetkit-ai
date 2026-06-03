@@ -461,7 +461,10 @@ body {
 }
 
 .star-rating input {
-    display: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
 }
 
 .star-rating label {
@@ -2345,6 +2348,7 @@ body {
     box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
+.close-button,
 .modal-close {
     position: absolute;
     top: 12px;
@@ -2355,6 +2359,7 @@ body {
     line-height: 1;
 }
 
+.close-button:hover,
 .modal-close:hover {
     color: #333;
 }
@@ -2425,10 +2430,12 @@ body {
     background: #1e1e38;
 }
 
+[data-theme="dark"] .close-button,
 [data-theme="dark"] .modal-close {
     color: #6a6a8a;
 }
 
+[data-theme="dark"] .close-button:hover,
 [data-theme="dark"] .modal-close:hover {
     color: #d0d0d8;
 }

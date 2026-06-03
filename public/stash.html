@@ -109,12 +109,12 @@
                 }
                 yarnListDiv.innerHTML = yarns.map(yarn => `
                     <div class="yarn-item card">
-                        <h3>${yarn.name}</h3>
+                        <h3>${escHtml(yarn.name)}</h3>
                         <p><strong>Weight:</strong> ${WEIGHT_LABELS[yarn.weight] || `Weight ${yarn.weight}`}</p>
                         <p><strong>Yardage:</strong> ${yarn.yardage} yards</p>
                         ${yarn.hook ? `<p><strong>Hook:</strong> ${yarn.hook} mm</p>` : ''}
-                        ${yarn.notes ? `<p><strong>Notes:</strong> ${yarn.notes}</p>` : ''}
-                        ${yarn.image ? `<img src="${yarn.image}" alt="${yarn.name}" class="yarn-image">` : ''}
+                        ${yarn.notes ? `<p><strong>Notes:</strong> ${escHtml(yarn.notes)}</p>` : ''}
+                        ${yarn.image ? `<img src="${escHtml(yarn.image)}" alt="${escHtml(yarn.name)}" class="yarn-image">` : ''}
                         <div class="yarn-actions">
                             <button class="btn btn-secondary btn-small edit-yarn-btn" data-id="${yarn.id}">Edit</button>
                             <button class="btn btn-danger btn-small delete-yarn-btn" data-id="${yarn.id}">Delete</button>

@@ -2,8 +2,7 @@
 // Max 100 entries, each entry expires after 1 hour (TTL)
 const CACHE_MAX_SIZE = 100;
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
-const NEW_PATTERN_ID_THRESHOLD = 58; // Patterns with ID > 58 are considered 'new'
-const NEW_PATTERN_BONUS = 1.0; // Bonus points for new patterns
+const NEW_PATTERN_BONUS = 1.0; // Bonus points for new patterns (last 10 in the array)
 
 // Map preserves insertion order; we will treat the first entry as LRU
 const _cache = new Map();
@@ -71,12 +70,15 @@ function matchPattern(userInput, patterns) {
   const cached = getFromCache(cacheKey);
   if (cached) return cached;
 
-  const userDifficulty = userInput.difficulty || 'beginner';
+  const userDifficulty = userInput.difficulty || '';
   const isMultiYarn = userInput.yarns && userInput.yarns.length > 1;
 
-  const filteredPatterns = patterns.filter(p => p.difficulty.level === userDifficulty);
+  const filteredPatterns = userDifficulty
+    ? patterns.filter(p => p.difficulty.level === userDifficulty)
+    : patterns;
   if (filteredPatterns.length === 0) {
-    throw new Error(`No ${userDifficulty} patterns found matching your materials. Try adjusting your inputs or selecting a different difficulty.`);
+    const label = userDifficulty || 'matching';
+    throw new Error(`No ${label} patterns found matching your materials. Try adjusting your inputs or selecting a different difficulty.`);
   }
 
   const scoredPatterns = [];
@@ -215,8 +217,9 @@ function matchPattern(userInput, patterns) {
       details.criteria.push({ name: "difficultyFit", met: true, points: Math.abs(pattern.difficulty.score - uDiff) <= 1 ? 1 : 0.5 });
     }
 
-    // New pattern bonus
-    if (parseInt(pattern.id) > NEW_PATTERN_ID_THRESHOLD) {
+    // New pattern bonus: last 10 patterns in the database get a boost
+    const patternIndex = patterns.indexOf(pattern);
+    if (patternIndex >= 0 && patternIndex >= patterns.length - 10) {
       score += NEW_PATTERN_BONUS;
       details.criteria.push({ name: "newPatternBonus", met: true, points: NEW_PATTERN_BONUS, info: "Bonus for new pattern!" });
     }

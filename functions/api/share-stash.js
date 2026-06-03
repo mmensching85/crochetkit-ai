@@ -1,3 +1,6 @@
+const MAX_STASH_ITEMS = 200;
+const MAX_STRING_LENGTH = 500;
+
 export async function onRequest(context) {
   const { request } = context;
 
@@ -24,7 +27,39 @@ export async function onRequest(context) {
     });
   }
 
-  const encoded = btoa(JSON.stringify(data.yarnStash));
+  if (data.yarnStash.length > MAX_STASH_ITEMS) {
+    return new Response(JSON.stringify({
+      success: false,
+      error: `yarnStash must have ${MAX_STASH_ITEMS} items or fewer`
+    }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  for (const item of data.yarnStash) {
+    for (const val of Object.values(item)) {
+      if (typeof val === 'string' && val.length > MAX_STRING_LENGTH) {
+        return new Response(JSON.stringify({
+          success: false,
+          error: 'Stash item values must be 500 characters or fewer'
+        }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+    }
+  }
+
+  let encoded;
+  try {
+    encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data.yarnStash))));
+  } catch {
+    return new Response(JSON.stringify({ success: false, error: 'Failed to encode stash data.' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
   const url = `${request.url.split('/api')[0]}/stash.html?stash=${encodeURIComponent(encoded)}`;
 
   return new Response(JSON.stringify({ success: true, url }), {

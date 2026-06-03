@@ -1,3 +1,8 @@
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_NAME = 100;
+const MAX_EMAIL = 254;
+const MAX_MESSAGE = 5000;
+
 export async function onRequest(context) {
   const { request, env } = context;
 
@@ -18,8 +23,22 @@ export async function onRequest(context) {
     }
   }
 
-  if (!data.email || !data.message) {
-    return new Response(JSON.stringify({ error: 'Email and message are required' }), {
+  if (!data.name || !data.email || !data.message) {
+    return new Response(JSON.stringify({ error: 'Name, email, and message are required' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  if (!EMAIL_RE.test(data.email)) {
+    return new Response(JSON.stringify({ error: 'Invalid email format' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  if (data.name.length > MAX_NAME || data.email.length > MAX_EMAIL || data.message.length > MAX_MESSAGE) {
+    return new Response(JSON.stringify({ error: 'Fields exceed maximum length' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' }
     });
@@ -47,7 +66,7 @@ export async function onRequest(context) {
     INSERT INTO contacts (name, email, message, ip, timestamp)
     VALUES (?, ?, ?, ?, ?)
   `).bind(
-    data.name || '',
+    data.name,
     data.email,
     data.message,
     request.headers.get('cf-connecting-ip') || '',

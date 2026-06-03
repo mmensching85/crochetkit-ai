@@ -51,25 +51,23 @@ function getGlossary(system) {
   return system === 'UK' || system === 'AU' ? glossaryUK : null;
 }
 
+function convertStitchName(name, system) {
+  if (system === 'US' || !name) return name;
+  const fullMap = {
+    'single crochet (sc)': 'double crochet (dc)',
+    'half double crochet (hdc)': 'half treble (htr)',
+    'double crochet (dc)': 'treble (tr)',
+    'treble crochet (tr)': 'double treble (dtr)',
+  };
+  const abbrMap = { 'sc': 'dc', 'hdc': 'htr', 'dc': 'tr', 'tr': 'dtr' };
+  return fullMap[name.toLowerCase()] || name.replace(/\b(hdc|dc|sc|tr|ch|sl st)\b/g, m => abbrMap[m] || m);
+}
+
 // ── formatProjectOutput.js ────────────────────────────────────────
 function formatProjectOutput(matchResult, termSystem) {
   const isUK = termSystem && (termSystem === 'UK' || termSystem === 'AU');
   const pattern = matchResult.matchedPattern;
   const materialGap = matchResult.materialGap;
-
-  const stitchFullNameMap = {
-    'Chain (ch)': 'Chain (ch)',
-    'Single crochet (sc)': 'Double crochet (dc)',
-    'Half Double Crochet (hdc)': 'Half Treble (htr)',
-    'Double crochet (dc)': 'Treble (tr)',
-    'Treble Crochet (tr)': 'Double Treble (dtr)',
-    'Slip stitch (sl st)': 'Slip stitch (sl st)'
-  };
-
-  function convertStitchName(name) {
-    if (!isUK) return name;
-    return stitchFullNameMap[name] || name;
-  }
 
   function extractStitches(instructions) {
     const stitchPatterns = [
@@ -89,7 +87,7 @@ function formatProjectOutput(matchResult, termSystem) {
         }
       });
     });
-    return Array.from(stitchesFound).map(s => convertStitchName(s));
+    return Array.from(stitchesFound).map(s => convertStitchName(s, isUK ? 'UK' : 'US'));
   }
 
   function getStepTip(instruction, pattern) {

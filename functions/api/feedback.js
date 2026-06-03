@@ -1,3 +1,7 @@
+const MAX_COMMENT = 2000;
+const MAX_PAGE = 100;
+const MAX_PROJECT_TITLE = 200;
+
 export async function onRequest(context) {
   const { request, env } = context;
 
@@ -16,6 +20,34 @@ export async function onRequest(context) {
     for (const [key, val] of formData.entries()) {
       data[key] = val;
     }
+  }
+
+  if (!data.rating || typeof data.rating !== 'number' || data.rating < 1 || data.rating > 5) {
+    return new Response(JSON.stringify({ error: 'Rating is required and must be between 1 and 5' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  if (data.comment && data.comment.length > MAX_COMMENT) {
+    return new Response(JSON.stringify({ error: `Comment must be ${MAX_COMMENT} characters or less` }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  if (data.page && data.page.length > MAX_PAGE) {
+    return new Response(JSON.stringify({ error: `Page field must be ${MAX_PAGE} characters or less` }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  if (data.projectTitle && data.projectTitle.length > MAX_PROJECT_TITLE) {
+    return new Response(JSON.stringify({ error: `Project title must be ${MAX_PROJECT_TITLE} characters or less` }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
   if (!env.CROCHETKIT_FEEDBACK) {
@@ -42,7 +74,7 @@ export async function onRequest(context) {
     VALUES (?, ?, ?, ?, ?, ?)
   `).bind(
     data.comment || '',
-    data.rating || 0,
+    data.rating,
     data.page || '',
     data.projectTitle || '',
     request.headers.get('cf-connecting-ip') || '',

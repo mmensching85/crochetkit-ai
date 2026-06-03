@@ -1,3 +1,6 @@
+const MAX_PATTERN_ID = 100;
+const VALID_ACTIONS = ['view', 'select', 'pdf'];
+
 export async function onRequest(context) {
   const { request, env } = context;
 
@@ -19,8 +22,15 @@ export async function onRequest(context) {
 
   const { patternId, action } = data;
 
-  if (!patternId || !['view', 'select', 'pdf'].includes(action)) {
-    return new Response(JSON.stringify({ error: 'patternId and action (view/select/pdf) required.' }), {
+  if (!patternId || typeof patternId !== 'string' || patternId.length > MAX_PATTERN_ID) {
+    return new Response(JSON.stringify({ error: `patternId is required and must be ${MAX_PATTERN_ID} characters or less` }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
+
+  if (!VALID_ACTIONS.includes(action)) {
+    return new Response(JSON.stringify({ error: `action must be one of: ${VALID_ACTIONS.join(', ')}` }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' }
     });

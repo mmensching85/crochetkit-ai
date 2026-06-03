@@ -1,5 +1,2 @@
-# API routes are handled by Pages Functions — do not redirect to SPA
+# API routes are handled by Pages Functions
 /api/*  /api/:splat  200
-
-# SPA fallback: serve index.html for paths that aren't static files
-/*  /index.html  200

@@ -125,9 +125,26 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
+            function escHtml(s) {
+                if (!s) return '';
+                return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+            }
+
+            let adminSecret = '';
+
+            function promptSecret() {
+                const secret = prompt('Enter admin secret:');
+                if (secret) {
+                    adminSecret = secret;
+                    fetchAllData();
+                }
+            }
+
             async function fetchData(url, elementId, renderFunction) {
                 try {
-                    const response = await fetch(url);
+                    const headers = {};
+                    if (adminSecret) headers['x-admin-secret'] = adminSecret;
+                    const response = await fetch(url, { headers });
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
@@ -137,6 +154,12 @@
                     console.error(`Error fetching from ${url}:`, error);
                     document.getElementById(elementId).innerHTML = '<li style="color:red;">Failed to load data.</li>';
                 }
+            }
+
+            function fetchAllData() {
+                fetchData('/api/admin/usage-stats', 'usageStats', renderUsageStats);
+                fetchData('/api/admin/contacts', 'contactList', renderContacts);
+                fetchData('/api/admin/feedback', 'feedbackList', renderFeedback);
             }
 
             // Render Usage Stats
@@ -156,10 +179,10 @@
                 }
                 element.innerHTML = data.map(item => `
                     <li class="data-list-item">
-                        <h4>From: ${item.name} (${item.email})</h4>
+                        <h4>From: ${escHtml(item.name)} (${escHtml(item.email)})</h4>
                         <p><strong>Date:</strong> ${new Date(item.timestamp).toLocaleString()}</p>
                         <p><strong>Message:</strong></p>
-                        <pre>${item.message}</pre>
+                        <pre>${escHtml(item.message)}</pre>
                     </li>
                 `).join('');
             }
@@ -172,19 +195,16 @@
                 }
                 element.innerHTML = data.map(item => `
                     <li class="data-list-item">
-                        <h4>Project: ${item.projectTitle}</h4>
-                        <p><strong>Rating:</strong> ${item.rating} / 5</p>
+                        <h4>Project: ${escHtml(item.projectTitle)}</h4>
+                        <p><strong>Rating:</strong> ${escHtml(String(item.rating))} / 5</p>
                         <p><strong>Date:</strong> ${new Date(item.timestamp).toLocaleString()}</p>
-                        ${item.comment ? `<p><strong>Comment:</strong> ${item.comment}</p>` : ''}
-                        ${item.userInput ? `<p><strong>User Input:</strong></p><pre>${JSON.stringify(item.userInput, null, 2)}</pre>` : ''}
+                        ${item.comment ? `<p><strong>Comment:</strong> ${escHtml(item.comment)}</p>` : ''}
+                        ${item.userInput ? `<p><strong>User Input:</strong></p><pre>${escHtml(JSON.stringify(item.userInput, null, 2))}</pre>` : ''}
                     </li>
                 `).join('');
             }
 
-            // Fetch and render all data
-            fetchData('/api/admin/usage-stats', 'usageStats', renderUsageStats);
-            fetchData('/api/admin/contacts', 'contactList', renderContacts);
-            fetchData('/api/admin/feedback', 'feedbackList', renderFeedback);
+            promptSecret();
         });
     </script>
 </body>

@@ -52,18 +52,6 @@ function linkifyGlossaryTerms(text) {
   }).join('');
 }
 
-function convertStitchName(name, system) {
-  if (system === 'US' || !name) return name;
-  const abbrMap = { 'sc': 'dc', 'hdc': 'htr', 'dc': 'tr', 'tr': 'dtr' };
-  const fullMap = {
-    'single crochet (sc)': 'double crochet (dc)',
-    'half double crochet (hdc)': 'half treble (htr)',
-    'double crochet (dc)': 'treble (tr)',
-    'treble crochet (tr)': 'double treble (dtr)',
-  };
-  return fullMap[name.toLowerCase()] || name.replace(/\b(hdc|dc|sc|tr|ch|sl st)\b/g, m => abbrMap[m] || m);
-}
-
 const STASH_KEY = 'crochetkit-stash';
 const FILTER_KEY = 'crochetkit-filters';
 
@@ -173,8 +161,8 @@ async function renderDailyPattern() {
     `;
     container.style.display = 'block';
     document.getElementById('dailyViewBtn')?.addEventListener('click', () => {
-      const formatted = formatProjectOutput({ matchedPattern: pat, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem);
-      const allFormatted = patterns.map(p => formatProjectOutput({ matchedPattern: p, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem));
+      const formatted = formatProjectOutput({ matchedPattern: pat, materialGap: neutralMaterialGap(pat) }, currentTermSystem);
+      const allFormatted = patterns.map(p => formatProjectOutput({ matchedPattern: p, materialGap: neutralMaterialGap(p) }, currentTermSystem));
       showProjectDetail(formatted, null, allFormatted);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
@@ -186,6 +174,15 @@ async function renderDailyPattern() {
   } catch (err) {
     console.error('Daily pattern error:', err);
   }
+}
+
+function neutralMaterialGap(pattern) {
+  const minY = pattern.materials?.yarn?.suggestedYardageMin ?? 0;
+  const maxY = pattern.materials?.yarn?.suggestedYardageMax ?? minY;
+  return {
+    yardage: { have: 0, need: (minY + maxY) / 2, gap: 0, status: 'unknown' },
+    hook: { have: null, need: pattern.materials?.hook?.sizeMM || null, gap: 0, status: 'unknown' }
+  };
 }
 
 async function renderWhatsNew() {
@@ -222,8 +219,8 @@ async function renderWhatsNew() {
       btn.addEventListener('click', () => {
         const raw = allPatterns.find(pat => pat.id === btn.dataset.id);
         if (raw) {
-          const formatted = formatProjectOutput({ matchedPattern: raw, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem);
-          const allFormatted = allPatterns.map(p => formatProjectOutput({ matchedPattern: p, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem));
+const formatted = formatProjectOutput({ matchedPattern: raw, materialGap: neutralMaterialGap(raw) }, currentTermSystem);
+      const allFormatted = allPatterns.map(p => formatProjectOutput({ matchedPattern: p, materialGap: neutralMaterialGap(p) }, currentTermSystem));
           showProjectDetail(formatted, null, allFormatted);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -431,22 +428,34 @@ function matchYarns() {
       displayProjectCards(projects);
     }).catch(err => {
       console.error('Match error:', err);
-      output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
+      output.innerHTML = `<div class="error">Error: ${escHtml(err.message)}</div>`;
     });
 }
 
 function escHtml(s) {
   if (!s) return '';
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+}
+
+function esc(s) { return escHtml(s); }
+
+async function fetchWithTimeout(url, options, timeoutMs) {
+  if (timeoutMs === undefined) timeoutMs = 10000;
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const resp = await fetch(url, { ...options, signal: controller.signal });
+    return resp;
+  } finally {
+    clearTimeout(id);
+  }
 }
 
 let _patternCache = null;
 
 async function getPatterns() {
   if (_patternCache) return _patternCache;
-  const resp = await fetch('/data/patterns.json');
+  const resp = await fetchWithTimeout('/data/patterns.json');
   _patternCache = await resp.json();
   return _patternCache;
 }
@@ -625,7 +634,7 @@ function renderShareBtns(id, title) {
     <a href="${links.facebook}" target="_blank" rel="noopener noreferrer" class="share-btn share-fb" title="Share on Facebook">f</a>
     <a href="${links.pinterest}" target="_blank" rel="noopener noreferrer" class="share-btn share-pin" title="Pin on Pinterest">P</a>
     <a href="${links.email}" class="share-btn share-email" title="Share via email">@</a>
-    <button class="share-btn share-copy" title="Copy link" onclick="copyShareLink('${id}')">🔗</button>
+    <button class="share-btn share-copy" title="Copy link" data-id="${escHtml(id)}">🔗</button>
   </div>`;
 }
 
@@ -677,7 +686,7 @@ function initWelcomeBanner() {
 }
 
 function loadGlossaryData() {
-  fetch('/glossary.json')
+  fetchWithTimeout('/glossary.json')
     .then(r => r.json())
     .then(data => { glossaryData = data; })
     .catch(() => {});
@@ -792,8 +801,8 @@ function showCatalog() {
             const idx = parseInt(this.dataset.idx);
             trackPopular(pats[idx].id, 'select');
             // Format raw pattern into the shape showProjectDetail expects
-            const formatted = formatProjectOutput({ matchedPattern: pats[idx], materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem);
-            showProjectDetail(formatted, idx, pats.map(p => formatProjectOutput({ matchedPattern: p, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem)));
+            const formatted = formatProjectOutput({ matchedPattern: pats[idx], materialGap: neutralMaterialGap(pats[idx]) }, currentTermSystem);
+            showProjectDetail(formatted, idx, pats.map(p => formatProjectOutput({ matchedPattern: p, materialGap: neutralMaterialGap(p) }, currentTermSystem)));
           });
         });
 
@@ -801,7 +810,7 @@ function showCatalog() {
           btn.addEventListener('click', function() {
             const idx = parseInt(this.dataset.idx);
             trackPopular(pats[idx].id, 'pdf');
-            const formatted = formatProjectOutput({ matchedPattern: pats[idx], materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem);
+            const formatted = formatProjectOutput({ matchedPattern: pats[idx], materialGap: neutralMaterialGap(pats[idx]) }, currentTermSystem);
             printProject(formatted);
           });
         });
@@ -872,7 +881,7 @@ function showCatalog() {
     })
     .catch(err => {
       console.error('Fetch error:', err);
-      output.innerHTML = `<div class="error">Error loading patterns: ${err.message}</div>`;
+      output.innerHTML = `<div class="error">Error loading patterns: ${escHtml(err.message)}</div>`;
     });
 }
 
@@ -914,7 +923,7 @@ function showMyFaves() {
   const faveIds = getFaves();
 
   if (faveIds.length === 0) {
-    output.innerHTML = '<div class="empty-state"><h3>No favorites yet</h3><p>Browse patterns and click the ♡ button to save your favorites here.</p><button class="btn btn-primary" onclick="showCatalog()" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
+    output.innerHTML = '<div class="empty-state"><h3>No favorites yet</h3><p>Browse patterns and click the ♡ button to save your favorites here.</p><button class="btn btn-primary show-catalog-btn" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
     return;
   }
 
@@ -925,7 +934,7 @@ function showMyFaves() {
       let html = `<div class="catalog-count">${faves.length} favorited pattern${faves.length !== 1 ? 's' : ''}</div>`;
       html += '<div class="project-cards">';
 
-      const favesFormatted = faves.map(p => formatProjectOutput({ matchedPattern: p, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem));
+      const favesFormatted = faves.map(p => formatProjectOutput({ matchedPattern: p, materialGap: neutralMaterialGap(p) }, currentTermSystem));
 
       faves.forEach((p, i) => {
         const f = favesFormatted[i];
@@ -980,7 +989,7 @@ function showMyFaves() {
     })
     .catch(err => {
       console.error('Fetch error:', err);
-      output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
+      output.innerHTML = `<div class="error">Error: ${escHtml(err.message)}</div>`;
     });
 }
 
@@ -993,7 +1002,7 @@ function showMyDone() {
   const doneIds = getDone();
 
   if (doneIds.length === 0) {
-    output.innerHTML = '<div class="empty-state"><h3>No completed projects yet</h3><p>When you finish a project, click "Mark as Done" to track it here.</p><button class="btn btn-primary" onclick="showCatalog()" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
+    output.innerHTML = '<div class="empty-state"><h3>No completed projects yet</h3><p>When you finish a project, click "Mark as Done" to track it here.</p><button class="btn btn-primary show-catalog-btn" style="margin:20px auto;display:block;">Browse Patterns</button></div>';
     return;
   }
 
@@ -1004,7 +1013,7 @@ function showMyDone() {
       let html = `<div class="catalog-count">${done.length} completed project${done.length !== 1 ? 's' : ''}</div>`;
       html += '<div class="project-cards">';
 
-      const doneFormatted = done.map(p => formatProjectOutput({ matchedPattern: p, materialGap: { yardage: { status: 'enough' }, hook: { status: 'have' } } }, currentTermSystem));
+      const doneFormatted = done.map(p => formatProjectOutput({ matchedPattern: p, materialGap: neutralMaterialGap(p) }, currentTermSystem));
 
       done.forEach((p, i) => {
         const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
@@ -1044,7 +1053,7 @@ function showMyDone() {
     })
     .catch(err => {
       console.error('Fetch error:', err);
-      output.innerHTML = `<div class="error">Error: ${err.message}</div>`;
+      output.innerHTML = `<div class="error">Error: ${escHtml(err.message)}</div>`;
     });
 }
 
@@ -1063,11 +1072,7 @@ function printProject(project) {
         return r;
     }
 
-    function esc(text) {
-        const d = document.createElement('div');
-        d.textContent = text;
-        return d.innerHTML;
-    }
+    
 
     function stepsHtml(steps) {
         return steps.map((s, i) => {
@@ -1159,6 +1164,11 @@ function printProject(project) {
 
 document.addEventListener('DOMContentLoaded', async function() {
   outputElement = document.getElementById('project-output');
+  // Set up favorites and done buttons (always available)
+  const favesBtn = document.getElementById('myFavesBtn');
+  const doneBtn = document.getElementById('myDoneBtn');
+  if (favesBtn) favesBtn.addEventListener('click', showMyFaves);
+  if (doneBtn) doneBtn.addEventListener('click', showMyDone);
   try {
 
     document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
@@ -1172,24 +1182,31 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.getElementById('fullCatalogBtn').addEventListener('click', showFullCatalog);
     renderDailyPattern();
 
-    // Email signup
+    // Email signup (local-only — stores in browser, no server)
     document.getElementById('emailSignupForm')?.addEventListener('submit', function(e) {
       e.preventDefault();
       const email = document.getElementById('signupEmail').value.trim();
       const msg = document.getElementById('signupMessage');
-      if (!email) return;
+      if (!email || !email.includes('@') || !email.includes('.')) {
+        msg.textContent = 'Please enter a valid email address.';
+        msg.style.color = '#d32';
+        return;
+      }
       try {
         const subs = JSON.parse(localStorage.getItem('crochetkit-subscribers') || '[]');
         if (subs.includes(email)) {
-          msg.innerHTML = '<span style="color:green;">Already subscribed!</span>';
+          msg.textContent = 'Already subscribed! (saved in your browser)';
+          msg.style.color = 'green';
         } else {
           subs.push(email);
           localStorage.setItem('crochetkit-subscribers', JSON.stringify(subs));
-          msg.innerHTML = '<span style="color:green;">You\'re on the list! We\'ll send weekly project ideas.</span>';
+          msg.textContent = 'Thanks! Your email is saved locally in your browser.';
+          msg.style.color = 'green';
           document.getElementById('signupEmail').value = '';
         }
       } catch(e) {
-        msg.innerHTML = '<span style="color:#d32;">Something went wrong. Try again.</span>';
+        msg.textContent = 'Something went wrong. Try again.';
+        msg.style.color = '#d32';
       }
     });
 
@@ -1280,7 +1297,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     document.addEventListener('click', function(e) {
       const popup = document.getElementById('weightPopup');
       const btn = document.getElementById('weightHelpBtn');
-      if (e.target === btn) {
+      const catalogBtn = e.target.closest('.show-catalog-btn');
+      const copyBtn = e.target.closest('.share-btn.share-copy');
+      if (catalogBtn) {
+        showCatalog();
+      } else if (copyBtn) {
+        copyShareLink(copyBtn.dataset.id);
+      } else if (e.target === btn) {
         popup.classList.toggle('visible');
       } else if (popup && popup.classList.contains('visible')) {
         popup.classList.remove('visible');
@@ -1415,7 +1438,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         } catch (error) {
             console.error('Error:', error);
-            outputElement.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            outputElement.innerHTML = `<div class="error">Error: ${escHtml(error.message)}</div>`;
         }
     });
 
@@ -1481,13 +1504,108 @@ document.addEventListener('DOMContentLoaded', async function() {
         } catch (error) {
             console.error('Error:', error);
             const output = document.getElementById('project-output');
-            if (output) output.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            if (output) output.innerHTML = `<div class="error">Error: ${escHtml(error.message)}</div>`;
         }
     });
 
+// Contact form handler
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+contactForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const name = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim();
+    const message = document.getElementById('contactMessage').value.trim();
+    const submitBtn = document.getElementById('contactSubmitBtn');
+    const thanks = this.querySelector('.contact-thanks');
+
+    if (!email || !message) {
+        const cerr = this.querySelector('.contact-error');
+        if (cerr) { cerr.textContent = 'Please fill in email and message.'; cerr.style.display = 'block'; }
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+        const resp = await fetchWithTimeout('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: document.getElementById('contactName').value.trim(),
+                email: document.getElementById('contactEmail').value.trim(),
+                message: document.getElementById('contactMessage').value.trim()
+            })
+        });
+        const cerr = contactForm.querySelector('.contact-error');
+        if (resp.ok || resp.redirected) {
+            if (cerr) cerr.style.display = 'none';
+            contactForm.querySelectorAll('.form-row, .form-group, .btn').forEach(el => { if (!el.closest('.contact-thanks') && el !== submitBtn) el.style.display = 'none'; });
+            submitBtn.style.display = 'none';
+            submitBtn.textContent = 'Send Message';
+            thanks.style.display = 'block';
+        } else {
+            if (cerr) { cerr.textContent = 'Failed to send. Please try again.'; cerr.style.display = 'block'; }
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+        }
+    } catch (err) {
+        const cerr = contactForm.querySelector('.contact-error');
+        if (cerr) { cerr.textContent = 'Network error. Please try again.'; cerr.style.display = 'block'; }
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+    }
+});
+}
+
+// Global feedback form handler
+const globalForm = document.getElementById('global-feedback-form');
+if (globalForm) {
+globalForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const thanksMsg = this.querySelector('.feedback-thanks');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving...';
+
+    try {
+        const rating = globalForm.querySelector('input[name="rating"]:checked');
+        const resp = await fetchWithTimeout('/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                rating: rating ? parseInt(rating.value) : 0,
+                comment: document.getElementById('global-comment').value.trim(),
+                page: 'global-feedback',
+                projectTitle: 'Site Feedback'
+            })
+        });
+        const gfErr = globalForm.querySelector('.gf-error');
+        if (resp.ok || resp.redirected) {
+            globalForm.querySelector('.feedback-rating').style.display = 'none';
+            globalForm.querySelector('.feedback-comment').style.display = 'none';
+            submitBtn.style.display = 'none';
+            thanksMsg.style.display = 'block';
+            if (gfErr) gfErr.style.display = 'none';
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Submit Feedback';
+            if (gfErr) { gfErr.textContent = 'Failed to save feedback.'; gfErr.style.display = 'block'; }
+        }
+    } catch (err) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Feedback';
+        const gfErr = globalForm.querySelector('.gf-error');
+        if (gfErr) { gfErr.textContent = 'Network error. Please try again.'; gfErr.style.display = 'block'; }
+    }
+});
+}
+
         } catch (error) {
             console.error('Error:', error);
-            outputElement.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+            outputElement.innerHTML = `<div class="error">Error: ${escHtml(error.message)}</div>`;
         }
     });
 
@@ -1630,7 +1748,7 @@ async function showProgressTracker(patternId) {
   }
 
   try {
-    const response = await fetch(`/api/progress-tracker/${patternId}`, {
+    const response = await fetchWithTimeout(`/api/progress-tracker/${patternId}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -1690,7 +1808,7 @@ async function showProgressTracker(patternId) {
 
         // Save progress to server
         try {
-          const saveResponse = await fetch('/api/progress-tracker', {
+          const saveResponse = await fetchWithTimeout('/api/progress-tracker', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -1728,7 +1846,7 @@ async function showCertificate(patternId) {
   }
 
   try {
-    const response = await fetch('/api/generate-certificate', {
+      const response = await fetchWithTimeout('/api/generate-certificate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -1915,7 +2033,7 @@ function setupDetailListeners(project, allProjects) {
     const comment = form.querySelector('.feedback-comment-input').value;
 
     try {
-      const response = await fetch('/api/feedback', {
+      const response = await fetchWithTimeout('/api/feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1968,106 +2086,6 @@ function showProjectDetail(project, index, allProjects) {
 window.showProjectDetail = showProjectDetail;
 window.displayProjectCards = displayProjectCards;
 
-document.addEventListener('DOMContentLoaded', function() {
-  try {
-  // Contact form handler
-  const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const name = document.getElementById('contactName').value.trim();
-        const email = document.getElementById('contactEmail').value.trim();
-        const message = document.getElementById('contactMessage').value.trim();
-        const submitBtn = document.getElementById('contactSubmitBtn');
-        const thanks = this.querySelector('.contact-thanks');
 
-        if (!email || !message) {
-            const cerr = this.querySelector('.contact-error');
-            if (cerr) { cerr.textContent = 'Please fill in email and message.'; cerr.style.display = 'block'; }
-            return;
-        }
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
 
-        try {
-            const resp = await fetch('/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: document.getElementById('contactName').value.trim(),
-                    email: document.getElementById('contactEmail').value.trim(),
-                    message: document.getElementById('contactMessage').value.trim()
-                })
-            });
-            const cerr = contactForm.querySelector('.contact-error');
-            if (resp.ok || resp.redirected) {
-                if (cerr) cerr.style.display = 'none';
-                contactForm.querySelectorAll('.form-row, .form-group, .btn').forEach(el => { if (!el.closest('.contact-thanks') && el !== submitBtn) el.style.display = 'none'; });
-                submitBtn.style.display = 'none';
-                submitBtn.textContent = 'Send Message';
-                thanks.style.display = 'block';
-            } else {
-                if (cerr) { cerr.textContent = 'Failed to send. Please try again.'; cerr.style.display = 'block'; }
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
-            }
-        } catch (err) {
-            const cerr = contactForm.querySelector('.contact-error');
-            if (cerr) { cerr.textContent = 'Network error. Please try again.'; cerr.style.display = 'block'; }
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
-        }
-    });
-    }
-
-    // Global feedback form handler
-    const globalForm = document.getElementById('global-feedback-form');
-    if (globalForm) {
-        globalForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const thanksMsg = this.querySelector('.feedback-thanks');
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Saving...';
-
-            try {
-                const rating = globalForm.querySelector('input[name="rating"]:checked');
-                const resp = await fetch('/api/feedback', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        rating: rating ? parseInt(rating.value) : 0,
-                        comment: document.getElementById('global-comment').value.trim(),
-                        page: 'global-feedback',
-                        projectTitle: 'Site Feedback'
-                    })
-                });
-                const gfErr = globalForm.querySelector('.gf-error');
-                if (resp.ok || resp.redirected) {
-                    globalForm.querySelector('.feedback-rating').style.display = 'none';
-                    globalForm.querySelector('.feedback-comment').style.display = 'none';
-                    submitBtn.style.display = 'none';
-                    thanksMsg.style.display = 'block';
-                    if (gfErr) gfErr.style.display = 'none';
-                } else {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit Feedback';
-                    if (gfErr) { gfErr.textContent = 'Failed to save feedback.'; gfErr.style.display = 'block'; }
-                }
-            } catch (err) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Feedback';
-                const gfErr = globalForm.querySelector('.gf-error');
-                if (gfErr) { gfErr.textContent = 'Network error. Please try again.'; gfErr.style.display = 'block'; }
-            }
-        });
-    }
-  } catch(e) { console.error(e); }
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('myFavesBtn').addEventListener('click', showMyFaves);
-  document.getElementById('myDoneBtn').addEventListener('click', showMyDone);
-});

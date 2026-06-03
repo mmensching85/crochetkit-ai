@@ -24,8 +24,4 @@
     <loc>https://crochetkit-ai.pages.dev/stash.html</loc>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://crochetkit-ai.pages.dev/admin.html</loc>
-    <priority>0.3</priority>
-  </url>
 </urlset>

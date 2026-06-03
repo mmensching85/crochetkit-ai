@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const LRU = require('lru-cache');
 const { matchPattern, invalidateCache, reverseMatch } = require('./src/matchPattern');
 const { formatProjectOutput } = require('./src/formatProjectOutput');
 const patterns = require('./data/patterns.json');
