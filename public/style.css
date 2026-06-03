@@ -2908,6 +2908,31 @@ body {
 [data-theme="dark"] .trust-card p,
 [data-theme="dark"] .trust-card li { color: #9a9ab0; }
 
+/* Install App button (PWA) */
+#installAppBtn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 0 2px;
+    white-space: nowrap;
+}
+#installAppBtn:hover {
+    background: rgba(255,255,255,0.25);
+}
+@media (max-width: 600px) {
+    #installAppBtn {
+        display: none !important;
+    }
+    #installAppBtn.btn,
+    .mobile-open #installAppBtn {
+        display: inline-block !important;
+    }
+}
+
 /* ===== Beginner Guide ===== */
 .beginner-guide { margin-bottom: 20px; }
 .guide-subtitle { color: #666; font-size: 14px; margin-top: -8px; margin-bottom: 16px; }

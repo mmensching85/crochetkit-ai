@@ -16,6 +16,10 @@
     <meta name="twitter:image" content="https://crochetkit-ai.pages.dev/assets/og-image.jpg">
     <title>Crochet Project Planner — Use Up Your Yarn Stash | What Can I Make With This Yarn?</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CrochetKit">
     <link rel="stylesheet" href="style.css">
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     <script type="application/ld+json">
@@ -53,6 +57,7 @@
                     <button class="btn btn-outline btn-sm" id="myFavesBtn" title="View your hearted patterns">♥ Favorites</button>
                     <button class="btn btn-outline btn-sm" id="myDoneBtn" title="View completed patterns">✓ Done</button>
                     <a href="#trust-section" class="btn btn-outline btn-sm" id="trustLink">🔒 Why Trust Our Patterns?</a>
+                    <button class="btn btn-outline btn-sm" id="installAppBtn" style="display:none;" title="Install app for offline use">📲 Install</button>
                     <button class="header-nav-toggle" id="headerNavToggle" aria-label="Toggle navigation">☰</button>
                 </div>
             </div>
@@ -483,5 +488,40 @@
 
     <script src="js/matcher.js"></script>
     <script src="app.js?v=2"></script>
+    <script>
+    // Register service worker for offline PWA support
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(function(err) {
+        console.warn('SW registration failed:', err);
+      });
+    }
+    // Show install prompt when available
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.getElementById('installAppBtn');
+      if (btn) btn.style.display = 'inline-block';
+    });
+    window.addEventListener('appinstalled', function() {
+      deferredPrompt = null;
+      const btn = document.getElementById('installAppBtn');
+      if (btn) btn.style.display = 'none';
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      const btn = document.getElementById('installAppBtn');
+      if (btn) {
+        btn.addEventListener('click', function() {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function() {
+              deferredPrompt = null;
+              btn.style.display = 'none';
+            });
+          }
+        });
+      }
+    });
+    </script>
 </body>
 </html>
