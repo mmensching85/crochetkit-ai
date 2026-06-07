@@ -2251,7 +2251,7 @@ function renderDetailHTML(project, index) {
     html += `<li>${linkifyGlossaryTerms(mat)}</li>`;
   });
   html += `</ul>`;
-  const matLinks = materialAffiliateLinks(pattern.materials);
+  const matLinks = materialAffiliateLinks(project.materials);
   html += `<p class="affiliate-links"><small>🛒 ${matLinks}</small></p>`;
   html += AFFILIATE.amazon.enabled ? '' : '<p class="affiliate-links" style="margin-top:4px;"><small style="color:#999;">Affiliate program pending — links are non-affiliate for now.</small></p>';
 
@@ -2351,10 +2351,10 @@ function renderDetailHTML(project, index) {
     ...(s.visual_description && s.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)" ? { url: `${window.location.origin}/assets/patterns/${project.id}/step-${i + 1}.webp` } : {})
   }));
   const tools = [];
-  if (pattern.materials?.hook?.sizeMM) tools.push({ '@type': 'HowToTool', name: `${pattern.materials.hook.sizeMM}mm crochet hook` });
+  if (project.materials?.hook?.sizeMM) tools.push({ '@type': 'HowToTool', name: `${project.materials.hook.sizeMM}mm crochet hook` });
   const supplies = [];
-  if (pattern.materials?.yarn?.weightCategory) supplies.push({ '@type': 'HowToSupply', name: pattern.materials.yarn.weightCategory + ' yarn' });
-  const totalTime = pattern.estimatedTime ? `PT${pattern.estimatedTime.minHours}H` : '';
+  if (project.materials?.yarn?.weightCategory) supplies.push({ '@type': 'HowToSupply', name: project.materials.yarn.weightCategory + ' yarn' });
+  const totalTime = project.estimatedTime ? `PT${project.estimatedTime.minHours}H` : '';
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'HowTo',
