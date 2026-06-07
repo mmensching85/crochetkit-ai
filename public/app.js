@@ -817,6 +817,30 @@ function loadGlossaryData() {
     .catch(() => {});
 }
 
+async function handlePatternRoute() {
+  const match = window.location.pathname.match(/^\/p\/([\w-]+)$/);
+  if (!match) return;
+  const patternId = match[1];
+  try {
+    const patterns = await getPatterns();
+    const raw = patterns.find(p => p.id === patternId);
+    if (!raw) {
+      document.getElementById('project-output').innerHTML = '<div class="error">Pattern not found.</div>';
+      document.getElementById('output').style.display = 'block';
+      return;
+    }
+    const formatted = formatProjectOutput({ matchedPattern: raw, materialGap: neutralMaterialGap(raw) }, currentTermSystem);
+    const allFormatted = patterns.map(p => formatProjectOutput({ matchedPattern: p, materialGap: neutralMaterialGap(p) }, currentTermSystem));
+    showProjectDetail(formatted, null, allFormatted);
+  } catch (err) {
+    console.error('Pattern route error:', err);
+  }
+}
+
+window.addEventListener('popstate', function() {
+  handlePatternRoute();
+});
+
 function initMobileNav() {
   const toggle = document.getElementById('headerNavToggle');
   const nav = document.getElementById('headerExtraNav');
@@ -1877,6 +1901,7 @@ contactForm.addEventListener('submit', async function(e) {
         submitBtn.textContent = 'Send Message';
     }
 });
+  handlePatternRoute();
 }
 
 // Global feedback form handler
@@ -2217,7 +2242,7 @@ function renderDetailHTML(project, index) {
   const convert = (text) => convertStitchName(linkifyGlossaryTerms(text), ts);
 
   let html = `<div class="project-detail" data-index="${index}">`;
-  html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back</button><button class="btn btn-success btn-sm detail-pdf-btn">PDF</button>${renderShareBtns(project.id, project.title)}</div>`;
+  html += `<div class="detail-top-bar"><button class="btn btn-secondary back-btn back-to-cards">Back</button><button class="btn btn-success btn-sm detail-pdf-btn">PDF</button><a href="/p/${project.id}" target="_blank" class="btn btn-sm btn-outline" title="Open in new tab" style="text-decoration:none;">↗</a>${renderShareBtns(project.id, project.title)}</div>`;
 
     const fvd = isFaved(project.id) ? 'faved' : '';
   const doneSt = isDone(project.id);
@@ -2246,7 +2271,7 @@ function renderDetailHTML(project, index) {
   html += `<p><strong>Estimated Time:</strong> ${escHtml(project.estimated_time)}</p>`;
   html += `<p><strong>Difficulty Reason:</strong> ${convert(project.difficulty_reason)}</p>`;
 
-  html += `<h4>Materials:</h4><ul>`;
+  html += `<details class="detail-collapsible" open><summary><h4>Materials</h4></summary><ul>`;
   project.materials.forEach(mat => {
     html += `<li>${linkifyGlossaryTerms(mat)}</li>`;
   });
@@ -2263,11 +2288,13 @@ function renderDetailHTML(project, index) {
     html += `</ul>`;
   }
 
-  html += `<h4>Stitches Used:</h4><ul>`;
+  html += `</details>`;
+
+  html += `<details class="detail-collapsible" open><summary><h4>Stitches Used</h4></summary><ul>`;
   project.stitches_used.forEach(stitch => {
     html += `<li>${convert(stitch)}</li>`;
   });
-  html += `</ul>`;
+  html += `</ul></details>`;
 
   html += `<h4>Steps:</h4><ol>`;
   project.steps.forEach((step, stepIdx) => {
@@ -2290,21 +2317,21 @@ function renderDetailHTML(project, index) {
 
   if (project.beginner_tips && project.beginner_tips.length > 0) {
     const tipsLabel = escHtml(project.tips_label || (project.skill_level === 'beginner' ? 'Beginner Tips' : 'Tips'));
-    html += `<h4>${tipsLabel}:</h4><ul>`;
+    html += `<details class="detail-collapsible"><summary><h4>${tipsLabel}</h4></summary><ul>`;
     project.beginner_tips.forEach(tip => html += `<li>${escHtml(tip)}</li>`);
-    html += `</ul>`;
+    html += `</ul></details>`;
   }
 
   if (project.variations && project.variations.length > 0) {
-    html += `<h4>Variations:</h4><ul>`;
+    html += `<details class="detail-collapsible"><summary><h4>Variations</h4></summary><ul>`;
     project.variations.forEach(variation => html += `<li>${escHtml(variation)}</li>`);
-    html += `</ul>`;
+    html += `</ul></details>`;
   }
 
   if (project.safety_notes && project.safety_notes.length > 0) {
-    html += `<h4>Safety Notes:</h4><ul>`;
+    html += `<details class="detail-collapsible"><summary><h4>Safety Notes</h4></summary><ul>`;
     project.safety_notes.forEach(note => html += `<li>${escHtml(note)}</li>`);
-    html += `</ul>`;
+    html += `</ul></details>`;
   }
 
   html += `<div class="summary-box"><p>${escHtml(project.printable_summary)}</p></div>`;
@@ -2316,11 +2343,10 @@ function renderDetailHTML(project, index) {
   });
   html += `</ul></details>`;
 
-  html += `<div id="stashMatchSection" class="stash-match-section"><h4>My Stash Match</h4><div id="stashMatchContent"><span class="loading" style="font-size:13px;">Checking your yarns...</span></div></div>`;
+  html += `<details class="detail-collapsible"><summary><h4>My Stash Match</h4></summary><div id="stashMatchSection" class="stash-match-section"><div id="stashMatchContent"><span class="loading" style="font-size:13px;">Checking your yarns...</span></div></div></details>`;
 
-  html += `<div class="feedback-section">`;
-  html += `<h4>Was this project helpful?</h4>`;
-  html += `<form class="feedback-form" data-project="${project.title.replace(/\"/g, '&quot;')}">`;
+  html += `<details class="detail-collapsible feedback-collapsible"><summary><h4>Was this project helpful?</h4></summary><div class="feedback-section">
+  <form class="feedback-form" data-project="${project.title.replace(/\"/g, '&quot;')}">`;
   html += `<div class="feedback-rating">`;
   html += `<label>Rating:</label>`;
   html += `<div class="star-rating">`;
@@ -2336,7 +2362,7 @@ function renderDetailHTML(project, index) {
   html += `<button type="submit" class="btn btn-primary btn-sm">Submit Feedback</button>`;
   html += `<div class="feedback-thanks" style="display:none;">Thank you for your feedback!</div>`;
   html += `<div class="feedback-error" style="display:none;color:#d32;font-size:13px;"></div>`;
-  html += `</form></div>`;
+  html += `</form></div></details>`;
 
   html += `<div class="certificate-section">`;
   html += `<button class="btn btn-primary btn-sm certificate-btn" data-id="${project.id}">Get Completion Certificate</button>`;
@@ -2376,7 +2402,10 @@ function setupDetailListeners(project, allProjects) {
   const container = document.querySelector('.project-detail');
   if (!container) return;
 
-  container.querySelector('.back-to-cards')?.addEventListener('click', () => displayProjectCards(allProjects));
+  container.querySelector('.back-to-cards')?.addEventListener('click', () => {
+    history.pushState(null, '', '/');
+    displayProjectCards(allProjects);
+  });
   container.querySelector('.detail-pdf-btn')?.addEventListener('click', () => printProject(project));
 
   container.addEventListener('click', function(e) {
@@ -2459,6 +2488,9 @@ function showProjectDetail(project, index, allProjects) {
   setOutputHeader(project.title || 'Project Detail');
   window._currentDetailProjects = allProjects;
   trackPopular(project.id, 'select');
+
+  // Update URL so /p/{id} works and can be opened in a new tab
+  history.pushState(null, '', '/p/' + project.id);
 
   outputElement.innerHTML = renderDetailHTML(project, index);
 

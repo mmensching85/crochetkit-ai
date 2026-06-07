@@ -882,6 +882,8 @@ body {
 .detail-hero-img {
     width: 100%;
     height: auto;
+    max-height: 250px;
+    object-fit: cover;
     display: block;
 }
 
@@ -899,6 +901,63 @@ body {
     display: block;
     border-radius: 6px;
     border: 1px solid #eee;
+}
+
+/* ===== Collapsible Detail Sections ===== */
+
+.detail-collapsible {
+    margin-top: 16px;
+    border-top: 1px solid #e8e8e8;
+    padding-top: 8px;
+}
+
+.detail-collapsible summary {
+    cursor: pointer;
+    padding: 4px 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+
+.detail-collapsible summary::-webkit-details-marker {
+    display: none;
+}
+
+.detail-collapsible summary::before {
+    content: '▶';
+    font-size: 11px;
+    color: #999;
+    margin-right: 10px;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.detail-collapsible[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+.detail-collapsible summary h4 {
+    display: inline;
+    margin: 0;
+    font-size: 15px;
+    color: #2c3e50;
+}
+
+.detail-collapsible summary:hover h4 {
+    color: #667eea;
+}
+
+.detail-collapsible > ul,
+.detail-collapsible > div {
+    margin-left: 21px;
+    margin-top: 8px;
+}
+
+.feedback-collapsible {
+    margin-top: 24px;
+    border-top: 2px solid #667eea;
+    padding-top: 12px;
 }
 
 /* ===== Loading ===== */
