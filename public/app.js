@@ -149,7 +149,7 @@ async function renderDailyPattern() {
     content.innerHTML = `
       <div class="daily-pattern-body">
         <div class="daily-pattern-img">
-          <img src="/assets/patterns/${pat.id}.webp" alt="${escHtml(pat.name)}" loading="lazy" onerror="this.parentElement.style.display='none'">
+          <img src="/assets/patterns/${pat.id}.webp" alt="${escHtml(pat.name)}" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')">
         </div>
         <div class="daily-pattern-info">
           <h3>${escHtml(pat.name)}</h3>
@@ -207,7 +207,7 @@ async function renderWhatsNew() {
     container.innerHTML = newPatterns.map(p => `
       <div class="pattern-card">
         <div class="pattern-image-container">
-          <img src="${p.imageUrl || `/assets/patterns/${p.id}.webp`}" alt="${escHtml(p.name || '')}" loading="lazy" onerror="this.parentElement.style.display='none'">
+          <img src="${p.imageUrl || `/assets/patterns/${p.id}.webp`}" alt="${escHtml(p.name || '')}" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')">
         </div>
         <div class="pattern-info">
           <h3>${escHtml(p.name || '')}</h3>
@@ -920,7 +920,7 @@ function showCatalog() {
           const wLabel = wNum != null ? `${wNum} (${['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][wNum] || ''})` : '';
           const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
           html += `<div class="project-card ${doneSt}" data-catalog-idx="${i}">`;
-          html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+          html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')"></div>`;
           html += `<h3>${title}</h3><span class="verified-badge" title="Human-verified pattern">✓ Verified</span>`;
           if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
           html += `<p class="card-desc">${escHtml(p.shortDescription)}</p>`;
@@ -1097,7 +1097,7 @@ function showMyFaves() {
         const doneSt = isDone(p.id) ? 'done-st' : '';
         const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
         html += `<div class="project-card ${doneSt}" data-index="${i}">`;
-        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')"></div>`;
         html += `<h3>${escHtml(p.name)}</h3><span class="verified-badge" title="Human-verified pattern">✓ Verified</span>`;
         if (isDone(p.id)) html += `<span class="done-badge">✓ Done</span>`;
         html += `<p class="card-desc">${escHtml(p.shortDescription)}</p>`;
@@ -1199,7 +1199,7 @@ function showMyDone() {
       done.forEach((p, i) => {
         const estTime = p.estimatedTime ? `${p.estimatedTime.minHours}-${p.estimatedTime.maxHours} ${p.estimatedTime.unit || 'hours'}` : '';
         html += `<div class="project-card done-st" data-index="${i}">`;
-        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+        html += `<div class="card-hero"><img src="/assets/patterns/${p.id}.webp" alt="${escHtml(p.name)}" class="card-hero-img" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')"></div>`;
         html += `<h3>${escHtml(p.name)}</h3><span class="verified-badge" title="Human-verified pattern">✓ Verified</span>`;
         html += `<span class="done-badge">✓ Done</span>`;
         html += `<p class="card-desc">${escHtml(p.shortDescription)}</p>`;
@@ -2027,7 +2027,7 @@ function displayProjectCards(projects) {
         const stitches = project.stitches_used.map(s => convertStitchName(s, currentTermSystem)).join(', ');
         const fvd = isFaved(project.id) ? 'faved' : '';
         html += `<div class="project-card" data-index="${index}">`;
-        html += `<div class="card-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="card-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+        html += `<div class="card-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="card-hero-img" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')"></div>`;
         html += `<h3>${title}</h3><span class="verified-badge" title="Human-verified pattern">✓ Verified</span>`;
         html += `<p class="card-desc">${project.description}</p>`;
         html += `<p><strong>Time:</strong> ${project.estimated_time}</p>`;
@@ -2259,7 +2259,7 @@ function renderDetailHTML(project, index) {
   html += `<span class="done-badge done-badge-lg done-badge-toggle" data-id="${project.id}" style="cursor:pointer;display:${doneSt ? 'inline' : 'none'}" title="Click to undo">✓ Done</span>`;
   html += `<button class="btn btn-sm btn-outline share-gallery-btn" data-id="${project.id}" data-title="${escHtml(project.title)}" style="margin-left:8px;">📸 Share</button>`;
   html += `</div></div>`;
-  html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="detail-hero-img" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+  html += `<div class="detail-hero"><img src="/assets/patterns/${project.id}.webp" alt="${escHtml(project.title)}" class="detail-hero-img" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')"></div>`;
 
   const prog = getProgress();
   const pid = project.id;
@@ -2311,7 +2311,7 @@ function renderDetailHTML(project, index) {
     if (step.visual_description && step.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)") {
       html += `<p class="visual-desc"><em>Visual:</em> ${escHtml(step.visual_description)}</p>`;
     }
-    html += `<div class="step-image"><img src="/assets/patterns/${project.id}/step-${stepNum}.webp" alt="Step ${stepNum} illustration" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+    html += `<div class="step-image"><img src="/assets/patterns/${project.id}/step-${stepNum}.webp" alt="Step ${stepNum} illustration" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')"></div>`;
     html += `<label class="step-checkbox-label">
       <input type="checkbox" class="step-checkbox" data-step="${stepNum}" ${stepChecked ? 'checked' : ''}>
       <span class="checkmark"></span>
@@ -2599,7 +2599,7 @@ function showFocusMode(project, index, allProjects) {
     if (step.visual_description && step.visual_description !== "(No specific visual guidance for this step, focus on the written instruction.)") {
       html += `<div class="focus-visual">${escHtml(step.visual_description)}</div>`;
     }
-    html += `<div class="focus-image"><img src="/assets/patterns/${project.id}/step-${currentStep}.webp" alt="Step ${currentStep}" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+    html += `<div class="focus-image"><img src="/assets/patterns/${project.id}/step-${currentStep}.webp" alt="Step ${currentStep}" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')"></div>`;
     html += `</div>`;
 
     html += `<div class="focus-nav">`;

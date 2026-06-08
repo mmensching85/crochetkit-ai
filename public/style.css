@@ -871,6 +871,39 @@ body {
     transform: scale(1.03);
 }
 
+/* Image fallback: shown when hero/step images fail to load */
+.card-hero.img-fallback::after,
+.detail-hero.img-fallback::after,
+.pattern-image-container.img-fallback::after,
+.daily-pattern-img.img-fallback::after {
+    content: '🧶';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 32px;
+    opacity: 0.4;
+}
+.step-image.img-fallback,
+.focus-image.img-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+    background: var(--ck-canvas-soft);
+    border-radius: 6px;
+}
+.step-image.img-fallback::after,
+.focus-image.img-fallback::after {
+    content: '🧶';
+    font-size: 24px;
+    opacity: 0.35;
+}
+.detail-hero.img-fallback {
+    min-height: 120px;
+}
+
 /* ===== Detail Hero Image ===== */
 .detail-hero {
     margin: 12px 0 20px 0;
@@ -1163,7 +1196,11 @@ body {
 .surprise-me-secondary {
     font-size: 14px !important;
     padding: 8px 16px !important;
-    opacity: 0.8;
+    opacity: 1;
+}
+.surprise-me-secondary:hover {
+    border-color: var(--ck-primary) !important;
+    color: var(--ck-primary) !important;
 }
 
 /* ===== Empty State ===== */
@@ -2388,9 +2425,9 @@ body {
 
 /* ===== Dark Mode Toggle ===== */
 .dark-toggle {
-    background: rgba(255,255,255,0.2);
-    border: 2px solid rgba(255,255,255,0.4);
-    color: #fff;
+    background: rgba(0,0,0,0.07);
+    border: 2px solid rgba(0,0,0,0.12);
+    color: var(--ck-ink);
     font-size: 22px;
     width: 44px;
     height: 44px;
@@ -2404,8 +2441,18 @@ body {
 }
 
 .dark-toggle:hover {
-    background: rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.12);
     transform: rotate(15deg);
+}
+
+[data-theme="dark"] .dark-toggle {
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.3);
+    color: #fff;
+}
+
+[data-theme="dark"] .dark-toggle:hover {
+    background: rgba(255,255,255,0.25);
 }
 
 /* ===== Term System Toggle (Header) ===== */
@@ -3195,18 +3242,28 @@ body {
 
 /* Install App button (PWA) */
 #installAppBtn {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
+    background: rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.12);
+    color: var(--ck-ink);
     font-size: 11px;
     padding: 4px 8px;
     border-radius: 6px;
     cursor: pointer;
     margin: 0 2px;
     white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s;
 }
 #installAppBtn:hover {
-    background: rgba(255,255,255,0.25);
+    background: rgba(0,0,0,0.10);
+    border-color: rgba(0,0,0,0.20);
+}
+[data-theme="dark"] #installAppBtn {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+}
+[data-theme="dark"] #installAppBtn:hover {
+    background: rgba(255,255,255,0.20);
 }
 @media (max-width: 600px) {
     #installAppBtn {
