@@ -1061,6 +1061,14 @@ app.post('/api/track-popular', (req, res) => {
     }
 });
 
+// POST /api/pageview — Privacy-first pageview counter (silences 404 when Cloudflare function not active)
+app.post('/api/pageview', (req, res) => {
+    res.status(204).end();
+});
+app.get('/api/pageview', (req, res) => {
+    res.json({ today: 0, total: 0 });
+});
+
 // POST /api/auth/signup — Alias for /api/auth/register (frontend calls signup)
 app.post('/api/auth/signup', async (req, res) => {
     try {

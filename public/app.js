@@ -855,6 +855,12 @@ function initMobileNav() {
   nav.addEventListener('click', function(e) {
     e.stopPropagation();
   });
+  // Auto-close dropdown when any nav button or link is tapped
+  nav.querySelectorAll('.btn, a.btn').forEach(function(el) {
+    el.addEventListener('click', function() {
+      nav.classList.remove('mobile-open');
+    });
+  });
 }
 
 function showCatalog() {
