@@ -10,7 +10,8 @@
     "generate-steps": "python3 scripts/generate_images.py --steps-only",
     "test": "node src/test_matcher.js && node src/test_frontend.js",
     "test:matcher": "node src/test_matcher.js",
-    "test:frontend": "node src/test_frontend.js"
+    "test:frontend": "node src/test_frontend.js",
+    "test:e2e": "playwright test src/test_playwright.js"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +21,8 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.2",
     "react-native-video": "latest"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
   }
 }

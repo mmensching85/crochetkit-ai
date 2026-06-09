@@ -21964,5 +21964,1410 @@
       "heirloom",
       "centerpiece"
     ]
+  },
+  {
+    "id": "pattern-headband-weight2-001",
+    "name": "Textured Headband",
+    "shortDescription": "A stretchy headband with a knit-like texture, worked flat in sport weight yarn and seamed at the back.",
+    "imageUrl": "/assets/patterns/pattern-headband-weight2-001.webp",
+    "category": "Headband",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain and single crochet in the back loop only; no shaping required."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 1.5,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine/Sport)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 60,
+        "suggestedYardageMax": 90,
+        "fiberType": [
+          "Acrylic",
+          "Cotton"
+        ],
+        "notes": "A soft, stretchy yarn works best for headwear."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Standard hook for sport weight yarn."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors"
+      ]
+    },
+    "gauge": {
+      "stitches": 20,
+      "rows": 22,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet in back loop only",
+      "notes": "Gauge determines fit."
+    },
+    "instructions": [
+      "**Foundation Chain:** Chain 10.",
+      "**Row 1:** Single crochet (sc) in 2nd chain from hook and each across. (9 sc), turn.",
+      "**Row 2:** Chain 1, turn. Sc in the BACK loop only of each stitch across. (9 sc), turn.",
+      "**Repeat Row 2:** Continue until the piece measures about 18 inches (or your head circumference minus 2 inches for stretch).",
+      "**Seam:** Fold the piece so the short ends meet. Slip stitch the ends together, matching row for row.",
+      "**Finishing:** Fasten off, weave in ends. The headband will stretch to fit comfortably."
+    ],
+    "beginnerTips": [
+      "Working in the back loop only creates a ribbed, knit-like texture with great stretch.",
+      "Measure your head loosely; the ribbing will stretch about 2 inches.",
+      "Use a stitch marker to keep track of the right side."
+    ],
+    "commonMistakes": [
+      "Forgetting to work in the back loop only, losing the ribbed texture.",
+      "Making the headband too long\u2014it won't stay on."
+    ],
+    "keywords": [
+      "headband",
+      "sport weight",
+      "beginner",
+      "single crochet",
+      "ribbed",
+      "back loop only"
+    ]
+  },
+  {
+    "id": "pattern-coaster-weight2-001",
+    "name": "Lace Round Coaster",
+    "shortDescription": "A delicate round coaster worked in sport weight cotton with a pretty picot edge.",
+    "imageUrl": "/assets/patterns/pattern-coaster-weight2-001.webp",
+    "category": "Coaster",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain, single crochet, and double crochet in the round; simple increases."
+    },
+    "estimatedTime": {
+      "minHours": 0.5,
+      "maxHours": 1,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine/Sport)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 25,
+        "suggestedYardageMax": 40,
+        "fiberType": [
+          "Cotton"
+        ],
+        "notes": "Cotton is ideal for coasters due to absorbency."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Standard hook."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 22,
+      "rows": 22,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge is not critical for a coaster."
+    },
+    "instructions": [
+      "**Center:** Chain 6, join with slip stitch to form ring.",
+      "**Round 1:** Chain 1, 12 sc into ring. Join. (12 sc)",
+      "**Round 2:** Chain 3 (counts as dc), dc in same stitch. 2 dc in each stitch around. Join. (24 dc)",
+      "**Round 3:** Chain 3, dc in next, *2 dc in next, dc in next.* Repeat around. Join. (36 dc)",
+      "**Round 4:** Chain 1, sc in each stitch around. Join. (36 sc)",
+      "**Picot Edge:** *Sc in next stitch, chain 3, slip stitch into 3rd chain from hook (picot made), skip 1 stitch.* Repeat around. Join.",
+      "**Finishing:** Fasten off, weave in ends. Block lightly to flatten."
+    ],
+    "beginnerTips": [
+      "Use a stitch marker to mark the beginning of each round.",
+      "The picot edge adds a decorative touch and helps the coaster lie flat.",
+      "Blocking with a warm iron (over a cloth) helps even out the stitches."
+    ],
+    "commonMistakes": [
+      "Losing count of stitches between increases, causing a wavy edge.",
+      "Making the picots too loose or too tight."
+    ],
+    "keywords": [
+      "coaster",
+      "lace",
+      "sport weight",
+      "cotton",
+      "beginner",
+      "picot",
+      "in the round"
+    ]
+  },
+  {
+    "id": "pattern-dishcloth-weight2-001",
+    "name": "Fine Cotton Dishcloth",
+    "shortDescription": "A fine-gauge dishcloth in sport weight cotton with a textured moss stitch pattern.",
+    "imageUrl": "/assets/patterns/pattern-dishcloth-weight2-001.webp",
+    "category": "Dishcloth",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain, single crochet, and double crochet in a simple alternating pattern."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 2,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine/Sport)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 60,
+        "suggestedYardageMax": 80,
+        "fiberType": [
+          "Cotton"
+        ],
+        "notes": "100% cotton is essential for absorbency."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Standard hook for sport weight."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors"
+      ]
+    },
+    "gauge": {
+      "stitches": 20,
+      "rows": 18,
+      "unit": "4 inches",
+      "stitchPattern": "moss stitch (sc, ch 1)",
+      "notes": "Gauge is not critical."
+    },
+    "instructions": [
+      "**Foundation Chain:** Chain 26.",
+      "**Row 1:** Sc in 2nd chain from hook, *ch 1, skip 1 chain, sc in next.* Repeat across. (13 sc, 12 ch-1 spaces), turn.",
+      "**Row 2:** Ch 1, sc in first sc. *Sc in next ch-1 space, ch 1, skip next sc.* Repeat across, ending with sc in last ch-1 space, sc in last sc. Turn.",
+      "**Row 3:** Ch 1, sc in first sc. *Ch 1, skip next sc, sc in next ch-1 space.* Repeat across, ending with ch 1, skip next sc, sc in last sc. Turn.",
+      "**Repeat Rows 2-3:** Continue until piece measures about 8 inches square.",
+      "**Border:** Ch 1, sc evenly around all 4 edges, working 3 sc in each corner. Join.",
+      "**Finishing:** Fasten off, weave in ends."
+    ],
+    "beginnerTips": [
+      "The moss stitch alternates sc and ch-1 to create a beautiful woven texture.",
+      "Cotton yarn can be stiff at first but softens with washing.",
+      "Count the ch-1 spaces each row to stay on track."
+    ],
+    "commonMistakes": [
+      "Losing the alternating pattern by working into the wrong stitch.",
+      "Making the chain too tight at the foundation."
+    ],
+    "keywords": [
+      "dishcloth",
+      "sport weight",
+      "cotton",
+      "beginner",
+      "moss stitch",
+      "textured"
+    ]
+  },
+  {
+    "id": "pattern-bag-weight2-001",
+    "name": "Lightweight Produce Bag",
+    "shortDescription": "A reusable mesh produce bag made with sport weight cotton \u2014 great for groceries and eco-friendly.",
+    "imageUrl": "/assets/patterns/pattern-bag-weight2-001.webp",
+    "category": "Bag",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain and double crochet in a simple mesh pattern; worked in the round."
+    },
+    "estimatedTime": {
+      "minHours": 1.5,
+      "maxHours": 2.5,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine/Sport)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 120,
+        "suggestedYardageMax": 180,
+        "fiberType": [
+          "Cotton"
+        ],
+        "notes": "Cotton is strong, washable, and eco-friendly for produce bags."
+      },
+      "hook": {
+        "sizeMM": 4.0,
+        "sizeUS": "G-6",
+        "sizeUK": "8",
+        "notes": "A slightly larger hook creates an open mesh."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 16,
+      "rows": 10,
+      "unit": "4 inches",
+      "stitchPattern": "double crochet mesh",
+      "notes": "Gauge is forgiving for a produce bag."
+    },
+    "instructions": [
+      "**Base:** Chain 4, join with slip stitch to form ring.",
+      "**Rnd 1:** Ch 3 (counts as dc), 11 dc into ring. Join. (12 dc)",
+      "**Rnd 2:** Ch 3, dc in same, *2 dc in next.* Repeat around. Join. (24 dc)",
+      "**Rnd 3:** Ch 3, *dc in next, 2 dc in next.* Repeat around. Join. (36 dc)",
+      "**Mesh Body:** Ch 4 (counts as dc + ch 1), skip 1, *dc in next, ch 1, skip 1.* Repeat around. Join in 3rd ch of starting ch-4.",
+      "**Repeat Mesh:** Continue mesh rounds until bag measures about 10 inches tall.",
+      "**Drawstring Row:** Ch 1, sc in each dc and each ch-1 space around. Join. (sc count equals previous stitch count)",
+      "**Next Round:** Ch 1, *sc in next 3, ch 2, skip 1.* Repeat around. Join.",
+      "**Drawstring:** Chain 80. Thread through the ch-2 spaces.",
+      "**Finishing:** Fasten off, weave in ends."
+    ],
+    "beginnerTips": [
+      "The mesh stretches when loaded \u2014 make it slightly smaller than you think.",
+      "A cotton produce bag weighs almost nothing and folds flat.",
+      "Use a stitch marker to track the start of each round."
+    ],
+    "commonMistakes": [
+      "Skipping the ch-1 space count and losing the mesh pattern.",
+      "Making the drawstring holes too small."
+    ],
+    "keywords": [
+      "bag",
+      "produce",
+      "mesh",
+      "sport weight",
+      "cotton",
+      "eco-friendly",
+      "market"
+    ]
+  },
+  {
+    "id": "pattern-toy-weight2-001",
+    "name": "Tiny Bear Amigurumi",
+    "shortDescription": "A small amigurumi bear worked in sport weight yarn. Quick to make and perfect for using small scraps.",
+    "imageUrl": "/assets/patterns/pattern-toy-weight2-001.webp",
+    "category": "Toy",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Requires working in the round, increasing and decreasing for shaping, and seaming pieces together."
+    },
+    "estimatedTime": {
+      "minHours": 1.5,
+      "maxHours": 2.5,
+      "unit": "hours",
+      "assumedSkill": "Intermediate"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine/Sport)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 50,
+        "suggestedYardageMax": 80,
+        "fiberType": [
+          "Acrylic",
+          "Cotton"
+        ],
+        "notes": "Use a smooth yarn in a light color so stitches are easy to see."
+      },
+      "hook": {
+        "sizeMM": 3.0,
+        "sizeUS": "C-2",
+        "sizeUK": "11",
+        "notes": "A smaller hook creates a tighter fabric that holds stuffing."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Polyester fiberfill stuffing",
+        "Stitch marker",
+        "Safety eyes (2, 6mm) or black embroidery thread"
+      ]
+    },
+    "gauge": {
+      "stitches": 24,
+      "rows": 24,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge is critical for amigurumi \u2014 use a smaller hook than recommended."
+    },
+    "instructions": [
+      "**Head:** Starting at the top, ch 2. Rnd 1: 6 sc in 2nd ch from hook. (6 sc)",
+      "**Rnd 2:** 2 sc in each stitch around. (12 sc)",
+      "**Rnd 3:** *Sc in next, 2 sc in next.* Repeat around. (18 sc)",
+      "**Rnds 4-7:** Sc in each stitch around. (18 sc)",
+      "**Rnd 8:** *Sc in next, sc2tog.* Repeat around. (12 sc). Stuff firmly.",
+      "**Rnd 9:** Sc2tog around. (6 sc). Fasten off, close opening.",
+      "**Body:** Repeat Rnds 1-3 (18 sc). Rnds 4-6: Sc around. Rnd 7: *Sc in next, sc2tog.* Repeat. (12 sc). Stuff. Rnd 8: Sc2tog around. (6 sc). Fasten off.",
+      "**Ears (make 2):** Ch 2, 6 sc in 2nd ch. Join, fasten off, leaving tail for sewing.",
+      "**Arms (make 2):** Ch 2, 6 sc in 2nd ch. Rnds 2-4: Sc around. Fasten off.",
+      "**Assembly:** Sew head to body. Attach ears to top of head. Sew arms to sides of body. Attach safety eyes or embroider them between Rnds 4-5 of head.",
+      "**Finishing:** Weave in all ends."
+    ],
+    "beginnerTips": [
+      "Use a stitch marker to mark the start of each round \u2014 it's easy to lose count.",
+      "Stuff firmly but not so much that stitches stretch open.",
+      "Embroidering eyes is safer for children's toys; safety eyes are for decorative use only."
+    ],
+    "commonMistakes": [
+      "Using a hook that's too large, creating loose stitches that show stuffing.",
+      "Not counting rounds carefully, leading to an uneven shape."
+    ],
+    "keywords": [
+      "amigurumi",
+      "bear",
+      "toy",
+      "sport weight",
+      "intermediate",
+      "single crochet",
+      "in the round"
+    ]
+  },
+  {
+    "id": "pattern-slippers-weight2-001",
+    "name": "Ballet Style Slippers",
+    "shortDescription": "Lightweight ballet-style slippers worked in sport weight yarn with a simple sole and ribbon tie.",
+    "imageUrl": "/assets/patterns/pattern-slippers-weight2-001.webp",
+    "category": "Slippers",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Requires shaping a sole, working in the round, and basic increases and decreases."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours",
+      "assumedSkill": "Intermediate"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine/Sport)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 120,
+        "suggestedYardageMax": 180,
+        "fiberType": [
+          "Acrylic",
+          "Cotton"
+        ],
+        "notes": "Use a soft, washable yarn."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Standard hook."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch marker",
+        "Satin ribbon (optional)"
+      ]
+    },
+    "gauge": {
+      "stitches": 20,
+      "rows": 20,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge determines slipper fit."
+    },
+    "instructions": [
+      "**Sole:** Chain 12 (size small; adjust for larger sizes).",
+      "**Row 1:** Sc in 2nd ch and each across. (11 sc), turn.",
+      "**Row 2:** Ch 1, 2 sc in first, sc in next 9, 2 sc in last. (13 sc), turn.",
+      "**Row 3:** Ch 1, 2 sc in first, sc in next 11, 2 sc in last. (15 sc), turn.",
+      "**Row 4:** Work even: ch 1, sc across. (15 sc), turn.",
+      "**Rows 5-14:** Repeat Row 4 until sole measures about 7 inches (adjust for your foot).",
+      "**Sides:** Sc evenly around the entire sole edge, working 1 sc in each row end and each stitch around. Join. (Count depends on size)",
+      "**Body Rnds 1-8:** Ch 1, sc in each stitch around. Join each round. (Same stitch count each rnd)",
+      "**Toe Shaping, Rnd 9:** Ch 1, sc in next 8, sc2tog 4 times, sc in remaining stitches. Join.",
+      "**Top Edging:** Ch 1, *sc in next, slip stitch in next.* Repeat around. Fasten off.",
+      "**Finishing:** Weave in ends. Thread ribbon through the top edge for a tie closure. Repeat for second slipper."
+    ],
+    "beginnerTips": [
+      "Try on the sole as you go to check fit.",
+      "The sc2tog decreases shape the toe area for a comfortable fit.",
+      "Use a stitch marker at the heel center to keep track of the round start."
+    ],
+    "commonMistakes": [
+      "Making the sole too narrow or too short.",
+      "Losing stitch count when working into the sole edge."
+    ],
+    "keywords": [
+      "slippers",
+      "ballet",
+      "sport weight",
+      "intermediate",
+      "single crochet",
+      "footwear"
+    ]
+  },
+  {
+    "id": "pattern-poncho-weight2-001",
+    "name": "Children's Light Poncho",
+    "shortDescription": "A lightweight poncho for toddlers, worked top-down in sport weight yarn. Perfect for spring layers.",
+    "imageUrl": "/assets/patterns/pattern-poncho-weight2-001.webp",
+    "category": "Poncho",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain and double crochet in a simple top-down construction with even increases."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine/Sport)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 200,
+        "suggestedYardageMax": 300,
+        "fiberType": [
+          "Acrylic",
+          "Cotton"
+        ],
+        "notes": "A soft, lightweight yarn drapes well for a poncho."
+      },
+      "hook": {
+        "sizeMM": 4.0,
+        "sizeUS": "G-6",
+        "sizeUK": "8",
+        "notes": "Slightly larger hook for drape."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 16,
+      "rows": 10,
+      "unit": "4 inches",
+      "stitchPattern": "double crochet",
+      "notes": "Gauge affects finished size."
+    },
+    "instructions": [
+      "**Neckline:** Chain 60, join with slip stitch to form ring, being careful not to twist.",
+      "**Rnd 1:** Ch 3 (counts as dc), dc in each chain around. Join. (60 dc)",
+      "**Rnd 2 (Increase):** Ch 3, dc in same. *Dc in next 4, 2 dc in next.* Repeat around. Join. (72 dc)",
+      "**Rnd 3:** Ch 3, dc in each stitch around. Join. (72 dc)",
+      "**Rnd 4 (Increase):** Ch 3, dc in same. *Dc in next 5, 2 dc in next.* Repeat around. Join. (84 dc)",
+      "**Repeat:** Alternate a plain round with an increase round until poncho measures about 10 inches from the neckline.",
+      "**Edging:** Ch 1, *sc in next stitch, ch 3, skip 1.* Repeat around. Join.",
+      "**Finishing:** Fasten off, weave in ends. Add a ribbon through the top row for optional decoration."
+    ],
+    "beginnerTips": [
+      "The top-down construction lets you try it on as you go.",
+      "Mark the start of each round with a stitch marker.",
+      "For a larger size, add more increase rounds before the even rounds."
+    ],
+    "commonMistakes": [
+      "Twisting the foundation chain when joining.",
+      "Skipping the marker and losing track of the round start."
+    ],
+    "keywords": [
+      "poncho",
+      "children",
+      "sport weight",
+      "beginner",
+      "double crochet",
+      "top-down"
+    ]
+  },
+  {
+    "id": "pattern-home-decor-weight2-001",
+    "name": "Lace Table Runner",
+    "shortDescription": "An elegant lace table runner in sport weight cotton. Made of repeating rectangular motifs joined as you go.",
+    "imageUrl": "/assets/patterns/pattern-home-decor-weight2-001.webp",
+    "category": "Home Decor",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Uses chains, double crochet, treble crochet, and picots in a repeating motif pattern."
+    },
+    "estimatedTime": {
+      "minHours": 3,
+      "maxHours": 5,
+      "unit": "hours",
+      "assumedSkill": "Intermediate"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine/Sport)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 250,
+        "suggestedYardageMax": 350,
+        "fiberType": [
+          "Cotton"
+        ],
+        "notes": "Mercerized cotton shows stitch definition beautifully."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Standard hook."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Blocking pins",
+        "Starch"
+      ]
+    },
+    "gauge": {
+      "stitches": 20,
+      "rows": 10,
+      "unit": "4 inches",
+      "stitchPattern": "double crochet",
+      "notes": "Gauge determines motif size."
+    },
+    "instructions": [
+      "**Motif (make 6-8):** Chain 8, join with slip stitch to form ring.",
+      "**Rnd 1:** Ch 3 (counts as dc), 23 dc into ring. Join. (24 dc)",
+      "**Rnd 2:** Ch 5 (counts as dc + ch 2), *skip 2, dc in next, ch 2.* Repeat around. Join in 3rd ch of starting ch-5. (8 ch-2 spaces)",
+      "**Rnd 3:** Sl st into first ch-2 space. Ch 3, 2 dc in same space. *Ch 1, 3 dc in next ch-2 space.* Repeat around. Ch 1, join.",
+      "**Rnd 4:** Sl st to first ch-1 space. Ch 4 (counts as tr), tr in same. *Ch 3, sc in next ch-1 space, ch 3, (tr, ch 2, tr) in next ch-1 space (corner).* Repeat corners. Join.",
+      "**Rnd 5 (Picot Edge):** Ch 1, *sc in next, ch 3, sl st in 3rd ch from hook (picot).* Repeat around. Join.",
+      "**Assembly:** Slip stitch motifs together along the edges using the picot loops.",
+      "**Finishing:** Fasten off, weave in ends. Block aggressively and starch lightly to help the lace hold its shape."
+    ],
+    "beginnerTips": [
+      "Make one motif and measure it before making all of them.",
+      "The 'join as you go' method connects motifs on the last round.",
+      "Blocking transforms lace \u2014 don't skip it!"
+    ],
+    "commonMistakes": [
+      "Motifs not matching size \u2014 check gauge on the first one.",
+      "Skipping the picot loops when joining motifs."
+    ],
+    "keywords": [
+      "table runner",
+      "lace",
+      "sport weight",
+      "cotton",
+      "intermediate",
+      "home decor",
+      "motif"
+    ]
+  },
+  {
+    "id": "pattern-baby-booties-weight2-001",
+    "name": "Classic Baby Booties",
+    "shortDescription": "Adorable crochet baby booties in sport weight yarn. A timeless gift for newborns.",
+    "imageUrl": "/assets/patterns/pattern-baby-booties-weight2-001.webp",
+    "category": "Baby",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Requires working in the round, shaping the sole and foot, and creating a small ankle cuff."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 2,
+      "unit": "hours",
+      "assumedSkill": "Intermediate"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "2 (Fine/Sport)",
+        "weightNumber": 2,
+        "suggestedYardageMin": 40,
+        "suggestedYardageMax": 60,
+        "fiberType": [
+          "Cotton",
+          "Acrylic"
+        ],
+        "notes": "Soft, washable yarn is best for baby items."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Standard hook."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch marker",
+        "Ribbon (optional)"
+      ]
+    },
+    "gauge": {
+      "stitches": 20,
+      "rows": 20,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge determines bootie size."
+    },
+    "instructions": [
+      "**Sole:** Chain 10.",
+      "**Rnd 1:** Sc in 2nd ch from hook and next 7 ch, 3 sc in last ch. Working on opposite side: sc in next 7 ch, 2 sc in last ch. Do not join \u2014 work in continuous rounds. (20 sc)",
+      "**Rnd 2:** 2 sc in next 2 stitches, sc in next 7, 2 sc in next 6, sc in next 7, 2 sc in last 2. (30 sc)",
+      "**Rnd 3:** *Sc in next, 2 sc in next.* Repeat 2 times. Sc in next 7. *2 sc in next, sc in next.* Repeat 5 times. Sc in next 7. *2 sc in next, sc in next.* Repeat 2 times. (40 sc)",
+      "**Sides (Rnds 4-5):** Sc in back loop only of each stitch around. (40 sc)",
+      "**Rnd 6:** Sc in next 14, sc2tog 6 times, sc in next 14. (34 sc)",
+      "**Rnd 7:** Sc in next 14, sc2tog 3 times, sc in next 14. (31 sc)",
+      "**Cuff:** Ch 1, sc in each stitch around, working through BOTH loops. (31 sc). Repeat for 4 more rounds.",
+      "**Finishing:** Fasten off, weave in ends. Fold cuff down. Thread ribbon through the cuff row for a tie. Repeat for second bootie."
+    ],
+    "beginnerTips": [
+      "Continuous rounds (no joining) create an invisible spiral \u2014 use a stitch marker.",
+      "Check the sole size against your hand \u2014 approximately palm width for newborn.",
+      "Make the ribbon holes by working a ch-1, skip-1 round in the cuff if desired."
+    ],
+    "commonMistakes": [
+      "Losing count in continuous rounds \u2014 the stitch marker is essential.",
+      "Working the wrong loop for the sides, making the sole curl up."
+    ],
+    "keywords": [
+      "booties",
+      "baby",
+      "sport weight",
+      "intermediate",
+      "single crochet",
+      "gift",
+      "newborn"
+    ]
+  },
+  {
+    "id": "pattern-scarf-weight3-001",
+    "name": "DK Infinity Scarf",
+    "shortDescription": "A cozy infinity scarf worked in the round with DK weight yarn and a simple shell stitch pattern.",
+    "imageUrl": "/assets/patterns/pattern-scarf-weight3-001.webp",
+    "category": "Scarf",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain and double crochet in a repeating shell pattern worked in the round."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "3 (DK/Light Worsted)",
+        "weightNumber": 3,
+        "suggestedYardageMin": 250,
+        "suggestedYardageMax": 350,
+        "fiberType": [
+          "Acrylic",
+          "Wool"
+        ],
+        "notes": "A soft wool blend gives warmth without bulk."
+      },
+      "hook": {
+        "sizeMM": 4.5,
+        "sizeUS": "7",
+        "sizeUK": "7",
+        "notes": "Standard hook for DK weight."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 16,
+      "rows": 10,
+      "unit": "4 inches",
+      "stitchPattern": "double crochet shell",
+      "notes": "Gauge is forgiving for an infinity scarf."
+    },
+    "instructions": [
+      "**Foundation:** Chain 120 (or desired circumference). Join with slip stitch to form ring, being careful not to twist.",
+      "**Rnd 1:** Ch 3 (counts as dc), dc in each chain around. Join. (120 dc)",
+      "**Rnd 2:** Ch 3, dc in next 2. *Skip 2, (dc, ch 1, dc) in next (shell made), skip 2, dc in next 3.* Repeat around. Join.",
+      "**Rnd 3:** Ch 3, dc in next 2. *Shell in ch-1 space of previous shell, dc in next 3.* Repeat around. Join.",
+      "**Repeat Rnd 3:** Continue until scarf measures about 8 inches wide.",
+      "**Border:** Ch 1, *sc in next 3 stitches, ch 1.* Repeat around. Join.",
+      "**Finishing:** Fasten off, weave in ends. Block lightly to open the shell pattern."
+    ],
+    "beginnerTips": [
+      "The shell stitch is (dc, ch 1, dc) all worked into the same ch-1 space.",
+      "Use a stitch marker to mark the start of the round.",
+      "The infinity scarf is worn wrapped twice \u2014 adjust chain length for your preference."
+    ],
+    "commonMistakes": [
+      "Twisting the foundation chain when joining.",
+      "Working shells into the wrong chain-1 space and losing the pattern."
+    ],
+    "keywords": [
+      "scarf",
+      "infinity",
+      "DK",
+      "beginner",
+      "shell stitch",
+      "double crochet",
+      "in the round"
+    ]
+  },
+  {
+    "id": "pattern-hat-weight3-001",
+    "name": "Lightweight Beanie",
+    "shortDescription": "A lightweight beanie in DK weight yarn with a ribbed brim and simple crown decreases.",
+    "imageUrl": "/assets/patterns/pattern-hat-weight3-001.webp",
+    "category": "Hat",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain and single crochet; works in joined rounds with simple decreases."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "3 (DK/Light Worsted)",
+        "weightNumber": 3,
+        "suggestedYardageMin": 160,
+        "suggestedYardageMax": 220,
+        "fiberType": [
+          "Acrylic",
+          "Wool"
+        ],
+        "notes": "DK weight makes a lighter hat perfect for cool weather."
+      },
+      "hook": {
+        "sizeMM": 4.5,
+        "sizeUS": "7",
+        "sizeUK": "7",
+        "notes": "Standard hook."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 18,
+      "rows": 18,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge determines hat size."
+    },
+    "instructions": [
+      "**Brim:** Chain 8 loosely.",
+      "**Row 1:** Sc in 2nd ch from hook and each across. (7 sc), turn.",
+      "**Rows 2-46:** Ch 1, turn. Sc in BACK loop only of each stitch. (7 sc each row)",
+      "**Join Brim:** Fold the brim strip to form a ring. Slip stitch the short edges together.",
+      "**Body Rnd 1:** Ch 1, work 60 sc evenly around the brim edge. Join. (60 sc)",
+      "**Body Rnds 2-12:** Ch 1, sc in each stitch around. Join. (60 sc)",
+      "**Crown Rnd 13:** Ch 1, *sc in next 8, sc2tog.* Repeat around. Join. (54 sc)",
+      "**Rnd 14:** Ch 1, *sc in next 7, sc2tog.* Repeat around. Join. (48 sc)",
+      "**Rnd 15:** Ch 1, *sc in next 6, sc2tog.* Repeat around. Join. (42 sc)",
+      "**Rnd 16:** Ch 1, *sc in next 5, sc2tog.* Repeat around. Join. (36 sc)",
+      "**Rnd 17:** Ch 1, *sc in next 4, sc2tog.* Repeat around. Join. (30 sc)",
+      "**Rnd 18:** Ch 1, *sc in next 3, sc2tog.* Repeat around. Join. (24 sc)",
+      "**Rnd 19:** Ch 1, *sc in next 2, sc2tog.* Repeat around. Join. (18 sc)",
+      "**Rnd 20:** Ch 1, *sc in next, sc2tog.* Repeat around. Join. (12 sc)",
+      "**Rnd 21:** Ch 1, sc2tog around. Join. (6 sc)",
+      "**Finishing:** Cut a long tail, thread through remaining 6 stitches, and pull tight to close. Weave in ends."
+    ],
+    "beginnerTips": [
+      "The brim is worked back-and-forth in rows, then joined into a ring \u2014 this creates stretchy ribbing.",
+      "sc2tog: insert hook, yo, pull up loop (2 loops), insert in next stitch, yo, pull up loop (3 loops), yo, pull through all 3.",
+      "Try the hat on before the final decrease rounds to check fit."
+    ],
+    "commonMistakes": [
+      "Losing count between decreases, making the crown lopsided.",
+      "Brim too tight \u2014 chain loosely for the ribbing."
+    ],
+    "keywords": [
+      "hat",
+      "beanie",
+      "DK",
+      "beginner",
+      "single crochet",
+      "decreases",
+      "ribbed"
+    ]
+  },
+  {
+    "id": "pattern-dishcloth-weight3-001",
+    "name": "Waffle Stitch Dishcloth",
+    "shortDescription": "A thick, textured dishcloth with a waffle pattern created with front-post double crochet stitches.",
+    "imageUrl": "/assets/patterns/pattern-dishcloth-weight3-001.webp",
+    "category": "Dishcloth",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain, double crochet, and front-post double crochet in a repeating pattern."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 1.5,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "3 (DK/Light Worsted)",
+        "weightNumber": 3,
+        "suggestedYardageMin": 60,
+        "suggestedYardageMax": 80,
+        "fiberType": [
+          "Cotton"
+        ],
+        "notes": "100% cotton is essential for absorbency."
+      },
+      "hook": {
+        "sizeMM": 4.5,
+        "sizeUS": "7",
+        "sizeUK": "7",
+        "notes": "Standard hook for DK weight cotton."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors"
+      ]
+    },
+    "gauge": {
+      "stitches": 18,
+      "rows": 14,
+      "unit": "4 inches",
+      "stitchPattern": "waffle stitch (dc + fpdc)",
+      "notes": "Gauge is not critical."
+    },
+    "instructions": [
+      "**Foundation Chain:** Chain 24.",
+      "**Row 1:** Dc in 4th ch from hook and each across. (22 dc), turn.",
+      "**Row 2:** Ch 3 (counts as dc), *fpdc around next stitch, dc in next.* Repeat across, ending with dc in top of turning ch. Turn.",
+      "**Row 3:** Ch 3, *dc in next fpdc, fpdc around next dc.* Repeat across, ending with dc in top of turning ch. Turn.",
+      "**Repeat Rows 2-3:** Continue until piece measures about 8 inches square.",
+      "**Border:** Ch 1, sc evenly around all 4 edges, working 3 sc in each corner. Join.",
+      "**Finishing:** Fasten off, weave in ends."
+    ],
+    "beginnerTips": [
+      "The waffle stitch is created by alternating regular dc with front-post dc each row.",
+      "fpdc: yarn over, insert hook from front to back around the post of the stitch, complete as a dc.",
+      "The waffle texture creates lots of surface area for scrubbing."
+    ],
+    "commonMistakes": [
+      "Forgetting to alternate the fpdc and dc placement each row.",
+      "Confusing fpdc with bpdc (back-post double crochet)."
+    ],
+    "keywords": [
+      "dishcloth",
+      "waffle",
+      "DK",
+      "cotton",
+      "beginner",
+      "fpdc",
+      "textured"
+    ]
+  },
+  {
+    "id": "pattern-headband-weight3-001",
+    "name": "Twisted Ear Warmer",
+    "shortDescription": "A stylish twisted ear warmer worked flat in DK weight yarn. The twist is created with a simple fold-and-sew technique.",
+    "imageUrl": "/assets/patterns/pattern-headband-weight3-001.webp",
+    "category": "Headband",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain and single crochet; the twist is a fold-and-sew, not complex shaping."
+    },
+    "estimatedTime": {
+      "minHours": 1,
+      "maxHours": 1.5,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "3 (DK/Light Worsted)",
+        "weightNumber": 3,
+        "suggestedYardageMin": 80,
+        "suggestedYardageMax": 120,
+        "fiberType": [
+          "Acrylic",
+          "Wool"
+        ],
+        "notes": "A warm, soft yarn works best for ear warmers."
+      },
+      "hook": {
+        "sizeMM": 4.5,
+        "sizeUS": "7",
+        "sizeUK": "7",
+        "notes": "Standard hook."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors"
+      ]
+    },
+    "gauge": {
+      "stitches": 18,
+      "rows": 18,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge determines fit."
+    },
+    "instructions": [
+      "**Foundation Chain:** Chain 10.",
+      "**Row 1:** Sc in 2nd ch from hook and each across. (9 sc), turn.",
+      "**Rows 2-60:** Ch 1, turn. Sc in each stitch across. (9 sc each row)",
+      "**The Twist:** Fold the long strip in half lengthwise to find the center. Cut the yarn loop at the fold to create two tails.",
+      "**Twist and Join:** Twist the strip once in the center to form a figure-8. Using the tails, sew the two short ends together with a yarn needle.",
+      "**Finishing:** Weave in ends. The twist should sit at the front of the headband."
+    ],
+    "beginnerTips": [
+      "The longer the rectangle, the more prominent the twist.",
+      "For a chunkier twist, make the rectangle wider (12-14 stitches).",
+      "Use a contrasting color yarn needle thread for a decorative seamed look."
+    ],
+    "commonMistakes": [
+      "Making the rectangle too short, giving a weak twist.",
+      "Sewing the ends together before twisting."
+    ],
+    "keywords": [
+      "headband",
+      "ear warmer",
+      "DK",
+      "beginner",
+      "single crochet",
+      "twist",
+      "winter"
+    ]
+  },
+  {
+    "id": "pattern-toy-weight3-001",
+    "name": "Amigurumi Kitten",
+    "shortDescription": "A cute amigurumi kitten in DK weight yarn. Worked in continuous rounds with simple shaping.",
+    "imageUrl": "/assets/patterns/pattern-toy-weight3-001.webp",
+    "category": "Toy",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Requires continuous rounds, increases and decreases, and sewing pieces together."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours",
+      "assumedSkill": "Intermediate"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "3 (DK/Light Worsted)",
+        "weightNumber": 3,
+        "suggestedYardageMin": 60,
+        "suggestedYardageMax": 100,
+        "fiberType": [
+          "Acrylic",
+          "Cotton"
+        ],
+        "notes": "Smooth, light-colored yarn makes stitches easy to see."
+      },
+      "hook": {
+        "sizeMM": 3.5,
+        "sizeUS": "E-4",
+        "sizeUK": "9",
+        "notes": "Use a smaller hook than recommended for tight stitches."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Polyester fiberfill stuffing",
+        "Stitch marker",
+        "Safety eyes (2, 7mm) or embroidery thread"
+      ]
+    },
+    "gauge": {
+      "stitches": 22,
+      "rows": 22,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet in continuous rounds",
+      "notes": "Use a smaller hook for tight stitches."
+    },
+    "instructions": [
+      "**Head:** Ch 2. Rnd 1: 6 sc in 2nd ch. (6 sc)",
+      "**Rnd 2:** 2 sc in each st around. (12 sc)",
+      "**Rnd 3:** *Sc in next, 2 sc in next.* Repeat. (18 sc)",
+      "**Rnd 4:** *Sc in next 2, 2 sc in next.* Repeat. (24 sc)",
+      "**Rnds 5-8:** Sc in each st around. (24 sc)",
+      "**Rnd 9:** *Sc in next 2, sc2tog.* Repeat. (18 sc)",
+      "**Rnd 10:** *Sc in next, sc2tog.* Repeat. (12 sc). Stuff firmly.",
+      "**Rnd 11:** Sc2tog around. (6 sc). Fasten off, close opening.",
+      "**Body:** Rnds 1-3 as head (18 sc). Rnds 4-7: Sc around. (18 sc)",
+      "**Rnd 8:** *Sc in next, sc2tog.* Repeat. (12 sc). Stuff. Rnd 9: Sc2tog around. (6 sc). Fasten off.",
+      "**Ears (make 2):** Ch 2, 4 sc in 2nd ch. Ch 1, turn. 2 sc in each st. (8 sc). Fasten off.",
+      "**Tail:** Ch 10. Sc in 2nd ch and each across. (9 sc). Fasten off, leaving tail.",
+      "**Assembly:** Sew head to body. Sew ears to top of head (fold slightly for shape). Sew tail to back of body. Attach safety eyes or embroider them on Rnd 5 of head. Embroider a small nose and whiskers.",
+      "**Finishing:** Weave in all ends."
+    ],
+    "beginnerTips": [
+      "Amigurumi is worked in continuous spirals \u2014 use a stitch marker at the start of each round.",
+      "Stuff firmly but smoothly; avoid lumpy stuffing.",
+      "Safety eyes should be secured before closing the head."
+    ],
+    "commonMistakes": [
+      "Loose tension creates gaps where stuffing shows through.",
+      "Uneven decreases deform the shape."
+    ],
+    "keywords": [
+      "amigurumi",
+      "kitten",
+      "toy",
+      "DK",
+      "intermediate",
+      "single crochet",
+      "continuous rounds"
+    ]
+  },
+  {
+    "id": "pattern-bag-weight3-001",
+    "name": "Crossbody Phone Pouch",
+    "shortDescription": "A small crossbody pouch for your phone and essentials, worked flat in DK cotton with a long strap.",
+    "imageUrl": "/assets/patterns/pattern-bag-weight3-001.webp",
+    "category": "Bag",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain and single crochet; simple rectangular construction with a strap."
+    },
+    "estimatedTime": {
+      "minHours": 1.5,
+      "maxHours": 2.5,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "3 (DK/Light Worsted)",
+        "weightNumber": 3,
+        "suggestedYardageMin": 120,
+        "suggestedYardageMax": 180,
+        "fiberType": [
+          "Cotton"
+        ],
+        "notes": "Cotton is sturdy and washable."
+      },
+      "hook": {
+        "sizeMM": 4.5,
+        "sizeUS": "7",
+        "sizeUK": "7",
+        "notes": "Standard hook."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Button (1 inch)",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 18,
+      "rows": 18,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge affects pouch size."
+    },
+    "instructions": [
+      "**Pouch Front:** Chain 22.",
+      "**Row 1:** Sc in 2nd ch from hook and each across. (21 sc), turn.",
+      "**Rows 2-20:** Ch 1, turn. Sc across. (21 sc each row)",
+      "**Flap:** Ch 1, turn. Sc in next 10 stitches only. (10 sc), turn.",
+      "**Flap Rows 2-6:** Ch 1, turn. Sc across. (10 sc each row)",
+      "**Button Loop Row 7:** Ch 1, sc in next 3, ch 5, skip 1, sc in remaining. Turn.",
+      "**Row 8:** Ch 1, sc across, working 5 sc into ch-5 space.",
+      "**Strap:** From the top side edge of the pouch, ch 1 and work 3 sc. Turn.",
+      "**Strap Rows:** Ch 1, sc in each of 3 stitches. Continue until strap measures about 40 inches. Fasten off.",
+      "**Attach Strap:** Sew the other end of the strap to the opposite top side edge of the pouch.",
+      "**Finishing:** Fold the flap down and sew the button opposite the loop on the front of the pouch. Weave in ends."
+    ],
+    "beginnerTips": [
+      "Size the pouch to your phone by measuring its width and height.",
+      "The strap is worked on just 3 stitches \u2014 it will be thin but strong.",
+      "Make the button loop larger if your button is thick."
+    ],
+    "commonMistakes": [
+      "Making the pouch too small for the phone.",
+      "Twisting the strap when sewing it on."
+    ],
+    "keywords": [
+      "bag",
+      "phone pouch",
+      "crossbody",
+      "DK",
+      "cotton",
+      "beginner",
+      "single crochet"
+    ]
+  },
+  {
+    "id": "pattern-slippers-weight3-001",
+    "name": "Comfy House Slippers",
+    "shortDescription": "Warm, cushioned house slippers in DK weight yarn with a reinforced sole and simple construction.",
+    "imageUrl": "/assets/patterns/pattern-slippers-weight3-001.webp",
+    "category": "Slippers",
+    "difficulty": {
+      "level": "intermediate",
+      "score": 5,
+      "reasoning": "Requires shaping a sole, working in rounds, and making decreases for the heel."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3.5,
+      "unit": "hours",
+      "assumedSkill": "Intermediate"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "3 (DK/Light Worsted)",
+        "weightNumber": 3,
+        "suggestedYardageMin": 140,
+        "suggestedYardageMax": 200,
+        "fiberType": [
+          "Acrylic",
+          "Wool"
+        ],
+        "notes": "A wool blend is warm and durable for slippers."
+      },
+      "hook": {
+        "sizeMM": 4.5,
+        "sizeUS": "7",
+        "sizeUK": "7",
+        "notes": "Standard hook."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 18,
+      "rows": 18,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge determines slipper fit."
+    },
+    "instructions": [
+      "**Sole:** Chain 15 (adjust for foot length).",
+      "**Rnd 1:** Sc in 2nd ch from hook and next 12 ch, 3 sc in last ch. Working on opposite side: sc in next 12 ch, 2 sc in last ch. Do not join \u2014 continuous round. (30 sc)",
+      "**Rnd 2:** 2 sc in next 2 stitches, sc in next 12, 2 sc in next 4, sc in next 12, 2 sc in last 2. (38 sc)",
+      "**Rnd 3:** Sc in next, 2 sc in next, sc in next, 2 sc in next. Sc in next 12. *2 sc in next, sc in next.* Repeat 3 times. Sc in next 12. *2 sc in next, sc in next.* Repeat 2 times. (46 sc)",
+      "**Sides (Rnds 4-10):** Sc in each stitch around. Do not join, continue in spiral. (46 sc each rnd)",
+      "**Heel Shaping (Rnd 11):** Sc in next 16, sc2tog 2 times, sc in next 12, sc2tog 2 times, sc in next 14. (42 sc)",
+      "**Rnd 12:** Sc in next 16, sc2tog, sc in next 14, sc2tog, sc in next 8. (40 sc)",
+      "**Rnd 13:** Sc in each stitch around. (40 sc)",
+      "**Rnd 14:** Sc in next 16, sc2tog, sc in next 14, sc2tog, sc in next 6. (38 sc)",
+      "**Cuff:** Join with slip stitch at end of Rnd 14. Ch 1, sc in back loop only of each stitch around. Join. (38 sc). Repeat for 3 more rounds.",
+      "**Finishing:** Fasten off, weave in ends. Fold cuff down. Repeat for second slipper."
+    ],
+    "beginnerTips": [
+      "Continuous rounds (no joining) create a smooth sole without a seam.",
+      "Check the sole against your foot about every 2 rounds.",
+      "The heel decreases are worked on each side to shape the ankle."
+    ],
+    "commonMistakes": [
+      "Not marking the start of continuous rounds and losing count.",
+      "Making the sole too flat \u2014 it should curve up slightly at the edges."
+    ],
+    "keywords": [
+      "slippers",
+      "house",
+      "DK",
+      "intermediate",
+      "single crochet",
+      "continuous rounds",
+      "footwear"
+    ]
+  },
+  {
+    "id": "pattern-home-decor-weight3-001",
+    "name": "DK Storage Basket",
+    "shortDescription": "A sturdy small storage basket in DK weight yarn. Worked in the round with a flat base and straight sides.",
+    "imageUrl": "/assets/patterns/pattern-home-decor-weight3-001.webp",
+    "category": "Home Decor",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only single crochet in the round with even increases for the base."
+    },
+    "estimatedTime": {
+      "minHours": 2,
+      "maxHours": 3,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "3 (DK/Light Worsted)",
+        "weightNumber": 3,
+        "suggestedYardageMin": 150,
+        "suggestedYardageMax": 200,
+        "fiberType": [
+          "Cotton"
+        ],
+        "notes": "Cotton holds shape best for baskets."
+      },
+      "hook": {
+        "sizeMM": 4.5,
+        "sizeUS": "7",
+        "sizeUK": "7",
+        "notes": "Standard hook."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch marker"
+      ]
+    },
+    "gauge": {
+      "stitches": 18,
+      "rows": 18,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge determines basket size."
+    },
+    "instructions": [
+      "**Base:** Chain 2.",
+      "**Rnd 1:** 6 sc in 2nd ch from hook. Join. (6 sc)",
+      "**Rnd 2:** Ch 1, 2 sc in each stitch. Join. (12 sc)",
+      "**Rnd 3:** Ch 1, *sc in next, 2 sc in next.* Repeat around. Join. (18 sc)",
+      "**Rnd 4:** Ch 1, *sc in next 2, 2 sc in next.* Repeat around. Join. (24 sc)",
+      "**Rnd 5:** Ch 1, *sc in next 3, 2 sc in next.* Repeat around. Join. (30 sc)",
+      "**Rnd 6:** Ch 1, *sc in next 4, 2 sc in next.* Repeat around. Join. (36 sc)",
+      "**Rnd 7:** Ch 1, *sc in next 5, 2 sc in next.* Repeat around. Join. (42 sc)",
+      "**Rnd 8:** Ch 1, *sc in next 6, 2 sc in next.* Repeat around. Join. (48 sc)",
+      "**Sides (Rnd 9):** Ch 1, sc in BACK loop only of each stitch. Join. (48 sc)",
+      "**Rnds 10-18:** Ch 1, sc in each stitch around (BOTH loops). Join. (48 sc each rnd)",
+      "**Edging (Rnd 19):** Ch 1, *sc in next, ch 1, skip 1.* Repeat around. Join.",
+      "**Finishing:** Fasten off, weave in ends. The basket will hold its shape with cotton yarn."
+    ],
+    "beginnerTips": [
+      "Working Rnd 9 in back loops only creates a distinct corner where the base meets the sides.",
+      "Use a stitch marker to mark the start of each round.",
+      "The basket can be made taller by adding more rounds to the sides."
+    ],
+    "commonMistakes": [
+      "Skipping stitches in the increase rounds, making the base wavy.",
+      "Forgetting to work back loop only on the first side round."
+    ],
+    "keywords": [
+      "basket",
+      "storage",
+      "DK",
+      "cotton",
+      "beginner",
+      "single crochet",
+      "home decor"
+    ]
+  },
+  {
+    "id": "pattern-baby-blanket-weight3-001",
+    "name": "DK Baby Blanket Square",
+    "shortDescription": "A soft, washable baby blanket in DK weight yarn. Alternating rows of single and double crochet create a gentle texture.",
+    "imageUrl": "/assets/patterns/pattern-baby-blanket-weight3-001.webp",
+    "category": "Baby blanket square",
+    "difficulty": {
+      "level": "beginner",
+      "score": 1,
+      "reasoning": "Uses only chain, single crochet, and double crochet; no shaping required."
+    },
+    "estimatedTime": {
+      "minHours": 3,
+      "maxHours": 5,
+      "unit": "hours",
+      "assumedSkill": "Beginner"
+    },
+    "materials": {
+      "yarn": {
+        "weightCategory": "3 (DK/Light Worsted)",
+        "weightNumber": 3,
+        "suggestedYardageMin": 400,
+        "suggestedYardageMax": 500,
+        "fiberType": [
+          "Acrylic",
+          "Cotton"
+        ],
+        "notes": "Soft, machine-washable yarn is best for baby items."
+      },
+      "hook": {
+        "sizeMM": 4.5,
+        "sizeUS": "7",
+        "sizeUK": "7",
+        "notes": "Standard hook for DK weight."
+      },
+      "notions": [
+        "Yarn needle",
+        "Scissors",
+        "Stitch markers"
+      ]
+    },
+    "gauge": {
+      "stitches": 18,
+      "rows": 16,
+      "unit": "4 inches",
+      "stitchPattern": "single crochet",
+      "notes": "Gauge determines blanket size."
+    },
+    "instructions": [
+      "**Foundation Chain:** Chain 80 (or desired width).",
+      "**Row 1:** Sc in 2nd ch from hook and each across. (79 sc), turn.",
+      "**Row 2:** Ch 1, turn. *Dc in each stitch across.* (79 dc), turn.",
+      "**Row 3:** Ch 1, turn. *Sc in each stitch across.* (79 sc), turn.",
+      "**Repeat Rows 2-3:** Continue alternating rows until piece measures about 28 inches long (approximately 80 rows).",
+      "**Border Rnd 1:** Ch 1, sc evenly around all 4 edges, working 3 sc in each corner. Join.",
+      "**Border Rnd 2:** Ch 1, *sc in next 3, ch 2, skip 1.* Repeat around. Join.",
+      "**Finishing:** Fasten off, weave in all ends. Block lightly to even out the edges."
+    ],
+    "beginnerTips": [
+      "Count stitches at the end of each row to keep the edges straight.",
+      "The alternating sc/dc rows create a subtle texture change.",
+      "Use stitch markers at the edges to help maintain straight sides."
+    ],
+    "commonMistakes": [
+      "Skipping the turning chain (ch 1) at the start of each row.",
+      "Losing stitches at the edges, causing a tapered blanket."
+    ],
+    "keywords": [
+      "baby blanket",
+      "DK",
+      "beginner",
+      "single crochet",
+      "double crochet",
+      "square",
+      "textured"
+    ]
   }
 ]

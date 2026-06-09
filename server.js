@@ -145,23 +145,30 @@ function generatePatternSVG(pattern) {
     const time = pattern.estimatedTime ? `${pattern.estimatedTime.minHours}-${pattern.estimatedTime.maxHours} ${pattern.estimatedTime.unit}` : '';
     const bg1 = colors.bg[0];
     const bg2 = colors.bg[1];
+    const STARS = { beginner: 1, intermediate: 3, advanced: 5 };
+    const n = STARS[diff] || 0;
+    const stars = '\u2605'.repeat(n) + '\u2606'.repeat(5 - n);
+    const displayName = name.length > 22 ? name.slice(0, 22) + '...' : name;
     return `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
   <defs>
     <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:${bg1}"/>
-      <stop offset="100%" style="stop-color:${bg2}"/>
+      <stop offset="0%" stop-color="${bg1}"/>
+      <stop offset="100%" stop-color="${bg2}"/>
     </linearGradient>
+    <pattern id="s" width="24" height="16" patternUnits="userSpaceOnUse" opacity=".1">
+      <path d="M4,12Q12,4 20,12" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+    </pattern>
   </defs>
-  <rect width="400" height="300" fill="url(#g)" rx="12"/>
-  <circle cx="60" cy="70" r="40" fill="rgba(255,255,255,0.08)"/>
-  <circle cx="350" cy="250" r="50" fill="rgba(255,255,255,0.06)"/>
-  <circle cx="200" cy="50" r="80" fill="rgba(255,255,255,0.04)"/>
-  <text x="200" y="100" text-anchor="middle" fill="${colors.accent}" font-family="sans-serif" font-size="22" font-weight="bold">${name.length > 28 ? name.slice(0, 28) + '...' : name}</text>
-  <line x1="80" y1="120" x2="320" y2="120" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-  <text x="200" y="155" text-anchor="middle" fill="${colors.text}" font-family="sans-serif" font-size="14">${cat}</text>
-  <text x="200" y="185" text-anchor="middle" fill="${colors.text}" font-family="sans-serif" font-size="13">${diff} &middot; ${time}</text>
-  <text x="200" y="230" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="sans-serif" font-size="40">&#9829;</text>
-  <text x="200" y="280" text-anchor="middle" fill="rgba(255,255,255,0.15)" font-family="sans-serif" font-size="11">CrochetKit AI</text>
+  <rect width="400" height="300" fill="url(#g)" rx="16"/>
+  <rect width="400" height="300" fill="url(#s)" rx="16"/>
+  <circle cx="340" cy="50" r="90" fill="rgba(255,255,255,.06)"/>
+  <circle cx="60" cy="270" r="70" fill="rgba(255,255,255,.08)"/>
+  <text x="200" y="100" text-anchor="middle" fill="${colors.accent}" font-family="system-ui,-apple-system,sans-serif" font-size="26" font-weight="800">${displayName}</text>
+  <rect x="155" y="125" width="90" height="22" rx="11" fill="rgba(255,255,255,.15)"/>
+  <text x="200" y="140" text-anchor="middle" fill="${colors.accent}" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700">${cat}</text>
+  <text x="200" y="185" text-anchor="middle" fill="${colors.text}" font-family="system-ui,-apple-system,sans-serif" font-size="14">${stars}</text>
+  <text x="200" y="210" text-anchor="middle" fill="${colors.text}" font-family="system-ui,-apple-system,sans-serif" font-size="13" opacity=".8">${diff} · ${time}</text>
+  <text x="200" y="275" text-anchor="middle" fill="rgba(255,255,255,.2)" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="600">CrochetKit AI</text>
 </svg>`;
 }
 

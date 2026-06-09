@@ -1,511 +1,7 @@
-// Frontend logic for Crochet Project Planner
-let glossaryData = {};
-let currentTermSystem = 'US';
-let outputElement, selectedProjectIndex;
+// render.js — ALL rendering functions (cards, detail, catalog, dashboard, print, focus mode)
+// Depends on: storage.js, glossary.js (via window globals), and /js/matcher.js (formatProjectOutput, matchPattern, reverseMatch, convertStitchName)
 
-function showToast(message, type) {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
-  const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  requestAnimationFrame(() => toast.classList.add('toast-visible'));
-  setTimeout(() => {
-    toast.classList.remove('toast-visible');
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
-
-function getCurrentGlossary() {
-  const g = {};
-  for (const [term, defs] of Object.entries(glossaryData)) {
-    if (typeof defs === 'string') {
-      g[term] = defs;
-    } else if (typeof defs === 'object') {
-      g[term] = defs[currentTermSystem === 'UK' ? 'uk' : 'us'] || defs.us || defs;
-    }
-  }
-  return g;
-}
-
-function getGlossaryKeys() {
-  return Object.keys(getCurrentGlossary()).sort((a, b) => b.length - a.length);
-}
-
-function linkifyGlossaryTerms(text) {
-  if (!text) return text;
-  const g = getCurrentGlossary();
-  const keys = Object.keys(g).sort((a, b) => b.length - a.length);
-  const tokens = text.split(/(<[^>]+>)/);
-  return tokens.map((token, i) => {
-    if (i % 2 === 1) return token;
-    keys.forEach(term => {
-      const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`(${escapedTerm})`, 'gi');
-      token = token.replace(regex, (match) => {
-        const definition = g[term.toLowerCase()] || g[term];
-        return `<span class="glossary-term" title="${escHtml(definition)}">${match}</span>`;
-      });
-    });
-    return token;
-  }).join('');
-}
-
-const STASH_KEY = 'crochetkit-stash';
-const FILTER_KEY = 'crochetkit-filters';
-
-function saveFilters() {
-  const data = {
-    cat: document.getElementById('catFilterCat')?.value || '',
-    diff: document.getElementById('catFilterDiff')?.value || '',
-    weight: document.getElementById('catFilterWeight')?.value || '',
-    maxTime: document.getElementById('catFilterTime')?.value || '',
-    search: document.getElementById('catFilterSearch')?.value || '',
-    favesOnly: document.getElementById('catFilterFaves')?.classList.contains('active') || false,
-    doneOnly: document.getElementById('catFilterDone')?.classList.contains('active') || false,
-    trendingOnly: document.getElementById('catFilterTrending')?.classList.contains('active') || false,
-  };
-  try { localStorage.setItem(FILTER_KEY, JSON.stringify(data)); } catch(e) {}
-}
-
-function saveStash() {
-  const data = {
-    yarnWeightNumber: document.getElementById('yarnWeightNumber')?.value || '',
-    yardageHave: document.getElementById('yardageHave')?.value || '',
-    hookSizeMM: document.getElementById('hookSizeMM')?.value || '',
-    hookSizeUnknown: document.getElementById('hookSizeUnknown')?.checked || false,
-    minHours: document.getElementById('minHours')?.value || '',
-    maxHours: document.getElementById('maxHours')?.value || '',
-    difficulty: document.getElementById('difficulty')?.value || '',
-    preferredCategory: document.getElementById('preferredCategory')?.value || '',
-    termSystem: document.getElementById('termSystem')?.value || 'US'
-  };
-  try { localStorage.setItem(STASH_KEY, JSON.stringify(data)); } catch(e) {}
-}
-
-function loadStash() {
-  try {
-    const raw = localStorage.getItem(STASH_KEY);
-    if (!raw) return;
-    const data = JSON.parse(raw);
-    if (data.yarnWeightNumber) document.getElementById('yarnWeightNumber').value = data.yarnWeightNumber;
-    if (data.yardageHave) document.getElementById('yardageHave').value = data.yardageHave;
-    if (data.hookSizeMM) document.getElementById('hookSizeMM').value = data.hookSizeMM;
-    document.getElementById('hookSizeUnknown').checked = data.hookSizeUnknown || false;
-    if (data.minHours) document.getElementById('minHours').value = data.minHours;
-    if (data.maxHours) document.getElementById('maxHours').value = data.maxHours;
-    if (data.difficulty) document.getElementById('difficulty').value = data.difficulty;
-    if (data.preferredCategory !== undefined) document.getElementById('preferredCategory').value = data.preferredCategory;
-    if (data.termSystem) {
-      document.getElementById('termSystem').value = data.termSystem;
-      const hdrToggle = document.getElementById('termSystemHeader');
-      if (hdrToggle) hdrToggle.value = data.termSystem;
-    }
-  } catch(e) {}
-}
-
-function loadFilters() {
-  try {
-    const raw = localStorage.getItem(FILTER_KEY);
-    if (!raw) return;
-    const data = JSON.parse(raw);
-    if (data.cat) document.getElementById('catFilterCat').value = data.cat;
-    if (data.diff) document.getElementById('catFilterDiff').value = data.diff;
-    if (data.weight) document.getElementById('catFilterWeight').value = data.weight;
-    if (data.maxTime) document.getElementById('catFilterTime').value = data.maxTime;
-    if (data.search) document.getElementById('catFilterSearch').value = data.search;
-    if (data.favesOnly) document.getElementById('catFilterFaves').classList.add('active');
-    if (data.doneOnly) document.getElementById('catFilterDone').classList.add('active');
-    if (data.trendingOnly) document.getElementById('catFilterTrending')?.classList.add('active');
-  } catch(e) {}
-}
-
-function dailySeed(dateStr) {
-  let hash = 0;
-  for (let i = 0; i < dateStr.length; i++) {
-    hash = ((hash << 5) - hash) + dateStr.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
-}
-
-async function renderDailyPattern() {
-  const container = document.getElementById('daily-pattern');
-  const content = document.getElementById('daily-pattern-content');
-  const dateEl = document.getElementById('daily-date');
-  if (!container || !content) return;
-  try {
-    const patterns = await getPatterns();
-    if (!patterns.length) return;
-    const today = new Date().toISOString().slice(0, 10);
-    const idx = dailySeed(today) % patterns.length;
-    const pat = patterns[idx];
-    if (dateEl) dateEl.textContent = today;
-    const wNum = pat.materials?.yarn?.weightNumber;
-    const wLabel = wNum != null ? ['Lace','Super Fine','Fine','Light','Medium','Bulky','Super Bulky','Jumbo'][wNum] || '' : '';
-    const estTime = pat.estimatedTime ? `${pat.estimatedTime.minHours}-${pat.estimatedTime.maxHours} ${pat.estimatedTime.unit || 'hours'}` : '';
-    const shareLinks = renderShareBtns(pat.id, pat.name);
-    content.innerHTML = `
-      <div class="daily-pattern-body">
-        <div class="daily-pattern-img">
-          <img src="/assets/patterns/${pat.id}.webp" alt="${escHtml(pat.name)}" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')">
-        </div>
-        <div class="daily-pattern-info">
-          <h3>${escHtml(pat.name)}</h3>
-          <p>${escHtml(pat.shortDescription || '')}</p>
-          <p class="daily-meta">${escHtml(pat.category || '')} · ${escHtml(pat.difficulty?.level || '')} · ${estTime}${wLabel ? ` · ${wLabel}` : ''}</p>
-          <div class="btn-group" style="margin-top:8px;">
-            <button class="btn btn-outline btn-sm" id="dailyViewBtn">View Pattern</button>
-            <button class="btn btn-outline btn-sm" id="dailyMatchBtn">Find Similar</button>
-          </div>
-          <div class="share-btns" style="margin-top:8px;">${shareLinks}</div>
-        </div>
-      </div>
-    `;
-    container.style.display = 'block';
-    document.getElementById('dailyViewBtn')?.addEventListener('click', () => {
-      const formatted = formatProjectOutput({ matchedPattern: pat, materialGap: neutralMaterialGap(pat) }, currentTermSystem);
-      const allFormatted = patterns.map(p => formatProjectOutput({ matchedPattern: p, materialGap: neutralMaterialGap(p) }, currentTermSystem));
-      showProjectDetail(formatted, null, allFormatted);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    document.getElementById('dailyMatchBtn')?.addEventListener('click', () => {
-      document.getElementById('yarnWeightNumber').value = pat.materials?.yarn?.weightNumber ?? 4;
-      updateWeightLabel();
-      document.getElementById('findProjectsBtn').click();
-    });
-  } catch (err) {
-    console.error('Daily pattern error:', err);
-  }
-}
-
-function neutralMaterialGap(pattern) {
-  const minY = pattern.materials?.yarn?.suggestedYardageMin ?? 0;
-  const maxY = pattern.materials?.yarn?.suggestedYardageMax ?? minY;
-  return {
-    yardage: { have: 0, need: (minY + maxY) / 2, gap: 0, status: 'unknown' },
-    hook: { have: null, need: pattern.materials?.hook?.sizeMM || null, gap: 0, status: 'unknown' }
-  };
-}
-
-async function renderWhatsNew() {
-  const container = document.getElementById('whatsNewPatterns');
-  if (!container) return;
-
-  try {
-    const allPatterns = await getPatterns();
-
-    // Show the last 3 patterns in the list (most recently added)
-    const newPatterns = allPatterns.slice(-3).reverse();
-
-    if (newPatterns.length === 0) {
-      document.getElementById('whatsNewSection').style.display = 'none';
-      return;
-    }
-
-    container.innerHTML = newPatterns.map(p => `
-      <div class="pattern-card">
-        <div class="pattern-image-container">
-          <img src="${p.imageUrl || `/assets/patterns/${p.id}.webp`}" alt="${escHtml(p.name || '')}" loading="lazy" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('img-fallback')">
-        </div>
-        <div class="pattern-info">
-          <h3>${escHtml(p.name || '')}</h3>
-          <span class="verified-badge" title="Human-verified pattern">✓ Verified</span>
-          <p class="category">${escHtml(p.category || '')}</p>
-          <p class="difficulty">${escHtml((p.difficulty?.level || '').toUpperCase())}</p>
-          <button class="btn btn-outline btn-small view-pattern-btn" data-id="${escHtml(p.id)}">View Pattern</button>
-        </div>
-      </div>
-    `).join('');
-
-    // Attach event listeners to buttons
-    container.querySelectorAll('.view-pattern-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const raw = allPatterns.find(pat => pat.id === btn.dataset.id);
-        if (raw) {
-const formatted = formatProjectOutput({ matchedPattern: raw, materialGap: neutralMaterialGap(raw) }, currentTermSystem);
-      const allFormatted = allPatterns.map(p => formatProjectOutput({ matchedPattern: p, materialGap: neutralMaterialGap(p) }, currentTermSystem));
-          showProjectDetail(formatted, null, allFormatted);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
-    });
-  } catch (err) {
-    console.error('Error rendering What\'s New section:', err);
-    document.getElementById('whatsNewSection').style.display = 'none';
-  }
-}
-
-const FAVES_KEY = 'crochetkit-faves';
-const DONE_KEY = 'crochetkit-done';
-const USED_KEY = 'crochetkit-used';
-
-function getUsedYardage() {
-  try { return JSON.parse(localStorage.getItem(USED_KEY)) || {}; } catch(e) { return {}; }
-}
-
-function saveUsedYardage(used) {
-  try { localStorage.setItem(USED_KEY, JSON.stringify(used)); } catch(e) {}
-}
-
-function getFaves() {
-  try { return JSON.parse(localStorage.getItem(FAVES_KEY)) || []; } catch(e) { return []; }
-}
-
-function saveFaves(faves) {
-  try { localStorage.setItem(FAVES_KEY, JSON.stringify(faves)); } catch(e) {}
-}
-
-function toggleFave(id) {
-  const faves = getFaves();
-  const idx = faves.indexOf(id);
-  let nowFaved;
-
-  if (idx >= 0) {
-    faves.splice(idx, 1);
-    nowFaved = false;
-  } else {
-    faves.push(id);
-    nowFaved = true;
-  }
-  saveFaves(faves);
-  return nowFaved;
-}
-
-function isFaved(id) { 
-  return getFaves().includes(id); 
-}
-
-function getDone() {
-  try { return JSON.parse(localStorage.getItem(DONE_KEY)) || []; } catch(e) { return []; }
-}
-
-function saveDone(done) {
-  try { localStorage.setItem(DONE_KEY, JSON.stringify(done)); } catch(e) {}
-}
-
-function markAsDone(id) {
-  const done = getDone();
-  if (!done.includes(id)) {
-    done.push(id);
-    saveDone(done);
-  }
-  const used = getUsedYardage();
-  if (!used[id]) {
-    const yds = prompt('How many yards did this project use? (optional)', '');
-    if (yds !== null && yds !== '' && !isNaN(parseInt(yds))) {
-      used[id] = parseInt(yds);
-      saveUsedYardage(used);
-    }
-  }
-  return true;
-}
-
-function isDone(id) {
-  return getDone().includes(id);
-}
-
-const PROGRESS_KEY = 'crochetkit-progress';
-function getProgress() {
-  try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {}; } catch(e) { return {}; }
-}
-function saveProgress(prog) {
-  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(prog)); } catch(e) {}
-}
-
-const JOURNAL_KEY = 'crochetkit-journal';
-function getJournal() {
-  try { return JSON.parse(localStorage.getItem(JOURNAL_KEY)) || []; } catch(e) { return []; }
-}
-function saveJournal(entries) {
-  try { localStorage.setItem(JOURNAL_KEY, JSON.stringify(entries)); } catch(e) {}
-}
-function addJournalEntry(project, notes, photo) {
-  const entries = getJournal();
-  entries.unshift({ id: project.id, title: project.title, notes: notes || '', photo: photo || '', date: new Date().toISOString().slice(0, 10) });
-  saveJournal(entries);
-}
-
-const WEIGHT_LABELS = [
-  'Lace', 'Super Fine (fingering)', 'Fine (sport)', 'Light (DK)',
-  'Medium (worsted)', 'Bulky (chunky)', 'Super Bulky', 'Jumbo'
-];
-
-function updateWeightLabel() {
-  const input = document.getElementById('yarnWeightNumber');
-  const label = document.getElementById('weightLabel');
-  if (!input || !label) return;
-  const v = parseInt(input.value, 10);
-  const name = WEIGHT_LABELS[Math.min(Math.max(isNaN(v) ? 0 : v, 0), 7)] || '';
-  label.textContent = name;
-}
-
-const YARNS_KEY = 'crochetkit-yarns';
-
-function getYarns() {
-  try { return JSON.parse(localStorage.getItem(YARNS_KEY)) || []; }
-  catch(e) { return []; }
-}
-
-function saveYarns(yarns) {
-  try { localStorage.setItem(YARNS_KEY, JSON.stringify(yarns)); } catch(e) {}
-}
-
-function addYarn(name, weight, yardage, hook, notes, image) {
-  const yarns = getYarns();
-  yarns.push({ id: Date.now(), name, weight: parseInt(weight), yardage: parseInt(yardage), hook: parseFloat(hook) || null, notes, image: image || null });
-  saveYarns(yarns);
-  renderYarnList();
-  showStashDashboard();
-}
-
-function deleteYarn(id) {
-  saveYarns(getYarns().filter(y => y.id !== id));
-  renderYarnList();
-  showStashDashboard();
-}
-
-function renderYarnList() {
-  const el = document.getElementById('yarnList');
-  if (!el) return;
-  const yarns = getYarns();
-  if (!yarns.length) {
-    el.innerHTML = '<p style="color:#888;font-size:13px;">No yarns saved yet.</p>';
-    return;
-  }
-  el.innerHTML = yarns.map(y =>
-    `<div class="yarn-item" data-id="${y.id}">
-      <div class="yarn-item-info">
-        <div class="yarn-item-name">${escHtml(y.name)}</div>
-        <div class="yarn-item-detail">CYC ${y.weight} &middot; ${y.yardage} yds &middot; ${y.hook} mm${y.notes ? ' &middot; ' + escHtml(y.notes) : ''}</div>
-      </div>
-      <button class="yarn-item-delete" data-id="${y.id}" aria-label="Delete yarn">&times;</button>
-    </div>`
-  ).join('');
-
-  el.querySelectorAll('.yarn-item').forEach(item => {
-    item.addEventListener('click', function(e) {
-      if (e.target.closest('.yarn-item-delete')) return;
-      const id = parseInt(this.dataset.id);
-      const yarn = getYarns().find(y => y.id === id);
-      if (yarn) selectYarn(yarn);
-    });
-  });
-
-  el.querySelectorAll('.yarn-item-delete').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      deleteYarn(parseInt(this.dataset.id));
-    });
-  });
-}
-
-function selectYarn(yarn) {
-  document.getElementById('yarnWeightNumber').value = yarn.weight;
-  document.getElementById('yardageHave').value = yarn.yardage;
-  document.getElementById('hookSizeMM').value = (yarn.hook != null && yarn.hook !== '') ? yarn.hook : '';
-  updateWeightLabel();
-}
-
-function matchYarns() {
-  const yarns = getYarns();
-  if (!yarns.length) {
-    const err = document.getElementById('matchError');
-    if (err) { err.textContent = 'Add some yarns to your stash first.'; err.style.display = 'inline'; }
-    return;
-  }
-
-  const termSys = document.getElementById('termSystem').value;
-  const minH = parseFloat(document.getElementById('minHours').value);
-  const maxH = parseFloat(document.getElementById('maxHours').value);
-
-  const hookCounts = {};
-  yarns.forEach(y => {
-    const h = y.hook;
-    if (h != null && h !== '') hookCounts[h] = (hookCounts[h] || 0) + 1;
-  });
-  const mostCommonHook = Object.keys(hookCounts).reduce((a, b) => hookCounts[a] > hookCounts[b] ? a : b, null);
-
-  const userInput = {
-    yarns: yarns.map(y => ({ weightNumber: y.weight, yardage: y.yardage, hookSizeMM: y.hook, name: y.name })),
-    yardageHave: yarns.reduce((s, y) => s + y.yardage, 0),
-    hookSizeMM: mostCommonHook,
-    hookSizeUnknown: false,
-    timeRange: {
-      minHours: isNaN(minH) ? null : minH,
-      maxHours: isNaN(maxH) ? null : maxH
-    },
-    difficulty: document.getElementById('difficulty').value,
-    preferredCategory: document.getElementById('preferredCategory').value || null,
-    termSystem: termSys
-  };
-
-  currentTermSystem = termSys;
-  selectedProjectIndex = null;
-  saveStash();
-
-  const err = document.getElementById('matchError');
-  if (err) { err.textContent = ''; err.style.display = 'none'; }
-
-  const output = document.getElementById('project-output');
-  output.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
-  document.getElementById('output').style.display = 'block';
-
-  doMatch(userInput).then(projects => {
-      displayProjectCards(projects);
-    }).catch(err => {
-      console.error('Match error:', err);
-      output.innerHTML = `<div class="error">Error: ${escHtml(err.message)}</div>`;
-    });
-}
-
-function escHtml(s) {
-  if (!s) return '';
-  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
-}
-
-function esc(s) { return escHtml(s); }
-
-async function fetchWithTimeout(url, options, timeoutMs) {
-  if (timeoutMs === undefined) timeoutMs = 10000;
-  const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const resp = await fetch(url, { ...options, signal: controller.signal });
-    return resp;
-  } finally {
-    clearTimeout(id);
-  }
-}
-
-let _patternCache = null;
-
-async function getPatterns() {
-  if (_patternCache) return _patternCache;
-  const resp = await fetchWithTimeout('/data/patterns.json');
-  _patternCache = await resp.json();
-  return _patternCache;
-}
-
-function clearPatternCache() {
-  _patternCache = null;
-}
-
-function computePreferences() {
-  const faveIds = getFaves();
-  const doneIds = getDone();
-  const interacted = [...new Set([...faveIds, ...doneIds])];
-  if (interacted.length < 3) return null;
-  return { interactedIds: interacted };
-}
-
-async function doMatch(userInput) {
-  const allPatterns = await getPatterns();
-  const prefs = computePreferences();
-  const matchResults = matchPattern(userInput, allPatterns, prefs);
-  return matchResults.map(r => formatProjectOutput(r, userInput.termSystem || 'US'));
-}
+// --- Stash rendering ---
 
 function renderStashMatch(match) {
   const el = document.getElementById('stashMatchContent');
@@ -612,11 +108,6 @@ function showStashDashboard() {
     });
 }
 
-function setOutputHeader(text) {
-  const h = document.getElementById('output-header');
-  if (h) h.textContent = text;
-}
-
 function showStashGallery() {
   const output = document.getElementById('project-output');
   const outputCard = document.getElementById('output');
@@ -693,11 +184,12 @@ function showStashGallery() {
   renderGallery(yarns, '', '');
 }
 
-// Affiliate configuration — set your IDs here once approved
+// --- Affiliate / Share utilities ---
+
 const AFFILIATE = {
-  amazon: { tag: 'crochetkit-20', enabled: false },    // Amazon Associates
-  crochetcom: { id: '', enabled: false },                // Crochet.com (10%)
-  lovecrafts: { id: '', enabled: false },                // LoveCrafts (15%)
+  amazon: { tag: 'crochetkit-20', enabled: false },
+  crochetcom: { id: '', enabled: false },
+  lovecrafts: { id: '', enabled: false },
 };
 
 function affiliateLink(query, label) {
@@ -769,6 +261,8 @@ function trackPopular(patternId, action) {
   } catch(e) {}
 }
 
+// --- Theme / UI setup ---
+
 function initDarkMode() {
   let saved;
   try { saved = localStorage.getItem('crochetkit-dark'); } catch(e) {}
@@ -810,12 +304,29 @@ function initWelcomeBanner() {
   }
 }
 
-function loadGlossaryData() {
-  fetchWithTimeout('/glossary.json')
-    .then(r => r.json())
-    .then(data => { glossaryData = data; })
-    .catch(() => {});
+function initMobileNav() {
+  const toggle = document.getElementById('headerNavToggle');
+  const nav = document.getElementById('headerExtraNav');
+  if (!toggle || !nav) return;
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    nav.classList.toggle('mobile-open');
+  });
+  document.addEventListener('click', function() {
+    nav.classList.remove('mobile-open');
+  });
+  nav.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+  // Auto-close dropdown when any nav button or link is tapped
+  nav.querySelectorAll('.btn, a.btn').forEach(function(el) {
+    el.addEventListener('click', function() {
+      nav.classList.remove('mobile-open');
+    });
+  });
 }
+
+// --- Route handling ---
 
 async function handlePatternRoute() {
   const match = window.location.pathname.match(/^\/p\/([\w-]+)$/);
@@ -841,27 +352,7 @@ window.addEventListener('popstate', function() {
   handlePatternRoute();
 });
 
-function initMobileNav() {
-  const toggle = document.getElementById('headerNavToggle');
-  const nav = document.getElementById('headerExtraNav');
-  if (!toggle || !nav) return;
-  toggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    nav.classList.toggle('mobile-open');
-  });
-  document.addEventListener('click', function() {
-    nav.classList.remove('mobile-open');
-  });
-  nav.addEventListener('click', function(e) {
-    e.stopPropagation();
-  });
-  // Auto-close dropdown when any nav button or link is tapped
-  nav.querySelectorAll('.btn, a.btn').forEach(function(el) {
-    el.addEventListener('click', function() {
-      nav.classList.remove('mobile-open');
-    });
-  });
-}
+// --- Catalog ---
 
 function showCatalog() {
   const output = document.getElementById('project-output');
@@ -1069,6 +560,8 @@ function showFullCatalog() {
   }
 }
 
+// --- Favorites ---
+
 function showMyFaves() {
   const output = document.getElementById('project-output');
   const outputCard = document.getElementById('output');
@@ -1148,6 +641,8 @@ function showMyFaves() {
     });
 }
 
+// --- Journal ---
+
 function showJournal() {
   const output = document.getElementById('project-output');
   const outputCard = document.getElementById('output');
@@ -1173,6 +668,8 @@ function showJournal() {
   html += `</div>`;
   output.innerHTML = html;
 }
+
+// --- Completed Projects ---
 
 function showMyDone() {
   const output = document.getElementById('project-output');
@@ -1238,6 +735,8 @@ function showMyDone() {
     });
 }
 
+// --- Print / PDF ---
+
 function printProject(project) {
     const system = currentTermSystem;
     const g = getCurrentGlossary();
@@ -1252,8 +751,6 @@ function printProject(project) {
         });
         return r;
     }
-
-    
 
     function stepsHtml(steps) {
         return steps.map((s, i) => {
@@ -1343,628 +840,10 @@ function printProject(project) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', async function() {
-  outputElement = document.getElementById('project-output');
-  // Set up favorites and done buttons (always available)
-  const favesBtn = document.getElementById('myFavesBtn');
-  const doneBtn = document.getElementById('myDoneBtn');
-  if (favesBtn) favesBtn.addEventListener('click', showMyFaves);
-  if (doneBtn) doneBtn.addEventListener('click', showMyDone);
-  const journalBtn = document.getElementById('journalBtn');
-  if (journalBtn) journalBtn.addEventListener('click', showJournal);
+// --- Display project cards (match results) ---
 
-  // Auth state
-  let authUser = null;
-  function getAuthToken() { try { return localStorage.getItem('crochetkit-auth-token'); } catch(e) { return null; } }
-  function setAuthUser(user, token) { authUser = user; localStorage.setItem('crochetkit-auth-token', token || ''); updateAuthUI(); }
-  function clearAuth() { authUser = null; localStorage.removeItem('crochetkit-auth-token'); updateAuthUI(); }
-  function updateAuthUI() {
-    const btn = document.getElementById('authBtn');
-    if (btn) btn.textContent = authUser ? `👤 ${authUser.email.split('@')[0]}` : '👤 Sign In';
-  }
-  async function syncToServer() {
-    if (!authUser) return;
-    try {
-      await fetchWithTimeout('/api/sync', {
-        method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getAuthToken() },
-        body: JSON.stringify({ stash: getYarns(), faves: getFaves(), progress: getProgress() })
-      });
-    } catch(e) { /* silent — sync is optional */ }
-  }
-  async function syncFromServer() {
-    if (!authUser) return;
-    try {
-      const resp = await fetchWithTimeout('/api/sync', { headers: { 'Authorization': 'Bearer ' + getAuthToken() } });
-      if (!resp.ok) return;
-      const data = await resp.json();
-      if (data.stash && data.stash.length) { saveYarns(data.stash); renderYarnList(); }
-      if (data.faves && data.faves.length) saveFaves(data.faves);
-      if (data.progress && Object.keys(data.progress).length) saveProgress(data.progress);
-    } catch(e) { /* silent */ }
-  }
-
-  const token = getAuthToken();
-  if (token) { fetchWithTimeout('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: 'verify', password: 'verify' }) }).catch(() => {}); }
-
-  // Share site button
-  document.getElementById('shareSiteBtn')?.addEventListener('click', function() {
-    const url = window.location.origin;
-    const text = '🧶 CrochetKit — free crochet project planner! Find patterns for the yarn you already own. No account needed.';
-    if (navigator.share) { navigator.share({ title: 'CrochetKit AI', text, url }).catch(() => {}); return; }
-    if (navigator.clipboard) { navigator.clipboard.writeText(url).then(() => showToast('Link copied! Share it with your crochet friends 🧶', 'success')).catch(() => {}); return; }
-    const ta = document.createElement('textarea'); ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); showToast('Link copied!', 'success');
-  });
-
-  const authBtn = document.getElementById('authBtn');
-  if (authBtn) authBtn.addEventListener('click', function() { document.getElementById('authModal').style.display = 'block'; });
-  document.getElementById('authModalClose')?.addEventListener('click', function() { document.getElementById('authModal').style.display = 'none'; });
-  window.addEventListener('click', function(e) { const m = document.getElementById('authModal'); if (e.target === m) m.style.display = 'none'; });
-
-  let isSignup = false;
-  document.getElementById('authToggleLink')?.addEventListener('click', function(e) {
-    e.preventDefault(); isSignup = !isSignup;
-    document.getElementById('authModalTitle').textContent = isSignup ? 'Sign Up' : 'Sign In';
-    document.getElementById('authSubmitBtn').textContent = isSignup ? 'Sign Up' : 'Sign In';
-    this.textContent = isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign up";
-  });
-
-  document.getElementById('authForm')?.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('authEmail').value.trim();
-    const password = document.getElementById('authPassword').value;
-    const errEl = document.getElementById('authError');
-    const submitBtn = document.getElementById('authSubmitBtn');
-    submitBtn.disabled = true; submitBtn.textContent = 'Please wait...';
-    try {
-      const endpoint = isSignup ? '/api/auth/register' : '/api/auth/login';
-      const resp = await fetchWithTimeout(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
-      const data = await resp.json();
-      if (data.success) {
-        setAuthUser(data.user, data.token);
-        document.getElementById('authModal').style.display = 'none';
-        document.getElementById('authEmail').value = '';
-        document.getElementById('authPassword').value = '';
-        showToast('Signed in! Syncing your data...', 'success');
-        syncFromServer().then(() => syncToServer());
-      } else {
-        errEl.textContent = data.error || 'Authentication failed';
-        errEl.style.display = 'block';
-      }
-    } catch(err) {
-      errEl.textContent = 'Network error. Try again.';
-      errEl.style.display = 'block';
-    }
-    submitBtn.disabled = false; submitBtn.textContent = isSignup ? 'Sign Up' : 'Sign In';
-  });
-
-  // Wire sync to stash/faves/progress changes
-  const origAddYarn = addYarn; addYarn = function() { origAddYarn.apply(this, arguments); syncToServer(); };
-  const origDeleteYarn = deleteYarn; deleteYarn = function() { origDeleteYarn.apply(this, arguments); syncToServer(); };
-  const origToggleFave = toggleFave; toggleFave = function(id) { const r = origToggleFave(id); syncToServer(); return r; };
-  const origMarkAsDone = markAsDone; markAsDone = function(id) { origMarkAsDone(id); syncToServer(); };
-
-  try {
-
-    document.getElementById('yarnWeightNumber').addEventListener('input', updateWeightLabel);
-    loadFilters(); // Load filters on initial page load
-    renderYarnList();
-    showStashDashboard();
-    initWelcomeBanner();
-    loadGlossaryData();
-    initMobileNav();
-    document.getElementById('darkToggle').addEventListener('click', toggleDark);
-    document.getElementById('browseAllBtn').addEventListener('click', showCatalog);
-    document.getElementById('fullCatalogBtn').addEventListener('click', showFullCatalog);
-    document.getElementById('trustLink')?.addEventListener('click', function(e) {
-      e.preventDefault();
-      const section = document.getElementById('trust-section');
-      if (section) {
-        const isVisible = section.style.display !== 'none';
-        section.style.display = isVisible ? 'none' : 'block';
-        if (!isVisible) {
-          setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-        }
-      }
-    });
-    // Beginner guide toggle
-    document.querySelectorAll('.guide-toggle').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const content = this.nextElementSibling;
-        const isOpen = this.getAttribute('aria-expanded') === 'true';
-        this.setAttribute('aria-expanded', !isOpen);
-        if (content) content.style.display = isOpen ? 'none' : 'block';
-        const arrow = this.querySelector('.guide-arrow');
-        if (arrow) arrow.textContent = isOpen ? '▸' : '▾';
-      });
-    });
-    // Fill dynamic pattern count in trust section
-    (async function fillTrustCount() {
-      try {
-        const pats = await getPatterns();
-        const el = document.getElementById('trustPatternCount');
-        if (el) el.textContent = pats.length + '+';
-      } catch(e) {}
-    })();
-    renderDailyPattern();
-
-    // Email signup (local-only — stores in browser, no server)
-    document.getElementById('emailSignupForm')?.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = document.getElementById('signupEmail').value.trim();
-      const msg = document.getElementById('signupMessage');
-      if (!email || !email.includes('@') || !email.includes('.')) {
-        msg.textContent = 'Please enter a valid email address.';
-        msg.style.color = '#d32';
-        return;
-      }
-      try {
-        const subs = JSON.parse(localStorage.getItem('crochetkit-subscribers') || '[]');
-        if (subs.includes(email)) {
-          msg.textContent = 'Already subscribed! (saved in your browser)';
-          msg.style.color = 'green';
-        } else {
-          subs.push(email);
-          localStorage.setItem('crochetkit-subscribers', JSON.stringify(subs));
-          msg.textContent = 'Thanks! Your email is saved locally in your browser.';
-          msg.style.color = 'green';
-          document.getElementById('signupEmail').value = '';
-        }
-      } catch(e) {
-        msg.textContent = 'Something went wrong. Try again.';
-        msg.style.color = '#d32';
-      }
-    });
-
-    document.getElementById('matchYarnsBtn').addEventListener('click', matchYarns);
-    document.getElementById('viewStashBtn').addEventListener('click', showStashGallery);
-
-    // Surprise me button
-
-    document.getElementById('saveYarnBtn').addEventListener('click', function() {
-      const name = document.getElementById('yarnName').value.trim();
-      const errEl = document.getElementById('yarnFormError');
-      if (!name) { if (errEl) errEl.textContent = 'Please enter a yarn name.'; return; }
-      if (errEl) errEl.textContent = '';
-      addYarn(
-        name,
-        document.getElementById('yarnWeight').value,
-        document.getElementById('yarnYardage').value,
-        document.getElementById('yarnHook').value,
-        document.getElementById('yarnNotes').value.trim()
-      );
-      document.getElementById('yarnName').value = '';
-      document.getElementById('yarnNotes').value = '';
-      document.querySelector('.yarn-add-form').removeAttribute('open');
-    });
-    // Quick-add from label photo
-    document.getElementById('scanLabelBtn').addEventListener('click', function() {
-      document.getElementById('labelPhotoInput').click();
-    });
-
-    document.getElementById('labelPhotoInput').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        const dataUrl = ev.target.result;
-        document.getElementById('labelPreview').src = dataUrl;
-        document.getElementById('quickAddPanel').style.display = 'block';
-        document.getElementById('qaScanStatus').textContent = '🔍 Analyzing label...';
-        document.getElementById('qaScanStatus').style.display = 'block';
-        document.getElementById('qaName').focus();
-        // Send to scan API for suggestions
-        fetchWithTimeout('/api/scan-label', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ imageUrl: dataUrl })
-        }).then(r => r.json()).then(result => {
-          if (result.suggestions && result.suggestions.weight !== null) {
-            const s = result.suggestions;
-            document.getElementById('qaWeight').value = s.weight;
-            document.getElementById('qaHook').value = s.suggestedHook || '';
-            const presetBtns = document.querySelectorAll('.qa-preset-btn');
-            let matchedPreset = false;
-            presetBtns.forEach(btn => {
-              if (parseInt(btn.dataset.yds) === s.estimatedYardage) {
-                btn.click();
-                matchedPreset = true;
-              }
-            });
-            if (!matchedPreset && s.commonYardages) {
-              document.getElementById('qaYardage').value = s.estimatedYardage || '';
-            }
-            document.getElementById('qaScanStatus').innerHTML = `✅ Detected: <strong>Weight ${s.weight} (${s.weightLabel})</strong> — suggested hook ${s.suggestedHook}mm. Confirm below.`;
-          } else {
-            document.getElementById('qaScanStatus').innerHTML = '📷 Photo taken! Select the details below.';
-          }
-        }).catch(() => {
-          document.getElementById('qaScanStatus').innerHTML = '📷 Photo taken! Select the details below.';
-        });
-      };
-      reader.readAsDataURL(file);
-    });
-
-    // Weight → hook preset
-    const WEIGHT_HOOKS = { 0: 2.25, 1: 3.5, 2: 4.0, 3: 4.5, 4: 5.5, 5: 6.5, 6: 9.0, 7: 12.0 };
-    document.getElementById('qaWeight').addEventListener('change', function() {
-      const hook = WEIGHT_HOOKS[parseInt(this.value)];
-      if (hook) document.getElementById('qaHook').value = hook;
-    });
-
-    // Yardage presets
-    document.querySelectorAll('.qa-preset-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.getElementById('qaYardage').value = this.dataset.yds;
-      });
-    });
-
-    // Quick-add save
-    document.getElementById('qaSaveBtn').addEventListener('click', function() {
-      const name = document.getElementById('qaName').value.trim();
-      const weight = document.getElementById('qaWeight').value;
-      const yardage = document.getElementById('qaYardage').value;
-      const qaErr = document.getElementById('qaFormError');
-      if (!name) { if (qaErr) qaErr.textContent = 'Please enter a yarn name.'; return; }
-      if (!weight) { if (qaErr) qaErr.textContent = 'Please select a yarn weight.'; return; }
-      if (!yardage) { if (qaErr) qaErr.textContent = 'Please enter yardage or use a preset.'; return; }
-      if (qaErr) qaErr.textContent = '';
-      const imgSrc = document.getElementById('labelPreview').src || null;
-      addYarn(name, weight, yardage, document.getElementById('qaHook').value || '', document.getElementById('qaNotes').value.trim(), imgSrc);
-      // Reset quick-add
-      document.getElementById('quickAddPanel').style.display = 'none';
-      document.getElementById('labelPhotoInput').value = '';
-      document.getElementById('labelPreview').src = '';
-      document.getElementById('qaName').value = '';
-      document.getElementById('qaWeight').value = '4';
-      document.getElementById('qaYardage').value = '';
-      document.getElementById('qaHook').value = '';
-      document.getElementById('qaNotes').value = '';
-    });
-
-    // Quick-add cancel
-      document.getElementById('qaCancelBtn').addEventListener('click', function() {
-      document.getElementById('quickAddPanel').style.display = 'none';
-      const qaErr = document.getElementById('qaFormError');
-      if (qaErr) qaErr.textContent = '';
-      document.getElementById('labelPhotoInput').value = '';
-      document.getElementById('labelPreview').src = '';
-    });
-
-    document.addEventListener('click', function(e) {
-      const popup = document.getElementById('weightPopup');
-      const btn = document.getElementById('weightHelpBtn');
-      const catalogBtn = e.target.closest('.show-catalog-btn');
-      const copyBtn = e.target.closest('.share-btn.share-copy');
-      if (catalogBtn) {
-        showCatalog();
-      } else if (copyBtn) {
-        copyShareLink(copyBtn.dataset.id);
-      } else if (e.target === btn) {
-        popup.classList.toggle('visible');
-      } else if (popup && popup.classList.contains('visible')) {
-        popup.classList.remove('visible');
-      }
-    });
-
-    const form = document.getElementById('project-form');
-    outputElement = document.getElementById('project-output');
-    let currentUserInput = null;
-    selectedProjectIndex = null;
-
-    // Term system toggle
-    document.getElementById('termSystem').addEventListener('change', function() {
-      currentTermSystem = this.value;
-      const hdrToggle = document.getElementById('termSystemHeader');
-      if (hdrToggle) hdrToggle.value = this.value;
-      // Re-render if there are projects displayed
-      if (currentUserInput && outputElement.innerHTML) {
-        form.dispatchEvent(new Event('submit'));
-      }
-    });
-
-    // Header term toggle sync
-    const headerToggle = document.getElementById('termSystemHeader');
-    if (headerToggle) {
-      headerToggle.addEventListener('change', function() {
-        const formToggle = document.getElementById('termSystem');
-        if (formToggle) {
-          formToggle.value = this.value;
-          formToggle.dispatchEvent(new Event('change'));
-        }
-      });
-    }
-
-    // Gauge calculator tabs
-    document.querySelectorAll('.gauge-tab').forEach(tab => {
-      tab.addEventListener('click', function() {
-        document.querySelectorAll('.gauge-tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-        document.querySelectorAll('.gauge-panel').forEach(p => p.classList.remove('active'));
-        document.getElementById('gauge-panel-' + this.dataset.mode).classList.add('active');
-        document.getElementById('gauge-result').style.display = 'none';
-      });
-    });
-
-    // Measure gauge button
-    document.getElementById('calc-gauge-btn').addEventListener('click', function() {
-      const sts = parseFloat(document.getElementById('gStitches').value);
-      const rows = parseFloat(document.getElementById('gRows').value);
-      const width = parseFloat(document.getElementById('gWidth').value);
-      const height = parseFloat(document.getElementById('gHeight').value);
-
-      if (!sts || !rows || !width || !height) {
-        document.getElementById('gauge-result').innerHTML = '<div class="error">Please fill in all fields.</div>';
-        document.getElementById('gauge-result').style.display = 'block';
-        return;
-      }
-
-      const stsPer4 = (sts / width * 4).toFixed(1);
-      const rowsPer4 = (rows / height * 4).toFixed(1);
-
-      document.getElementById('gauge-result').innerHTML = `
-        <div class="summary-box">
-          <p><strong>Your Gauge:</strong> ${stsPer4} stitches and ${rowsPer4} rows per 4 inches</p>
-          <p>${parseFloat(stsPer4).toFixed(0)} sts &times; ${parseFloat(rowsPer4).toFixed(0)} rows = 4 in square</p>
-        </div>`;
-      document.getElementById('gauge-result').style.display = 'block';
-    });
-
-    // Calculate stitches button
-    document.getElementById('calc-stitches-btn').addEventListener('click', function() {
-      const patSts = parseFloat(document.getElementById('gPatternSts').value);
-      const patRows = parseFloat(document.getElementById('gPatternRows').value);
-      const dWidth = parseFloat(document.getElementById('gDesiredWidth').value);
-      const dHeight = parseFloat(document.getElementById('gDesiredHeight').value);
-
-      if (!patSts || !patRows || !dWidth || !dHeight) {
-        document.getElementById('gauge-result').innerHTML = '<div class="error">Please fill in all fields.</div>';
-        document.getElementById('gauge-result').style.display = 'block';
-        return;
-      }
-
-      const neededSts = Math.round(patSts / 4 * dWidth);
-      const neededRows = Math.round(patRows / 4 * dHeight);
-
-      document.getElementById('gauge-result').innerHTML = `
-        <div class="summary-box">
-          <p><strong>You Need:</strong> ${neededSts} stitches wide and ${neededRows} rows tall</p>
-          <p>For a ${dWidth} in wide by ${dHeight} in tall piece at ${patSts} sts &times; ${patRows} rows per 4 in gauge</p>
-        </div>`;
-      document.getElementById('gauge-result').style.display = 'block';
-    });
-
-    form.addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        const termSys = document.getElementById('termSystem').value;
-
-        const yarnWeight = parseInt(document.getElementById('yarnWeightNumber').value);
-        const yardage = parseInt(document.getElementById('yardageHave').value);
-        const minH = parseFloat(document.getElementById('minHours').value);
-        const maxH = parseFloat(document.getElementById('maxHours').value);
-
-        if (isNaN(yarnWeight) || yarnWeight < 0 || yarnWeight > 7) {
-            outputElement.innerHTML = '<div class="error-message">Please select a valid yarn weight (0–7).</div>';
-            document.getElementById('output').style.display = 'block';
-            return;
-        }
-        if (isNaN(yardage) || yardage < 0) {
-            outputElement.innerHTML = '<div class="error-message">Please enter a valid yardage amount.</div>';
-            document.getElementById('output').style.display = 'block';
-            return;
-        }
-        if (isNaN(minH) || isNaN(maxH) || minH > maxH || minH < 0) {
-            outputElement.innerHTML = '<div class="error-message">Please enter valid time range (min ≤ max, and at least 0).</div>';
-            document.getElementById('output').style.display = 'block';
-            return;
-        }
-
-        currentUserInput = {
-            yarnWeightNumber: yarnWeight,
-            yardageHave: yardage,
-            hookSizeMM: document.getElementById('hookSizeMM').value ? parseFloat(document.getElementById('hookSizeMM').value) : null,
-            hookSizeUnknown: document.getElementById('hookSizeUnknown').checked,
-            timeRange: {
-                minHours: minH,
-                maxHours: maxH
-            },
-            difficulty: document.getElementById('difficulty').value,
-            preferredCategory: document.getElementById('preferredCategory').value || null,
-            termSystem: termSys
-        };
-
-        currentTermSystem = termSys;
-        selectedProjectIndex = null;
-        saveStash();
-
-        try {
-            outputElement.innerHTML = '<div class="skeleton-grid">' + Array(4).fill('<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line" style="width:60%"></div></div>').join('') + '</div>';
-            const outputCard = document.getElementById('output');
-            outputCard.style.display = 'block';
-            setTimeout(() => outputCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-
-            const projects = await doMatch(currentUserInput);
-            displayProjectCards(projects);
-
-        } catch (error) {
-            console.error('Error:', error);
-            outputElement.innerHTML = `<div class="error">Error: ${escHtml(error.message)}</div>`;
-        }
-    });
-
-    document.getElementById('surpriseBtn').addEventListener('click', async function() {
-        const termSys = document.getElementById('termSystem').value;
-        const yw = parseInt(document.getElementById('yarnWeightNumber').value);
-        const yd = parseInt(document.getElementById('yardageHave').value);
-        const minH = parseFloat(document.getElementById('minHours').value);
-        const maxH = parseFloat(document.getElementById('maxHours').value);
-
-        if (isNaN(yw) || yw < 0 || yw > 7) {
-            outputElement.innerHTML = '<div class="error-message">Please select a valid yarn weight (0–7).</div>';
-            document.getElementById('output').style.display = 'block';
-            return;
-        }
-        if (isNaN(yd) || yd < 0) {
-            outputElement.innerHTML = '<div class="error-message">Please enter a valid yardage amount.</div>';
-            document.getElementById('output').style.display = 'block';
-            return;
-        }
-        if (isNaN(minH) || isNaN(maxH) || minH > maxH || minH < 0) {
-            outputElement.innerHTML = '<div class="error-message">Please enter valid time range (min ≤ max).</div>';
-            document.getElementById('output').style.display = 'block';
-            return;
-        }
-
-        currentTermSystem = termSys;
-        currentUserInput = {
-            yarnWeightNumber: yw,
-            yardageHave: yd,
-            hookSizeMM: document.getElementById('hookSizeMM').value ? parseFloat(document.getElementById('hookSizeMM').value) : null,
-            hookSizeUnknown: document.getElementById('hookSizeUnknown').checked,
-            timeRange: { minHours: minH, maxHours: maxH },
-            difficulty: document.getElementById('difficulty').value,
-            preferredCategory: document.getElementById('preferredCategory').value || null,
-            termSystem: termSys
-        };
-
-        try {
-            outputElement.innerHTML = '<div class="loading">Finding a surprise project...</div>';
-            const surpriseOutputCard = document.getElementById('output');
-            surpriseOutputCard.style.display = 'block';
-            setTimeout(() => surpriseOutputCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
-
-            let projects = await doMatch(currentUserInput);
-            // Filter out done patterns
-            const doneIds = getDone();
-            const undone = projects.filter(p => !doneIds.includes(p.id));
-            if (undone.length > 0) {
-                projects = undone;
-            }
-            if (projects.length === 0) {
-                outputElement.innerHTML = '<div class="error">No matching projects found. Try different filter criteria.</div>';
-                showToast('No matches — try adjusting your filters', 'info');
-                return;
-            }
-            showToast(`Found ${projects.length} matching project${projects.length !== 1 ? 's' : ''}!`, 'success');
-            const pick = projects[Math.floor(Math.random() * projects.length)];
-            const idx = projects.indexOf(pick);
-            displayProjectCards(projects);
-            showProjectDetail(pick, idx, projects);
-
-        } catch (error) {
-            console.error('Error:', error);
-            const output = document.getElementById('project-output');
-            if (output) output.innerHTML = `<div class="error">Error: ${escHtml(error.message)}</div>`;
-        }
-    });
-
-// Contact form handler
-const contactForm = document.getElementById('contact-form');
-if (contactForm) {
-contactForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const name = document.getElementById('contactName').value.trim();
-    const email = document.getElementById('contactEmail').value.trim();
-    const message = document.getElementById('contactMessage').value.trim();
-    const submitBtn = document.getElementById('contactSubmitBtn');
-    const thanks = this.querySelector('.contact-thanks');
-
-    if (!email || !message) {
-        const cerr = this.querySelector('.contact-error');
-        if (cerr) { cerr.textContent = 'Please fill in email and message.'; cerr.style.display = 'block'; }
-        return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-
-    try {
-        const resp = await fetchWithTimeout('/api/contact', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                name: document.getElementById('contactName').value.trim(),
-                email: document.getElementById('contactEmail').value.trim(),
-                message: document.getElementById('contactMessage').value.trim()
-            })
-        });
-        const cerr = contactForm.querySelector('.contact-error');
-        if (resp.ok || resp.redirected) {
-            if (cerr) cerr.style.display = 'none';
-            contactForm.querySelectorAll('.form-row, .form-group, .btn').forEach(el => { if (!el.closest('.contact-thanks') && el !== submitBtn) el.style.display = 'none'; });
-            submitBtn.style.display = 'none';
-            submitBtn.textContent = 'Send Message';
-            thanks.style.display = 'block';
-        } else {
-            if (cerr) { cerr.textContent = 'Failed to send. Please try again.'; cerr.style.display = 'block'; }
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
-        }
-    } catch (err) {
-        const cerr = contactForm.querySelector('.contact-error');
-        if (cerr) { cerr.textContent = 'Network error. Please try again.'; cerr.style.display = 'block'; }
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send Message';
-    }
-});
-  handlePatternRoute();
-}
-
-// Global feedback form handler
-const globalForm = document.getElementById('global-feedback-form');
-if (globalForm) {
-globalForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const thanksMsg = this.querySelector('.feedback-thanks');
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Saving...';
-
-    try {
-        const rating = globalForm.querySelector('input[name="rating"]:checked');
-        const resp = await fetchWithTimeout('/api/feedback', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                rating: rating ? parseInt(rating.value) : 0,
-                comment: document.getElementById('global-comment').value.trim(),
-                page: 'global-feedback',
-                projectTitle: 'Site Feedback'
-            })
-        });
-        const gfErr = globalForm.querySelector('.gf-error');
-        if (resp.ok || resp.redirected) {
-            globalForm.querySelector('.feedback-rating').style.display = 'none';
-            globalForm.querySelector('.feedback-comment').style.display = 'none';
-            submitBtn.style.display = 'none';
-            thanksMsg.style.display = 'block';
-            if (gfErr) gfErr.style.display = 'none';
-        } else {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Submit Feedback';
-            if (gfErr) { gfErr.textContent = 'Failed to save feedback.'; gfErr.style.display = 'block'; }
-        }
-    } catch (err) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Submit Feedback';
-        const gfErr = globalForm.querySelector('.gf-error');
-        if (gfErr) { gfErr.textContent = 'Network error. Please try again.'; gfErr.style.display = 'block'; }
-    }
-});
-}
-
-        } catch (error) {
-            console.error('Error:', error);
-            outputElement.innerHTML = `<div class="error">Error: ${escHtml(error.message)}</div>`;
-        }
-    });
-
-// displayProjectCards is intentionally in global scope so matchYarns() and other
-// top-level callers can reach it. Do NOT move it back inside DOMContentLoaded.
 function displayProjectCards(projects) {
     setOutputHeader('Suggested Projects');
-    // After-match share prompt
     var shareMsg = document.getElementById('shareMatchResults');
     if (!shareMsg) {
       var shareDiv = document.createElement('div');
@@ -2079,7 +958,6 @@ function displayProjectCards(projects) {
         });
     });
 
-    // Hide completed toggle
     const hideCheck = document.getElementById('hideDoneResults');
     if (hideCheck) {
         hideCheck.addEventListener('change', function() {
@@ -2087,6 +965,8 @@ function displayProjectCards(projects) {
         });
     }
 }
+
+// --- Reverse stash match ---
 
 async function showReverseMatch(patternId) {
   const yarns = getYarns();
@@ -2107,10 +987,11 @@ async function showReverseMatch(patternId) {
   }
 }
 
+// --- Progress tracker ---
+
 async function showProgressTracker(patternId) {
   const token = localStorage.getItem('authToken');
   if (!token) {
-    // Skip progress tracking for non-authenticated users
     return;
   }
 
@@ -2128,11 +1009,9 @@ async function showProgressTracker(patternId) {
     const data = await response.json();
     const progress = data.progress;
 
-    // Create progress tracker UI
     const stepsContainer = document.querySelector('.project-detail ol');
     if (!stepsContainer) return;
 
-    // Add progress checkboxes to each step
     const steps = stepsContainer.querySelectorAll('li');
     steps.forEach((step, index) => {
       const stepNum = index + 1;
@@ -2157,23 +1036,19 @@ async function showProgressTracker(patternId) {
       step.prepend(wrapper);
     });
 
-    // Add event listeners to checkboxes
     document.querySelectorAll('.step-checkbox').forEach(checkbox => {
       checkbox.addEventListener('change', async function() {
         const stepNum = parseInt(this.dataset.step);
         const isChecked = this.checked;
 
-        // Update UI immediately for better UX
         const label = this.nextElementSibling;
         label.textContent = `Step ${stepNum} ${isChecked ? '✓' : ''}`;
 
-        // Get current completed steps
         const checkboxes = document.querySelectorAll('.step-checkbox');
         const completedSteps = Array.from(checkboxes)
           .filter(cb => cb.checked)
           .map(cb => parseInt(cb.dataset.step));
 
-        // Save progress to server
         try {
           const saveResponse = await fetchWithTimeout('/api/progress-tracker', {
             method: 'POST',
@@ -2192,7 +1067,6 @@ async function showProgressTracker(patternId) {
           }
         } catch (error) {
           console.error('Error saving progress:', error);
-          // Revert UI change if save fails
           this.checked = !isChecked;
           label.textContent = `Step ${stepNum} ${!isChecked ? '✓' : ''}`;
           alert('Failed to save progress. Please try again.');
@@ -2201,9 +1075,10 @@ async function showProgressTracker(patternId) {
     });
   } catch (error) {
     console.error('Error fetching progress:', error);
-    // Silently fail - progress tracking is optional
   }
 }
+
+// --- Certificate ---
 
 async function showCertificate(patternId) {
   const token = localStorage.getItem('authToken');
@@ -2229,7 +1104,6 @@ async function showCertificate(patternId) {
     const data = await response.json();
     const certificateHtml = data.certificate;
 
-    // Open certificate in a new window
     const w = window.open('', '_blank', 'width=800,height=600');
     if (!w) {
       alert('Popup blocked. Please allow popups for this site to view your certificate.');
@@ -2242,6 +1116,8 @@ async function showCertificate(patternId) {
     alert('Failed to generate certificate. Please try again.');
   }
 }
+
+// --- Detail view HTML ---
 
 function renderDetailHTML(project, index) {
   const ts = currentTermSystem;
@@ -2404,6 +1280,8 @@ function renderDetailHTML(project, index) {
   return html;
 }
 
+// --- Detail view listeners ---
+
 function setupDetailListeners(project, allProjects) {
   const container = document.querySelector('.project-detail');
   if (!container) return;
@@ -2488,6 +1366,8 @@ function setupDetailListeners(project, allProjects) {
   });
 }
 
+// --- Show project detail ---
+
 function showProjectDetail(project, index, allProjects) {
   const outputCard = document.getElementById('output');
   if (outputCard) outputCard.style.display = 'block';
@@ -2495,7 +1375,6 @@ function showProjectDetail(project, index, allProjects) {
   window._currentDetailProjects = allProjects;
   trackPopular(project.id, 'select');
 
-  // Update URL so /p/{id} works and can be opened in a new tab
   history.pushState(null, '', '/p/' + project.id);
 
   outputElement.innerHTML = renderDetailHTML(project, index);
@@ -2503,7 +1382,6 @@ function showProjectDetail(project, index, allProjects) {
   showReverseMatch(project.id);
   setupDetailListeners(project, allProjects);
 
-  // Focus mode button
   const detailEl = document.querySelector('.project-detail');
   const focusBtn = detailEl ? detailEl.querySelector('.focus-mode-btn') : null;
   if (focusBtn) {
@@ -2512,7 +1390,6 @@ function showProjectDetail(project, index, allProjects) {
     });
   }
 
-  // Share to gallery button
   detailEl?.querySelectorAll('.share-gallery-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var title = this.dataset.title;
@@ -2530,7 +1407,6 @@ function showProjectDetail(project, index, allProjects) {
     });
   });
 
-  // Step-progress checkbox listeners
   const container = detailEl;
   if (container) {
     container.querySelectorAll('.step-checkbox').forEach(cb => {
@@ -2548,7 +1424,6 @@ function showProjectDetail(project, index, allProjects) {
         }
         saveProgress(prog);
 
-        // Update progress bar
         const fill = container.querySelector('.progress-bar-fill');
         const text = container.querySelector('.progress-text');
         const allCbs = container.querySelectorAll('.step-checkbox');
@@ -2558,7 +1433,6 @@ function showProjectDetail(project, index, allProjects) {
         if (fill) fill.style.width = pct + '%';
         if (text) text.textContent = `${completed}/${total} steps`;
 
-        // Auto-mark done when all steps complete
         if (completed === total && !isDone(pid)) {
           markAsDone(pid);
           const actionsDiv = container.querySelector('.detail-actions');
@@ -2574,6 +1448,8 @@ function showProjectDetail(project, index, allProjects) {
     });
   }
 }
+
+// --- Focus mode ---
 
 function showFocusMode(project, index, allProjects) {
   const total = project.steps ? project.steps.length : 0;
@@ -2611,7 +1487,6 @@ function showFocusMode(project, index, allProjects) {
     const output = document.getElementById('project-output');
     if (output) output.innerHTML = html;
 
-    // Wire buttons
     output.querySelector('.focus-back')?.addEventListener('click', () => showProjectDetail(project, index, allProjects));
     output.querySelector('.focus-prev')?.addEventListener('click', () => { if (currentStep > 1) { currentStep--; updateStepDisplay(); } });
     output.querySelector('.focus-next')?.addEventListener('click', () => { if (currentStep < total) { currentStep++; updateStepDisplay(); } });
@@ -2639,10 +1514,3 @@ function showFocusMode(project, index, allProjects) {
   }
   updateStepDisplay();
 }
-
-window.showProjectDetail = showProjectDetail;
-window.displayProjectCards = displayProjectCards;
-
-
-
-
